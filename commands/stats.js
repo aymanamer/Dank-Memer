@@ -2,16 +2,6 @@ const superagent = require("superagent")
 
 exports.run = async function (client, msg, args, config, Discord) {
 
-	let lastCommit
-
-	let res = await superagent
-    .get("https://api.github.com/repos/Melmsie/Dank-Memer/commits")
-    .set("User-Agent", "melmsie")
-    .catch(err => {
-        console.log("Couldn't get commit info")
-    });
-
-	if (res.body) lastCommit = `[${res.body[0].commit.message.slice(0, 20)}...](${res.body[0].commit.url})`
 
 	msg.channel.sendEmbed(new Discord.RichEmbed()
 		.setColor("#7d5bbe")
@@ -22,7 +12,7 @@ exports.run = async function (client, msg, args, config, Discord) {
 		.addField("📄 Text Channels", client.channels.filter(c => c.type === "text").size, true)
 		.addField("🏓 Ping", `${(client.ping).toFixed(0)} ms`, true)
 		.addField("🐏 RAM Usage", `${(process.memoryUsage().heapUsed / 1024 / 1024).toFixed(2)} MB`, true)
-		.addField("💾 Last Commit", lastCommit ? lastCommit : "Unknown", true)
+		
 	)
 
 }
