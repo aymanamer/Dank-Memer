@@ -13,6 +13,6 @@ exports.run = function (client, msg, args, config, Discord) {
 		msg.channel.sendEmbed(new Discord.RichEmbed()
 				.setAuthor(msg.author.username, msg.author.avatarURL)
 				.setColor("#3676b3")
-				.setDescription(`${msg.author.username}: ${question}\nTrump: ${answer}`)
+				.setDescription(`${question}\nTrump: ${answer}`)
 	)
 }

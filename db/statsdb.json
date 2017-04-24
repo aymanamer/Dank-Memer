@@ -1,6 +1,6 @@
 {
 	"illegal": 9,
-	"total": 35,
+	"total": 115,
 	"warp": 2,
 	"magik": 9,
 	"eyes": 3,
@@ -8,6 +8,8 @@
 	"ping": 3,
 	"blasphemy": 5,
 	"prefix": 1,
-	"commands": 3,
-	"asktrump": 1
+	"commands": 4,
+	"asktrump": 1,
+	"meme": 48,
+	"kill": 31
 }
