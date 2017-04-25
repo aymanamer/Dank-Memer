@@ -72,12 +72,12 @@ client.on("guildCreate", guild => {
 
 	prefixes[guild.id] = config.prefix
 
-/*
+
 	fs.writeFile("./db/prefixdb.json", JSON.stringify(prefixes, "", "\t"), (err) => {
 		if (err) return console.log(Date() + " createGuildHandler error: " + err)
 		console.log(Date() + "Guild Joined, Prefix DB updated.")
 	})
-*/
+
 
 	let bots = guild.members.filter(gm => gm.user.bot).size
 	let users = guild.members.filter(gm => !gm.user.bot).size
@@ -149,12 +149,12 @@ client.on("guildDelete", guild => {
 
 	if (prefixes[guild.id]) {
 		delete prefixes[guild.id];
-		/*
+		
 		fs.writeFile("./db/prefixdb.json", JSON.stringify(prefixes, "", "\t"), (err) => {
 			if (err) return console.log(Date() + " createGuildHandler error: " + err)
 			console.log(Date() + "Guild Left, Prefix DB updated.")
 		})
-		*/
+		
 	}
 
 	client.channels.get("297554251452776458").sendEmbed(new Discord.RichEmbed()

@@ -12,11 +12,9 @@ exports.run = function(client, msg, args, config, Discord) {
 
 	prefixes[msg.guild.id] = args.join(" ")
 
-	msg.reply('This command is ded right now :(')
-
-	/*fs.writeFile("./db/prefixdb.json", JSON.stringify(prefixes, "", "\t"), (err) => {
+	fs.writeFile("./db/prefixdb.json", JSON.stringify(prefixes, "", "\t"), (err) => {
         if (err) return msg.channel.sendMessage("Your prefix couldn't be changed.\n" + err.message);
         msg.channel.sendMessage(`Prefix successfully changed to \`${prefixes[msg.guild.id]}\` for this guild.`)
         console.log(Date() + ` Prefix for ${msg.guild.name} updated to ${prefixes[msg.guild.id]}`)
-    })*/
+    })
 }
