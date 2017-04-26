@@ -8,7 +8,8 @@ let options = {
         }
     }
     needle.get(`https://martmists.com/api/v1/magik?url=${avatarurl}`, (err, res) => {
-        if (err) return msg.channel.sendMessage('You just aren\'t magik enough :(')
+        
+        if (err) return console.log(Date() + err)
         msg.channel.sendFile(res.body, "magik.png")
     })
 }
