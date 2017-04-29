@@ -12,7 +12,7 @@ const client = new Discord.Client({
 client.login(config.token)
 
 const commandsPath = "./commands"
-let statuses = ["with dank memes", "with Melmsie", `with %u people`, `on %s servers`]
+let statuses = ["pls vote: https://goo.gl/zJX3ln", "pls help", `with %u people`, `on %s servers`]
 let index = 0
 
 client.on("message", msg => {
@@ -125,7 +125,7 @@ client.on("guildCreate", guild => {
 		guild.defaultChannel.sendEmbed(new Discord.RichEmbed()
 			.setColor("#ffffff")
 			.setTitle("Hello!")
-			.setDescription(`My name is ${client.user.username}.\n\nTo get started, send \`pls help\`.\n\nI am maintained by Melmsie#8769, who adds new commands to me often!\n\nYou can change my prefix at any time with \`pls prefix <new prefix>\`\n\nHave a ｄａｎｋ day!`)
+			.setDescription(`My name is ${client.user.username}.\n\nTo get started, send \`pls help\`.\n\nI am maintained by Melmsie#8769, who adds new commands to me often!\n\nYou can change my prefix at any time with \`pls prefix <new prefix>\`\n\nAlso please vote for this bot here: https://discordbots.org/bot/270904126974590976 and spread the meme love!`)
 		).catch(e => {
 			console.log(`Failed to send welcome message to ${guild.name}\n${e.message}`)
 		})

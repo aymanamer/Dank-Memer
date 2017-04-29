@@ -8,7 +8,11 @@ let options = {
         }
     }
     needle.get(`https://martmists.com/api/v1/illegal?query=${args.join(' ')}`, (err, res) => {
-        if (err) return msg.channel.sendMessage('Congress stopped that from becoming illegal :(');
-        msg.channel.sendFile(res.body, "illegal.gif")
+        if (err) return msg.channel.sendMessage('Congress stopped that from becoming illegal :(')
+        msg.channel.startTyping().then(() => {
+            msg.channel.sendFile(res.body, "illegal.gif").then(() => {
+                msg.channel.stopTyping(true)
+            })
+        })
     });
 }
