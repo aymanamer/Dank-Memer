@@ -29,7 +29,7 @@ exports.run = async function (client, msg, args) {
 	});
 	stream.on('end', () => {
 		let buffer = Buffer.concat(buffers)
-		msg.channel.sendFile(buffer, "test.gif").then(() => {
+		msg.channel.sendFile(buffer, "triggered.gif").then(() => {
 			msg.channel.stopTyping(true)
 		})
 	});

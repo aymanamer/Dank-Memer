@@ -38,19 +38,7 @@ client.on("message", msg => {
 	try {
 		delete require.cache[require.resolve("./commands/" + command)]
 		require("./commands/" + command).run(client, msg, args, config, Discord)
-		client.channels.get("303459884521881600").sendEmbed(new Discord.RichEmbed()
-			.setTitle(`Command: ${command}`)
-			.setDescription(`Server: ${msg.guild.name}`)
-			.setColor("#7d5bbe")
-			.setFooter(new Date())
-		)
-
-		if (!statsdb[command]) statsdb[command] = "0"
-		statsdb[command]++
-		statsdb["total"]++
-		fs.writeFile("./db/statsdb.json", JSON.stringify(statsdb, "", "\t"), (err) => {
-			if (err) return
-		})
+		
 	} catch (e) {
 		if (e.message.includes("Cannot find module")) return
 		console.log(e)
@@ -125,7 +113,7 @@ client.on("guildCreate", guild => {
 		guild.defaultChannel.sendEmbed(new Discord.RichEmbed()
 			.setColor("#ffffff")
 			.setTitle("Hello!")
-			.setDescription(`My name is ${client.user.username}.\n\nTo get started, send \`pls help\`.\n\nI am maintained by Melmsie#8769, who adds new commands to me often!\n\nYou can change my prefix at any time with \`pls prefix <new prefix>\`\n\nAlso please vote for this bot here: https://discordbots.org/bot/270904126974590976 and spread the meme love!`)
+			.setDescription(`My name is ${client.user.username}.\n\nTo get started, send \`pls help\`.\n\nI am maintained by Melmsie#8769, who adds new commands to me often!\n\nYou can change my prefix at any time with \`pls prefix <new prefix>\`\n\nAlso please [vote for this bot here](https://discordbots.org/bot/270904126974590976) and spread the meme love!`)
 		).catch(e => {
 			console.log(`Failed to send welcome message to ${guild.name}\n${e.message}`)
 		})
