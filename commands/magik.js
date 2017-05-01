@@ -1,4 +1,5 @@
 exports.run = function (client, msg, args) {
+    /*
     let avatarurl = msg.mentions.users.size > 0 ? msg.mentions.users.first().displayAvatarURL.replace("gif", "png") : msg.author.displayAvatarURL.replace("gif", "png")
     const needle = require('needle')
 
@@ -7,16 +8,10 @@ exports.run = function (client, msg, args) {
             "Api-Key": "192aa6cf36a84f69ac3f0435b8676ddf"
         }
     }
-    needle.get(`https://martmists.com/api/v2/magik?url=${avatarurl}`, (err, res) => {
-
+    needle.get(`https://martmists.com/api/v2/magik?url=${msg.author.avatarURL}`, (err, res) => {
         if (err) return console.log(Date() + err)
-        msg.channel.startTyping()
-        msg.channel.sendFile(res.body, "magik.png").then(() => {
-            msg.channel.stopTyping(true).catch(err => {
-                msg.channel.stopTyping(true)
-                msg.channel.send("I couldn't make that magik. You know what should be magik? Your mom in bed.")
-            });
-        })
-
+        msg.channel.sendFile(res.body, "magik.png")
     })
+    */
+    msg.reply('this command is down for bug testing.')
 }
