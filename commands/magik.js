@@ -10,10 +10,13 @@ exports.run = function (client, msg, args) {
     needle.get(`https://martmists.com/api/v2/magik?url=${avatarurl}`, (err, res) => {
 
         if (err) return console.log(Date() + err)
-        msg.channel.startTyping().then(() => {
-            msg.channel.sendFile(res.body, "magik.png").then(() => {
+        msg.channel.startTyping()
+        msg.channel.sendFile(res.body, "magik.png").then(() => {
+            msg.channel.stopTyping(true).catch(err => {
                 msg.channel.stopTyping(true)
-            })
+                msg.channel.send("I couldn't make that magik. You know what should be magik? Your mom in bed.")
+            });
         })
+
     })
 }
