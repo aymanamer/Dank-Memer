@@ -7,7 +7,7 @@ exports.run = function (client, msg, args) {
             "Api-Key": "192aa6cf36a84f69ac3f0435b8676ddf"
         }
     }
-    needle.get(`https://martmists.com/api/v1/magik?url=${avatarurl}`, (err, res) => {
+    needle.get(`https://martmists.com/api/v2/magik?url=${avatarurl}`, (err, res) => {
 
         if (err) return console.log(Date() + err)
         msg.channel.startTyping().then(() => {
