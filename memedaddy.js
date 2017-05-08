@@ -11,8 +11,11 @@ const client = new Discord.Client({
 
 client.login(config.token)
 
+//const guilds = await client.shard.fetchClientValues('guilds.size');
+//const count = guilds.reduce((prev, val) => prev + val, 0);
+
 const commandsPath = "./commands"
-let statuses = ["pls vote: https://goo.gl/zJX3ln", "pls help", `with %u people`, `on %s servers`]
+let statuses = ["pls commands", "pls help", "pls shitpost"]
 let index = 0
 
 client.on("message", msg => {
@@ -46,6 +49,8 @@ client.on("message", msg => {
 })
 
 client.on("guildCreate", guild => {
+
+   
 	superagent
 	.post("https://bots.discord.pw/api/bots/270904126974590976/stats")
 	.send({"server_count": client.guilds.size})
@@ -58,6 +63,8 @@ client.on("guildCreate", guild => {
 	.set("Authorization", config.orgtoken)
 	.end()
 
+
+	
 	prefixes[guild.id] = config.prefix
 
 
@@ -121,18 +128,22 @@ client.on("guildCreate", guild => {
 })
 
 client.on("guildDelete", guild => {
+
+
+
+
 	superagent
 	.post("https://bots.discord.pw/api/bots/270904126974590976/stats")
 	.send({"server_count": client.guilds.size})
 	.set("Authorization", config.pwtoken)
 	.end()
 
-
 	superagent
 	.post("https://discordbots.org/api/bots/270904126974590976/stats")
 	.send({"server_count": client.guilds.size})
 	.set("Authorization", config.orgtoken)
 	.end()
+
 
 
 	if (prefixes[guild.id]) {
@@ -169,6 +180,4 @@ client.once("ready", () => {
 
 })
 
-process.on("unhandledRejection", err => {
-	console.error(Date() + "\n" + err)
-})
+process.on('unhandledRejection', err => console.error(`Uncaught Promise Error: \n${err.stack}`));

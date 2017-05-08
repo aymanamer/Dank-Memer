@@ -2,18 +2,23 @@ const superagent = require("superagent")
 
 exports.run = async function (client, msg, args, config, Discord) {
 
-
+const guilds = await client.shard.fetchClientValues('guilds.size');
+const count = guilds.reduce((prev, val) => prev + val, 0);
+	
 	msg.channel.sendEmbed(new Discord.RichEmbed()
 		.setColor("#7d5bbe")
 		.setTitle(`${client.user.username} - Stats (${config.version})`)
 		.setDescription(`I've been awake for ${timeCon(process.uptime())}`)
-		.addField("🏠 Guilds", client.guilds.size, true)
+		.addField("🏠 Guilds", count, true)
 		.addField("👤 Users", client.users.size, true)
 		.addField("📄 Text Channels", client.channels.filter(c => c.type === "text").size, true)
 		.addField("🏓 Ping", `${(client.ping).toFixed(0)} ms`, true)
 		.addField("🐏 RAM Usage", `${(process.memoryUsage().heapUsed / 1024 / 1024).toFixed(2)} MB`, true)
 		
 	)
+
+
+
 
 }
 

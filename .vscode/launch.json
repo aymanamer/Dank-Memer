@@ -8,7 +8,7 @@
             "type": "node",
             "request": "launch",
             "name": "Launch Program",
-            "program": "${workspaceRoot}\\memedaddy.js"
+            "program": "${workspaceRoot}\\shard.js"
         },
         {
             "type": "node",
