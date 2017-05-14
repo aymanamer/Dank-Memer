@@ -55,12 +55,12 @@ const count = guilds.reduce((prev, val) => prev + val, 0)
 	superagent
 	.post("https://bots.discord.pw/api/bots/270904126974590976/stats")
 	.send({"server_count": count})
-	.set("Authorization", count)
+	.set("Authorization", config.pwtoken)
 	.end()
 
 	superagent
 	.post("https://discordbots.org/api/bots/270904126974590976/stats")
-	.send({"server_count": client.guilds.size})
+	.send({"server_count": count})
 	.set("Authorization", config.orgtoken)
 	.end()
 
