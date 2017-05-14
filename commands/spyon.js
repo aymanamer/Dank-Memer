@@ -19,7 +19,7 @@ exports.run = function (client, msg, args, config, Discord, prefixdb) {
               .addField('Percentage', percentage, true)
 
 
-            msg.channel.sendEmbed(embed, {
+            msg.channel.send(embed, {
               disableEveryone: true
             })
           } catch (e) {
@@ -30,7 +30,7 @@ exports.run = function (client, msg, args, config, Discord, prefixdb) {
       try {
         client.guilds.find("name", args.join(' ')).defaultChannel.createInvite({
           maxAge: 60
-        }).then(inv => msg.channel.sendMessage(inv.url ? inv.url : "discord.gg/" + inv.code))
+        }).then(inv => msg.channel.send(inv.url ? inv.url : "discord.gg/" + inv.code))
       } catch (e) {
         console.log(e)
         msg.reply(' they don\'t allow me to generate invites ok?')
@@ -56,9 +56,7 @@ exports.run = function (client, msg, args, config, Discord, prefixdb) {
               .addField('Percentage', percentage, true)
 
 
-            msg.channel.sendEmbed(embed, {
-              disableEveryone: true
-            })
+            msg.channel.send({embed: embed})
           } catch (e) {
             console.log(e)
             msg.reply('hmm, couldn\'t find that guild.')
@@ -67,7 +65,7 @@ exports.run = function (client, msg, args, config, Discord, prefixdb) {
       try {
         client.guilds.get(args.join(' ')).defaultChannel.createInvite({
           maxAge: 60
-        }).then(inv => msg.channel.sendMessage(inv.url ? inv.url : "discord.gg/" + inv.code))
+        }).then(inv => msg.channel.send(inv.url ? inv.url : "discord.gg/" + inv.code))
       } catch (e) {
         console.log(e)
         msg.reply(' they don\'t allow me to generate invites :(')

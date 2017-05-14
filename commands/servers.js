@@ -8,7 +8,8 @@ exports.run = function (client, msg, args, config, Discord) {
       json: false
     }
     rp(options).then(data => {
-      msg.channel.sendEmbed(new Discord.RichEmbed().setColor("#2D7FFF").setDescription(`Server list created. View [here](https://hastebin.com/${JSON.parse(data).key}).`))
+      msg.channel.send({embed: new Discord.RichEmbed().setColor("#2D7FFF").setDescription(`Server list created. View [here](https://hastebin.com/${JSON.parse(data).key}).`)
+    })
     })
   } else {
     msg.reply('you don\'t have permission to use this command, noob.')

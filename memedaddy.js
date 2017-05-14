@@ -11,8 +11,6 @@ const client = new Discord.Client({
 
 client.login(config.token)
 
-//const guilds = await client.shard.fetchClientValues('guilds.size');
-//const count = guilds.reduce((prev, val) => prev + val, 0);
 
 const commandsPath = "./commands"
 let statuses = ["pls commands", "pls help", "pls shitpost"]
@@ -48,13 +46,16 @@ client.on("message", msg => {
 	}
 })
 
-client.on("guildCreate", guild => {
+client.on("guildCreate", async (guild) => {
 
+
+const guilds = await client.shard.fetchClientValues('guilds.size')
+const count = guilds.reduce((prev, val) => prev + val, 0)
    
 	superagent
 	.post("https://bots.discord.pw/api/bots/270904126974590976/stats")
-	.send({"server_count": client.guilds.size})
-	.set("Authorization", config.pwtoken)
+	.send({"server_count": count})
+	.set("Authorization", count)
 	.end()
 
 	superagent
@@ -75,72 +76,42 @@ client.on("guildCreate", guild => {
 
 
 	let bots = guild.members.filter(gm => gm.user.bot).size
-	let users = guild.members.filter(gm => !gm.user.bot).size
 	let percentage = Math.round((bots / guild.members.size * 100))
-	if (!whitelist.includes(guild.id) && percentage > 70 && bots > 15) {
-		client.channels.get("297554251452776458").sendEmbed(new Discord.RichEmbed()
-			.setTitle("🤖 Joined Bot Guild 🤖")
-			.setColor("#FFC93F")
-			.setDescription(`Server: ${guild.name} | ${guild.id}`)
-			.addField("Server Info", `Owner: ${guild.owner.displayName}#${guild.owner.user.discriminator}\nMembers: ${guild.members.size}\nUsers: ${users}\nBots: ${bots}\nPercentage: ${percentage}`)
-			.setFooter(new Date())
-		)
-		guild.defaultChannel.send(`Thanks for trying to add ${client.user.username}, but our anti-bot guild protection system has flagged this server.\n\nIf you"d like to appeal that, join Melmsie"s Server and talk to him https://discord.gg/3GNMJBG`)
+	if (!whitelist.includes(guild.id) && percentage > 90 && bots > 20) {
+		guild.defaultChannel.send(`Thanks for trying to add ${client.user.username}, but if you're seeing this, that means you have more than 20 bots.\n\nCan you not? Just delete a few bots and you'll be good 👌`)
 		.then(() => {
 			guild.leave()
 		})
 		.catch(e => {
 			console.log(e.message) // probably forbidden or something
 		})
-	} else if (blacklist.includes(guild.ownerID) || blacklist.includes(guild.id)) {
-		client.channels.get("297554251452776458").sendEmbed(new Discord.RichEmbed()
-			.setTitle("⚠ Joined Blacklisted Guild ⚠")
-			.setColor("#FFC93F")
-			.setDescription(`Server: ${guild.name} | ${guild.id}`)
-			.addField("Server Info", `Owner: ${guild.owner.displayName}#${guild.owner.user.discriminator}\nMembers: ${guild.members.size}\nUsers: ${users}\nBots: ${bots}\nPercentage: ${percentage}`)
-			.setFooter(new Date())
-		)
-
-		guild.defaultChannel.send(`Thanks for trying to add ${client.user.username}, but either this server or this server"s owner has been blacklisted.\n\nIf you"d like to appeal that, join Melmsie"s Server and talk to him https://discord.gg/3GNMJBG`)
-		.then(() => {
-			guild.leave()
-		})
-		.catch(e => {
-			console.log(e.message) // probably forbidden or something
-		})
+	
 	} else {
-		client.channels.get("297554251452776458").sendEmbed(new Discord.RichEmbed()
-			.setTitle("Joined Guild")
-			.setColor("#00ff00")
-			.setDescription(`Server: ${guild.name} | ${guild.id}`)
-			.addField("Server Info", `Owner: ${guild.owner.displayName}#${guild.owner.user.discriminator}\nMembers: ${guild.members.size}\nUsers: ${users}\nBots: ${bots}\nPercentage: ${percentage}`)
-			.setFooter(new Date())
-		)
-
 		guild.defaultChannel.sendEmbed(new Discord.RichEmbed()
 			.setColor("#ffffff")
 			.setTitle("Hello!")
-			.setDescription(`My name is ${client.user.username}.\n\nTo get started, send \`pls help\`.\n\nI am maintained by Melmsie#8769, who adds new commands to me often!\n\nYou can change my prefix at any time with \`pls prefix <new prefix>\`\n\nAlso please [vote for this bot here](https://discordbots.org/bot/270904126974590976) and spread the meme love!`)
+			.setDescription(`My name is ${client.user.username}.\n\nTo get started, send \`pls help\`.\n\nI am maintained by Melmsie#0006, who can be found at [this server](https://discord.gg/3GNMJBG) if you need to talk to him.`)
 		).catch(e => {
 			console.log(`Failed to send welcome message to ${guild.name}\n${e.message}`)
 		})
 	}
 })
 
-client.on("guildDelete", guild => {
+client.on("guildDelete", async guild => {
 
-
+const guilds = await client.shard.fetchClientValues('guilds.size')
+const count = guilds.reduce((prev, val) => prev + val, 0)
 
 
 	superagent
 	.post("https://bots.discord.pw/api/bots/270904126974590976/stats")
-	.send({"server_count": client.guilds.size})
+	.send({"server_count": count})
 	.set("Authorization", config.pwtoken)
 	.end()
 
 	superagent
 	.post("https://discordbots.org/api/bots/270904126974590976/stats")
-	.send({"server_count": client.guilds.size})
+	.send({"server_count": count})
 	.set("Authorization", config.orgtoken)
 	.end()
 
@@ -156,12 +127,7 @@ client.on("guildDelete", guild => {
 		
 	}
 
-	client.channels.get("297554251452776458").sendEmbed(new Discord.RichEmbed()
-		.setTitle("Left Guild")
-		.setColor("#FF0000")
-		.setDescription(`Server: ${guild.name} | ${guild.id}`)
-		.setFooter(new Date())
-	)
+
 })
 
 client.once("ready", () => {
@@ -173,11 +139,7 @@ client.once("ready", () => {
 
 	fs.writeFileSync("./db/prefixdb.json", JSON.stringify(prefixes, "", "\t"))
 
-	setInterval(function() {
-        index = (index + 1) % statuses.length;
-        this.user.setGame(statuses[index].replace('%s', client.guilds.size).replace('%u', client.users.size));
-    }.bind(client), 20000)
 
 })
 
-process.on('unhandledRejection', err => console.error(`Uncaught Promise Error: \n${err.stack}`));
+process.on('unhandledRejection', err => console.error(`${Date()} Uncaught Promise Error: \n${err.stack}`));

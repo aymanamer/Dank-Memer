@@ -5,13 +5,13 @@ exports.run = function (client, msg, args, config, Discord) {
 
 	msg.delete()
     try {
-        msg.channel.sendMessage(`**Input**\n\`\`\`sh\n$ ${args.join(" ")}\n\`\`\``)
+        msg.channel.send(`**Input**\n\`\`\`sh\n$ ${args.join(" ")}\n\`\`\``)
         exec(`${args.join(" ")}`, (stderr, stdout) => {
-            if (stdout) msg.channel.sendMessage(`**Output**\n\`\`\`bash\n${stdout}\n\`\`\``);
-            if (stderr) msg.channel.sendMessage(`**Errors**\n\`\`\`bash\n${stderr}\n\`\`\``);
+            if (stdout) msg.channel.send(`**Output**\n\`\`\`bash\n${stdout}\n\`\`\``);
+            if (stderr) msg.channel.send(`**Errors**\n\`\`\`bash\n${stderr}\n\`\`\``);
         })
     } catch (e) {
-        msg.channel.sendMessage(`**Error!**\n\`\`\`js\n${e}\n\`\`\``)
+        msg.channel.send(`**Error!**\n\`\`\`js\n${e}\n\`\`\``)
         console.log(new Date() + ": " + e.message)
     }
 }

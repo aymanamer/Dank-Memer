@@ -1,9 +1,9 @@
 exports.run = function (client, msg, args) {
     var Jimp = require('jimp')
     if (msg.mentions.users.size === 0) {
-        return msg.channel.sendMessage("You must mention a user or provide a link!")
+        return msg.channel.send("You must mention a user or provide a link!")
     } else {
-        msg.channel.sendMessage(":gear: Generating... please wait.").then(mesg => {
+        msg.channel.send(":gear: Generating... please wait.").then(mesg => {
             Jimp.read(msg.mentions.users.first().displayAvatarURL, (err, avatar) => {
               
                 if (err) return mesg.edit(":warning: Failed to generate image")
@@ -15,7 +15,7 @@ exports.run = function (client, msg, args) {
                     msg.channel.sendFile(buffer)
                     } catch (e) {
                         console.log(e)
-                        msg,reply('there was an error with this command.')
+                        msg.reply('there was an error with this command.')
                     }
                 })
             })

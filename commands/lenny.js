@@ -1,3 +1,3 @@
 exports.run = function (client, msg) {
-	msg.channel.sendMessage('( ͡° ͜ʖ ͡°)')
+	msg.channel.send('( ͡° ͜ʖ ͡°)')
 }

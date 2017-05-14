@@ -6,7 +6,7 @@ const arrays = require('../assets/arrays.json')
 exports.run = async function (client, msg) {
  
   try {
-    const shitpost = await msg.channel.sendMessage(randomInArray(arrays.copy), {
+    const shitpost = await msg.channel.send(randomInArray(arrays.copy), {
       split: true
     })
    

@@ -5,17 +5,19 @@ exports.run = async function (client, msg, args, config, Discord) {
 const guilds = await client.shard.fetchClientValues('guilds.size');
 const count = guilds.reduce((prev, val) => prev + val, 0);
 	
-	msg.channel.sendEmbed(new Discord.RichEmbed()
+	msg.channel.send({embed: new Discord.RichEmbed()
 		.setColor("#7d5bbe")
 		.setTitle(`${client.user.username} - Stats (${config.version})`)
 		.setDescription(`I've been awake for ${timeCon(process.uptime())}`)
-		.addField("🏠 Guilds", count, true)
-		.addField("👤 Users", client.users.size, true)
-		.addField("📄 Text Channels", client.channels.filter(c => c.type === "text").size, true)
-		.addField("🏓 Ping", `${(client.ping).toFixed(0)} ms`, true)
-		.addField("🐏 RAM Usage", `${(process.memoryUsage().heapUsed / 1024 / 1024).toFixed(2)} MB`, true)
+		.addField("Guild Count", count, true)
+		.addField("Websocket Ping", `${(client.ping).toFixed(0)} ms`, true)
+		.addField("RAM Usage", `RSS: ${(process.memoryUsage().rss / 1048576).toFixed()}MB\nHeap: ${(process.memoryUsage().heapUsed / 1024 / 1024).toFixed(2)}MB`, true)
+		.addField("Shard Count", '2', true)
+		.addField("Memes", "Still Dank", true)
+		.addField("Libraries", `[Discord.js](https://discord.js.org) v${Discord.version}\nNode.js ${process.version}`, true)
+		.addField('Links', '[Bot invite](https://discordapp.com/oauth2/authorize?client_id=270904126974590976&scope=bot&permissions=3073) | [Support server invite](https://discord.gg/Ek6MM5n)')
 		
-	)
+	})
 
 
 

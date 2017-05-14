@@ -1,5 +1,5 @@
-/**
- * Created by Matrix159 on 4/13/2017, rewritten/fixed by CrimsonXV on 4/21/2017. matrixpls
+/*
+  Created by Matrix159 on 4/13/2017, rewritten/fixed by CrimsonXV on 4/21/2017. matrixpls
  */
 
 const superagent = require('superagent')

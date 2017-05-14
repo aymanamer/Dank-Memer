@@ -7,7 +7,7 @@ exports.run = function (client, msg, args) {
     } = require('../utils')
     if (!mention) return msg.reply('Please tag someone to kill.')
     try {
-        msg.channel.sendMessage(randomInArray(kill))
+        msg.channel.send(randomInArray(kill))
     } catch (e) {
         console.log(Date() + " - " + e)
         msg.reply('no.')

@@ -4,7 +4,7 @@ const { randomInArray } = require('../utils')
 const { pup } = require('../assets/arrays.json')
 
 exports.run = async function (client, msg) {
-	const notice = await msg.channel.sendMessage(randomInArray(pup))
+	const notice = await msg.channel.send(randomInArray(pup))
 	let pupper = await superagent.get("http://random.dog/woof")
 
 	setTimeout(() => {

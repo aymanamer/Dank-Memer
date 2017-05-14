@@ -1,5 +1,5 @@
 exports.run = function (client, msg, args) {
-
+/*
     const needle = require('needle');
 
     let options = {
@@ -14,4 +14,6 @@ exports.run = function (client, msg, args) {
     msg.channel.send("I couldn't make that illegal. You know what should be illegal? Trump's toupee.")
 });
     })
+    */
+    msg.reply('This is down for bug testing')
 }

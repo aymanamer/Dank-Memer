@@ -1,7 +1,7 @@
 const fs = require("fs")
 
 exports.run = function (client, msg, args, config, Discord) {
-	msg.channel.sendEmbed(new Discord.RichEmbed()
+	msg.channel.send("", {embed: new Discord.RichEmbed()
 		.setColor('#ff0000')
 		.setAuthor(`Commands`)
 		.setDescription(`Latest Announcement: ${fs.readFileSync("./db/announcement.txt").toString()}`)
@@ -10,7 +10,6 @@ exports.run = function (client, msg, args, config, Discord) {
 		.addField('🖼 Image Manipulation', 'trigger *(thanks blargbot)*, invert, salty, warp')
 		.addField('🎤 Voice Commands', 'airhorn')
 		.addField('ℹ Utilities and Information', 'commands, help, ping, prefix, stats')
-		.addField('Coming <:soon:233642257817927680>', 'dankness, fucks given, memegen, roasts')
-		.setFooter(`Be sure to use the prefix: ${prefixes[msg.guild.id]}`)
-	)
+		.setFooter(`Any questions or ideas? Come hang out [on this server](`)
+	})
 }

@@ -7,15 +7,15 @@ exports.run = function (client, msg, args, config, Discord) {
 		if (err) return msg.reply("Couldn't create an announcement ¯\_(ツ)_/¯")
 	})
 
-    msg.channel.sendEmbed(new Discord.RichEmbed()
+    msg.channel.send("", {embed: new Discord.RichEmbed()
         .setColor('#ffffff')
         .setDescription(`Announcement added: ${args.join(" ")}`)
-    )
+	})
 
-	client.channels.get("298668852957675520").sendEmbed(new Discord.RichEmbed()
+	client.channels.get("298668852957675520").send("", {embed: new Discord.RichEmbed()
 		.setTitle("ℹ Announcement ℹ")
 		.setColor('#ff0000')
 		.setTimestamp()
 		.setDescription(args.join(" "))
-	)
+	})
 }
