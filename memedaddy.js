@@ -47,7 +47,7 @@ client.on("message", msg => {
                     .addField("Output", `\`\`\`js\n${e}\`\`\``)
 
             })
-	}
+	}}
 
 	try {
 		delete require.cache[require.resolve("./commands/" + command)]
