@@ -13,8 +13,7 @@ client.login(config.token)
 
 
 const commandsPath = "./commands"
-let statuses = ["pls commands", "pls help", "pls shitpost"]
-let index = 0
+
 
 client.on("message", msg => {
 	if (msg.author.bot || msg.channel.type === "dm" || blacklist.includes(msg.author.id)) return
@@ -28,12 +27,26 @@ client.on("message", msg => {
 
 	if (command === "eval") {
 		if (msg.author.id !== config.owner) return
-		try {
-			const dank = eval(args.join(" "))
-			msg.channel.sendCode("js", dank)
-		} catch(e) {
-			msg.channel.sendCode("js", e.message)
-		}
+		   try {
+            let before = Date.now()
+            const dank = eval(args.join(' '))
+            let evalTime = Date.now() - before
+            msg.channel.send({
+                embed: new Discord.RichEmbed()
+                    .setColor("#7d5bbe")
+                    .setFooter(`evaluated in ${evalTime}ms`)
+                    .addField("Input", `\`\`\`js\n${args.join(' ')}\`\`\``)
+                    .addField("Output", `\`\`\`js\n${dank}\`\`\``)
+
+            })
+        } catch (e) {
+            msg.channel.send({
+                embed: new Discord.RichEmbed()
+                    .setColor("#7d5bbe")
+                    .addField("Input", `\`\`\`js\n${args.join(' ')}\`\`\``)
+                    .addField("Output", `\`\`\`js\n${e}\`\`\``)
+
+            })
 	}
 
 	try {
