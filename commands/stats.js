@@ -12,7 +12,7 @@ const count = guilds.reduce((prev, val) => prev + val, 0);
 		.addField("Guild Count", count, true)
 		.addField("Websocket Ping", `${(client.ping).toFixed(0)} ms`, true)
 		.addField("RAM Usage", `RSS: ${(process.memoryUsage().rss / 1048576).toFixed()}MB\nHeap: ${(process.memoryUsage().heapUsed / 1024 / 1024).toFixed(2)}MB`, true)
-		.addField("Shard Count", '2', true)
+		.addField("Shard Count", client.shard.count, true)
 		.addField("Active VCs", client.voiceConnections.size, true)
 		.addField("Libraries", `[Discord.js](https://discord.js.org) v${Discord.version}\nNode.js ${process.version}`, true)
 		.addField('Links', '[Bot invite](https://discordapp.com/oauth2/authorize?client_id=270904126974590976&scope=bot&permissions=3073) | [Support server invite](https://discord.gg/Ek6MM5n)')
