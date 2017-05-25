@@ -1,7 +1,8 @@
 const fs = require("fs")
- if (!msg.guild.member(client.user).hasPermission('SEND_MESSAGES')) return msg.author.send('I do not have permission to send messages in that channel! Please fix this to use this command.').catch(console.error)
    
 exports.run = function (client, msg, args, config, Discord) {
+	if (!msg.guild.member(client.user).hasPermission('SEND_MESSAGES')) return msg.author.send('I do not have permission to send messages in that channel! Please fix this to use this command.').catch(console.error)
+ 
 	msg.channel.send("", {embed: new Discord.RichEmbed()
 		.setColor('#ff0000')
 		.setAuthor(`Commands`)
