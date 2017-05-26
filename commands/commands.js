@@ -11,7 +11,7 @@ exports.run = function (client, msg, args, config, Discord) {
 		.addField('💰 Donator Commands', 'ban, donate, kick, repeat, spam')
 		.addField('<:LUL:298887728161095681> Tags & text ｍａｎｉｐｕｌａｔｉｏｎ', 'feelsbadman, justright, lenny, lul, vaporwave')
 		.addField('🖼 Image Manipulation', 'trigger *(thanks blargbot)*, invert, salty, warp')
-		.addField('🎤 Voice Commands', 'airhorn, knock, mlg, shitsound')
+		.addField('🎤 Voice Commands', 'airhorn, knock, mlg, scare, shitsound')
 		.addField('ℹ Utilities and Information', 'commands, help, melmsie, ping, prefix, stats')
 		.setFooter(`Any questions or ideas? Come hang out on this server: discord.gg/3GNMJBG`)
 	})
