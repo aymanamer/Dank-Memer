@@ -1,6 +1,6 @@
 exports.run = function (client, msg, args) {
     const ytdl = require('ytdl-core')
-    let mlg = ["https://www.youtube.com/watch?v=ltZ6dtr1Abo", "https://www.youtube.com/watch?v=ApcFBZVbAPA", "https://www.youtube.com/watch?v=4zuQfIGcpBQ", "https://www.youtube.com/watch?v=htq8lim23Ug", "https://www.youtube.com/watch?v=ss7q8bTDskU", "https://www.youtube.com/watch?v=gzSxBoxxzVM", "https://www.youtube.com/watch?v=g1uKIA7qjgM", "https://www.youtube.com/watch?v=BzrLzqL3A44", "https://www.youtube.com/watch?v=vg7ZrQKExIo", "https://www.youtube.com/watch?v=jaOGGIfJkJk", "https://www.youtube.com/watch?v=u1eoHBzS9E8", "https://www.youtube.com/watch?v=SQhuC-I5sD8", "https://www.youtube.com/watch?v=D62L3husEa0", "https://www.youtube.com/watch?v=tx1LX80fot8", "https://www.youtube.com/watch?v=IR5KWeZRtrw", "https://www.youtube.com/watch?v=QxB5A7tFvZM", "https://www.youtube.com/watch?v=GSSZdwL67Ok", "https://www.youtube.com/watch?v=mVHJ6OwTYWc", "https://www.youtube.com/watch?v=dURU4zD2z5Q", "https://www.youtube.com/watch?v=FRatgC3S0IA&feature=youtu.be", "https://www.youtube.com/watch?v=HiLn2yrM1GM&feature=youtu.be", "https://www.youtube.com/watch?v=PgdtZNdgHy8&feature=youtu.be"]
+    let mlg = ["https://www.youtube.com/watch?v=9199NaBB6L0", "https://www.youtube.com/watch?v=f0vmNYnRoTw", "https://www.youtube.com/watch?v=CIODJSbYCT4", "https://www.youtube.com/watch?v=DUVBSmOaWgY", "https://www.youtube.com/watch?v=Bbt77avaSv8", "https://www.youtube.com/watch?v=b5fCEgX0Uxg", "https://www.youtube.com/watch?v=XTmgE6TCgiA"]
     const {
         randomInArray
     } = require('../utils')
@@ -20,7 +20,7 @@ exports.run = function (client, msg, args) {
         msg.react('😢')
     } else {
         if (!client.voiceConnections.get(msg.guild.id)) {
-            msg.react("👌")
+            msg.react("😱")
             msg.member.voiceChannel.join().then(conn => {
                 const stream = ytdl(randomInArray(mlg), { filter: 'audioonly' })
                 const dispatcher = conn.playStream(stream)
@@ -28,7 +28,7 @@ exports.run = function (client, msg, args) {
                     conn.channel.leave()
                 })
             }).catch(e => {
-                msg.reply("there was an error playing this dank MLG remix")
+                msg.reply("there was an error while scaring them")
                 console.log(`${new Date()}: ${e.message}`)
             })
 

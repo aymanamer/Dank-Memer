@@ -27,6 +27,7 @@
     "react-trump": "^0.2.1",
     "request": "^2.81.0",
     "request-promise": "^4.2.0",
+    "superagent": "^3.5.2",
     "trumpify": "^0.2.0",
     "urban": "^0.3.1",
     "ytdl-core": "^0.11.2",
