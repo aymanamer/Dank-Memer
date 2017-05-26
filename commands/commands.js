@@ -8,7 +8,7 @@ exports.run = function (client, msg, args, config, Discord) {
 		.setAuthor(`Commands`)
 		.setDescription(`Latest Announcement: ${fs.readFileSync("./db/announcement.txt").toString()}`)
 		.addField('<:megusta:293231471173304320> Memey Commands', 'asktrump, blasphemy, justright, kill, mama, meme, oneliner, pun, pupper, shitpost, vote')
-		.addField('<💰 Donator Commands', 'ban, donate, kick, repeat, spam')
+		.addField('💰 Donator Commands', 'ban, donate, kick, repeat, spam')
 		.addField('<:LUL:298887728161095681> Tags & text ｍａｎｉｐｕｌａｔｉｏｎ', 'feelsbadman, justright, lenny, lul, vaporwave')
 		.addField('🖼 Image Manipulation', 'trigger *(thanks blargbot)*, invert, salty, warp')
 		.addField('🎤 Voice Commands', 'airhorn, knock, mlg, shitsound')
