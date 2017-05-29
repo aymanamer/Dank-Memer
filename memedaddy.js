@@ -1,7 +1,7 @@
 const config = require("./config.json")
 const fs = require("fs")
 statsdb  = require("./db/statsdb.json")
-prefixes = {};
+prefixes = {}
 const {whitelist, blacklist} = require("./db/bwlist.json")
 const superagent = require("superagent")
 const Discord = require("discord.js")
