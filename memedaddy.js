@@ -21,7 +21,7 @@ let cooldowns = {
 	active: {},
 	times: {
 		trigger: 8000,
-		meme: 2000,
+		meme: 1000,
 		pupper: 5000,
 		justright: 2000,
 		salty: 8000,

@@ -3,7 +3,8 @@ exports.run = function (client, msg, args, config, Discord) {
     let member = msg.guild.member(user)
     const donators = [
         "172571295077105664", //me
-        "234129266097389580" // YourPalDerpy#6380
+        "234129266097389580", // YourPalDerpy#6380
+        "291422304544620544" //Shit Apple#3222
     ]
     if (!donators.includes(msg.author.id))
         return msg.channel.send('This is a donator only command! To gain access, you must donate $1 or more here: <https://www.patreon.com/melmsie>', {

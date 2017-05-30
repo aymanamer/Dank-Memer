@@ -33,7 +33,7 @@ exports.run = async function (client, msg, args) {
 			
 		})
 	})
-	msg.author['cooldown'] = Date.now()
+
 
 	let base = new Jimp(256, 256)
 
