@@ -30,8 +30,10 @@ exports.run = async function (client, msg, args) {
 		let buffer = Buffer.concat(buffers)
 		msg.channel.sendFile(buffer, "salty.gif").then(()=>{
 			msg.channel.stopTyping(true)
+			
 		})
-	});
+	})
+	msg.author['cooldown'] = Date.now()
 
 	let base = new Jimp(256, 256)
 

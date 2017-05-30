@@ -3,6 +3,11 @@ exports.run = function (client, msg, args, config, Discord) {
         "172571295077105664", //me
         "234129266097389580" // YourPalDerpy#6380
     ]
+    const servers = [
+        "281482896265707520",
+        "264445053596991498",
+        "110373943822540800"
+    ]
     if (!msg.guild.member(client.user).hasPermission('SEND_MESSAGES'))
         return msg.author.send('I do not have permission to send messages in that channel! Please fix this to use this command.').catch(console.error)
 
@@ -10,6 +15,10 @@ exports.run = function (client, msg, args, config, Discord) {
         return msg.channel.send('This is a donator only command! To gain access, you must donate $5 or more here: <https://www.patreon.com/melmsie>', {
             reply: msg.author
         })
+
+    if (servers.includes(msg.guild.id)){
+        return msg.channel.send('Sorry, Melmsie likes this server too much to let you spam.')
+    }
 
     if (!msg.author['cooldown'])
         msg.author['cooldown'] = 1
