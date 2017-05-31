@@ -1,7 +1,7 @@
 exports.run = function (client, msg, args) {
     var Jimp = require('jimp')
     if (msg.mentions.users.size === 0) {
-        return msg.channel.send("You must mention a user or provide a link!")
+        return msg.channel.send("You must mention a user!")
     } else {
         msg.channel.send(":gear: Generating... please wait.").then(mesg => {
             Jimp.read(msg.mentions.users.first().displayAvatarURL, (err, avatar) => {

@@ -8,7 +8,7 @@ exports.run = function (client, msg, args, config, Discord) {
 		.addField('Favorite Memes', 'dat boi, just do it, rick roll, PPAP', true)
 		.addField('Fav Music', 'Frank Turner, Macklemore, PPAP Remixes', true)
 		.addField('Other Bots', 'Yes Bot [[Add Here]](https://discordapp.com/oauth2/authorize?client_id=285579824045490176&scope=bot&permissions=0)\nInternet Explorer [[Add Here]](https://discordapp.com/oauth2/authorize?client_id=290514399146409985&scope=bot&permissions=0)')
-        .addField('Social Accounts', ':youtube: [Melmsie](https://www.youtube.com/user/Memyselfandlie)\n:battlenet: Melmsie#1311\n:twitter: [MelmsiePoo](https://twitter.com/melmsiepoo)')
+        .addField('Social Accounts', '<:youtube:314349922885566475> [Melmsie](https://www.youtube.com/user/Memyselfandlie)\n<:battlenet:314349923006939136> Melmsie#1311\n<:twitter:314349922877046786> [MelmsiePoo](https://twitter.com/melmsiepoo)')
 		.setFooter(`Wanna talk to Melmsie? Come hang out on this server: discord.gg/3GNMJBG`)
 	})
 }

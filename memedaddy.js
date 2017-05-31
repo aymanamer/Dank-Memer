@@ -1,5 +1,6 @@
 const config = require("./config.json")
 const fs = require("fs")
+const util = require("util")
 statsdb = require("./db/statsdb.json")
 prefixes = {}
 const {
@@ -25,11 +26,13 @@ let cooldowns = {
 		pupper: 5000,
 		justright: 2000,
 		salty: 8000,
-		mama: 3000
+		mama: 3000,
+		fuckoff: 1500,
+		feedback: 10000
 	}
 }
 
-
+let fucks = 0
 client.on("message", msg => {
 	if (msg.author.bot || msg.channel.type === "dm" || blacklist.includes(msg.author.id)) return
 
@@ -37,7 +40,7 @@ client.on("message", msg => {
 
 	if (!msg.content.startsWith(prefixes[msg.guild.id])) return
 
-		if (!cooldowns.active[msg.author.id])
+	if (!cooldowns.active[msg.author.id])
 		cooldowns.active[msg.author.id] = []
 
 	const command = msg.content.substring(prefixes[msg.guild.id].length + 1).toLowerCase().split(" ")[0]
@@ -47,14 +50,19 @@ client.on("message", msg => {
 		if (msg.author.id !== config.owner) return
 		try {
 			let before = Date.now()
-			const dank = eval(args.join(' '))
+			let rep = new RegExp(client.user.email + "|" + client.token, "gi");
+			let code = eval(args.join(" "));
+			if (typeof code === "string") code = code.replace(rep, "*");
+			else code = util.inspect(code, {
+				depth: 0
+			}).replace(rep, "*");
 			let evalTime = Date.now() - before
 			msg.channel.send({
 				embed: new Discord.RichEmbed()
 					.setColor("#7d5bbe")
 					.setFooter(`evaluated in ${evalTime}ms`)
 					.addField("Input", `\`\`\`js\n${args.join(' ')}\`\`\``)
-					.addField("Output", `\`\`\`js\n${dank}\`\`\``)
+					.addField("Output", `\`\`\`js\n${code}\`\`\``)
 
 			})
 		} catch (e) {
@@ -68,18 +76,23 @@ client.on("message", msg => {
 		}
 	}
 
+	if (command === "givefuck") {
+
+		++fucks
+		msg.channel.send('Fucks given (From all users): ' + fucks)
+	}
 
 	if (command) {
 		if (cooldowns.active[msg.author.id].includes(command))
 			return msg.channel.send("This command is currently in cooldown.")
 		cooldowns.active[msg.author.id].push(command)
-		console.log(cooldowns)
+
 
 		setTimeout(() => {
 			cooldowns.active[msg.author.id].splice(cooldowns.active[msg.author.id].indexOf(command), 1)
 		}, cooldowns.times[command])
-	
-	try {
+
+		try {
 			delete require.cache[require.resolve("./commands/" + command)]
 			require("./commands/" + command).run(client, msg, args, config, Discord)
 
@@ -119,7 +132,7 @@ client.on("guildCreate", async(guild) => {
 
 	fs.writeFile("./db/prefixdb.json", JSON.stringify(prefixes, "", "\t"), (err) => {
 		if (err) return console.log(Date() + " createGuildHandler error: " + err)
-		console.log(Date() + "Guild Joined, Prefix DB updated.")
+
 	})
 
 
@@ -174,7 +187,7 @@ client.on("guildDelete", async guild => {
 
 		fs.writeFile("./db/prefixdb.json", JSON.stringify(prefixes, "", "\t"), (err) => {
 			if (err) return console.log(Date() + " createGuildHandler error: " + err)
-			console.log(Date() + "Guild Left, Prefix DB updated.")
+
 		})
 
 	}
