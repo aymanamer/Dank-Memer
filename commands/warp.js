@@ -47,7 +47,10 @@ function getRandomInt(min, max) {
 function getBufferIM(img) {
 	return new Promise((resolve, reject) => {
 		img.getBuffer(Jimp.MIME_PNG, (err, buffer) => {
-			if (err) return reject(err)
+			if (err){
+				msg.reply('there was an error')
+				return reject(err)
+			} 
 			resolve(buffer);
 		})
 	})
