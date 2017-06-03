@@ -12,7 +12,7 @@ exports.run = function (client, msg, args) {
 		if (!msg.guild.member(client.user).hasPermission('SPEAK')) return msg.reply('I do not have permission to speak in that voice channel! Please fix this to use this command.').catch(console.error)
 
 		if (!client.voiceConnections.get(msg.guild.id)) {
-			msg.react("👌")
+			msg.react("💯")
 			msg.member.voiceChannel.join().then(conn => {
 				conn.playFile("./assets/rickroll.mp3")
 				conn.player.dispatcher.once("end", () => {

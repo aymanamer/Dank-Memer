@@ -14,7 +14,7 @@ let file = Math.floor((Math.random() * 49) + 1)
         msg.react('😢')
     } else {
         if (!client.voiceConnections.get(msg.guild.id)) {
-            msg.react("👌")
+            msg.react("💩")
             msg.member.voiceChannel.join().then(conn => {
                 conn.playFile(`./assets/shitsound/${file}.mp3`)
                 conn.player.dispatcher.once("end", () => {
