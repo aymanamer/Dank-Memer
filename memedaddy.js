@@ -47,9 +47,6 @@ client.on("message", msg => {
 	const command = msg.content.substring(prefixes[msg.guild.id].length + 1).toLowerCase().split(" ")[0]
 	const args = msg.content.split(" ").slice(2)
 
-	if (!msg.channel.permissionsFor(client.user.id).has("SEND_MESSAGES") || !msg.channel.permissionsFor(client.user.id).has("EMBED_LINKS")) {
-		return msg.author.send('I either don\'t have permission to send messages or I don\'t have permission to embed links in #' + msg.channel.name)
-	}
 	if (command === "eval") {
 		if (msg.author.id !== config.owner) return
 		try {
@@ -98,6 +95,9 @@ client.on("message", msg => {
 
 		try {
 			delete require.cache[require.resolve("./commands/" + command)]
+			if (!msg.channel.permissionsFor(client.user.id).has("SEND_MESSAGES") || !msg.channel.permissionsFor(client.user.id).has("EMBED_LINKS")) {
+				return msg.author.send('I either don\'t have permission to send messages or I don\'t have permission to embed links in #' + msg.channel.name)
+			}
 			require("./commands/" + command).run(client, msg, args, config, Discord)
 
 		} catch (e) {
