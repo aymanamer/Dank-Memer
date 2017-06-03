@@ -21,7 +21,7 @@ exports.run = function (client, msg, args) {
                     conn.channel.leave()
                 })
             }).catch(e => {
-                msg.reply("Couldn't join your voicechannel ¯\_(ツ)_/¯")
+                msg.reply("Couldn't join your voicechannel ¯\\_(ツ)_/¯")
                 console.log(`${new Date()}: ${e.message}`)
             })
 

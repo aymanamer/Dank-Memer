@@ -47,6 +47,9 @@ client.on("message", msg => {
 	const command = msg.content.substring(prefixes[msg.guild.id].length + 1).toLowerCase().split(" ")[0]
 	const args = msg.content.split(" ").slice(2)
 
+	if (!msg.channel.permissionsFor(client.user.id).has("SEND_MESSAGES") || !msg.channel.permissionsFor(client.user.id).has("EMBED_LINKS")) {
+		return msg.author.send('I either don\'t have permission to send messages or I don\'t have permission to embed links in #' + msg.channel.name)
+	}
 	if (command === "eval") {
 		if (msg.author.id !== config.owner) return
 		try {
@@ -202,6 +205,9 @@ client.once("ready", () => {
 	client.guilds.map(g => {
 		if (!prefixes[g.id]) prefixes[g.id] = config.prefix
 	})
+	setTimeout(() => console.log('Shutting down in 30 minutes.'), 19800000)
+	setTimeout(() => process.exit(), 21600000)
+
 
 	fs.writeFileSync("./db/prefixdb.json", JSON.stringify(prefixes, "", "\t"))
 

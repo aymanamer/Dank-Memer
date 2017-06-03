@@ -1,12 +1,5 @@
 exports.run = function (client, msg, args) {
-    const ytdl = require('ytdl-core')
-    let mlg = ["https://www.youtube.com/watch?v=ltZ6dtr1Abo", "https://www.youtube.com/watch?v=ApcFBZVbAPA", "https://www.youtube.com/watch?v=4zuQfIGcpBQ", "https://www.youtube.com/watch?v=htq8lim23Ug", "https://www.youtube.com/watch?v=ss7q8bTDskU", "https://www.youtube.com/watch?v=gzSxBoxxzVM", "https://www.youtube.com/watch?v=g1uKIA7qjgM", "https://www.youtube.com/watch?v=BzrLzqL3A44", "https://www.youtube.com/watch?v=vg7ZrQKExIo", "https://www.youtube.com/watch?v=jaOGGIfJkJk", "https://www.youtube.com/watch?v=u1eoHBzS9E8", "https://www.youtube.com/watch?v=SQhuC-I5sD8", "https://www.youtube.com/watch?v=D62L3husEa0", "https://www.youtube.com/watch?v=tx1LX80fot8", "https://www.youtube.com/watch?v=IR5KWeZRtrw", "https://www.youtube.com/watch?v=QxB5A7tFvZM", "https://www.youtube.com/watch?v=GSSZdwL67Ok", "https://www.youtube.com/watch?v=mVHJ6OwTYWc", "https://www.youtube.com/watch?v=dURU4zD2z5Q", "https://www.youtube.com/watch?v=FRatgC3S0IA&feature=youtu.be", "https://www.youtube.com/watch?v=HiLn2yrM1GM&feature=youtu.be", "https://www.youtube.com/watch?v=PgdtZNdgHy8&feature=youtu.be"]
-    const {
-        randomInArray
-    } = require('../utils')
-
-     if (!msg.guild.member(client.user).hasPermission('SEND_MESSAGES')) return msg.author.send('I do not have permission to send messages in that channel! Please fix this to use this command.').catch(console.error)
-    if (!msg.guild.member(client.user).hasPermission('ADD_REACTIONS')) return msg.reply('I do not have permission to react to messages in this server/channel! Please fix this to use this command.').catch(console.error)
+    const randomFile = require('random-file')
      if (!msg.guild.member(client.user).hasPermission('CONNECT')) return msg.reply('I do not have permission to connect to that voice channel! Please fix this to use this command.').catch(console.error)
         if (!msg.guild.member(client.user).hasPermission('SPEAK')) return msg.reply('I do not have permission to speak in that voice channel! Please fix this to use this command.').catch(console.error)
 
@@ -22,13 +15,16 @@ exports.run = function (client, msg, args) {
         if (!client.voiceConnections.get(msg.guild.id)) {
             msg.react("👌")
             msg.member.voiceChannel.join().then(conn => {
-                const stream = ytdl(randomInArray(mlg), { filter: 'audioonly' })
-                const dispatcher = conn.playStream(stream)
+                const dir = '/assets/mlg'
+                randomFile(dir, (err, file) => {
+                    console.log(`The random file is: ${file}.`)
+                })
+                conn.playFile(`./assets/mlg/${file}`)
                 conn.player.dispatcher.once("end", () => {
                     conn.channel.leave()
                 })
             }).catch(e => {
-                msg.reply("there was an error playing this dank MLG remix")
+                msg.reply("Couldn't join your voicechannel ¯\\_(ツ)_/¯")
                 console.log(`${new Date()}: ${e.message}`)
             })
 
