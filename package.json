@@ -9,6 +9,7 @@
     "gifencoder": "^1.0.6",
     "gm": "^1.23.0",
     "jimp": "^0.2.28",
+    "node-opus": "^0.2.6",
     "one-liner-joke": "^1.0.0",
     "random-file": "^1.0.0",
     "react-trump": "^0.2.1",
