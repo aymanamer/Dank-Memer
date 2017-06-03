@@ -26,7 +26,7 @@ exports.run = function (client, msg, args) {
             })
 
         } else {
-            msg.reply("only one sound at once, dude.")
+            msg.reply("only one sound at once, dude. <:fonking:289506756667637760>")
             msg.react("❌")
         }
     }

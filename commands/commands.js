@@ -12,7 +12,7 @@ exports.run = function (client, msg, args, config, Discord) {
 		.addField('🎮 Game Commands', 'givefuck (WIP)')
 		.addField('<:LUL:298887728161095681> Tags & text ｍａｎｉｐｕｌａｔｉｏｎ', 'feelsbadman, justright, vaporwave')
 		.addField('🖼 Image Manipulation', 'trigger *(thanks StupidCat)*, invert, salty, warp')
-		.addField('🎤 Voice Commands', 'airhorn, knock, mlg, scare, shitsound')
+		.addField('🎤 Voice Commands', 'airhorn, knock, mlg, rickroll, scare, shitsound, stop')
 		.addField('ℹ Utilities and Information', 'commands, help, melmsie, ping, prefix, stats, vote')
 		.setFooter(`Any questions or ideas? Come hang out on this server: discord.gg/3GNMJBG`)
 	})

@@ -1,8 +1,6 @@
 exports.run = function (client, msg, args) {
 
-    if (!msg.guild.member(client.user).hasPermission('SEND_MESSAGES')) return msg.author.send('I do not have permission to send messages in that channel! Please fix this to use this command.').catch(console.error)
-    if (!msg.guild.member(client.user).hasPermission('ADD_REACTIONS')) return msg.reply('I do not have permission to react to messages in this server/channel! Please fix this to use this command.').catch(console.error)
-    if (!msg.member.voiceChannel) {
+  if (!msg.member.voiceChannel) {
         if (!msg.guild.member(client.user).hasPermission('CONNECT')) return msg.reply('I do not have permission to connect to that voice channel! Please fix this to use this command.').catch(console.error)
         if (!msg.guild.member(client.user).hasPermission('SPEAK')) return msg.reply('I do not have permission to speak in that voice channel! Please fix this to use this command.').catch(console.error)
 
@@ -26,7 +24,7 @@ exports.run = function (client, msg, args) {
             })
 
         } else {
-            msg.reply("I only have one airhorn, dude.")
+            msg.reply("I only have one airhorn, dude. <:fonking:289506756667637760>")
             msg.react("❌")
         }
     }
