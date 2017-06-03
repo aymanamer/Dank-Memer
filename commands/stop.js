@@ -1,5 +1,5 @@
 exports.run = function (client, msg, args) {
-    if (client.user.voiceChannel) {
+    if (client.voiceConnections.get(msg.guild.id)) {
         if (msg.author.voiceChannel) {
             client.voiceConnections.get(msg.guild.id).channel.leave()
             msg.react('😢')
