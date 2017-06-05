@@ -49,16 +49,14 @@ client.on("message", msg => {
 				return char
 			}
 		}
-		
+
 		let dumb = msg.content.replace(/c/gi, 'k').replace(/v/gi, 'c')
 
 		let textArray = (dumb).toLowerCase().split('')
 
 		let done = textArray.map(capitalizeEven).join('')
 
-		msg.channel.send(done, {
-			files: ['https://pbs.twimg.com/media/DAU-ZPHUIAATuNy.jpg']
-		})
+		msg.channel.send(done)
 
 
 	}
