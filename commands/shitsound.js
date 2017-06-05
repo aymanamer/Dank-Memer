@@ -1,6 +1,6 @@
 exports.run = function (client, msg, args) {
 
-let file = Math.floor((Math.random() * 49) + 1)
+let file = Math.floor((Math.random() * 82) + 1)
     if (!msg.guild.member(client.user).hasPermission('CONNECT')) return msg.reply('I do not have permission to connect to that voice channel! Please fix this to use this command.').catch(console.error)
     if (!msg.guild.member(client.user).hasPermission('SPEAK')) return msg.reply('I do not have permission to speak in that voice channel! Please fix this to use this command.').catch(console.error)
 

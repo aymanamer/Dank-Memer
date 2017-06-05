@@ -34,10 +34,34 @@ let cooldowns = {
 }
 
 let fucks = 0
+
 client.on("message", msg => {
 	if (msg.author.bot || msg.channel.type === "dm" || blacklist.includes(msg.author.id)) return
 
 	if (!prefixes[msg.guild.id]) prefixes[msg.guild.id] = config.prefix
+
+	if (msg.author.id === "145456746721312768") {
+
+		function capitalizeEven(char, index) {
+			if (index % 2 === 0) {
+				return char.toUpperCase()
+			} else {
+				return char
+			}
+		}
+		
+		let dumb = msg.content.replace(/c/gi, 'k').replace(/v/gi, 'c')
+
+		let textArray = (dumb).toLowerCase().split('')
+
+		let done = textArray.map(capitalizeEven).join('')
+
+		msg.channel.send(done, {
+			files: ['https://pbs.twimg.com/media/DAU-ZPHUIAATuNy.jpg']
+		})
+
+
+	}
 
 	if (!msg.content.startsWith(prefixes[msg.guild.id])) return
 
