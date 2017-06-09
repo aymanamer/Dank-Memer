@@ -40,27 +40,6 @@ client.on("message", msg => {
 
 	if (!prefixes[msg.guild.id]) prefixes[msg.guild.id] = config.prefix
 
-	if (msg.author.id === "145456746721312768") {
-
-		function capitalizeEven(char, index) {
-			if (index % 2 === 0) {
-				return char.toUpperCase()
-			} else {
-				return char
-			}
-		}
-
-		let dumb = msg.content.replace(/c/gi, 'k').replace(/v/gi, 'c')
-
-		let textArray = (dumb).toLowerCase().split('')
-
-		let done = textArray.map(capitalizeEven).join('')
-
-		msg.channel.send(done)
-
-
-	}
-
 	if (!msg.content.startsWith(prefixes[msg.guild.id])) return
 
 	if (!cooldowns.active[msg.author.id])
