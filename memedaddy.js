@@ -12,6 +12,10 @@ const Discord = require("discord.js")
 const client = new Discord.Client({
 	disableEveryone: true
 })
+var StatsD = require('node-dogstatsd').StatsD;
+var dogstatsd = new StatsD();
+
+dogstatsd.increment('client.guild.size')
 
 client.login(config.token)
 
