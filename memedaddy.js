@@ -1,21 +1,11 @@
 const config = require("./config.json")
 const fs = require("fs")
 const util = require("util")
-statsdb = require("./db/statsdb.json")
-prefixes = {}
-const {
-	whitelist,
-	blacklist
-} = require("./db/bwlist.json")
-const superagent = require("superagent")
+const snekfetch = require("snekfetch")
 const Discord = require("discord.js")
 const client = new Discord.Client({
 	disableEveryone: true
 })
-var StatsD = require('node-dogstatsd').StatsD;
-var dogstatsd = new StatsD();
-
-dogstatsd.increment('client.guild.size')
 
 client.login(config.token)
 
@@ -25,31 +15,37 @@ const commandsPath = "./commands"
 let cooldowns = {
 	active: {},
 	times: {
-		trigger: 8000,
+		trigger: 10000,
 		meme: 1000,
-		warp: 8000,
+		warp: 10000,
 		pupper: 5000,
 		justright: 2000,
-		salty: 8000,
+		salty: 10000,
 		mama: 3000,
 		fuckoff: 1500,
-		feedback: 10000
+		shitsound: 2000,
+		annoy: 20000,
+		clean: 2000,
+		magik: 10000,
+		annoy: 900000,
+		spam: 900000
 	}
 }
 
-let fucks = 0
 
 client.on("message", msg => {
-	if (msg.author.bot || msg.channel.type === "dm" || blacklist.includes(msg.author.id)) return
+	if (msg.author.bot || msg.channel.type === "dm") return
 
-	if (!prefixes[msg.guild.id]) prefixes[msg.guild.id] = config.prefix
+	if (msg.isMentioned(client.user.id) && msg.content.includes("help")) {
+		msg.channel.send(`Hello, ${msg.author.username}. My prefix is \`pls\`. Example: \`pls meme\``)
+	}
 
-	if (!msg.content.startsWith(prefixes[msg.guild.id])) return
+	if (!msg.content.toLowerCase().startsWith(config.prefix)) return 
 
 	if (!cooldowns.active[msg.author.id])
 		cooldowns.active[msg.author.id] = []
 
-	const command = msg.content.substring(prefixes[msg.guild.id].length + 1).toLowerCase().split(" ")[0]
+	const command = msg.content.substring(config.prefix.length + 1).toLowerCase().split(" ")[0]
 	const args = msg.content.split(" ").slice(2)
 
 	if (command === "eval") {
@@ -82,15 +78,19 @@ client.on("message", msg => {
 		}
 	}
 
-	if (command === "givefuck") {
-
-		++fucks
-		msg.channel.send('Fucks given (From all users): ' + fucks)
-	}
-
 	if (command) {
-		if (cooldowns.active[msg.author.id].includes(command))
-			return msg.channel.send("This command is currently in cooldown.")
+		if (cooldowns.active[msg.author.id].includes(command)) {
+			if (cooldowns.active[msg.author.id].includes('annoy')) {
+				return msg.channel.send("After annoying someone, it is 15 minutes until you can annoy someone again!")
+			}
+			if (cooldowns.active[msg.author.id].includes('spam')) {
+				return msg.channel.send("After spamming, it is 15 minutes until you can spam again.")
+			}
+			
+			return msg.channel.send("This command is currently in cooldown. Try again in a few seconds.")
+		}
+			
+			
 		cooldowns.active[msg.author.id].push(command)
 
 
@@ -118,36 +118,22 @@ client.on("guildCreate", async(guild) => {
 	const guilds = await client.shard.fetchClientValues('guilds.size')
 	const count = guilds.reduce((prev, val) => prev + val, 0)
 
-	superagent
+	snekfetch
 		.post("https://bots.discord.pw/api/bots/270904126974590976/stats")
-		.send({
-			"server_count": count
-		})
 		.set("Authorization", config.pwtoken)
-		.end()
+		.send({ "server_count": count })
+		.then(console.log('Updated dbots status.'))
 
-	superagent
+	snekfetch
 		.post("https://discordbots.org/api/bots/270904126974590976/stats")
-		.send({
-			"server_count": count
-		})
 		.set("Authorization", config.orgtoken)
-		.end()
-
-
-
-	prefixes[guild.id] = config.prefix
-
-
-	fs.writeFile("./db/prefixdb.json", JSON.stringify(prefixes, "", "\t"), (err) => {
-		if (err) return console.log(Date() + " createGuildHandler error: " + err)
-
-	})
+		.send({ "server_count": count })
+		.then(console.log('Updated dbots status.'))
 
 
 	let bots = guild.members.filter(gm => gm.user.bot).size
 	let percentage = Math.round((bots / guild.members.size * 100))
-	if (!whitelist.includes(guild.id) && percentage > 90 && bots > 20) {
+	if (percentage > 90 && bots > 20) {
 		guild.defaultChannel.send(`Thanks for trying to add ${client.user.username}, but if you're seeing this, that means you have more than 20 bots.\n\nCan you not? Just delete a few bots and you'll be good 👌`)
 			.then(() => {
 				guild.leave()
@@ -167,55 +153,11 @@ client.on("guildCreate", async(guild) => {
 	}
 })
 
-client.on("guildDelete", async guild => {
-
-	const guilds = await client.shard.fetchClientValues('guilds.size')
-	const count = guilds.reduce((prev, val) => prev + val, 0)
-
-
-	superagent
-		.post("https://bots.discord.pw/api/bots/270904126974590976/stats")
-		.send({
-			"server_count": count
-		})
-		.set("Authorization", config.pwtoken)
-		.end()
-
-	superagent
-		.post("https://discordbots.org/api/bots/270904126974590976/stats")
-		.send({
-			"server_count": count
-		})
-		.set("Authorization", config.orgtoken)
-		.end()
-
-
-
-	if (prefixes[guild.id]) {
-		delete prefixes[guild.id];
-
-		fs.writeFile("./db/prefixdb.json", JSON.stringify(prefixes, "", "\t"), (err) => {
-			if (err) return console.log(Date() + " createGuildHandler error: " + err)
-
-		})
-
-	}
-
-
-})
 
 client.once("ready", () => {
 	console.log(`[${new Date()}] ${client.user.username} loaded successfully.`)
 
-	client.guilds.map(g => {
-		if (!prefixes[g.id]) prefixes[g.id] = config.prefix
-	})
-	setTimeout(() => console.log('Shutting down in 30 minutes.'), 19800000)
-	setTimeout(() => process.exit(), 21600000)
-
-
-	fs.writeFileSync("./db/prefixdb.json", JSON.stringify(prefixes, "", "\t"))
-
+	setTimeout(() => process.exit(), 86400000)
 
 })
 

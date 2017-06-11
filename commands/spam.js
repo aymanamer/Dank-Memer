@@ -1,7 +1,7 @@
 exports.run = function (client, msg, args, config, Discord) {
     const donators = [
         "172571295077105664", //me
-        "234129266097389580" // YourPalDerpy#6380
+        "162134224353230848" // magikarp
     ]
     const servers = [
         "281482896265707520",
@@ -20,24 +20,14 @@ exports.run = function (client, msg, args, config, Discord) {
         return msg.channel.send('Sorry, Melmsie likes this server too much to let you spam.')
     }
 
-    if (!msg.author['cooldown'])
-        msg.author['cooldown'] = 1
-
-
-    if (msg.author['cooldown'] + 30000 > Date.now())
-        return msg.channel.send('ratelimited by b1nzy bytch http://b1nzy-ratelimited.me/ \nAka, you can only spam once per 30 seconds, otherwise the bot is bannable by discord', {
-            reply: msg.author
-        })
-
     if (!args[0])
         return msg.reply('What do you want me to spam?')
 
-    if (args.join(' ').length > 1950) //change 1000 to whatever you wawnt
+    if (args.join(' ').length > 1900) 
         return msg.channel.send('Too long.', {
             reply: msg.author
         })
 
-    msg.author['cooldown'] = Date.now()
 
 
 

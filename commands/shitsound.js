@@ -26,7 +26,7 @@ let file = Math.floor((Math.random() * 82) + 1)
             })
 
         } else {
-            msg.reply("Only have one shit song at once, dude. <:fonking:289506756667637760>")
+            msg.reply("only one shit sound at once, dude. <:fonking:289506756667637760>")
             msg.react("❌")
         }
     }
