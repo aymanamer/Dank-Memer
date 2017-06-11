@@ -17,7 +17,7 @@ exports.run = function (client, msg, args, config, Discord) {
 	let haha = setInterval(intervalFunc, 30000)
 
 	setTimeout(function () {
-		clearInterval(haha).catch(console.error)
+		clearInterval(haha)
 	}, 300000)
 
 }
