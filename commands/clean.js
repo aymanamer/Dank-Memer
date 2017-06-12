@@ -1,4 +1,8 @@
-exports.run = function (client, msg, args) {
+exports.run = function (client, msg) {
+    if (!msg.channel.permissionsFor(client.user.id).has("MANAGE_MESSAGES")) {
+        return msg.author.send('I don\'t have permission to send pictures in #' + msg.channel.name).catch(console.error)
+    }
+
     let num = parseInt(25)
     msg.channel.fetchMessages({
         limit: 100

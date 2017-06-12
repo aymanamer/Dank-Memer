@@ -2,6 +2,7 @@ const config = require("./config.json")
 const fs = require("fs")
 const util = require("util")
 const snekfetch = require("snekfetch")
+var r = require('rethinkdb')
 const Discord = require("discord.js")
 const client = new Discord.Client({
 	disableEveryone: true
