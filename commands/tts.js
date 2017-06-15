@@ -1,8 +1,8 @@
 exports.run = function (client, msg, args, config, Discord) {
-	if (!msg.guild.member(client.user).hasPermission('SEND_MESSAGES')) return msg.author.send('I do not have permission to send messages in that channel! Please fix this to use this command.').catch(console.error)
 
-	if (!msg.guild.member(client.user).hasPermission('SEND_TTS_MESSAGES')) return msg.author.send('I do not have permission to send messages in that channel! Please fix this to use this command.').catch(console.error)
-
+	if (!msg.channel.permissionsFor(client.user.id).has("SEND_MESSAGES") || !msg.channel.permissionsFor(client.user.id).has("SEND_TTS_MESSAGES")) {
+		return msg.author.send('I either don\'t have permission to send messages or I don\'t have permission to send tts messages in #' + msg.channel.name)
+	}
 	
 		try {
 			if (!args[0]) {

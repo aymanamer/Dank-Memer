@@ -15,7 +15,12 @@ const commandsPath = "./commands"
 let cooldowns = {
 	active: {},
 	times: {
-		
+		magik: 10000,
+		trigger: 10000,
+		salty: 10000,
+		meme: 2000,
+		spam: 900000,
+		annoy: 900000
 	}
 }
 
