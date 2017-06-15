@@ -1,20 +1,15 @@
-const { meme } = require('../assets/arrays.json')
-const { randomInArray } = require('../utils')
+const snekfetch = require('snekfetch');
 
-exports.run = function (client, msg) {
+exports.run = async function (undefined, msg) {
+	const res = await snekfetch.get('https://www.reddit.com/u/kerdaloo/m/dankmemer/top/.json?sort=top&t=day&limit=500') // 1k later on?
+	const post = res.body.data.children
+		.filter(post => post.data.preview)[Math.floor(Math.random() * res.body.data.children.length)] // :v
 
-    if (!msg.channel.permissionsFor(client.user.id).has("ATTACH_FILES")) {
-        return msg.author.send('I don\'t have permission to send pictures in #' + msg.channel.name)
-    }
-
-    try {
-        msg.channel.send({
-            files: [randomInArray(meme)]
-        })
-       
-    } catch (e) {
-        console.log(Date() + " - " + e)
-        msg.reply('no.')
-    }
-
+	msg.channel.send({ embed: {
+		title: post.data.title,
+		url: post.data.url,
+		image: { url: post.data.preview.images[0].source.url },
+		description: post.data.url,
+		footer: { text: `posted by ${post.data.author}` }
+	}})
 }
