@@ -1,1 +1,0 @@
-I know that prefixes keep getting reset, but I'm not fixing it till I set up a proper database <<:thonking:310893875822592001>310893875822592001>

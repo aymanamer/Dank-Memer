@@ -1,15 +1,14 @@
-const fs = require("fs")
-
 exports.run = function (client, msg, args, config, Discord) {
-
-	msg.channel.send({embed: new Discord.RichEmbed()
-        .setColor('#7d5bbe')
-        .setTitle(`${client.user.username} - Help\n`)
-		.setDescription(`Latest Announcement:\n${fs.readFileSync("./db/announcement.txt").toString()}`)
-        .addField(`Prefix: ${config.prefix}`, `Example: ${config.prefix} shitpost`)
-        .addField('Commands', `Send "${config.prefix} commands" to see a full list of commands.`)
-        .addField('Most Popular Commands', 'pls shitpost, pls shitsound, pls meme, pls trigger')
-        .addField('Links', '[Bot invite](https://discordapp.com/oauth2/authorize?client_id=270904126974590976&scope=bot&permissions=3073) | [Support server invite](https://discord.gg/Ek6MM5n)')
-    })
-
+	msg.channel.send("", {embed: new Discord.RichEmbed()
+		.setColor('#3676b3')
+		.setAuthor(`Commands 💯 👌 🔥`)
+		.setDescription(`Want a place to meme? [Join my server!](https://discord.gg/3GNMJBG)`)
+		.addField('<:oktrump:294941965416660992> Memey Commands', 'annoy, asktrump, cowsay, gooby, justright, kill, meme, mock, pun, sfw, shitpost')
+		.addField('💵  Donator Commands', 'donate, custom, repeat, spam')
+		.addField('💰 Donator Tags', 'doge, dolan, fuckyeah, kappa, kappa pride, lenny, lul, megusta, thisisfine, troll')
+		.addField('📷 Image Manipulation', 'invert, magik, salty, trigger, warp')
+		.addField('🎙 Voice Commands', 'airhorn, funeral, knock, mlg, rickroll, scare, shitsound, stop')
+		.addField('🔧 Utilities and Information', 'clean, debug, help, melmsie, ping, stats, tts')
+		.setFooter(`Special thanks to CrimsonXV and Aetheryx. Credit for trigger goes to stupidcat.`)
+	})
 }

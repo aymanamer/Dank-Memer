@@ -15,20 +15,7 @@ const commandsPath = "./commands"
 let cooldowns = {
 	active: {},
 	times: {
-		trigger: 10000,
-		meme: 1000,
-		warp: 10000,
-		pupper: 5000,
-		justright: 2000,
-		salty: 10000,
-		mama: 3000,
-		fuckoff: 1500,
-		shitsound: 2000,
-		annoy: 20000,
-		clean: 2000,
-		magik: 10000,
-		annoy: 900000,
-		spam: 900000
+		
 	}
 }
 
@@ -45,8 +32,13 @@ client.on("message", msg => {
 	if (!cooldowns.active[msg.author.id])
 		cooldowns.active[msg.author.id] = []
 
-	const command = msg.content.substring(config.prefix.length + 1).toLowerCase().split(" ")[0]
+	let command = msg.content.slice(config.prefix.length + 1).toLowerCase().split(" ")[0]
 	const args = msg.content.split(" ").slice(2)
+
+	delete require.cache[require.resolve("./aliases.json")]
+	let aliases = require("./aliases.json")
+	if (aliases[command]) command = aliases[command]
+
 
 	if (command === "eval") {
 		if (msg.author.id !== config.owner) return
@@ -104,9 +96,9 @@ client.on("message", msg => {
 				return msg.author.send('I either don\'t have permission to send messages or I don\'t have permission to embed links in #' + msg.channel.name)
 			}
 			require("./commands/" + command).run(client, msg, args, config, Discord)
-
+			
 		} catch (e) {
-			if (e.message.includes("Cannot find module")) return
+			if (e.message.includes("Cannot find module")) return console.log(e)
 			console.log(e)
 		}
 	}
@@ -130,19 +122,6 @@ client.on("guildCreate", async(guild) => {
 		.send({ "server_count": count })
 		.then(console.log('Updated dbots status.'))
 
-
-	let bots = guild.members.filter(gm => gm.user.bot).size
-	let percentage = Math.round((bots / guild.members.size * 100))
-	if (percentage > 90 && bots > 20) {
-		guild.defaultChannel.send(`Thanks for trying to add ${client.user.username}, but if you're seeing this, that means you have more than 20 bots.\n\nCan you not? Just delete a few bots and you'll be good 👌`)
-			.then(() => {
-				guild.leave()
-			})
-			.catch(e => {
-				console.log(e.message) // probably forbidden or something
-			})
-
-	} else {
 		guild.defaultChannel.sendEmbed(new Discord.RichEmbed()
 			.setColor("#ffffff")
 			.setTitle("Hello!")
@@ -150,14 +129,13 @@ client.on("guildCreate", async(guild) => {
 		).catch(e => {
 			console.log(`Failed to send welcome message to ${guild.name}\n${e.message}`)
 		})
-	}
 })
 
 
 client.once("ready", () => {
 	console.log(`[${new Date()}] ${client.user.username} loaded successfully.`)
 
-	setTimeout(() => process.exit(), 86400000)
+	setTimeout(() => process.exit(), 43200000)
 
 })
 
