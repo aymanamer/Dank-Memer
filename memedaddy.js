@@ -19,8 +19,12 @@ let cooldowns = {
 	}
 }
 
+const ignore = ["110373943822540800", "110374153562886144"]
 
 client.on("message", msg => {
+
+	if (ignore.includes(msg.channel.id)) return
+	
 	if (msg.author.bot || msg.channel.type === "dm") return
 
 	if (msg.isMentioned(client.user.id) && msg.content.includes("help")) {
@@ -98,7 +102,7 @@ client.on("message", msg => {
 			require("./commands/" + command).run(client, msg, args, config, Discord)
 			
 		} catch (e) {
-			if (e.message.includes("Cannot find module")) return console.log(e)
+			if (e.message.includes("Cannot find module")) return
 			console.log(e)
 		}
 	}

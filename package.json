@@ -6,6 +6,7 @@
   "dependencies": {
     "blasphemy": "0.0.2",
     "bufferutil": "^3.0.1",
+    "cowsay": "^1.1.9",
     "discord.js": "^11.1.0",
     "erlpack": "^0.1.2",
     "gifencoder": "^1.0.6",
