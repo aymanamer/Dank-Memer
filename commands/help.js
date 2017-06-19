@@ -3,7 +3,7 @@ exports.run = function (client, msg, args, config, Discord) {
 		.setColor('#3676b3')
 		.setAuthor(`Commands 💯 👌 🔥`)
 		.setDescription(`Want a place to meme? [Join my server!](https://discord.gg/3GNMJBG)`)
-		.addField('<:feelsgreatman:326155536800284673> Memey Commands', 'annoy, asktrump, bother, cowsay, justright, kill, meme, mock, pun, shitpost')
+		.addField('<:feelsgreatman:326155536800284673> Memey Commands', 'annoy, asktrump, bother, cowsay, joke, justright, kill, meme, mock, pun, shitpost')
 		.addField('💵  Donator Commands', 'custom, patreon, repeat, spam')
 		.addField('💰 Donator Tags', 'doge, dolan, fuckyeah, kappa, kappa pride, lenny, lul, megusta, thisisfine, troll')
 		.addField('📷 Image Manipulation', 'invert, magik, salty, trigger, warp')

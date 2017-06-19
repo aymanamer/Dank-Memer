@@ -24,7 +24,7 @@ exports.run = function (client, msg, args) {
             })
 
         } else {
-            msg.reply("I only have one airhorn, dude. <:fonking:289506756667637760>")
+            msg.reply("I can only play one song at once, dude. <:fonking:289506756667637760>")
             msg.react("❌")
         }
     }

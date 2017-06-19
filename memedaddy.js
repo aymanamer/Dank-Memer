@@ -1,7 +1,6 @@
 const config = require("./config.json")
 const blacklist = require("./blacklist.json")
 const fs = require("fs")
-const util = require("util")
 const snekfetch = require("snekfetch")
 const Discord = require("discord.js")
 const client = new Discord.Client({
@@ -10,18 +9,31 @@ const client = new Discord.Client({
 
 client.login(config.token)
 
-
 const commandsPath = "./commands"
 
 let cooldowns = {
 	active: {},
 	times: {
-		magik: 3000,
-		trigger: 5000,
-		salty: 5000,
+		magik: 10000,
+		trigger: 10000,
+		salty: 10000,
+		bother: 5000,
 		meme: 1000,
-		spam: 900000,
-		annoy: 900000
+		spam: 2400000,
+		annoy: 900000,
+		cowsay: 3000,
+		justright: 2000,
+		kill: 1000,
+		mock: 5000,
+		shitpost: 1000,
+		invert: 5000,
+		warp: 5000,
+		scare: 10000,
+		rickroll: 10000,
+		shitsound: 10000,
+		mlg: 10000,
+		tts: 15000
+		
 	}
 }
 
@@ -51,56 +63,23 @@ client.on("message", msg => {
 	let aliases = require("./aliases.json")
 	if (aliases[command]) command = aliases[command]
 
-
-	if (command === "eval") {
-		if (msg.author.id !== config.owner) return
-		try {
-			let before = Date.now()
-			let rep = new RegExp(client.user.email + "|" + client.token, "gi");
-			let code = eval(args.join(" "));
-			if (typeof code === "string") code = code.replace(rep, "*");
-			else code = util.inspect(code, {
-				depth: 0
-			}).replace(rep, "*");
-			let evalTime = Date.now() - before
-			msg.channel.send({
-				embed: new Discord.RichEmbed()
-					.setColor("#7d5bbe")
-					.setFooter(`evaluated in ${evalTime}ms`)
-					.addField("Input", `\`\`\`js\n${args.join(' ')}\`\`\``)
-					.addField("Output", `\`\`\`js\n${code}\`\`\``)
-
-			})
-		} catch (e) {
-			msg.channel.send({
-				embed: new Discord.RichEmbed()
-					.setColor("#7d5bbe")
-					.addField("Input", `\`\`\`js\n${args.join(' ')}\`\`\``)
-					.addField("Output", `\`\`\`js\n${e}\`\`\``)
-
-			})
-		}
-	}
-
 	if (command) {
 		if (cooldowns.active[msg.author.id].includes(command)) {
 			if (cooldowns.active[msg.author.id].includes('annoy')) {
-				return msg.channel.send("After annoying someone, it is 15 minutes until you can annoy someone again!")
+				return msg.channel.send("After annoying someone, it is 15 minutes until you can annoy someone again!\nIf you're a donor, you get to use it 75% faster!")
 			}
 			if (cooldowns.active[msg.author.id].includes('spam')) {
-				return msg.channel.send("After spamming, it is 15 minutes until you can spam again.")
+				return msg.channel.send("After spamming, it is 10 minutes until you can spam again.")
 			}
 
-			return msg.channel.send("This command is currently in cooldown. Try again in a few seconds.")
+			return msg.channel.send("This command is currently in cooldown. Try again in a few seconds.\nIf you're a donor, you get to use it 75% faster!")
 		}
-
 
 		cooldowns.active[msg.author.id].push(command)
 
-
 		setTimeout(() => {
 			cooldowns.active[msg.author.id].splice(cooldowns.active[msg.author.id].indexOf(command), 1)
-		}, cooldowns.times[command])
+		}, config.donor1.includes(msg.author.id) || config.donor5.includes(msg.author.id) || config.donor10.includes(msg.author.id) ? cooldowns.times[command] * 0.25 : cooldowns.times[command])
 
 		try {
 			delete require.cache[require.resolve("./commands/" + command)]
@@ -158,6 +137,11 @@ client.once("ready", () => {
 	console.log(`[${new Date()}] ${client.user.username} loaded successfully.`)
 
 	setTimeout(() => process.exit(), 54000000)
+
+	client.indexes = {
+		"meme": {},
+		"joke": {}
+	}
 
 })
 

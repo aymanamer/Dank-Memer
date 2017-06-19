@@ -1,4 +1,5 @@
 exports.run = function (client, msg, args) {
+
     if (client.voiceConnections.get(msg.guild.id)) {
         client.voiceConnections.get(msg.guild.id).channel.leave()
         msg.react('😢')
