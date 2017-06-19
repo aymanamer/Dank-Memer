@@ -52,7 +52,7 @@ exports.run = function (client, msg, args, config, Discord) {
 
         setTimeout(function () {
             clearInterval(haha)
-        }, 300000)
+        }, 30000)
 
     } else {
         return msg.channel.send('This is a donator only command! To gain access, you must donate $5 or more here: <https://www.patreon.com/melmsie>', {
