@@ -1,4 +1,5 @@
 const config = require("./config.json")
+const blacklist = require("./blacklist.json")
 const fs = require("fs")
 const util = require("util")
 const snekfetch = require("snekfetch")
@@ -15,10 +16,10 @@ const commandsPath = "./commands"
 let cooldowns = {
 	active: {},
 	times: {
-		magik: 10000,
-		trigger: 10000,
-		salty: 10000,
-		meme: 2000,
+		magik: 3000,
+		trigger: 5000,
+		salty: 5000,
+		meme: 1000,
 		spam: 900000,
 		annoy: 900000
 	}
@@ -29,14 +30,16 @@ const ignore = ["110373943822540800", "110374153562886144"]
 client.on("message", msg => {
 
 	if (ignore.includes(msg.channel.id)) return
-	
+
+	if (blacklist.people.includes(msg.author.id)) return
+
 	if (msg.author.bot || msg.channel.type === "dm") return
 
 	if (msg.isMentioned(client.user.id) && msg.content.includes("help")) {
 		msg.channel.send(`Hello, ${msg.author.username}. My prefix is \`pls\`. Example: \`pls meme\``)
 	}
 
-	if (!msg.content.toLowerCase().startsWith(config.prefix)) return 
+	if (!msg.content.toLowerCase().startsWith(config.prefix)) return
 
 	if (!cooldowns.active[msg.author.id])
 		cooldowns.active[msg.author.id] = []
@@ -87,11 +90,11 @@ client.on("message", msg => {
 			if (cooldowns.active[msg.author.id].includes('spam')) {
 				return msg.channel.send("After spamming, it is 15 minutes until you can spam again.")
 			}
-			
+
 			return msg.channel.send("This command is currently in cooldown. Try again in a few seconds.")
 		}
-			
-			
+
+
 		cooldowns.active[msg.author.id].push(command)
 
 
@@ -105,7 +108,7 @@ client.on("message", msg => {
 				return msg.author.send('I either don\'t have permission to send messages or I don\'t have permission to embed links in #' + msg.channel.name)
 			}
 			require("./commands/" + command).run(client, msg, args, config, Discord)
-			
+
 		} catch (e) {
 			if (e.message.includes("Cannot find module")) return
 			console.log(e)
@@ -122,30 +125,40 @@ client.on("guildCreate", async(guild) => {
 	snekfetch
 		.post("https://bots.discord.pw/api/bots/270904126974590976/stats")
 		.set("Authorization", config.pwtoken)
-		.send({ "server_count": count })
+		.send({
+			"server_count": count
+		})
 		.then(console.log('Updated dbots status.'))
 
 	snekfetch
 		.post("https://discordbots.org/api/bots/270904126974590976/stats")
 		.set("Authorization", config.orgtoken)
-		.send({ "server_count": count })
+		.send({
+			"server_count": count
+		})
 		.then(console.log('Updated dbots status.'))
 
-		guild.defaultChannel.sendEmbed(new Discord.RichEmbed()
-			.setColor("#ffffff")
-			.setTitle("Hello!")
-			.setDescription(`My name is ${client.user.username}.\n\nTo get started, send \`pls help\`.\n\nI am maintained by Melmsie#0006, who can be found at [this server](https://discord.gg/3GNMJBG) if you need to talk to him.`)
-		).catch(e => {
-			console.log(`Failed to send welcome message to ${guild.name}\n${e.message}`)
-		})
+	guild.defaultChannel.sendEmbed(new Discord.RichEmbed()
+		.setColor("#656fff")
+		.setTitle("Hello!")
+		.setDescription(`My name is ${client.user.username}.\n\nTo get started, send \`pls help\`.\n\nI am maintained by Melmsie#0006, who can be found at [this server](https://discord.gg/3GNMJBG) if you need to talk to him.`)
+	).catch(e => {
+		console.log(`Failed to send welcome message to ${guild.name}\n${e.message}`)
+		guild.owner.send({
+			embed: new Discord.RichEmbed()
+				.setColor("#656fff")
+				.setTitle("Hello!")
+				.setDescription(`My name is ${client.user.username}.\n\nTo get started, send \`pls help\` in your server.\n\nI am maintained by Melmsie#0006, who can be found at [this server](https://discord.gg/3GNMJBG) if you need to talk to him.`)
+		}).catch(console.log('The god damn guild owner couldn\'t get the message either'))
+	})
 })
 
 
 client.once("ready", () => {
 	console.log(`[${new Date()}] ${client.user.username} loaded successfully.`)
 
-	setTimeout(() => process.exit(), 43200000)
+	setTimeout(() => process.exit(), 54000000)
 
 })
 
-process.on('unhandledRejection', err => console.error(`${Date()} Uncaught Promise Error: \n${err.stack}`));
+process.on('unhandledRejection', err => console.error(`${Date()}\n Uncaught Promise Error: \n${err.stack}`));

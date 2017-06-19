@@ -48,11 +48,11 @@ exports.run = function (client, msg, args, config, Discord) {
             msg.channel.send(args.join(' '))
         }
 
-        let haha = setInterval(intervalFunc, 1250)
+        let haha = setInterval(intervalFunc, 1500)
 
         setTimeout(function () {
             clearInterval(haha)
-        }, 30000)
+        }, 300000)
 
     } else {
         return msg.channel.send('This is a donator only command! To gain access, you must donate $5 or more here: <https://www.patreon.com/melmsie>', {

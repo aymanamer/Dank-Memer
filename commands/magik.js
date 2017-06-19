@@ -1,44 +1,28 @@
-const gm = require('gm');
-const sf = require('snekfetch');
+const snakefetch = require("snekfetch")
 
 exports.run = async function (client, msg, args) {
 
-	let avatarURL;
+	msg.channel.startTyping()
 
-	if (msg.mentions.users.size > 0) {
-		avatarURL = msg.mentions.users.first()
-	} else if (args.length > 0) {
-		if (isNaN(args[0])) {
-			avatarURL = args[0];
-		} else {
-			avatarURL = client.users.has(args[0]) && client.users.get(args[0]);
-		}
+	let avatarurl = (msg.mentions.users.size > 0 ? msg.mentions.users.first().displayAvatarURL : msg.author.displayAvatarURL).replace("gif", "png");
+
+	let data = await snakefetch
+		.get("http://www.get-ur-me.me/api/magik")
+		.set("Api-Key", "XfGC62d9xKiOc4IegPdz")
+		.set("data-src", avatarurl)
+
+
+	if (data.status === 200) {
+		msg.channel.send({
+			files: [{
+				name: "magik.png",
+				attachment: data.body
+			}]
+		})
+		msg.channel.stopTyping()
 	} else {
-		avatarURL = msg.author;
+		msg.channel.send('Error: ' + data.text)
+		msg.channel.stopTyping()
 	}
 
-	if (!avatarURL)
-		return msg.edit("User not found.");
-
-	if (typeof avatarURL === "object")
-		avatarURL = avatarURL.displayAvatarURL.replace(/gif|webp/gi, "png");
-
-	avatarURL = avatarURL.replace(/\<|\>/g, "");
-
-	let data = await sf.get(avatarURL);
-
-	msg.channel.startTyping();
-
-	gm(data.body)
-		.implode(-3)
-		.toBuffer('PNG', (err, buffer) => {
-			msg.channel.send({ files: [{ name: "magik.png", attachment: buffer }] })
-				.catch(err => {
-					msg.channel.send("Couldn't generate an image for that user.");
-					msg.channel.stopTyping(true);
-				});
-			msg.channel.stopTyping(true);
-		});
-
 }
-
