@@ -1,5 +1,5 @@
 const snekfetch = require('snekfetch')
-exports.run = function (client, msg, args) {
+exports.run = function (client, msg, args, config) {
 
 	if (args.length < 1) return msg.channel.sendMessage(`Please enter in format \`${config.prefix} fuckoff @Who to fuck\``)
 
