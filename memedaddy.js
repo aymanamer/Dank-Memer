@@ -143,6 +143,8 @@ client.once("ready", () => {
 		"joke": {}
 	}
 
+	client.user.setGame('name', 'twitch url')
+
 })
 
 process.on('unhandledRejection', err => console.error(`${Date()}\n Uncaught Promise Error: \n${err.stack}`));
