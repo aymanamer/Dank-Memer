@@ -144,7 +144,7 @@ client.once("ready", () => {
 		"shitpost": {}
 	}
 
-	client.user.setGame('name', 'twitch url')
+	client.user.setGame('with dat boi', 'https://www.twitch.tv/melmsie')
 
 })
 
