@@ -32,7 +32,13 @@ let cooldowns = {
 		rickroll: 10000,
 		shitsound: 10000,
 		mlg: 10000,
-		tts: 15000
+		tts: 15000,
+		jail: 8000,
+		spank: 10000,
+		batslap: 10000,
+		brazzers: 8000,
+		drake: 10000,
+		ifunny: 8000
 		
 	}
 }
