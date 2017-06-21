@@ -1,12 +1,6 @@
-exports.run = function (client, msg, args, config, Discord) {
-
-	let user = msg.mentions.users.first()
-	let member = msg.guild.member(user)
-
+exports.run = function (undefined, msg) {
 	if (msg.mentions.users.size === 0) {
 		msg.author.send('Now I get to annoy you by sending you a message every 30 seconds for 5 minutes! Next time, you should really tag someone else to annoy!').catch()
-	
-
 		function intervalFunc() {
 			msg.author.send('Haha, you annoyed yourself!').catch()
 		}
@@ -17,6 +11,7 @@ exports.run = function (client, msg, args, config, Discord) {
 			clearInterval(haha)
 		}, 300000)
 	} else {
+		let user = msg.mentions.users.first()
 
 		user.send('I\'ve been sent by ' + msg.author.username + ' to annoy you. :^)\n\nSee you every 30 seconds for the next 5 minutes ;)').catch(e => {
 			msg.author.send(`You sent me to annoy ${user.username}, but I don\'t have permission to DM them! Get counter annoyed every 30 seconds for the next 5 minutes, fool!`).catch()
@@ -33,7 +28,5 @@ exports.run = function (client, msg, args, config, Discord) {
 		setTimeout(function () {
 			clearInterval(haha)
 		}, 300000)
-
 	}
-
 }
