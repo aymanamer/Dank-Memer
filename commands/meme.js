@@ -2,7 +2,7 @@ const snekfetch = require('snekfetch')
 const color = [0x7d5bbe, 0xa3d3fe, 0x333333, 0x007acc, 0xf56154,  0xdc3522] 
 
 exports.run = async function (client, msg) {
-	const res = await snekfetch.get('https://www.reddit.com/u/kerdaloo/m/dankmemer/top/.json?sort=top&t=day&limit=100')
+	const res = await snekfetch.get('https://www.reddit.com/u/kerdaloo/m/dankmemer/top/.json?sort=top&t=day&limit=500')
 	let posts = res.body.data.children.filter(post => post.data.preview)
 
 	if (!client.indexes.meme[msg.guild.id] || client.indexes.meme[msg.guild.id] >= posts.length)

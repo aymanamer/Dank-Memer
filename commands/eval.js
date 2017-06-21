@@ -1,13 +1,14 @@
 exports.run = function (client, msg, args, config, Discord) {
 	if (msg.author.id !== config.owner) return
 	let res
+	let evalTime
 	try {
 		let before = Date.now()
 		let rep = new RegExp(client.user.email + '|' + client.token, 'gi')
 		res = eval(args.join(' '))
 		if (typeof res === 'string') res = res.replace(rep, '*')
 		else res = util.inspect(res, { depth: 0 }).replace(rep, '*')
-		let evalTime = Date.now() - before
+		evalTime = Date.now() - before
 	} catch (err) {
 		res = err
 	}
