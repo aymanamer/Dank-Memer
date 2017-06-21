@@ -1,4 +1,4 @@
-exports.run = function (client, msg, args) {
+exports.run = function (client, msg, args, config, Discord) {
 	if (msg.author.id !== config.owner) return
 	let res
 	try {
