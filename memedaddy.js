@@ -140,7 +140,8 @@ client.once("ready", () => {
 
 	client.indexes = {
 		"meme": {},
-		"joke": {}
+		"joke": {},
+		"shitpost": {}
 	}
 
 	client.user.setGame('name', 'twitch url')

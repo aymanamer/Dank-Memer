@@ -1,28 +1,22 @@
-const snakefetch = require("snekfetch")
+let Jimp = require('jimp')
 
 exports.run = async function (client, msg, args) {
+	let avatarurl = msg.mentions.users.size > 0 ? msg.mentions.users.first().displayAvatarURL.replace("gif", "png") : msg.author.displayAvatarURL.replace("gif", "png")
+	let avatar = await Jimp.read(avatarurl)
+	let brazz = await Jimp.read("./assets/jail.png")
+	avatar.greyscale()
+	brazz.resize(Jimp.AUTO, 350)
+	avatar.resize(350, 350)
+	avatar.composite(brazz, 0, 0)
+	avatar.getBuffer(Jimp.MIME_PNG, (err, buffer) => {
+		try {
+			msg.channel.sendFile(buffer)
+		} catch (e) {
+			console.log(e)
+			msg.reply('there was an error with this command.')
+		}
+	})
 
-	msg.channel.startTyping()
-
-	let avatarurl = (msg.mentions.users.size > 0 ? msg.mentions.users.first().displayAvatarURL : msg.author.displayAvatarURL).replace("gif", "png");
-
-	let data = await snakefetch
-		.get("http://www.get-ur-me.me/api/jail")
-		.set("Api-Key", "XfGC62d9xKiOc4IegPdz")
-		.set("data-src", avatarurl)
-
-
-	if (data.status === 200) {
-		msg.channel.send({
-			files: [{
-				name: "jail.png",
-				attachment: data.body
-			}]
-		})
-		msg.channel.stopTyping()
-	} else {
-		msg.channel.send('Error: ' + data.text)
-		msg.channel.stopTyping()
-	}
 
 }
+
