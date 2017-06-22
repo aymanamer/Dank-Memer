@@ -37,8 +37,7 @@ let cooldowns = {
 		spank: 10000,
 		batslap: 10000,
 		brazzers: 8000,
-		drake: 10000,
-		ifunny: 8000
+		drake: 10000
 		
 	}
 }

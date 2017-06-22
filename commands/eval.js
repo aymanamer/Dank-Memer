@@ -1,3 +1,4 @@
+const util = require("util")
 exports.run = function (client, msg, args, config, Discord) {
 	if (msg.author.id !== config.owner) return
 	let res
