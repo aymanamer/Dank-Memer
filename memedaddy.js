@@ -37,7 +37,8 @@ let cooldowns = {
 		spank: 10000,
 		batslap: 10000,
 		brazzers: 8000,
-		drake: 10000
+		drake: 10000,
+		tweet: 900000
 		
 	}
 }
@@ -73,6 +74,9 @@ client.on("message", msg => {
 		if (cooldowns.active[msg.author.id].includes(command)) {
 			if (cooldowns.active[msg.author.id].includes('annoy')) {
 				return msg.channel.send("After annoying someone, it is 15 minutes until you can annoy someone again!\nIf you're a donor, you get to use it 75% faster!")
+			}
+			if (cooldowns.active[msg.author.id].includes('tweet')) {
+				return msg.channel.send("After tweeting, it is 15 minutes until you can annoy someone again!\nIf you're a donor, you get to use it 75% faster!")
 			}
 			if (cooldowns.active[msg.author.id].includes('spam')) {
 				return msg.channel.send("After spamming, it is 10 minutes until you can spam again.")
