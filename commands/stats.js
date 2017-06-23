@@ -1,4 +1,5 @@
 
+
 exports.run = async function (client, msg, undefined, config, Discord) {
 
 	const guilds = (await client.shard.fetchClientValues('guilds.size')).reduce((a, b) => a + b)
@@ -10,8 +11,8 @@ exports.run = async function (client, msg, undefined, config, Discord) {
 			.setColor('#7d5bbe')
 			.setTitle(`${client.user.username} - Stats (${config.version})`)
 			.setDescription(`Uptime: ${process.uptime() | 0} seconds`)
-			.addField('Websocket Ping', client.shard.id, true)
-			.addField('Shard', percentageCPU + '% Usage', true)
+			.addField('Websocket Ping', `${(client.ping).toFixed(0)} ms`, true)
+			.addField('Shard', client.shard.id, true)
 			.addField('RAM Usage', `RSS: ${(process.memoryUsage().rss / 1048576).toFixed()}MB\nHeap: ${(process.memoryUsage().heapUsed / 1024 / 1024).toFixed(2)}MB`, true)
 			.addField('Total Servers', guilds, true)
 			.addField('Total Users', users, true)
