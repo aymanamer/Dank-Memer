@@ -42,6 +42,7 @@ let cooldowns = {
 	}
 }
 
+
 const ignore = ["110373943822540800", "110374153562886144"]
 
 client.on("message", msg => {
