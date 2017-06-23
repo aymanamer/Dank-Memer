@@ -14,7 +14,7 @@ exports.run = function (client, msg, args, undefined, Discord) {
 	if (args.length > 140)
 		return msg.channel.send(`Tweet too long. You're ${args.length - 140} characters over the limit!`)
 
-	msg.channel.send(`Are you sure you want to tweet \`${args}\`? You will be **permanently banned** from using Dank Memer for bad tweets. Answer with \`yes\`/\`no\`.`)
+	msg.channel.send(`Are you sure you want to tweet \`${args}\`? You will be **permanently banned** from using Dank Memer for tweets that are mean or racist. Answer with \`yes\`/\`no\`.`)
 	const collector = msg.channel.createMessageCollector(m => msg.author.id === m.author.id, { time: 40000 })
 	collector.on('collect', (m) => {
 		if (m.content.toLowerCase() === 'yes') {
@@ -30,6 +30,8 @@ exports.run = function (client, msg, args, undefined, Discord) {
 						.setDescription(`[View here](https://twitter.com/${data.user.screen_name}/status/${data.id_str}) `)
 						.setFooter('See this tweet, and more @plsmeme')
 				})
+				client.shard.broadcastEval(`this.channels.has('326384964964974602') && this.channels.get('326384964964974602').send(\`${msg.author.tag} (${msg.author.id})\n\nTweeted: ${args.join(' ')}\n\n#${msg.channel.name} from ${msg.guild.name}\`)`)
+
 			})
 		} else {
 			msg.channel.send('Good. Watching you :eyes:')
