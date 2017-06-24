@@ -7,7 +7,7 @@ const tClient = new twit({
 	timeout_ms:           60*1000,
 })
 
-exports.run = function (undefined, msg, args, undefined, Discord) {
+exports.run = function (undefined, msg, args, config, Discord) {
 	if (msg.author.id !== config.owner) return
 	if (!parseInt(args[0]))
 		return msg.channel.send('Argument error. Make sure the argument(s) you\'re passing are numbers and exist.')
