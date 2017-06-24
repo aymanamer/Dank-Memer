@@ -1,5 +1,4 @@
 const config = require("./config.json")
-const blacklist = require("./blacklist.json")
 const fs = require("fs")
 const snekfetch = require("snekfetch")
 const Discord = require("discord.js")
@@ -32,7 +31,6 @@ let cooldowns = {
 		rickroll: 10000,
 		shitsound: 10000,
 		mlg: 10000,
-		tts: 15000,
 		jail: 8000,
 		spank: 10000,
 		batslap: 10000,
@@ -50,6 +48,8 @@ client.on("message", msg => {
 
 	if (ignore.includes(msg.channel.id)) return
 
+	let black = require('./blacklist.json')
+	delete require.cache[require.resolve('./blacklist.json')]
 	if (blacklist.people.includes(msg.author.id)) return
 
 	if (msg.author.bot || msg.channel.type === "dm") return
@@ -145,8 +145,6 @@ client.on("guildCreate", async(guild) => {
 
 client.once("ready", () => {
 	console.log(`[${new Date()}] ${client.user.username} loaded successfully.`)
-
-	setTimeout(() => process.exit(), 54000000)
 
 	client.indexes = {
 		"meme": {},
