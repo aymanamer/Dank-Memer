@@ -1,6 +1,6 @@
 const fs = require('fs')
 const bl = require('../blacklist.json')
-exports.run = function (client, msg, args, undefined, Discord) {
+exports.run = function (client, msg, args, config, Discord) {
 	if (msg.author.id !== config.owner) return
 	if (!args[0] || !['add', 'remove'].includes(args[0].toLowerCase()) || !args[1])
 		return msg.channel.send('Argument error. Make sure your first argument is one of `add` or `remove`.')
