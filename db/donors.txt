@@ -1,10 +1,9 @@
 ~$1~
 
 Shit Apple#3222 - 291422304544620544 - Justas Mikulskis
-coolfocks#0408 - 293517698275737601 - Tomáš Staněk
 <--David-->#6196 - 268506966521806856 - Davíð Þór Eiðsson
 Aetheryx#2222 - 284122164582416385 - Aetheryx
-Rainer Zufahl#9575 - 161752907878760448 - Rainer Zufahl
+canceled => Rainer Zufahl#9575 - 161752907878760448 - Rainer Zufahl
 
 ~$5~
 
@@ -19,7 +18,7 @@ null - null - Koolio
 
 Melmsie#0006 - 172571295077105664 - Melmsie
 Swiggity#7716 - 221060582986612749 - Tristan Curtis \ swiggity, doit
-XKefka#7965 - 299396137071280128 - Greg Hooper
+canceled => XKefka#7965 - 299396137071280128 - Greg Hooper
 TheMightyGamer7#6047 - 207512050363006976 - KingTehMasteh Sucks
 Piedra ~ 💕A#0359 (295954825844097024) + 3 friends ("280145911764615168", "310848744494989314", "322854126499397642")
 Pyro#7891 - 288810372016635916 - George Lopaz (friend: )
