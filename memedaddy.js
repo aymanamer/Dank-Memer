@@ -99,7 +99,7 @@ client.on("message", msg => {
 			require("./commands/" + command).run(client, msg, args, config, Discord)
 
 		} catch (e) {
-			client.shard.broadcastEval(`const { RichEmbed } = require('discord.js')\nthis.channels.has('328020341592948736') && this.channels.get('328020341592948736').send({ embed: new RichEmbed().setTitle('New tweet:').setAuthor('New Error').setDescription('${e}').setColor('#ff120a').setTimestamp('${new Date()})}')`)
+		
 			return console.log(e)
 		}
 	}
@@ -158,6 +158,4 @@ client.once("ready", () => {
 
 })
 
-process.on('unhandledRejection', err => {
-	client.shard.broadcastEval(`const { RichEmbed } = require('discord.js')\nthis.channels.has('328020341592948736') && this.channels.get('328020341592948736').send({ embed: new RichEmbed().setTitle('New tweet:').setAuthor('New Error').setDescription('${err}').setColor('#ff120a').setTimestamp('${new Date()})}')`)
-});
+process.on('unhandledRejection', err => console.error(`${Date()}\n Uncaught Promise Error: \n${err.stack}`));
