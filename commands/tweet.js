@@ -30,8 +30,7 @@ exports.run = function (client, msg, args, undefined, Discord) {
 						.setDescription(`[View here](https://twitter.com/${data.user.screen_name}/status/${data.id_str}) `)
 						.setFooter('See this tweet, and more @plsmeme')
 				})
-				client.shard.broadcastEval(`this.channels.has('326384964964974602') && this.channels.get('326384964964974602').send(\`${msg.author.tag} (${msg.author.id})\n\nTweeted: **${args}**\n\n#${msg.channel.name} from ${msg.guild.name}\`)`)
-
+				client.shard.broadcastEval(`const { RichEmbed } = require('discord.js')\nthis.channels.has('299983128875892736') && this.channels.get('299983128875892736').send({ embed: new RichEmbed().setTitle('New tweet:').setAuthor('${msg.author.tag} | ${msg.author.id}').setDescription('${args}').addField('Sent from:', '${msg.channel.name} in ${msg.guild.name}').setColor('#4099FF').setFooter('ID: ${data.id_str}')})`) // 326384964964974602
 			})
 		} else {
 			msg.channel.send('Good. Watching you :eyes:')
