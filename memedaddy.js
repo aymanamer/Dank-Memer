@@ -99,8 +99,8 @@ client.on("message", msg => {
 			require("./commands/" + command).run(client, msg, args, config, Discord)
 
 		} catch (e) {
-			if (e.message.includes("Cannot find module")) return
-			console.log(e)
+		
+			return console.log(e)
 		}
 	}
 })
