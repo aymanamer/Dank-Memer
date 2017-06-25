@@ -1,7 +1,7 @@
 const Dickpunch = require('discord.js')
 const GetYourOwnToken = require('./config.json').token
 
-let shard = new Dickpunch.ShardingManager('./memedaddy.js', { token: GetYourOwnToken })
+let shard = new Dickpunch.ShardingManager('./memedaddy.js', { token: GetYourOwnToken, respawn: true  })
 
 shard.spawn(10)
 

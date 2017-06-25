@@ -9,7 +9,7 @@ exports.run = function (undefined, msg, undefined, undefined, Discord) {
 			.addField('💰 Donator Tags', 'doge, dolan, fuckyeah, kappa, kappa pride, lenny, lul, megusta, thisisfine, troll')
 			.addField('📷 Image Manipulation', 'batslap, brazzers, drake, ifunny, invert, jail, magik, salty, spank, trigger, warp')
 			.addField('🎙 Voice Commands', 'airhorn, knock, mlg, nicememe, rickroll, scare, shitsound, stop')
-			.addField('🔧 Utilities and Information', 'clean, help, melmsie, ping, stats, tts')
+			.addField('🔧 Utilities and Information', 'clean, emoji, help, melmsie, ping, stats, tts')
 			.addField('⏱ Coming Soon', 'funeral, sfw, disable commands per guild')
 			.setFooter('Special thanks to CrimsonXV and Aetheryx. Credit for trigger goes to stupidcat.')
 	})
