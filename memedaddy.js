@@ -141,7 +141,7 @@ client.once('ready', () => {
 	}
 	client.blacklist = require('./blacklist.json')
 
-	client.user.setGame('with dat boi', 'https://www.twitch.tv/melmsie')
+	client.user.setGame('hello', 'https://www.twitch.tv/melmsie')
 })
 
 process.on('unhandledRejection', err => console.error(`${Date()}\n Uncaught Promise Error: \n${err.stack}`))
