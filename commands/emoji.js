@@ -1,5 +1,5 @@
-exports.run = function (client, msg, args, config, Discord) {
-	let emoji = client.guilds.filter(g => g.emojis.first()).random().emojis.random()
+exports.run = async function (client, msg, args, config, Discord) {
+	let emoji = await client.guilds.filter(g => g.emojis.first()).random().emojis.random()
 	msg.channel.send({
 		embed: new Discord.RichEmbed()
 			.setColor('#3676b3')

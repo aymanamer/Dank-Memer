@@ -16,8 +16,10 @@ exports.run = async function (client, msg) {
 				name: 'triggered.gif',
 				attachment: data.body
 			}]
+		}).then(m => {
+			client.shard.broadcastEval(`const { RichEmbed } = require('discord.js')\nthis.channels.has('329799125015199744') && this.channels.get('329799125015199744').send({ embed: new RichEmbed().setAuthor('${msg.author.tag}').setImage('${m.attachments.first().url}') .addField('Sent from:', '#${msg.channel.name} in ${msg.guild.name}').setColor('#00c853')})`)
+			msg.channel.stopTyping()
 		})
-		msg.channel.stopTyping()
 	} else {
 		msg.channel.send('Error: ' + data.text)
 		msg.channel.stopTyping()
