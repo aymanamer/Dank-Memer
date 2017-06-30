@@ -2,7 +2,9 @@ const config = require('./config.json')
 const fs = require('fs')
 const snekfetch = require('snekfetch')
 const Discord = require('discord.js')
-const client = new Discord.Client({ disableEveryone: true })
+const client = new Discord.Client({
+	disableEveryone: true
+})
 
 client.login(config.token)
 
@@ -39,7 +41,7 @@ let cooldowns = {
 		needsmorejpeg: 8000,
 		byemom: 10000,
 		dank: 10000
-		
+
 	}
 }
 
@@ -98,7 +100,9 @@ client.on('message', msg => {
 			}
 			require('./commands/' + command).run(client, msg, args, config, Discord)
 
-			client.shard.broadcastEval(`const { RichEmbed } = require('discord.js')\nthis.channels.has('330162371609886721') && this.channels.get('330162371609886721').send({ embed: new RichEmbed().setAuthor('${msg.author.tag}', '${msg.author.avatarURL}').setDescription('pls ${command} ${args}').addField('Place','#${msg.channel.name} in ${msg.guild.name}').addField('Time','${new Date}').setFooter('Shard where command occured: ${client.shard.id}').setColor('#9ddeda')})`).catch(err=>{console.log(err.message)})
+			client.shard.broadcastEval(`const { RichEmbed } = require('discord.js')\nthis.channels.has('330162371609886721') && this.channels.get('330162371609886721').send({ embed: new RichEmbed().setAuthor('${msg.author.tag}', '${msg.author.avatarURL}').setDescription('pls ${command} ${args}').addField('Place','#${msg.channel.name} in ${msg.guild.name}').addField('Time','${new Date}').setFooter('Shard where command occured: ${client.shard.id}').setColor('#9ddeda')})`).catch(err => {
+				console.log(err.message)
+			})
 		} catch (e) {
 			if (e.message.includes("Cannot find module")) return
 			return console.log(e.message + e.stack)
@@ -113,13 +117,17 @@ client.on('guildCreate', async(guild) => {
 	snekfetch
 		.post('https://bots.discord.pw/api/bots/270904126974590976/stats')
 		.set('Authorization', config.pwtoken)
-		.send({ 'server_count': count })
+		.send({
+			'server_count': count
+		})
 		.then(console.log('Updated dbots status.'))
 
 	snekfetch
 		.post('https://discordbots.org/api/bots/270904126974590976/stats')
 		.set('Authorization', config.orgtoken)
-		.send({ 'server_count': count })
+		.send({
+			'server_count': count
+		})
 		.then(console.log('Updated dbots status.'))
 
 	guild.defaultChannel.send({
@@ -152,10 +160,10 @@ client.once('ready', () => {
 	client.user.setGame('hi', 'https://www.twitch.tv/melmsie')
 })
 
-process.on('unhandledRejection', (reason, p) => {
-	
-	client.shard.broadcastEval(`const { RichEmbed } = require('discord.js')\nthis.channels.has('3301623317848391681') && this.channels.get('330162331784839168').send({ embed: new RichEmbed().setAuthor('Error').setDescription('${reason}').addField('Time','${new Date}').setFooter('Shard where error occured: ${client.shard.id}').setColor('#ff120a')})`).catch(console.log(p))
+process.on('unhandledRejection', err => {
 
+	client.shard.broadcastEval(`const { RichEmbed } = require('discord.js')\nthis.channels.has('3301623317848391681') && this.channels.get('330162331784839168').send({ embed: new RichEmbed().setAuthor('Error').setDescription('${err.message}').addField('Time','${new Date}').setFooter('Shard where error occured: ${client.shard.id}').setColor('#ff120a')})`).catch(console.log("muh errors!"))
+	console.error(`${Date()}\n Uncaught Promise Error: \n${err.stack}`)
 })
 
 process.on('warning', (warning) => {
