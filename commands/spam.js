@@ -3,7 +3,7 @@ const servers = [
 	'264445053596991498',
 	'110373943822540800'
 ]
-exports.run = function (undefined, msg, args, config) {
+exports.run = function (client, msg, args, config) {
 	if (servers.includes(msg.guild.id)) 
 		return msg.channel.send('Sorry, Melmsie likes this server too much to let you spam.')
     

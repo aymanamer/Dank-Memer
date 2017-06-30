@@ -1,4 +1,4 @@
-exports.run = function (undefined, msg) {
+exports.run = function (client, msg) {
 	if (msg.mentions.users.size === 0) {
 		msg.author.send('Now I get to annoy you by sending you a message every 30 seconds for 5 minutes! Next time, you should really tag someone else to annoy!').catch()
 		function intervalFunc() {

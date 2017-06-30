@@ -1,4 +1,4 @@
-exports.run = async function (undefined, msg, undefined, undefined, Discord) {
+exports.run = async function (client, msg, args, config, Discord) {
 	await msg.author.send({
 		embed: new Discord.RichEmbed()
 			.setColor('#3676b3')

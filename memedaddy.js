@@ -154,7 +154,7 @@ client.once('ready', () => {
 
 process.on('unhandledRejection', (reason, p) => {
 	
-	client.shard.broadcastEval(`const { RichEmbed } = require('discord.js')\nthis.channels.has('330162371609886721') && this.channels.get('330162371609886721').send({ embed: new RichEmbed().setAuthor('Error').setDescription('${reason}').addField('Time','${new Date}').setFooter('Shard where error occured: ${client.shard.id}').setColor('#ff120a')})`).catch(console.log('An error was logged to #console at ' + new Date()))
+	client.shard.broadcastEval(`const { RichEmbed } = require('discord.js')\nthis.channels.has('3301623317848391681') && this.channels.get('330162331784839168').send({ embed: new RichEmbed().setAuthor('Error').setDescription('${reason}').addField('Time','${new Date}').setFooter('Shard where error occured: ${client.shard.id}').setColor('#ff120a')})`).catch(console.log('An error was logged to #console at ' + new Date()))
 
 })
 
@@ -163,5 +163,5 @@ process.on('warning', (warning) => {
 	console.warn(warning.message)
 	console.warn(warning.stack)
 
-	client.shard.broadcastEval(`const { RichEmbed } = require('discord.js')\nthis.channels.has('330162371609886721') && this.channels.get('330162371609886721').send({ embed: new RichEmbed().setAuthor('Node Warning: ${warning.name}').addField('Message', '${warning.message}').addField('Stack', '${warning.stack}').setFooter('Shard where error occured: ${client.shard.id}').addField('Time','${new Date}').setColor('#f75e35')})`).catch(console.log('your fucking logger is borked'))
+	client.shard.broadcastEval(`const { RichEmbed } = require('discord.js')\nthis.channels.has('330162331784839168') && this.channels.get('330162331784839168').send({ embed: new RichEmbed().setAuthor('Node Warning: ${warning.name}').addField('Message', '${warning.message}').addField('Stack', '${warning.stack}').setFooter('Shard where error occured: ${client.shard.id}').addField('Time','${new Date}').setColor('#f75e35')})`).catch(console.log('your fucking logger is borked'))
 })

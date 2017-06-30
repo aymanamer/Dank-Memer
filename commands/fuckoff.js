@@ -1,7 +1,7 @@
 const snekfetch = require('snekfetch')
 const { randomInArray } = require('../utils')
 
-exports.run = async function (undefined, msg, args, config) {
+exports.run = async function (client, msg, args, config) {
 	if (!args[0]) 
 		return msg.channel.send(`Please enter in format \`${config.prefix} fuckoff @Who to fuck\``)
 

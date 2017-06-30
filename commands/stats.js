@@ -1,6 +1,6 @@
 
 
-exports.run = async function (client, msg, undefined, config, Discord) {
+exports.run = async function (client, msg, args, config, Discord) {
 
 	const guilds = (await client.shard.fetchClientValues('guilds.size')).reduce((a, b) => a + b)
 	const vcs = (await client.shard.fetchClientValues('voiceConnections.size')).reduce((a, b) => a + b)

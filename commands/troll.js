@@ -1,4 +1,4 @@
-exports.run = function (client, msg, undefined, config) {
+exports.run = function (client, msg, args, config) {
 	if (!msg.channel.permissionsFor(client.user.id).has('ATTACH_FILES')) {
 		return msg.author.send('I don\'t have permission to send pictures in #' + msg.channel.name)
 	}

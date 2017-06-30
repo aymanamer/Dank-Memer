@@ -1,6 +1,6 @@
 const snakefetch = require('snekfetch')
 
-exports.run = async function (undefined, msg) {
+exports.run = async function (client, msg) {
 	msg.channel.startTyping()
 
 	let avatarurl = (msg.mentions.users.size > 0 ? msg.mentions.users.first().displayAvatarURL : msg.author.displayAvatarURL).replace('gif', 'png')

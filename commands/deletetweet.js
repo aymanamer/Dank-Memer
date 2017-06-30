@@ -7,7 +7,7 @@ const tClient = new twit({
 	timeout_ms:           60*1000,
 })
 
-exports.run = function (undefined, msg, args, config, Discord) {
+exports.run = function (client, msg, args, config, Discord) {
  
 	if (msg.author.id !== config.owner) return
 
