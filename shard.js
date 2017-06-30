@@ -3,7 +3,7 @@ const GetYourOwnToken = require('./config.json').token
 
 const shard = new Dickpunch.ShardingManager('./memedaddy.js', { token: GetYourOwnToken })
 
-shard.spawn(2)
+shard.spawn(10)
 
 shard.on('launch', shard => {
 	console.log(`SHARD LAUNCHED: ${shard.id}`)
