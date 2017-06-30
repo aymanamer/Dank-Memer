@@ -4,9 +4,9 @@ const servers = [
 	'110373943822540800'
 ]
 exports.run = function (client, msg, args, config) {
-	if (servers.includes(msg.guild.id)) 
+	if (servers.includes(msg.guild.id))
 		return msg.channel.send('Sorry, Melmsie likes this server too much to let you spam.')
-    
+
 	if (config.donor5.concat(config.donor10).includes(msg.author.id)) {
 		if (!args[0])
 			return msg.reply('What do you want me to spam?')

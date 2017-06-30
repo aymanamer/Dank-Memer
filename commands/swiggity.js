@@ -1,12 +1,12 @@
-exports.run = function (client, msg, args) {
+exports.run = function (client, msg) {
 	if (!msg.member.voiceChannel) {
 		msg.react('❌').then(() => {
 			msg.reply('join a voice channel fam')
 		})
 	} else {
-		if (!msg.guild.member(client.user).hasPermission('CONNECT')) 
+		if (!msg.guild.member(client.user).hasPermission('CONNECT'))
 			return msg.reply('I do not have permission to connect to that voice channel! Please fix this to use this command.').catch(console.error)
-		if (!msg.guild.member(client.user).hasPermission('SPEAK')) 
+		if (!msg.guild.member(client.user).hasPermission('SPEAK'))
 			return msg.reply('I do not have permission to speak in that voice channel! Please fix this to use this command.').catch(console.error)
 
 		if (!client.voiceConnections.get(msg.guild.id)) {

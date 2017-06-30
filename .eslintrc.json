@@ -41,7 +41,8 @@
             "error",
             "tab"
         ],
-        "no-trailing-spaces": "error"
+        "no-trailing-spaces": "error",
+        "no-dupe-args": "off"
     },
     "globals": {
         "client": true,

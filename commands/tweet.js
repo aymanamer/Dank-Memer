@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 const twit = require('twit')
 const tClient = new twit({
 	consumer_key:         'Gkan9QvKDjZgWnJajCPMZ8jxL',
