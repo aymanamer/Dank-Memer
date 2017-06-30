@@ -154,7 +154,7 @@ client.once('ready', () => {
 
 process.on('unhandledRejection', (reason, p) => {
 	
-	client.shard.broadcastEval(`const { RichEmbed } = require('discord.js')\nthis.channels.has('3301623317848391681') && this.channels.get('330162331784839168').send({ embed: new RichEmbed().setAuthor('Error').setDescription('${reason}').addField('Time','${new Date}').setFooter('Shard where error occured: ${client.shard.id}').setColor('#ff120a')})`).catch(console.log('An error was logged to #console at ' + new Date()))
+	client.shard.broadcastEval(`const { RichEmbed } = require('discord.js')\nthis.channels.has('3301623317848391681') && this.channels.get('330162331784839168').send({ embed: new RichEmbed().setAuthor('Error').setDescription('${reason}').addField('Time','${new Date}').setFooter('Shard where error occured: ${client.shard.id}').setColor('#ff120a')})`).catch(console.log(p))
 
 })
 
