@@ -161,8 +161,6 @@ client.once('ready', () => {
 })
 
 process.on('unhandledRejection', err => {
-
-	client.shard.broadcastEval(`const { RichEmbed } = require('discord.js')\nthis.channels.has('3301623317848391681') && this.channels.get('330162331784839168').send({ embed: new RichEmbed().setAuthor('Error').setDescription('${err.message}').addField('Time','${new Date}').setFooter('Shard where error occured: ${client.shard.id}').setColor('#ff120a')})`).catch(console.log("muh errors!"))
 	console.error(`${Date()}\n Uncaught Promise Error: \n${err.stack}`)
 })
 
