@@ -1,0 +1,53 @@
+{
+    "extends": "eslint:recommended",
+    "parserOptions": {
+        "ecmaVersion": 8,
+        "sourceType": "script"
+    },
+    "env": {
+        "node": true,
+        "es6": true
+    },
+    "rules": {
+        "semi": [
+            "error",
+            "never"
+        ],
+        "quotes": [
+            "error",
+            "single"
+        ],
+        "no-console": "off",
+        "no-extra-parens": "error",
+        "space-before-function-paren": [
+            "error",
+            "always"
+        ],
+        "no-whitespace-before-property": "error",
+        "curly": [
+            "error",
+            "multi",
+            "consistent"
+        ],
+        "eqeqeq": "error",
+        "space-before-blocks": [
+            "error",
+            "always"
+        ],
+        "prefer-arrow-callback": "error",
+        "prefer-const": "error",
+        "prefer-template": "error",
+        "indent": [
+            "error",
+            "tab"
+        ],
+        "no-trailing-spaces": "error"
+    },
+    "globals": {
+        "client": true,
+        "settings": true,
+        "Discord": true,
+        "db": true,
+        "prefixdb": true
+    }
+}
