@@ -100,7 +100,7 @@ client.on('message', msg => {
 			}
 			require('./commands/' + command).run(client, msg, args, config, Discord)
 
-			client.shard.broadcastEval(`const { RichEmbed } = require('discord.js')\nthis.channels.has('330162371609886721') && this.channels.get('330162371609886721').send({ embed: new RichEmbed().setAuthor('${msg.author.tag}', '${msg.author.avatarURL}').setDescription('pls ${command} ${args}').addField('Place','#${msg.channel.name} in ${msg.guild.name}').addField('Time','${new Date}').setFooter('Shard where command occured: ${client.shard.id}').setColor('#9ddeda')})`).catch(err => {
+			client.shard.broadcastEval(`const { RichEmbed } = require('discord.js')\nthis.channels.has('330162371609886721') && this.channels.get('330162371609886721').send({ embed: new RichEmbed().setAuthor('${msg.author.tag}', '${msg.author.avatarURL}').setDescription('pls ${command} ${args.join(' ')}').addField('Place','#${msg.channel.name} in ${msg.guild.name}').addField('Time','${new Date}').setFooter('Shard where command occured: ${client.shard.id}').setColor('#9ddeda')})`).catch(err => {
 				console.log(err.message)
 			})
 		} catch (e) {
@@ -162,12 +162,4 @@ client.once('ready', () => {
 
 process.on('unhandledRejection', err => {
 	console.error(`${Date()}\n Uncaught Promise Error: \n${err.stack}`)
-})
-
-process.on('warning', (warning) => {
-	console.warn(warning.name)
-	console.warn(warning.message)
-	console.warn(warning.stack)
-
-	client.shard.broadcastEval(`const { RichEmbed } = require('discord.js')\nthis.channels.has('330162331784839168') && this.channels.get('330162331784839168').send({ embed: new RichEmbed().setAuthor('Node Warning: ${warning.name}').addField('Message', '${warning.message}').addField('Stack', '${warning.stack}').setFooter('Shard where error occured: ${client.shard.id}').addField('Time','${new Date}').setColor('#f75e35')})`).catch(console.log('your fucking logger is borked'))
 })
