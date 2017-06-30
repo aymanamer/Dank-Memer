@@ -8,7 +8,6 @@ const tClient = new twit({
 })
 
 exports.run = function (client, msg, args, config, Discord) {
- 
 	if (msg.author.id !== config.owner) return
 
 	if (!parseInt(args[0]))
@@ -18,7 +17,7 @@ exports.run = function (client, msg, args, config, Discord) {
 		tClient.post('statuses/destroy/:id', { id: targetTweetID }, (err, data, response) => {
 			if (!err && response.statusCode === 200)
 
-				msg.channel.send({ 
+				msg.channel.send({
 					embed: new Discord.RichEmbed()
 						.setColor('#4099FF')
 						.setDescription(`Tweet ${targetTweetID} successfully deleted.`)

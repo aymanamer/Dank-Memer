@@ -1,4 +1,4 @@
-exports.run = function (client, msg, undefined, undefined, Discord) {
+exports.run = function (client, msg, args, config, Discord) {
 	msg.channel.send({
 		embed: new Discord.RichEmbed()
 			.setColor('#3676b3')

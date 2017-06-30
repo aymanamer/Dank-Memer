@@ -5,11 +5,11 @@ const { randomInArray } = require('../utils')
 exports.run = function (client, msg, args, config, Discord) {
 	if (!args[0]) return msg.reply('You gotta give me something to ask Trump :eyes:')
 
-	let question = args.join(' ')
-	let exclamations = 1
-	let incquestion = false
+	const question = args.join(' ')
+	const exclamations = 1
+	const incquestion = false
 
-	let answer = trump.answer({
+	const answer = trump.answer({
 		question,
 		exclamations,
 		incquestion

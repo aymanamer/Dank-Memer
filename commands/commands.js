@@ -1,5 +1,5 @@
-exports.run = function (client, msg, undefined, undefined, Discord) {
-	msg.channel.send({ 
+exports.run = function (client, msg, args, config, Discord) {
+	msg.channel.send({
 		embed: new Discord.RichEmbed()
 			.setColor('#3676b3')
 			.setAuthor('Commands 💯 👌 🔥')
