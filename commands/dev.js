@@ -7,7 +7,7 @@ exports.run = async function (client, msg, args, config, Discord) {
 
 
 	if (args[0] === ('help') || args.length < 1) {
-		await msg.channel.send('__Commands:__\neval `<args>`\nbash `<args>`\ngit `[pull]/[push]`\nreboot `[all]/[shard]`')
+		await msg.channel.send('__Commands:__\n\n❯ eval `<args>`\n❯ bash `<args>`\n❯ git `[pull]`\n❯ reboot `[all]/[shard]`')
 	} else if (args[0] === ('reboot')) {
 		if (args[1] === ('shard')) {
 			await msg.channel.send('Current shard rebooting...')
@@ -49,6 +49,16 @@ exports.run = async function (client, msg, args, config, Discord) {
 			if (stdout) msg.channel.send(`**Output**\n\`\`\`bash\n${stdout}\n\`\`\``)
 			if (stderr) msg.channel.send(`**Errors**\n\`\`\`bash\n${stderr}\n\`\`\``)
 		})
+	} else if (args[0] === ('git')) {
+		if (args[1] === ('pull')) {
+			await msg.channel.send('Pulling...')
+			exec('git pull', (e, stderr, stdout) => {
+				if (stdout) msg.channel.send(`**Output**\n\`\`\`bash\n${stdout}\n\`\`\``)
+				if (stderr) msg.channel.send(`**Errors**\n\`\`\`bash\n${stderr}\n\`\`\``)
+			})
+		} else {
+			return await msg.channel.send('As of right now, only `git pull` is available.')
+		}
 	}
 
 

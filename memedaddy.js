@@ -34,7 +34,12 @@ let cooldowns = {
 		batslap: 10000,
 		brazzers: 8000,
 		drake: 10000,
-		tweet: 900000	
+		tweet: 900000,
+		pride: 8000,
+		needsmorejpeg: 8000,
+		byemom: 10000,
+		dank: 10000
+		
 	}
 }
 
@@ -92,8 +97,11 @@ client.on('message', msg => {
 				return msg.author.send('I either don\'t have permission to send messages or I don\'t have permission to embed links in #' + msg.channel.name)
 			}
 			require('./commands/' + command).run(client, msg, args, config, Discord)
+
+			client.shard.broadcastEval(`const { RichEmbed } = require('discord.js')\nthis.channels.has('330162371609886721') && this.channels.get('330162371609886721').send({ embed: new RichEmbed().setAuthor('${msg.author.tag}', '${msg.author.avatarURL}').setDescription('pls ${command} ${args}').addField('Place','#${msg.channel.name} in ${msg.guild.name}').addField('Time','${new Date}').setFooter('Shard where command occured: ${client.shard.id}').setColor('#9ddeda')})`).catch(err=>{console.log(err.message)})
 		} catch (e) {
-			return console.log(e)
+			if (e.message.includes("Cannot find module")) return
+			return console.log(e.message + e.stack)
 		}
 	}
 })
@@ -141,7 +149,19 @@ client.once('ready', () => {
 	}
 	client.blacklist = require('./blacklist.json')
 
-	client.user.setGame('hello', 'https://www.twitch.tv/melmsie')
+	client.user.setGame('hi', 'https://www.twitch.tv/melmsie')
 })
 
-process.on('unhandledRejection', err => console.error(`${Date()}\n Uncaught Promise Error: \n${err.stack}`))
+process.on('unhandledRejection', (reason, p) => {
+	
+	client.shard.broadcastEval(`const { RichEmbed } = require('discord.js')\nthis.channels.has('330162371609886721') && this.channels.get('330162371609886721').send({ embed: new RichEmbed().setAuthor('Error').setDescription('${reason}').addField('Time','${new Date}').setFooter('Shard where error occured: ${client.shard.id}').setColor('#ff120a')})`).catch(console.log('An error was logged to #console at ' + new Date()))
+
+})
+
+process.on('warning', (warning) => {
+	console.warn(warning.name)
+	console.warn(warning.message)
+	console.warn(warning.stack)
+
+	client.shard.broadcastEval(`const { RichEmbed } = require('discord.js')\nthis.channels.has('330162371609886721') && this.channels.get('330162371609886721').send({ embed: new RichEmbed().setAuthor('Node Warning: ${warning.name}').addField('Message', '${warning.message}').addField('Stack', '${warning.stack}').setFooter('Shard where error occured: ${client.shard.id}').addField('Time','${new Date}').setColor('#f75e35')})`).catch(console.log('your fucking logger is borked'))
+})

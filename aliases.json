@@ -1,6 +1,5 @@
 {
-	"cmds": "help",
-	"commands": "help",
+	"cmds": "commands",
 	"trump": "asktrump",
 	"exec": "bash",
 	"blist": "blacklist",
@@ -20,5 +19,8 @@
 	"salt": "salty",
 	"vapor": "vaporwave",
 	"info": "stats",
-	"donate": "patreon"
+	"donate": "patreon",
+	"trickshot": "dank",
+	"bye": "byemom",
+	"jpeg": "needsmorejpeg"
 }

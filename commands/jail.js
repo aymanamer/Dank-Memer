@@ -13,7 +13,7 @@ exports.run = async function (client, msg, args) {
 	if (data.status === 200) {
 		msg.channel.send({
 			files: [{
-				name: 'warp.png',
+				name: 'jail.png',
 				attachment: data.body
 			}]
 		}).then(m => {

@@ -8,12 +8,16 @@ const tClient = new twit({
 })
 
 exports.run = function (undefined, msg, args, config, Discord) {
+ 
 	if (msg.author.id !== config.owner) return
+
 	if (!parseInt(args[0]))
 		return msg.channel.send('Argument error. Make sure the argument(s) you\'re passing are numbers and exist.')
 	args.filter(arg => parseInt(arg)).forEach(targetTweetID => {
+
 		tClient.post('statuses/destroy/:id', { id: targetTweetID }, (err, data, response) => {
 			if (!err && response.statusCode === 200)
+
 				msg.channel.send({ 
 					embed: new Discord.RichEmbed()
 						.setColor('#4099FF')
