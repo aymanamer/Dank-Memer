@@ -1,3 +1,4 @@
+/* eslint-disable */
 const Jimp = require('jimp')
 const path = require('path')
 const GIFEncoder = require('gifencoder')
@@ -38,7 +39,7 @@ exports.run = (URL) => {
 		let temp, x, y
 		for (let i = 0; i < frameCount; i++) {
 			temp = base.clone()
-			if (i == 0) {
+			if (i === 0) {
 				x = -20
 				y = -20
 			} else {
@@ -47,7 +48,7 @@ exports.run = (URL) => {
 			}
 			temp.composite(avatar, x, y)
 			temp.composite(overlay, 0, 0)
-			if (i == 0) {
+			if (i === 0) {
 				x = 175
 				y = 0
 			} else {
@@ -55,7 +56,7 @@ exports.run = (URL) => {
 				y = 0 + getRandomInt(-0, 12)
 			}
 			temp.composite(triggered, x, y)
-			if (i == 0) {
+			if (i === 0) {
 				x = -60
 				y = 0
 			} else {
@@ -63,7 +64,7 @@ exports.run = (URL) => {
 				y = 0 + getRandomInt(-2, 10)
 			}
 			temp.composite(triggered2, x, y)
-			if (i == 0) {
+			if (i === 0) {
 				x = 90
 				y = 65
 			} else {
@@ -71,7 +72,7 @@ exports.run = (URL) => {
 				y = 55 + getRandomInt(-30, 30)
 			}
 			temp.composite(hit, x, y)
-			if (i == 0) {
+			if (i === 0) {
 				x = 120
 				y = 130
 			} else {
@@ -79,7 +80,7 @@ exports.run = (URL) => {
 				y = 135 + getRandomInt(-2, 10)
 			}
 			temp.composite(gun, x, y)
-			if (i == 0) {
+			if (i === 0) {
 				x = 5
 				y = 212
 			} else {
