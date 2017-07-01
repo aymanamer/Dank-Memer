@@ -5,7 +5,7 @@ exports.run = async function (client, msg) {
 
 	const avatarurl = (msg.mentions.users.size > 0 ? msg.mentions.users.first().displayAvatarURL : msg.author.displayAvatarURL).replace('gif', 'png')
 	const data = await snakefetch
-        .get('http://www.get-ur-me.me/api/invert')
+        .get('http://www.get-ur-me.me/api/magik')
         .set('Api-Key', 'XfGC62d9xKiOc4IegPdz')
         .set('data-src', avatarurl)
 
