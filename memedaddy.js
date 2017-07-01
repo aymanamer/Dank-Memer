@@ -1,64 +1,24 @@
 const config = require('./config.json')
-const fs = require('fs')
 const snekfetch = require('snekfetch')
 const Discord = require('discord.js')
-const client = new Discord.Client({
-	disableEveryone: true
-})
+const client = new Discord.Client({ disableEveryone: true })
+const aliases = require('./cmdConfig.json').aliases
 
 client.login(config.token)
 
-const commandsPath = './commands'
-
-let cooldowns = {
+const cooldowns = {
 	active: {},
-	times: {
-		magik: 10000,
-		trigger: 10000,
-		salty: 10000,
-		bother: 5000,
-		meme: 1000,
-		spam: 2400000,
-		annoy: 3600000,
-		cowsay: 3000,
-		justright: 2000,
-		kill: 1000,
-		mock: 5000,
-		shitpost: 1000,
-		invert: 5000,
-		warp: 5000,
-		scare: 10000,
-		rickroll: 10000,
-		shitsound: 10000,
-		mlg: 10000,
-		jail: 8000,
-		spank: 10000,
-		batslap: 10000,
-		brazzers: 8000,
-		drake: 10000,
-		tweet: 900000,
-		pride: 8000,
-		needsmorejpeg: 8000,
-		byemom: 10000,
-		dank: 10000
-
-	}
+	times: require('./cmdConfig.json').cooldowns
 }
 
-
-const ignore = ['110373943822540800', '110374153562886144']
-
 client.on('message', msg => {
+	if (msg.channel.type === 'dm' || msg.author.bot ||
+	client.ids.blocked.user.includes(msg.author.id) ||
+	client.ids.blocked.channel.includes(msg.channel.id) ||
+	client.ids.blocked.guild.includes(msg.guild.id)) return
 
-	if (ignore.includes(msg.channel.id)) return
-
-	if (client.blacklist.people.includes(msg.author.id)) return
-
-	if (msg.author.bot || msg.channel.type === 'dm') return
-
-	if (msg.isMentioned(client.user.id) && msg.content.includes('help')) {
-		msg.channel.send(`Hello, ${msg.author.username}. My prefix is \`pls\`. Example: \`pls meme\``)
-	}
+	if (msg.isMentioned(client.user.id) && msg.content.includes('help'))
+		return msg.channel.send(`Hello, ${msg.author.username}. My prefix is \`pls\`. Example: \`pls meme\``)
 
 	if (!msg.content.toLowerCase().startsWith(config.prefix)) return
 
@@ -68,44 +28,41 @@ client.on('message', msg => {
 	let command = msg.content.slice(config.prefix.length + 1).toLowerCase().split(' ')[0]
 	const args = msg.content.split(' ').slice(2)
 
-	delete require.cache[require.resolve('./aliases.json')]
-	let aliases = require('./aliases.json')
-	if (aliases[command]) command = aliases[command]
+	if (aliases[command])
+		command = aliases[command]
 
 	if (command) {
 		if (cooldowns.active[msg.author.id].includes(command)) {
-			if (cooldowns.active[msg.author.id].includes('annoy')) {
+			if (cooldowns.active[msg.author.id].includes('annoy'))
 				return msg.channel.send('After annoying someone, it is an hour until you can annoy someone again!\nIf you\'re a donor, you get to use it 75% faster!')
-			}
-			if (cooldowns.active[msg.author.id].includes('tweet')) {
+
+			if (cooldowns.active[msg.author.id].includes('tweet'))
 				return msg.channel.send('After tweeting, it is 15 minutes until you can tweet again!\nIf you\'re a donor, you get to use it 75% faster!')
-			}
-			if (cooldowns.active[msg.author.id].includes('spam')) {
+
+			if (cooldowns.active[msg.author.id].includes('spam'))
 				return msg.channel.send('After spamming, it is 10 minutes until you can spam again.')
-			}
 
 			return msg.channel.send('This command is currently in cooldown. Try again in a few seconds.\nIf you\'re a donor, you get to use it 75% faster!')
 		}
 
-		cooldowns.active[msg.author.id].push(command)
+		if (!config.devs.includes(msg.author.id))
+			cooldowns.active[msg.author.id].push(command)
 
 		setTimeout(() => {
 			cooldowns.active[msg.author.id].splice(cooldowns.active[msg.author.id].indexOf(command), 1)
 		}, config.donor1.concat(config.donor5, config.donor10).includes(msg.author.id) ? cooldowns.times[command] * 0.25 : cooldowns.times[command])
 
 		try {
-			delete require.cache[require.resolve('./commands/' + command)]
-			if (!msg.channel.permissionsFor(client.user.id).has('SEND_MESSAGES') || !msg.channel.permissionsFor(client.user.id).has('EMBED_LINKS')) {
-				return msg.author.send('I either don\'t have permission to send messages or I don\'t have permission to embed links in #' + msg.channel.name)
-			}
-			require('./commands/' + command).run(client, msg, args, config, Discord)
+			delete require.cache[require.resolve(`./commands/${command}`)]
+			if (!msg.channel.permissionsFor(client.user.id).has('SEND_MESSAGES') || !msg.channel.permissionsFor(client.user.id).has('EMBED_LINKS'))
+				return msg.author.send(`I either don\'t have permission to send messages or I don\'t have permission to embed links in #${msg.channel.name}`)
 
-			client.shard.broadcastEval(`const { RichEmbed } = require('discord.js')\nthis.channels.has('330162371609886721') && this.channels.get('330162371609886721').send({ embed: new RichEmbed().setAuthor('${msg.author.tag}', '${msg.author.avatarURL}').setDescription('pls ${command} ${args.join(' ')}').addField('Place','#${msg.channel.name} in ${msg.guild.name}').addField('Time','${new Date}').setFooter('Shard where command occured: ${client.shard.id}').setColor('#9ddeda')})`).catch(err => {
-				console.log(err.message)
-			})
+			require(`./commands/${command}`).run(client, msg, args, config, Discord)
+			client.shard.broadcastEval(`const { RichEmbed } = require('discord.js')\nthis.channels.has('330162371609886721') && this.channels.get('330162371609886721').send({ embed: new RichEmbed().setAuthor('${msg.author.tag}', '${msg.author.avatarURL}').setDescription('pls ${command} ${args.join(' ')}').addField('Place','#${msg.channel.name} in ${msg.guild.name}').addField('Time','${new Date}').setFooter('Shard where command occured: ${client.shard.id}').setColor('#9ddeda')})`)
+				.catch(err => { console.log(err.message) })
 		} catch (e) {
-			if (e.message.includes("Cannot find module")) return
-			return console.log(e.message + e.stack)
+			if (e.message.includes('Cannot find module')) return
+			return console.log(e)
 		}
 	}
 })
@@ -117,17 +74,13 @@ client.on('guildCreate', async(guild) => {
 	snekfetch
 		.post('https://bots.discord.pw/api/bots/270904126974590976/stats')
 		.set('Authorization', config.pwtoken)
-		.send({
-			'server_count': count
-		})
+		.send({ 'server_count': count })
 		.then(console.log('Updated dbots status.'))
 
 	snekfetch
 		.post('https://discordbots.org/api/bots/270904126974590976/stats')
 		.set('Authorization', config.orgtoken)
-		.send({
-			'server_count': count
-		})
+		.send({ 'server_count': count })
 		.then(console.log('Updated dbots status.'))
 
 	guild.defaultChannel.send({
@@ -155,9 +108,10 @@ client.once('ready', () => {
 		'joke': {},
 		'shitpost': {}
 	}
-	client.blacklist = require('./blacklist.json')
 
-	client.user.setGame('hi', 'https://www.twitch.tv/melmsie')
+	client.ids = require('./ids.json')
+
+	client.user.setGame('hello', 'https://www.twitch.tv/melmsie')
 })
 
 process.on('unhandledRejection', err => {

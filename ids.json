@@ -1,0 +1,12 @@
+{
+	"donors": {
+		"donor1": [],
+		"donor5": [],
+		"donor10": []
+	},
+	"blocked": {
+		"user": [],
+		"channel": [],
+		"guild": []
+	}
+}
