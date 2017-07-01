@@ -8,7 +8,8 @@ const fs = require('fs')
 exports.run = async function (client, msg, args, config, Discord) {
 	if (!config.devs.includes(msg.author.id)) return
 
-
+	const command = args[0].toLowerCase()
+	args.shift()
 
 
 	if (command === 'help' || !args[0])
@@ -24,9 +25,6 @@ exports.run = async function (client, msg, args, config, Discord) {
 				.addField('blacklist', '[add, remove] [guild, user, channel] <id or @tag>')
 				.setDescription('Now go fuck people up with these OP commands!')
 		})
-
-	const command = args[0].toLowerCase()
-	args.shift()
 
 	if (command === 'reboot')
 		if (args[0] === 'shard') {
