@@ -1,3 +1,4 @@
+/* eslint-disable */
 const prompt = require('prompt');
 const fetch = require('snekfetch');
 const token = 'MzI5MjEwNzU0MTgyMDIxMTIw.DDRzRQ._p9Y9r7KKLFAHR351uUZnlOqQGM'
