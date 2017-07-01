@@ -9,12 +9,24 @@ exports.run = async function (client, msg, args, config, Discord) {
 	if (!config.devs.includes(msg.author.id)) return
 
 
-	const command = args[0].toLowerCase()
-	args.shift()
 
 
 	if (command === 'help' || !args[0])
-		msg.channel.send('__Commands:__\n\n❯ eval `<args>`\n❯ bash `<args>`\n❯ git `[pull]`\n❯ reboot `[all]/[shard]`')
+		msg.channel.send({
+			embed: new Discord.RichEmbed()
+				.setColor('#3676b3')
+				.setDescription('Hello, I\'m not sure how tf you forgot these commands since you partially made them all, but here you go.')
+				.addField('reboot', 'reboot [shard, all]')
+				.addField('eval', 'eval <args>')
+				.addField('bash', 'bash <args>')
+				.addField('git', 'git pull')
+				.addField('donor', '[add, remove] [1, 5, 10] <id or @tag>')
+				.addField('blacklist', '[add, remove] [guild, user, channel] <id or @tag>')
+				.setDescription('Now go fuck people up with these OP commands!')
+		})
+
+	const command = args[0].toLowerCase()
+	args.shift()
 
 	if (command === 'reboot')
 		if (args[0] === 'shard') {
@@ -75,7 +87,7 @@ exports.run = async function (client, msg, args, config, Discord) {
 
 	if (command === 'git')
 		if (args[0] === 'pull') {
-			await msg.channel.send('Pulling...')
+			await msg.channel.send('Pulling out...')
 			exec('git pull', (e, stderr, stdout) => {
 				if (stdout || stderr)
 					msg.channel.send(`**Output**\n\`\`\`bash\n${stdout}\n\n${stderr}\`\`\``)
@@ -84,7 +96,7 @@ exports.run = async function (client, msg, args, config, Discord) {
 			msg.channel.send('As of right now, only `git pull` is available.')
 		}
 
-	if (command === 'donator') {
+	if (command === 'donor') {
 		if (!args[0] || !args[1] || !['add', 'remove'].includes(args[0].toLowerCase()) || !['1', '5', '10'].includes(args[1]))
 			return msg.channel.send('Argument error. The first argument must be one of `add` or `remove`, and the second must be one of `1`, `5` or `10`.')
 
@@ -93,7 +105,7 @@ exports.run = async function (client, msg, args, config, Discord) {
 			writeFile(msg, 0, args, client.ids)
 		} else if (args[0].toLowerCase() === 'remove') {
 			if (args[3])
-				msg.channel.send('You can\'t remove multiple people from donator (yet). The command is going to ignore all member args except the first.')
+				msg.channel.send('You can\'t remove multiple people from donor status (yet). The command is going to ignore all member args except the first.')
 			if (client.ids.donors[`donor${args[1]}`].indexOf(msg.mentions.users.size ? msg.mentions.users.first().id : args[2]) === -1)
 				return msg.channel.send(`\`${args[2]}\` not found in the donor${args[1]}.`)
 
@@ -118,6 +130,7 @@ exports.run = async function (client, msg, args, config, Discord) {
 				await client.shard.broadcastEval(`this.ids.blocked['user'] = this.ids.blocked['user'].concat(${msg.mentions.users.size ? msg.mentions.users.map(u => `'${u.id}'`) : args.slice(2).filter(arg => parseInt(arg)).map(u => `'${u}'`)})`)
 			if (args[1].toLowerCase() === 'channel')
 				await client.shard.broadcastEval(`this.ids.blocked['channel'] = this.ids.blocked['channel'].concat(${args.slice(2).filter(arg => parseInt(arg)).map(c => `'${c}'`)})`)
+
 			if (args[1].toLowerCase() === 'guild' || args[1].toLowerCase() === 'server')
 				await client.shard.broadcastEval(`this.ids.blocked['guild'] = this.ids.blocked['guild'].concat(${args.slice(2).filter(arg => parseInt(arg)).map(g => `'${g}'`)})`)
 			writeFile(msg, 2, args, client.ids)
