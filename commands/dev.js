@@ -30,7 +30,7 @@ exports.run = async function (client, msg, args, config, Discord) {
 		if (args[0] === 'shard') {
 			await msg.channel.send('Current shard rebooting...')
 			return process.exit()
-		} else if (args[1] === 'all') {
+		} else if (args[0] === 'all') {
 		await msg.channel.send('All shards rebooting...')
 		exec('pm2 restart shard', (e, stderr, stdout) => {
 			if (stdout) msg.channel.send(`**Output**\n\`\`\`bash\n${stdout}\n\`\`\``)
