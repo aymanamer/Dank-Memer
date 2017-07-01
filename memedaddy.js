@@ -58,8 +58,7 @@ client.on('message', msg => {
 				return msg.author.send(`I either don\'t have permission to send messages or I don\'t have permission to embed links in #${msg.channel.name}`)
 
 			require(`./commands/${command}`).run(client, msg, args, config, Discord)
-			client.shard.broadcastEval(`const { RichEmbed } = require('discord.js')\nthis.channels.has('330162371609886721') && this.channels.get('330162371609886721').send({ embed: new RichEmbed().setAuthor('${msg.author.tag}', '${msg.author.avatarURL}').setDescription('pls ${command} ${args.join(' ')}').addField('Place','#${msg.channel.name} in ${msg.guild.name}').addField('Time','${new Date}').setFooter('Shard where command occured: ${client.shard.id}').setColor('#9ddeda')})`)
-				.catch(err => { console.log(err.message) })
+			client.shard.broadcastEval(`const { RichEmbed } = require('discord.js')\nthis.channels.has('330162371609886721') && this.channels.get('330162371609886721').send({ embed: new RichEmbed().setAuthor('${msg.author.tag}', '${msg.author.avatarURL}').setDescription('pls ${command} ${args.join(' ')}').addField('Place','#${msg.channel.name} in ${msg.guild.name}').addField('Time','${new Date}').setFooter('Shard where command occured: ${client.shard.id}').setColor('#9ddeda')})`).catch(err => { console.log(err.message) })
 		} catch (e) {
 			if (e.message.includes('Cannot find module')) return
 			return console.log(e)
