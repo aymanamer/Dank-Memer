@@ -7,18 +7,18 @@ exports.run = function (client, msg, args, config) {
 	if (servers.includes(msg.guild.id))
 		return msg.channel.send('Sorry, Melmsie likes this server too much to let you spam.')
 
-	if (config.donor5.concat(config.donor10).includes(msg.author.id)) {
+	if (client.ids.donors.donor5.concat(client.ids.donors.donor10).includes(msg.author.id)) {
 		if (!args[0])
 			return msg.reply('What do you want me to spam?')
 
 		if (args.join(' ').length > 1900)
 			return msg.channel.send('Too long.', { reply: msg.author })
 
-		function intervalFunc() {
+		const intervalFunc = () => {
 			msg.channel.send(args.join(' '))
 		}
-		let haha = setInterval(intervalFunc, 1250)
-		setTimeout(function () {
+		const haha = setInterval(intervalFunc, 1250)
+		setTimeout(function () { // eslint-disable-line prefer-arrow-callback
 			clearInterval(haha)
 		}, 30000)
 	} else {

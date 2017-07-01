@@ -1,5 +1,5 @@
 exports.run = function (client, msg, args) {
-	let file = Math.floor((Math.random() * 23) + 1)
+	const file = Math.floor(Math.random() * 23 + 1)
 
 	if (!msg.member.voiceChannel) {
 		msg.react('❌').then(() => {
@@ -9,9 +9,9 @@ exports.run = function (client, msg, args) {
 		msg.member.voiceChannel.leave()
 		msg.react('😢')
 	} else {
-		if (!msg.guild.member(client.user).hasPermission('CONNECT')) 
+		if (!msg.guild.member(client.user).hasPermission('CONNECT'))
 			return msg.reply('I do not have permission to connect to that voice channel! Please fix this to use this command.').catch(console.error)
-		if (!msg.guild.member(client.user).hasPermission('SPEAK')) 
+		if (!msg.guild.member(client.user).hasPermission('SPEAK'))
 			return msg.reply('I do not have permission to speak in that voice channel! Please fix this to use this command.').catch(console.error)
 		if (!client.voiceConnections.get(msg.guild.id)) {
 			msg.react('👌')

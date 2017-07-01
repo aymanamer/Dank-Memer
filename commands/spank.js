@@ -4,7 +4,6 @@ exports.run = async function (client, msg) {
 	msg.channel.startTyping()
 
 	const avatarurl = (msg.mentions.users.size > 0 ? msg.mentions.users.first().displayAvatarURL : msg.author.displayAvatarURL).replace('gif', 'png')
-
 	const authorurl = msg.mentions.users.size > 0 ? msg.author.displayAvatarURL.replace('gif', 'png') : client.user.displayAvatarURL.replace('gif', 'png')
 
 	const data = await snakefetch
