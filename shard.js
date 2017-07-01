@@ -6,5 +6,5 @@ const shard = new Dickpunch.ShardingManager('./memedaddy.js', { token: GetYourOw
 shard.spawn(10)
 
 shard.on('launch', shard => {
-	console.log(`SHARD LAUNCHED: ${shard.id}`)
+	console.log(`Shard ${shard.id} is alive`)
 })
