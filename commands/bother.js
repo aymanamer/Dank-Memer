@@ -9,7 +9,7 @@ exports.run = function (client, msg, args, config) {
 	const collector = msg.channel.createMessageCollector(m => msg.author.id === m.author.id, { time: 40000 })
 	collector.on('collect', (m) => {
 		if (m.content.toLowerCase() === 'yes') {
-			client.shard.broadcastEval(`const { RichEmbed } = require('discord.js')\nthis.channels.has('330447317469626398') && this.channels.get('330447317469626398').send({ embed: new RichEmbed().setAuthor('${msg.author.tag} | ${msg.author.id}').setTimestamp(new Date()).setDescription('${args.join(' ')}').addField('Sent from:', '${msg.channel.name} in ${msg.guild.name}').setColor('#00c853')})`)
+			client.shard.broadcastEval(`const { RichEmbed } = require('discord.js')\nthis.channels.has('326384964964974602') && this.channels.get('326384964964974602').send({ embed: new RichEmbed().setAuthor('${msg.author.tag} | ${msg.author.id}').setTimestamp(new Date()).setDescription('${args.join(' ')}').addField('Sent from:', '${msg.channel.name} in ${msg.guild.name}').setColor('#00c853')})`)
 			msg.reply('Your message has been sent to bother Melmsie!')
 		} else {
 			msg.channel.send('Good. Watching you :eyes:')
