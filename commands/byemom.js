@@ -19,18 +19,15 @@ exports.run = async function (client, msg, args) {
 		.set('data-src', JSON.stringify([`${avatarurl}`, `${args}`]))
 
 	if (data.status === 200) {
-		msg.channel.send({
+		const m = await msg.channel.send({
 			files: [{
 				name: 'byemom.png',
 				attachment: data.body
 			}]
-		}).then(m => {
-			client.shard.broadcastEval(`const { RichEmbed } = require('discord.js')\nthis.channels.has('329799125015199744') && this.channels.get('329799125015199744').send({ embed: new RichEmbed().setAuthor('${msg.author.tag}').setImage('${m.attachments.first().url}') .addField('Sent from:', '#${msg.channel.name} in ${msg.guild.name}').setColor('#00c853')})`)
-			msg.channel.stopTyping()
 		})
-
+		client.shard.broadcastEval(`const { RichEmbed } = require('discord.js')\nthis.channels.has('329799125015199744') && this.channels.get('329799125015199744').send({ embed: new RichEmbed().setAuthor('${msg.author.tag}').setImage('${m.attachments.first().url}') .addField('Sent from:', '#${msg.channel.name} in ${msg.guild.name}').setColor('#00c853')})`)
 	} else {
 		msg.channel.send(`Error: ${data.text}`)
-		msg.channel.stopTyping()
 	}
+	msg.channel.stopTyping()
 }
