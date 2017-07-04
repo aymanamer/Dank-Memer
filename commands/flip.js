@@ -22,5 +22,6 @@ exports.run = async function (client, msg) {
 		msg.channel.send(`Error: ${data.text}`)
 		msg.channel.stopTyping()
 	}
+	msg.channel.stopTyping()
 }
 

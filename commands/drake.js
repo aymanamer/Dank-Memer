@@ -26,5 +26,6 @@ exports.run = async function (client, msg) {
 		msg.channel.send(`Well fuck. ${data.text}`)
 		msg.channel.stopTyping()
 	}
+	msg.channel.stopTyping()
 }
 
