@@ -8,7 +8,7 @@ const tClient = new twit({
 })
 
 exports.run = function (client, msg, args, undefined, Discord) {
-	args = args.join(' ')
+	args = msg.cleanContent.split(' ').slice(2).join(' ')
 	if (args.length < 1)
 		return msg.channel.send('What do you want me to tweet?')
 	if (args.length > 140)
