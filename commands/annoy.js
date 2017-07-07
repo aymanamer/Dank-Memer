@@ -1,5 +1,9 @@
 const serverStaff = ['221060582986612749', '145456746721312768', '210579245607550977', '162134224353230848', '291422304544620544', '261295304337391616']
-exports.run = function (client, msg) {
+exports.run = function (client, msg, config) {
+
+	if (!msg.channel.permissionsFor(client.user.id).has('ADD_REACTIONS'))
+		return msg.reply('Well shit, there was a permission error! Make sure I have `add reactions` so I can do this shit!').catch(() => console.error)
+
 	msg.react('🙄')
 	if (serverStaff.includes(msg.mentions.users.first().id)) {
 		msg.author.send(`${msg.mentions.users.first().username} is a staff member on my server, so I'm not gonna let you annoy them. Nice try though!`).catch(e => { // eslint-disable-line no-unused-vars
@@ -11,10 +15,29 @@ exports.run = function (client, msg) {
 			})
 		}
 		const haha = setInterval(intervalFunc, 30000)
-	} else if (msg.mentions.users.size === 0) {
-		msg.author.send('Now I get to annoy you by sending you a message every 30 seconds for 5 minutes! Next time, you should really tag someone else to annoy!').catch()
+	} else if (config.owner === msg.mentions.users.first().id) {
+		msg.author.send('Really, you were going to try and annoy Melmsie? As if he wouldn\'t put something in place to prevent that? HA!').catch(e => { // eslint-disable-line no-unused-vars
+			return clearInterval(haha)
+		})
 		const intervalFunc = () => {
-			msg.author.send('Haha, you annoyed yourself!').catch()
+			msg.author.send('Haha, you suck!').catch(e => { // eslint-disable-line no-unused-vars
+				return clearInterval(haha)
+			})
+		}
+
+		const haha = setInterval(intervalFunc, 30000)
+
+		setTimeout(function () { // eslint-disable-line prefer-arrow-callback
+			clearInterval(haha)
+		}, 300000)
+	} else if (msg.mentions.users.size === 0) {
+		msg.author.send('Now I get to annoy you by sending you a message every 30 seconds for 5 minutes! Next time, you should really tag someone else to annoy!').catch(e => { // eslint-disable-line no-unused-vars
+			return clearInterval(haha)
+		})
+		const intervalFunc = () => {
+			msg.author.send('Haha, you annoyed yourself!').catch(e => { // eslint-disable-line no-unused-vars
+				return clearInterval(haha)
+			})
 		}
 
 		const haha = setInterval(intervalFunc, 30000)

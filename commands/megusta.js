@@ -1,6 +1,6 @@
-exports.run = function (client, msg, undefined, config) {
+exports.run = function (client, msg) {
 	if (!msg.channel.permissionsFor(client.user.id).has('ATTACH_FILES'))
-		return msg.author.send(`I don't have permission to send pictures in #${msg.channel.name}`)
+		return msg.reply('Well shit, there was a permission error! Make sure I have `attach files` so I can do this shit!').catch(() => console.error)
 
 	if (!client.ids.donors.donor1.concat(client.ids.donors.donor5, client.ids.donors.donor10).includes(msg.author.id))
 

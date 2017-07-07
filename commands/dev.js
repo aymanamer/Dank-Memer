@@ -6,9 +6,9 @@ const snakefetch = require('snekfetch')
 const twit = require('twit')
 const fs = require('fs')
 exports.run = async function (client, msg, args, config, Discord) {
-//	if (!config.devs.includes(msg.author.id)) return
+	if (!config.devs.includes(msg.author.id)) return
 
-	
+
 
 
 	if (args[0] === 'help' || !args[0])

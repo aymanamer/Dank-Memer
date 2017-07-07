@@ -7,6 +7,7 @@ exports.run = function (client, msg, args, config, Discord) {
 			.addField('pls detain', 'by `an unsuspecting box of bleach#5112`')
 			.addField('pls doit', 'by `Swiggity#7716`')
 			.addField('pls swiggity', 'by `Swiggity#7716`')
-			.setFooter('Want your own custom command? Donate $5 or more at https://www.patreon.com/melmsie')
-	})
+			.addField('pls yeahboi', 'by `Moboly#1605`')
+			.setFooter('Want your own custom command? Donate $10 or more at https://www.patreon.com/melmsie')
+	}).catch(() => console.error)
 }

@@ -1,9 +1,9 @@
 exports.run = async function (client, msg) {
-	if (!msg.channel.permissionsFor(msg.author.id).has('MANAGE_MESSAGES'))
-		return msg.author.send(`You don't have permission to send manage messages #${msg.channel.name}`).catch(console.error)
+	if (!msg.channel.permissionsFor(client.user.id).has(['MANAGE_MESSAGES', 'READ_MESSAGE_HISTORY']))
+		return msg.reply('Well shit, there was a permission error! Make sure I have `manage messages` and `read message history` so I can do this shit!').catch(() => console.error)
 
 	let messages = await msg.channel.fetchMessages({ limit: 100 })
 	messages = messages.array().filter(m => m.author.id === client.user.id)
 	messages.length = 10
-	messages.forEach(m => m.delete().catch())
+	messages.forEach(m => m.delete().catch(() => console.error))
 }

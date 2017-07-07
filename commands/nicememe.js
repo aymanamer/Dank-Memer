@@ -1,30 +1,21 @@
-exports.run = function (client, msg) {
+exports.run = async function (client, msg) {
+	if (!msg.channel.permissionsFor(client.user.id).has(['CONNECT', 'SPEAK', 'ADD_REACTIONS']))
+		return msg.reply('Well shit, there was a permission error! Make sure I have `add reactions`, connect`, and `speak` so I can do this shit!').catch(() => console.error)
 
 	if (!msg.member.voiceChannel) {
-		msg.react('❌').then(() => {
-			msg.reply('join a voice channel fam')
-		})
+		await msg.react('❌')
+		msg.reply('join a voice channel fam')
 	} else {
-		if (!msg.guild.member(client.user).hasPermission('CONNECT'))
-			return msg.reply('I do not have permission to connect to that voice channel! Please fix this to use this command.').catch(console.error)
-		if (!msg.guild.member(client.user).hasPermission('SPEAK'))
-			return msg.reply('I do not have permission to speak in that voice channel! Please fix this to use this command.').catch(console.error)
-
 		if (!client.voiceConnections.get(msg.guild.id)) {
-			msg.react('👌')
-			msg.member.voiceChannel.join().then(conn => {
-				conn.playFile('./assets/nicememe.mp3')
-				conn.player.dispatcher.once('end', () => {
-					conn.channel.leave()
-				})
-			}).catch(e => {
-				msg.reply('Couldn\'t join your voicechannel ¯\\_(ツ)_/¯')
-				console.log(`${new Date()}: ${e.message}`)
+			msg.react('📢')
+			const conn = await msg.member.voiceChannel.join()
+			conn.playFile('./assets/nicememe.opus')
+			conn.player.dispatcher.once('end', () => {
+				conn.channel.leave()
 			})
-
 		} else {
-			msg.reply('I can only play one song at once, dude. <:fonking:289506756667637760>')
-			msg.react('❌')
+			await msg.react('😠')
+			msg.reply('I only have one mouth, dude. Please wait until the current sound is done or the ear-rape ghost will visit you in your sleep!')
 		}
 	}
 }

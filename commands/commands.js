@@ -1,4 +1,7 @@
 exports.run = function (client, msg, args, config, Discord) {
+	if (!msg.channel.permissionsFor(client.user.id).has('USE_EXTERNAL_EMOJIS'))
+		return msg.reply('Well shit, there was a permission error! Make sure I have `use external emojis` so I can do this shit!').catch(() => console.error)
+
 	msg.channel.send({
 		embed: new Discord.RichEmbed()
 			.setColor('#3676b3')
@@ -11,5 +14,5 @@ exports.run = function (client, msg, args, config, Discord) {
 			.addField('🔧 Utilities and Information', 'clean, emoji, help, melmsie, ping, stats, tts')
 			.addField('⏱ Coming Soon', 'funeral, sfw, disable commands per guild')
 			.setFooter('Special thanks to CrimsonXV and Aetheryx. Credit for trigger goes to stupidcat.')
-	})
+	}).catch(() => console.error)
 }
