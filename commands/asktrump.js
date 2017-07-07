@@ -1,15 +1,22 @@
 const trump = require('react-trump')
-const { trumpers } = require('../assets/arrays.json')
-const { randomInArray } = require('../utils')
+const {
+	trumpers
+} = require('../assets/arrays.json')
+const {
+	randomInArray
+} = require('../utils')
 
-exports.run = function (client, msg, args, config, Discord) {
+const exclamations = 1
+const incquestion = false
+
+
+exports.run = async function (client, msg, args, config, Discord) {
+
 	if (!args[0]) return msg.reply('You gotta give me something to ask Trump :eyes:')
 
 	const question = args.join(' ')
-	const exclamations = 1
-	const incquestion = false
 
-	const answer = trump.answer({
+	const answer = await trump.answer({
 		question,
 		exclamations,
 		incquestion

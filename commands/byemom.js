@@ -1,6 +1,10 @@
 const snakefetch = require('snekfetch')
 
 exports.run = async function (client, msg, args) {
+
+	if (!msg.channel.permissionsFor(client.user.id).has('ATTACH_FILES'))
+		return msg.reply('Well shit, there was a permission error! Make sure I have `attach files` so I can do this shit!').catch(() => console.error)
+
 	msg.channel.startTyping()
 
 	const avatarurl = msg.mentions.users.size > 0 ? msg.mentions.users.first().displayAvatarURL.replace('gif', 'png') : msg.author.displayAvatarURL.replace('gif', 'png')
@@ -19,15 +23,16 @@ exports.run = async function (client, msg, args) {
 		.set('data-src', JSON.stringify([`${avatarurl}`, `${args}`]))
 
 	if (data.status === 200) {
-		const m = await msg.channel.send({
+		await msg.channel.send({
 			files: [{
 				name: 'byemom.png',
 				attachment: data.body
 			}]
 		})
-		client.shard.broadcastEval(`const { RichEmbed } = require('discord.js')\nthis.channels.has('329799125015199744') && this.channels.get('329799125015199744').send({ embed: new RichEmbed().setAuthor('${msg.author.tag}').setImage('${m.attachments.first().url}') .addField('Sent from:', '#${msg.channel.name} in ${msg.guild.name}').setColor('#00c853')})`)
+		msg.channel.stopTyping()
 	} else {
 		msg.channel.send(`Error: ${data.text}`)
+		msg.channel.stopTyping()
 	}
-	msg.channel.stopTyping()
+
 }
