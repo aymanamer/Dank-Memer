@@ -70,7 +70,7 @@ exports.run = async function (client, msg, args, config, Discord) {
 
 	if (command === 'bash') {
 		await msg.channel.send(`**Input**\n\`\`\`sh\n$ ${args.join(' ')}\n\`\`\``)
-		exec(args.join(' '), async(e, stderr, stdout) => {
+		exec(args.join(' '), async (e, stdout, stderr) => {
 			if (stdout.length + stderr.length > 2000) {
 				const res = await snakefetch.post('https://hastebin.com/documents')
 					.send(`${stdout}\n\n${stderr}`)
