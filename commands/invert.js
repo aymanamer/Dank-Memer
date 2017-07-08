@@ -14,16 +14,16 @@ exports.run = async function (client, msg) {
 		.set('data-src', avatarurl)
 
 	if (data.status === 200) {
-		const m = await msg.channel.send({
+		await msg.channel.send({
 			files: [{
 				name: 'inverted.png',
 				attachment: data.body
 			}]
 		})
-		msg.channel.stopTyping()
+		msg.channel.stopTyping(true)
 	} else {
 		msg.channel.send(`Error: ${data.text}`)
-		msg.channel.stopTyping()
+		msg.channel.stopTyping(true)
 	}
 
 }
