@@ -37,13 +37,13 @@ client.on('message', msg => {
 	if (!command) return
 
 	if (cooldowns.active[msg.author.id].includes(command)) {
-		if (cooldowns.active[msg.author.id].includes('annoy'))
+		if (cooldowns.active[msg.author.id].includes('annoy') && command === 'annoy')
 			return msg.channel.send('After annoying someone, it is an hour until you can annoy someone again!\nIf you\'re a donor, you get to use it 75% faster!')
 
-		if (cooldowns.active[msg.author.id].includes('tweet'))
+		if (cooldowns.active[msg.author.id].includes('tweet') && command === 'tweet')
 			return msg.channel.send('After tweeting, it is 15 minutes until you can tweet again!\nIf you\'re a donor, you get to use it 75% faster!')
 
-		if (cooldowns.active[msg.author.id].includes('spam'))
+		if (cooldowns.active[msg.author.id].includes('spam') && command === 'spam')
 			return msg.channel.send('After spamming, it is 10 minutes until you can spam again.')
 
 		return msg.channel.send('This command is currently in cooldown. Try again in a few seconds.\nIf you\'re a donor, you get to use it 75% faster!')

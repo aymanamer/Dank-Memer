@@ -1,5 +1,3 @@
-
-
 exports.run = async function (client, msg, args, config, Discord) {
 
 	const guilds = (await client.shard.fetchClientValues('guilds.size')).reduce((a, b) => a + b)
@@ -10,7 +8,7 @@ exports.run = async function (client, msg, args, config, Discord) {
 		embed: new Discord.RichEmbed()
 			.setColor('#7d5bbe')
 			.setTitle(`${client.user.username} - Stats (${config.version})`)
-			.setDescription(`Uptime: ${process.uptime() | 0} seconds`)
+			.setDescription(`Uptime: ${timeCon(process.uptime())}`)
 			.addField('Websocket Ping', `${(client.ping).toFixed(0)} ms`, true) // eslint-disable-line no-extra-parens
 			.addField('Shard', client.shard.id, true)
 			.addField('RAM Usage', `RSS: ${(process.memoryUsage().rss / 1048576).toFixed()}MB\nHeap: ${(process.memoryUsage().heapUsed / 1024 / 1024).toFixed(2)}MB`, true)
@@ -20,8 +18,8 @@ exports.run = async function (client, msg, args, config, Discord) {
 	})
 
 }
-/*
-function timeCon(time) {
+
+function timeCon (time) {
 	let days = Math.floor((time % 31536000) / 86400)
 	let hours = Math.floor(((time % 31536000) % 86400) / 3600)
 	let minutes = Math.floor((((time % 31536000) % 86400) % 3600) / 60)
@@ -32,4 +30,3 @@ function timeCon(time) {
 	seconds = seconds > 9 ? seconds : seconds
 	return (parseInt(days) > 0 ? days + (days > 1 ? ' days ' : ' day ') : '') + (parseInt(hours) === 0 && parseInt(days) === 0 ? '' : hours + (hours > 1 ? ' hours ' : ' hour ')) + (parseInt(minutes) === 0 && parseInt(hours) === 0 && parseInt(days) === 0 ? '' : minutes + (minutes > 1 ? ' minutes ' : ' minute ')) + seconds + (seconds > 1 ? ' seconds ' : ' second ')
 }
-*/
