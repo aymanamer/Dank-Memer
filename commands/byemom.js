@@ -29,10 +29,10 @@ exports.run = async function (client, msg, args) {
 				attachment: data.body
 			}]
 		})
-		msg.channel.stopTyping()
+		msg.channel.stopTyping(true)
 	} else {
 		msg.channel.send(`Error: ${data.text}`)
-		msg.channel.stopTyping()
+		msg.channel.stopTyping(true)
 	}
 
 }
