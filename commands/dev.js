@@ -1,15 +1,10 @@
-const {
-	exec
-} = require('child_process')
+const { exec } = require('child_process')
 const util = require('util')
 const snakefetch = require('snekfetch')
 const twit = require('twit')
 const fs = require('fs')
 exports.run = async function (client, msg, args, config, Discord) {
 	if (!config.devs.includes(msg.author.id)) return
-
-
-
 
 	if (args[0] === 'help' || !args[0])
 		msg.channel.send({
@@ -33,14 +28,14 @@ exports.run = async function (client, msg, args, config, Discord) {
 			await msg.channel.send('Current shard rebooting...')
 			return process.exit()
 		} else if (args[0] === 'all') {
-		await msg.channel.send('All shards rebooting...')
-		exec('pm2 restart shard', (e, stderr, stdout) => {
-			if (stdout) msg.channel.send(`**Output**\n\`\`\`bash\n${stdout}\n\`\`\``)
-			if (stderr) msg.channel.send(`**Errors**\n\`\`\`bash\n${stderr}\n\`\`\``)
-		})
-	} else {
-		return msg.channel.send('Huh?')
-	}
+			await msg.channel.send('All shards rebooting...')
+			exec('pm2 restart shard', (e, stderr, stdout) => {
+				if (stdout) msg.channel.send(`**Output**\n\`\`\`bash\n${stdout}\n\`\`\``)
+				if (stderr) msg.channel.send(`**Errors**\n\`\`\`bash\n${stderr}\n\`\`\``)
+			})
+		} else {
+			return msg.channel.send('Huh?')
+		}
 
 	if (command === 'eval') {
 		let res
@@ -52,9 +47,7 @@ exports.run = async function (client, msg, args, config, Discord) {
 			evalTime = Date.now() - before
 			if (typeof res === 'string')
 				res = res.replace(rep, '*')
-			else res = util.inspect(res, {
-					depth: 0
-				})
+			else res = util.inspect(res, { depth: 0 })
 				.replace(rep, '*')
 		} catch (err) {
 			res = err
@@ -178,20 +171,20 @@ exports.run = async function (client, msg, args, config, Discord) {
 
 }
 
-function writeFile(msg, choice, args, ids) {
+function writeFile (msg, choice, args, ids) {
 	let successMessage
 	switch (choice) {
-		case 0:
-			successMessage = `${msg.mentions.users.size ? msg.mentions.users.map(u => u.username).join(', ') : args.slice(2).filter(arg => parseInt(arg)).join(', ')} added to donor${args[1]}.`
-			break
-		case 1:
-			successMessage = `${msg.mentions.users.size ? msg.mentions.users.first().username : args[2]} removed from donor${args[1]}.`
-			break
-		case 2:
-			successMessage = `${msg.mentions.users.size ? msg.mentions.users.map(u => u.username).join(', ') : args.slice(2).filter(arg => parseInt(arg)).join(', ')} blocked.`
-			break
-		case 3:
-			successMessage = `${args[2]} unblocked.`
+	case 0:
+		successMessage = `${msg.mentions.users.size ? msg.mentions.users.map(u => u.username).join(', ') : args.slice(2).filter(arg => parseInt(arg)).join(', ')} added to donor${args[1]}.`
+		break
+	case 1:
+		successMessage = `${msg.mentions.users.size ? msg.mentions.users.first().username : args[2]} removed from donor${args[1]}.`
+		break
+	case 2:
+		successMessage = `${msg.mentions.users.size ? msg.mentions.users.map(u => u.username).join(', ') : args.slice(2).filter(arg => parseInt(arg)).join(', ')} blocked.`
+		break
+	case 3:
+		successMessage = `${args[2]} unblocked.`
 	}
 	fs.writeFile('./ids.json', JSON.stringify(ids, '', '\t'), (err) => {
 		if (err)
