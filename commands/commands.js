@@ -1,9 +1,9 @@
-exports.run = function (client, msg, args, config, Discord) {
+exports.run = function (client, msg, args, config, EmbedBuilder) {
 	if (!msg.channel.permissionsFor(client.user.id).has('USE_EXTERNAL_EMOJIS'))
 		return msg.reply('Well shit, there was a permission error! Make sure I have `use external emojis` so I can do this shit!').catch(() => console.error)
 
 	msg.channel.send({
-		embed: new Discord.RichEmbed()
+		embed: new EmbedBuilder()
 			.setColor('#3676b3')
 			.setAuthor('Commands 💯 👌 🔥')
 			.setDescription('Want a place to meme? [Join my server!](https://discord.gg/3GNMJBG)')

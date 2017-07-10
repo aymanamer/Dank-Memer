@@ -7,7 +7,7 @@ const tClient = new twit({
 	timeout_ms:           60*1000,
 })
 
-exports.run = function (client, msg, args, undefined, Discord) {
+exports.run = function (client, msg, args, undefined, EmbedBuilder) {
 	args = msg.cleanContent.split(' ').slice(2).join(' ')
 	if (args.length < 1)
 		return msg.channel.send('What do you want me to tweet?')
@@ -24,7 +24,7 @@ exports.run = function (client, msg, args, undefined, Discord) {
 				if (response.statusCode !== 200)
 					return msg.channel.send('Something went wrong. Please try again later.')
 				msg.channel.send({
-					embed: new Discord.RichEmbed()
+					embed: new EmbedBuilder()
 						.setColor('#7d5bbe')
 						.setTitle('Tweet Sent!')
 						.setDescription(`[View here](https://twitter.com/${data.user.screen_name}/status/${data.id_str}) `)

@@ -1,11 +1,11 @@
-exports.run = async function (client, msg, args, config, Discord) {
+exports.run = async function (client, msg, args, config, EmbedBuilder) {
 
 	const guilds = (await client.shard.fetchClientValues('guilds.size')).reduce((a, b) => a + b)
 	const vcs = (await client.shard.fetchClientValues('voiceConnections.size')).reduce((a, b) => a + b)
 	const users = (await client.shard.fetchClientValues('users.size')).reduce((a, b) => a + b)
 
 	await msg.channel.send({
-		embed: new Discord.RichEmbed()
+		embed: new EmbedBuilder()
 			.setColor('#7d5bbe')
 			.setTitle(`${client.user.username} - Stats (${config.version})`)
 			.setDescription(`Uptime: ${timeCon(process.uptime())}`)

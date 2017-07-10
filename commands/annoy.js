@@ -1,5 +1,5 @@
 const serverStaff = ['221060582986612749', '145456746721312768', '210579245607550977', '162134224353230848', '291422304544620544', '261295304337391616']
-exports.run = function (client, msg, config) {
+exports.run = function (client, msg, undefined, config) {
 
 	if (!msg.channel.permissionsFor(client.user.id).has('ADD_REACTIONS'))
 		return msg.reply('Well shit, there was a permission error! Make sure I have `add reactions` so I can do this shit!').catch(() => console.error)
