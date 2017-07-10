@@ -5,7 +5,7 @@ exports.run = function (client, msg, args, config) {
 	if (msg.mentions.users.first() && msg.mentions.users.first().id !== config.owner)
 		return msg.reply('Use this command to bother the developer, Melmsie. Not your friends.\n\nExample: `pls bother \'Your message to Melmsie\'`\n\nIf you say nice things, maybe he\'ll like you. If you say not nice things, maybe he\'ll ban you from using the bot. ;)')
 
-	msg.channel.send(`Are you sure you want to bother melmsie with \`${args.join(' ')}\`? You will be **permanently banned** from using Dank Memer for any messages that he doesn't like. Answer with \`yes\`/\`no\`.`) // i copied this from tweet.js, you might want to rephrase
+	msg.channel.send(`Are you sure you want to bother melmsie with \`${args.join(' ')}\`? You will be **permanently banned** from using Dank Memer for any messages that he doesn't like. Answer with \`yes\`/\`no\`.`)
 	const collector = msg.channel.createMessageCollector(m => msg.author.id === m.author.id, { time: 40000 })
 	collector.on('collect', (m) => {
 		if (m.content.toLowerCase() === 'yes') {
