@@ -11,7 +11,7 @@ exports.run = async function (client, msg) {
 	const authorurl = msg.mentions.users.size > 0 ? msg.author.displayAvatarURL.replace('gif', 'png') : client.user.displayAvatarURL.replace('gif', 'png')
 
 	const data = await snakefetch
-		.get('http://www.get-ur-me.me/api/batslap')
+		.get('http://get-ur-me.me/api/batslap')
 		.set('Api-Key', 'XfGC62d9xKiOc4IegPdz')
 		.set('data-src', JSON.stringify([`${avatarurl}`, `${authorurl}`]))
 

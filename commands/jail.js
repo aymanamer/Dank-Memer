@@ -9,7 +9,7 @@ exports.run = async function (client, msg) {
 
 	const avatarurl = (msg.mentions.users.size > 0 ? msg.mentions.users.first().displayAvatarURL : msg.author.displayAvatarURL).replace('gif', 'png')
 	const data = await snakefetch
-		.get('http://www.get-ur-me.me/api/jail')
+		.get('http://get-ur-me.me/api/jail')
 		.set('Api-Key', 'XfGC62d9xKiOc4IegPdz')
 		.set('data-src', avatarurl)
 
@@ -20,10 +20,10 @@ exports.run = async function (client, msg) {
 				attachment: data.body
 			}]
 		})
-		msg.channel.stopTyping()
+		msg.channel.stopTyping(true)
 	} else {
 		msg.channel.send(`Error: ${data.text}`)
-		msg.channel.stopTyping()
+		msg.channel.stopTyping(true)
 	}
 
 }

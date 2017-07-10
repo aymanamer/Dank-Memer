@@ -18,7 +18,7 @@ exports.run = async function (client, msg, args) {
 		return msg.channel.send(`Google Search too long. You're ${args.length - 140} characters over the limit!`)
 
 	const data = await snakefetch
-		.get('http://www.get-ur-me.me/api/byemom')
+		.get('http://get-ur-me.me/api/byemom')
 		.set('Api-Key', 'XfGC62d9xKiOc4IegPdz')
 		.set('data-src', JSON.stringify([`${avatarurl}`, `${args}`]))
 
