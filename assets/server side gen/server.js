@@ -72,6 +72,7 @@ function formatTime(time) {
     return `${days > 0 ? `${days}:` : ``}${(hours || days) > 0 ? `${hours}:` : ``}${minutes}:${seconds}`
 }
 
+/*
 const cluster = require('cluster');
 const http = require('http');
 const numCPUs = require('os').cpus().length;
@@ -93,3 +94,4 @@ if (cluster.isMaster) {
     }).listen('./my.sock');
     console.log(`Worker ${process.pid} started`);
 }
+*/
