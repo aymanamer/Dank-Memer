@@ -64,7 +64,7 @@ client.on('message', msg => {
 				console.log(err.stack)
 			})
 
-		require(`./commands/${command}`).run(client, msg, args, config, Discord)
+		require(`./commands/${command}`).run(client, msg, args, config, Discord.RichEmbed)
 
 	} catch (e) {
 		if (e.message.includes('Cannot find module')) return

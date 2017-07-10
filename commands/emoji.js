@@ -1,7 +1,7 @@
-exports.run = async function (client, msg, args, config, Discord) {
+exports.run = async function (client, msg, args, config, EmbedBuilder) {
 	const emoji = await client.guilds.filter(g => g.emojis.first()).random().emojis.random()
 	msg.channel.send({
-		embed: new Discord.RichEmbed()
+		embed: new EmbedBuilder()
 			.setColor('#3676b3')
 			.setThumbnail(emoji.url)
 			.setAuthor(emoji.name)

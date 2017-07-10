@@ -3,12 +3,12 @@ const util = require('util')
 const snakefetch = require('snekfetch')
 const twit = require('twit')
 const fs = require('fs')
-exports.run = async function (client, msg, args, config, Discord) {
+exports.run = async function (client, msg, args, config, EmbedBuilder) {
 	if (!config.devs.includes(msg.author.id)) return
 
 	if (args[0] === 'help' || !args[0])
 		msg.channel.send({
-			embed: new Discord.RichEmbed()
+			embed: new EmbedBuilder()
 				.setColor('#3676b3')
 				.setDescription('Hello, I\'m not sure how tf you forgot these commands since you partially made them all, but here you go.')
 				.addField('reboot', 'reboot [shard, all]')
@@ -53,7 +53,7 @@ exports.run = async function (client, msg, args, config, Discord) {
 			res = err
 		}
 		msg.channel.send({
-			embed: new Discord.RichEmbed()
+			embed: new EmbedBuilder()
 				.setColor('#7d5bbe')
 				.addField('Input', `\`\`\`js\n${args.join(' ')}\`\`\``)
 				.addField('Output', `\`\`\`js\n${res}\`\`\``)
@@ -158,7 +158,7 @@ exports.run = async function (client, msg, args, config, Discord) {
 			}, (err, data, response) => {
 				if (!err && response.statusCode === 200)
 					msg.channel.send({
-						embed: new Discord.RichEmbed()
+						embed: new EmbedBuilder()
 							.setColor('#4099FF')
 							.setDescription(`Tweet ${targetTweetID} successfully deleted.`)
 					})

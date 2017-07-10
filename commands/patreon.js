@@ -1,6 +1,6 @@
-exports.run = function (client, msg, args, config, Discord) {
+exports.run = function (client, msg, args, config, EmbedBuilder) {
 	msg.channel.send({
-		embed: new Discord.RichEmbed()
+		embed: new EmbedBuilder()
 			.setColor('#3676b3')
 			.setURL('https://www.patreon.com/melmsie')
 			.setTitle('Donate to Dank Memer on Patreon!')

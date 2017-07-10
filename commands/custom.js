@@ -1,6 +1,6 @@
-exports.run = function (client, msg, args, config, Discord) {
+exports.run = function (client, msg, args, config, EmbedBuilder) {
 	msg.channel.send({
-		embed: new Discord.RichEmbed()
+		embed: new EmbedBuilder()
 			.setColor('#3676b3')
 			.setAuthor('Dank Memer Custom Commands')
 			.setDescription('All of these commands are rewards for either donating or winning a giveaway!')
