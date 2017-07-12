@@ -60,7 +60,7 @@ client.on('message', msg => {
 		delete require.cache[require.resolve(`./commands/${command}`)]
 
 		if (!msg.channel.permissionsFor(client.user.id).has(['SEND_MESSAGES', 'EMBED_LINKS']))
-			return msg.author.send(`I either don\'t have permission to send messages or I don\'t have permission to embed links in #${msg.channel.name}`).catch(err => {
+			return msg.author.send(`I either don't have permission to send messages or I don't have permission to embed links in #${msg.channel.name}`).catch(err => {
 				console.log(err.stack)
 			})
 
@@ -73,7 +73,7 @@ client.on('message', msg => {
 
 })
 
-client.on('guildCreate', async(guild) => {
+client.on('guildCreate', async (guild) => {
 	const guilds = await client.shard.fetchClientValues('guilds.size')
 	const count = guilds.reduce((prev, val) => prev + val, 0)
 

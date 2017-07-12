@@ -48,15 +48,15 @@ exports.run = function (client, msg, undefined, config) {
 	} else {
 		const user = msg.mentions.users.first()
 
-		user.send(`I\'ve been sent by ${msg.author.username} to annoy you. :^)\n\nSee you every 30 seconds for the next 5 minutes ;)`).catch(e => { // eslint-disable-line no-unused-vars
-			msg.author.send(`You sent me to annoy ${user.username}, but I don\'t have permission to DM them! Get counter annoyed every 30 seconds for the next 5 minutes, fool!`).catch(e => { // eslint-disable-line no-unused-vars
+		user.send(`I've been sent by ${msg.author.username} to annoy you. :^)\n\nSee you every 30 seconds for the next 5 minutes ;)`).catch(e => { // eslint-disable-line no-unused-vars
+			msg.author.send(`You sent me to annoy ${user.username}, but I don't have permission to DM them! Get counter annoyed every 30 seconds for the next 5 minutes, fool!`).catch(e => { // eslint-disable-line no-unused-vars
 				return clearInterval(haha)
 			})
 		})
 
 		const intervalFunc = () => {
 			user.send(`I've been sent by ${msg.author.username} to annoy you. :^)`).catch(e => { // eslint-disable-line no-unused-vars
-				msg.author.send(`It's been 30 seconds! You sent me to annoy ${user.username}, but I don\'t have permission to DM them! Get counter annoyed, fool!!!!`).catch(e => { // eslint-disable-line no-unused-vars
+				msg.author.send(`It's been 30 seconds! You sent me to annoy ${user.username}, but I don't have permission to DM them! Get counter annoyed, fool!!!!`).catch(e => { // eslint-disable-line no-unused-vars
 					return clearInterval(haha)
 				})
 			})
