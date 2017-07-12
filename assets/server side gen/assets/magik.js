@@ -11,11 +11,16 @@ exports.run = (dataURL) => {
 		if (data.status !== 200)
 			return reject(data.status)
 		gm(data.body)
-			.implode(-3)
+			.implode(-5)
+			.swirl(`${getRandomInt(0, 1) === 1 ? '+' : '-'}${getRandomInt(40, 80)}`)
 			.toBuffer('PNG', (err, buffer) => {
 				if (err)
 					return reject(err)
 				resolve(buffer)
-			});
+			})
 	})
+}
+
+function getRandomInt(min, max) {
+	return Math.floor(Math.random() * (max - min + 1)) + min
 }
