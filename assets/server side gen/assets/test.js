@@ -11,8 +11,7 @@ exports.run = (dataURL) => {
 		if (data.status !== 200)
 			return reject(data.status)
 		gm(data.body)
-			.implode(-2)
-			.raise(30, 30)
+			.implode(-5)
 			.gravity(randomDir)
 			.toBuffer('PNG', (err, buffer) => {
 				if (err)
