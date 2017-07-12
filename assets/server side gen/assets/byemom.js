@@ -1,14 +1,14 @@
-const Jimp = require('jimp');
+const Jimp = require('jimp')
 
 exports.run = (URL) => {
-	return new Promise(async (resolve, reject) => {
+	return new Promise(async(resolve, reject) => {
 		try {
-			URL = JSON.parse(URL);
+			URL = JSON.parse(URL)
 		} catch (e) {
 			return reject('Unable to parse data-src.')
 		}
 		if (URL.length < 2)
-			return reject('data-src must be an array of 3 strings');
+			return reject('data-src must be an array of 3 strings')
 
 		const avatar = await Jimp.read(URL[0])
 		const avatar2 = avatar.clone()
@@ -29,11 +29,10 @@ exports.run = (URL) => {
 			mom.composite(search, 380, 435)
 			mom.getBuffer(Jimp.MIME_PNG, (err, buffer) => {
 				if (err)
-					return reject(err);
-				resolve(buffer);
+					return reject(err)
+				resolve(buffer)
 			})
-		});
+		})
 
 	})
 }
-
