@@ -12,7 +12,7 @@ exports.run = (dataURL) => {
 			return reject(data.status)
 		gm(data.body)
 			.implode(-5)
-			.displace(horizonatal, verticle)
+			.displace(horizontal, vertical)
 			.toBuffer('PNG', (err, buffer) => {
 				if (err)
 					return reject(err)
