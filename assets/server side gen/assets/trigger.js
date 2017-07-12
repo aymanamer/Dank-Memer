@@ -12,8 +12,8 @@ exports.run = (dataURL) => {
 		let avatar = await Jimp.read(dataURL).catch(err => {
 			reject(err)
 		})
-		const text = await Jimp.read('./resources/triggered/triggered.jpg')
-		const tint = await Jimp.read('./resources/triggered/red.png')
+		let text = await Jimp.read('./resources/triggered/triggered.jpg')
+		let tint = await Jimp.read('./resources/triggered/red.png')
 
 		avatar.resize(320, 320)
 		tint.scaleToFit(base.bitmap.width, base.bitmap.height)
@@ -29,11 +29,11 @@ exports.run = (dataURL) => {
 		stream.on('data', buffer => buffers.push(buffer))
 		stream.on('end', () => resolve(Buffer.concat(buffers)))
 
-		for (let i = 0 i < options.frames i++) {
+		for (let i = 0; i < options.frames; i++) {
 			temp = base.clone()
 
 			if (i === 0) temp.composite(avatar, -16, -16)
-			else temp.composite(avatar, -32 + (getRandomInt(-16, 16)), -32 + (getRandomInt(-16, 16)))
+			else temp.composite(avatar, -32 + (getRandomInt(-16, 16)), -32 + (getRandomInt(-16, 16)));
 
 			temp.composite(tint, 0, 0)
 
