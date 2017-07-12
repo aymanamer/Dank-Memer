@@ -8,7 +8,6 @@ exports.run = async function (client, msg) {
 	msg.channel.startTyping()
 
 	const avatarurl = (msg.mentions.users.size > 0 ? msg.mentions.users.first().displayAvatarURL : msg.author.displayAvatarURL).replace('gif', 'png')
-	console.log(avatarurl)
 	const data = await snakefetch
 		.get('http://get-ur-me.me/api/magik')
 		.set('Api-Key', 'XfGC62d9xKiOc4IegPdz')
