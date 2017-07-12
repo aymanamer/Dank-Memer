@@ -1,7 +1,7 @@
 const snakefetch = require('snekfetch')
 
 exports.run = async function (client, msg) {
-/*
+
 	if (!msg.channel.permissionsFor(client.user.id).has('ATTACH_FILES'))
 		return msg.reply('Well shit, there was a permission error! Make sure I have `attach files` so I can do this shit!').catch(() => console.error)
 
@@ -22,11 +22,9 @@ exports.run = async function (client, msg) {
 			}]
 		})
 		msg.channel.stopTyping(true)
-	} else {
-		msg.channel.send(`Error: ${data.text}`)
+	} else if (data.status === 400) {
+		msg.channel.send('You dun got a 400! That means you got a naughty, naughty request.')
 		msg.channel.stopTyping(true)
 	}
-		*/
-	msg.reply('this command is currently down for bug testing.')
 
 }
