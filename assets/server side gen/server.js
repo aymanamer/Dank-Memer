@@ -2,6 +2,11 @@ const express = require('express')
 const app = express()
 const hb = require('handlebars')
 const fs = require('fs')
+const Discord = require('discord.js')
+const client = new Discord.Client()
+const config = require('./../../config.json')
+
+client.login(config.token)
 
 const source = hb.compile(fs.readFileSync('./website/index.html').toString())
 app.use(express.static('website/'))
@@ -53,7 +58,9 @@ app.get('/', (req, res) => {
         'uptime': formatTime(process.uptime()),
         'ram': (process.memoryUsage().rss / 1024 / 1024).toFixed(2),
         'requests': stats.requests,
-        'usage': Object.keys(stats.cmds).sort((a, b) => stats.cmds[b] - stats.cmds[a]).map(c => `${c} - ${stats.cmds[c]} hits`).join('<br>')
+        'usage': Object.keys(stats.cmds).sort((a, b) => stats.cmds[b] - stats.cmds[a]).map(c => `${c} - ${stats.cmds[c]} hits`).join('<br>'),
+        'guilds': client.guilds.size,
+        'users': client.users.size
     }
     res.status(200).send(source(data))
 })
