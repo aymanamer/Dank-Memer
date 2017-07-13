@@ -4,10 +4,8 @@ const hb = require('handlebars')
 const fs = require('fs')
 
 const source = hb.compile(fs.readFileSync('./website/index.html').toString())
-app.use(express.static('./website/css'))
-app.use(express.static('./website/font-awesome'))
-app.use(express.static('./website/fonts'))
-app.use(express.static('./website/js'))
+app.use(express.static('website/'))
+
 
 const endpoints = {}
 const stats = {
