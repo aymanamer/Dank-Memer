@@ -8,7 +8,7 @@ const config = require('./../../config.json')
 
 client.login(config.token)
 
-const source = hb.compile(fs.readFileSync('./website/index.html').toString())
+const source = hb.compile(fs.readFileSync('./index.html').toString())
 app.use(express.static('website'))
 
 
