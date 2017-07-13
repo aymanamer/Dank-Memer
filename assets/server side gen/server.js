@@ -2,7 +2,7 @@ const app = require('express')()
 const hb = require('handlebars')
 const fs = require('fs')
 
-const source = hb.compile(fs.readFileSync('./index.html').toString())
+const source = hb.compile(fs.readFileSync('./website/index.html').toString())
 
 const endpoints = {}
 const stats = {

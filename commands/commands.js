@@ -9,9 +9,9 @@ exports.run = function (client, msg, args, config, EmbedBuilder) {
 			.setDescription('Check out the newest command! pls pupper')
 			.addField('<:feelsgreatman:326155536800284673> Memey Commands', 'annoy, asktrump, bother, cowsay, gooby, joke, justright, kill, meme, memebox, mock, pupper, pun, shitpost, spin, tweet')
 			.addField('💰 Donor Commands', 'custom, doge, dolan, fuckyeah, kappa, kappa pride, lenny, lul, megusta, patreon, repeat, spam, thisisfine, troll')
-			.addField('📷 Image Manipulation', 'batslap, brazzers, byemom, dank, drake, invert, jail, pride, magik,needsmorejpeg, salty, spank, trigger, warp')
+			.addField('📷 Image Manipulation', 'batslap, brazzers, byemom, dank, drake, invert, jail, pride, magik, needsmorejpeg, salty, spank, trigger, warp')
 			.addField('🎙 Voice Commands', 'airhorn, knock, mlg, nicememe, rickroll, scare, shitsound, stop')
 			.addField('🔧 Utilities and Information', 'clean, emoji, help, ping, stats')
-			.setFooter('Special thanks to CrimsonXV and Aetheryx. Credit for trigger goes to stupidcat.')
+			.setFooter('Special thanks to Aetheryx. Credit for trigger goes to stupidcat.')
 	}).catch(() => console.error)
 }
