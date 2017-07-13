@@ -3,11 +3,12 @@ const hb = require('handlebars')
 const fs = require('fs')
 
 const source = hb.compile(fs.readFileSync('./website/index.html').toString())
+/*
 app.use(app.static('./website/css'))
 app.use(app.static('./website/font-awesome'))
 app.use(app.static('./website/fonts'))
 app.use(app.static('./website/js'))
-
+*/
 const endpoints = {}
 const stats = {
     requests: 0,
