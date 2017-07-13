@@ -9,7 +9,7 @@ const config = require('./../../config.json')
 client.login(config.token)
 
 const source = hb.compile(fs.readFileSync('./index.html').toString())
-app.use(express.static('website'))
+app.use(express.static('serverside'))
 
 
 const endpoints = {}
