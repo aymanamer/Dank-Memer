@@ -64,35 +64,35 @@ client.on('message', async(msg) => {
 	const now = parseInt(new Date().getTime() / 1000)
 	const metrics = [{
 			metric: 'memer.guilds',
-			points: [now, guilds.toFixed()]
+			points: [now, guilds]
 		},
 		{
 			metric: 'memer.users',
-			points: [now, users.toFixed()]
+			points: [now, users]
 		},
 		{
 			metric: 'memer.vcs',
-			points: [now, vcs.toFixed()]
+			points: [now, vcs]
 		},
 		{
 			metric: 'memer.votes',
-			points: [now, votes.length.toFixed()]
+			points: [now, votes.length]
 		},
 		{
 			metric: 'memer.commands',
-			points: [now, counters.commands.toFixed()]
+			points: [now, counters.commands]
 		},
 		{
 			metric: 'memer.joined',
-			points: [now, counters.joinedGuilds.toFixed()]
+			points: [now, counters.joinedGuilds]
 		},
 		{
 			metric: 'memer.left',
-			points: [now, counters.leftGuilds.toFixed()]
+			points: [now, counters.leftGuilds]
 		},
 		{
 			metric: 'memer.memes',
-			points: [now, counters.memes.toFixed()]
+			points: [now, counters.memes]
 		},
 		{
 			metric: `shard${client.shard.id}.ram`,
