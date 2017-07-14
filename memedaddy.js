@@ -28,7 +28,8 @@ client.on('message', async(msg) => {
 		client.ids.blocked.channel.includes(msg.channel.id) ||
 		client.ids.blocked.guild.includes(msg.guild.id)) return
 
-
+	let command = msg.content.slice(config.prefix.length + 1).toLowerCase().split(' ')[0]
+	const args = msg.content.split(' ').slice(2)
 
 	if (msg.isMentioned(client.user.id) && msg.content.includes('help'))
 		return msg.channel.send(`Hello, ${msg.author.username}. My prefix is \`pls\`. Example: \`pls meme\``)
@@ -38,8 +39,6 @@ client.on('message', async(msg) => {
 	if (!cooldowns.active[msg.author.id])
 		cooldowns.active[msg.author.id] = []
 
-	let command = msg.content.slice(config.prefix.length + 1).toLowerCase().split(' ')[0]
-	const args = msg.content.split(' ').slice(2)
 
 	if (aliases[command])
 		command = aliases[command]
