@@ -51,9 +51,10 @@ client.on('message', async(msg) => {
 	if (aliases[command])
 		command = aliases[command]
 
-	if (!command) return
-	counters.commands++
-	if (command === 'meme') counters.memes++
+	if (!command) {
+		return
+	}
+
 
 	const votes = await snekfetch.get('https://discordbots.org/api/bots/270904126974590976/votes?onlyids=1').set('Authorization', config.orgtoken)
 	const guilds = (await client.shard.fetchClientValues('guilds.size')).reduce((a, b) => a + b)
@@ -79,8 +80,8 @@ client.on('message', async(msg) => {
 			points: votes.body.length
 		},
 		{
-			metric: 'memer.commands',
-			points: counters.commands
+			metric: 'totalCommands',
+			points: 1
 		},
 		{
 			metric: 'memer.memes',
@@ -111,7 +112,7 @@ client.on('message', async(msg) => {
 	if (!config.devs.includes(msg.author.id) || client.ids.donors.donor1.concat(client.ids.donors.donor5, client.ids.donors.donor10).includes(msg.author.id))
 		cooldowns.active[msg.author.id].push(command)
 
-	
+
 
 	setTimeout(() => {
 		cooldowns.active[msg.author.id].splice(cooldowns.active[msg.author.id].indexOf(command), 1)
@@ -145,7 +146,7 @@ client.on('guildCreate', async(guild) => {
 		.send({
 			'server_count': count
 		})
-		.then(console.log('Updated dbots status.'))
+		.then(console.log('Updated dbots.pw status.'))
 
 	snekfetch
 		.post('https://discordbots.org/api/bots/270904126974590976/stats')
@@ -153,7 +154,7 @@ client.on('guildCreate', async(guild) => {
 		.send({
 			'server_count': count
 		})
-		.then(console.log('Updated dbots status.'))
+		.then(console.log('Updated dbots.org status.'))
 
 	guild.defaultChannel.send({
 		embed: new Discord.RichEmbed()
@@ -171,7 +172,7 @@ client.on('guildCreate', async(guild) => {
 	})
 })
 
-client.on('guildCreate', async (guild) => {
+client.on('guildCreate', async(guild) => {
 	dogapi.metric.send('leftGuilds', 1)
 })
 
