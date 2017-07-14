@@ -76,23 +76,23 @@ client.on('message', async(msg) => {
 		},
 		{
 			metric: 'memer.votes',
-			points: [now, votes.body.length]
+			points: votes.body.length
 		},
 		{
 			metric: 'memer.commands',
-			points: [now, counters.commands]
+			points: counters.commands
 		},
 		{
 			metric: 'memer.joined',
-			points: [now, counters.joinedGuilds]
+			points: counters.joinedGuilds
 		},
 		{
 			metric: 'memer.left',
-			points: [now, counters.leftGuilds]
+			points: counters.leftGuilds
 		},
 		{
 			metric: 'memer.memes',
-			points: [now, counters.memes]
+			points: counters.memes
 		},
 		{
 			metric: `shard${client.shard.id}.ram`,
