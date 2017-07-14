@@ -14,13 +14,6 @@ const cooldowns = {
 	times: require('./cmdConfig.json').cooldowns
 }
 
-const counters = {
-	commands: 0,
-	joinedGuilds: 0,
-	leftGuilds: 0,
-	memes: 0
-}
-
 const dogapi = require('dogapi')
 const options = {
 	api_key: '8827dd750efb8cec8a656985e4974413',
@@ -40,7 +33,7 @@ client.on('message', async(msg) => {
 	if (msg.isMentioned(client.user.id) && msg.content.includes('help'))
 		return msg.channel.send(`Hello, ${msg.author.username}. My prefix is \`pls\`. Example: \`pls meme\``)
 
-	if (!msg.content.toLowerCase().startsWith(config.prefix)) return
+	if (!msg.content.toLowerCase().startsWith(config.prefix) || !command) return
 
 	if (!cooldowns.active[msg.author.id])
 		cooldowns.active[msg.author.id] = []
@@ -51,11 +44,6 @@ client.on('message', async(msg) => {
 	if (aliases[command])
 		command = aliases[command]
 
-	if (!command) {
-		return
-	}
-
-
 	const votes = await snekfetch.get('https://discordbots.org/api/bots/270904126974590976/votes?onlyids=1').set('Authorization', config.orgtoken)
 	const guilds = (await client.shard.fetchClientValues('guilds.size')).reduce((a, b) => a + b)
 	const users = (await client.shard.fetchClientValues('users.size')).reduce((a, b) => a + b)
@@ -64,36 +52,30 @@ client.on('message', async(msg) => {
 
 	const now = parseInt(new Date().getTime() / 1000)
 	const metrics = [{
-			metric: 'memer.guilds',
-			points: [now, guilds]
-		},
-		{
-			metric: 'memer.users',
-			points: [now, users]
-		},
-		{
-			metric: 'memer.vcs',
-			points: [now, vcs]
-		},
-		{
-			metric: 'memer.votes',
-			points: votes.body.length
-		},
-		{
-			metric: 'totalCommands',
-			points: 1
-		},
-		{
-			metric: 'memer.memes',
-			points: counters.memes
-		},
-		{
-			metric: `shard${client.shard.id}.ram`,
-			points: [now, ram]
-		}
+		metric: 'memer.guilds',
+		points: [now, guilds]
+	},
+	{
+		metric: 'memer.users',
+		points: [now, users]
+	},
+	{
+		metric: 'memer.vcs',
+		points: [now, vcs]
+	},
+	{
+		metric: 'memer.votes',
+		points: votes.body.length
+	},
+	{
+		metric: 'totalCommands',
+		points: 1
+	},
+	{
+		metric: `shard${client.shard.id}.ram`,
+		points: [now, ram]
+	}
 	]
-
-
 	dogapi.metric.send_all(metrics)
 
 	if (cooldowns.active[msg.author.id].includes(command)) {
@@ -191,5 +173,5 @@ client.once('ready', () => {
 	client.user.setGame('hello', 'https://www.twitch.tv/melmsie')
 })
 
+process.on('unhandledRejection', err => console.error(`${Date()} Uncaught Promise Error: \n${err.stack}`))
 client.on('error', console.error)
-client.on('warn', console.warn)
