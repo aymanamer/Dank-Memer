@@ -5,6 +5,12 @@ const fs = require('fs')
 const Discord = require('discord.js')
 const client = new Discord.Client()
 const config = require('./../../config.json')
+const dogapi = require('dogapi')
+const options = {
+    api_key: '8827dd750efb8cec8a656985e4974413',
+    app_key: 'f8d6a3ac647bc9a6caece15a9aadef20aa08f1f4',
+}
+dogapi.initialize(options)
 
 client.login(config.token)
 
@@ -17,6 +23,8 @@ const stats = {
     requests: 0,
     cmds: {}
 }
+setInterval(function () { dogapi.metric.send('api.requests', stats.requests) }, 2000)
+
 
 fs.readdir('./assets/', (err, files) => {
     files.forEach(file => {
