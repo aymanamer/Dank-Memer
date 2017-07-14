@@ -14,11 +14,21 @@ const cooldowns = {
 	times: require('./cmdConfig.json').cooldowns
 }
 
-client.on('message', msg => {
+const dogapi = require('dogapi')
+const options = { 
+	api_key: '8827dd750efb8cec8a656985e4974413',
+	app_key: 'f8d6a3ac647bc9a6caece15a9aadef20aa08f1f4',
+}
+dogapi.initialize(options)
+		
+
+client.on('message', async(msg) => {
 	if (msg.channel.type === 'dm' || msg.author.bot ||
 		client.ids.blocked.user.includes(msg.author.id) ||
 		client.ids.blocked.channel.includes(msg.channel.id) ||
 		client.ids.blocked.guild.includes(msg.guild.id)) return
+
+
 
 	if (msg.isMentioned(client.user.id) && msg.content.includes('help'))
 		return msg.channel.send(`Hello, ${msg.author.username}. My prefix is \`pls\`. Example: \`pls meme\``)
@@ -36,25 +46,55 @@ client.on('message', msg => {
 
 	if (!command) return
 
+	const guilds = (await client.shard.fetchClientValues('guilds.size')).reduce((a, b) => a + b)
+	const users = (await client.shard.fetchClientValues('users.size')).reduce((a, b) => a + b)
+	const vcs = (await client.shard.fetchClientValues('voiceConnections.size')).reduce((a, b) => a + b)
+	const ram = (process.memoryUsage().rss / 1048576).toFixed()
+
+
+	const now = parseInt(new Date().getTime() / 1000)
+	const metrics = [{
+		metric: 'memer.guilds',
+		points: [now, guilds]
+	},
+	{
+		metric: 'memer.users',
+		points: [now, users]
+	},
+	{
+		metric: 'memer.vcs',
+		points: [now, vcs]
+	},
+	{
+		metric: `shard${client.shard.id}.ram`,
+		points: [now, ram]
+	}
+	]
+
+
+	dogapi.metric.send_all(metrics)
+
 	if (cooldowns.active[msg.author.id].includes(command)) {
 		if (cooldowns.active[msg.author.id].includes('annoy') && command === 'annoy')
-			return msg.channel.send('After annoying someone, it is an hour until you can annoy someone again!\nIf you\'re a donor, you get to use it 75% faster!')
+			return msg.channel.send('After annoying someone, it is an hour until you can annoy someone again!\nDonors have NO cooldowns, and people who vote at <https://discordbots.org/bot/270904126974590976> will have 75% reduced cooldowns!')
 
 		if (cooldowns.active[msg.author.id].includes('tweet') && command === 'tweet')
-			return msg.channel.send('After tweeting, it is 15 minutes until you can tweet again!\nIf you\'re a donor, you get to use it 75% faster!')
+			return msg.channel.send('After tweeting, it is 30 minutes until you can tweet again!\nDonors have NO cooldowns, and people who vote at <https://discordbots.org/bot/270904126974590976> will have 75% reduced cooldowns!')
 
 		if (cooldowns.active[msg.author.id].includes('spam') && command === 'spam')
 			return msg.channel.send('After spamming, it is 10 minutes until you can spam again.')
 
-		return msg.channel.send('This command is currently in cooldown. Try again in a few seconds.\nIf you\'re a donor, you get to use it 75% faster!')
+		return msg.channel.send('This command is currently in cooldown. Try again in a few seconds.\nDonors have NO cooldowns, and people who vote at <https://discordbots.org/bot/270904126974590976> will have 75% reduced cooldowns!')
 	}
 
-	if (!config.devs.includes(msg.author.id))
+	if (!config.devs.includes(msg.author.id) || client.ids.donors.donor1.concat(client.ids.donors.donor5, client.ids.donors.donor10).includes(msg.author.id))
 		cooldowns.active[msg.author.id].push(command)
+
+	const votes = await snekfetch.get('https://discordbots.org/api/bots/270904126974590976/votes?onlyids=1').set('Authorization', config.orgtoken)
 
 	setTimeout(() => {
 		cooldowns.active[msg.author.id].splice(cooldowns.active[msg.author.id].indexOf(command), 1)
-	}, client.ids.donors.donor1.concat(client.ids.donors.donor5, client.ids.donors.donor10).includes(msg.author.id) ? cooldowns.times[command] * 0.25 : cooldowns.times[command])
+	}, votes.body.includes(msg.author.id) ? cooldowns.times[command] * 0.25 : cooldowns.times[command])
 
 	try {
 		delete require.cache[require.resolve(`./commands/${command}`)]
@@ -73,7 +113,7 @@ client.on('message', msg => {
 
 })
 
-client.on('guildCreate', async (guild) => {
+client.on('guildCreate', async(guild) => {
 	const guilds = await client.shard.fetchClientValues('guilds.size')
 	const count = guilds.reduce((prev, val) => prev + val, 0)
 

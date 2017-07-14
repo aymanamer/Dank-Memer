@@ -8,6 +8,7 @@
     "bufferutil": "^3.0.1",
     "cowsay": "^1.1.9",
     "discord.js": "^11.1.0",
+    "dogapi": "^2.8.0",
     "erlpack": "^0.1.2",
     "gifencoder": "^1.0.6",
     "gm": "^1.23.0",
