@@ -83,14 +83,6 @@ client.on('message', async(msg) => {
 			points: counters.commands
 		},
 		{
-			metric: 'memer.joined',
-			points: counters.joinedGuilds
-		},
-		{
-			metric: 'memer.left',
-			points: counters.leftGuilds
-		},
-		{
 			metric: 'memer.memes',
 			points: counters.memes
 		},
@@ -143,7 +135,7 @@ client.on('message', async(msg) => {
 })
 
 client.on('guildCreate', async(guild) => {
-	counters.joinedGuilds++
+	dogapi.metric.send('joinedGuilds', 1)
 	const guilds = await client.shard.fetchClientValues('guilds.size')
 	const count = guilds.reduce((prev, val) => prev + val, 0)
 
@@ -180,7 +172,7 @@ client.on('guildCreate', async(guild) => {
 })
 
 client.on('guildCreate', async (guild) => {
-	counters.leftGuilds++
+	dogapi.metric.send('leftGuilds', 1)
 })
 
 
