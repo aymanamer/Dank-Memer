@@ -14,13 +14,20 @@ const cooldowns = {
 	times: require('./cmdConfig.json').cooldowns
 }
 
+const counters = {
+	commands: 0,
+	joinedGuilds: 0,
+	leftGuilds: 0,
+	memes: 0
+}
+
 const dogapi = require('dogapi')
-const options = { 
+const options = {
 	api_key: '8827dd750efb8cec8a656985e4974413',
 	app_key: 'f8d6a3ac647bc9a6caece15a9aadef20aa08f1f4',
 }
 dogapi.initialize(options)
-		
+
 
 client.on('message', async(msg) => {
 	if (msg.channel.type === 'dm' || msg.author.bot ||
@@ -45,30 +52,52 @@ client.on('message', async(msg) => {
 		command = aliases[command]
 
 	if (!command) return
+	counters.commands++
+	if (command === 'meme') counters.memes++
 
+	const votes = await snekfetch.get('https://discordbots.org/api/bots/270904126974590976/votes?onlyids=1').set('Authorization', config.orgtoken)
 	const guilds = (await client.shard.fetchClientValues('guilds.size')).reduce((a, b) => a + b)
 	const users = (await client.shard.fetchClientValues('users.size')).reduce((a, b) => a + b)
 	const vcs = (await client.shard.fetchClientValues('voiceConnections.size')).reduce((a, b) => a + b)
 	const ram = (process.memoryUsage().rss / 1048576).toFixed()
 
-
 	const now = parseInt(new Date().getTime() / 1000)
 	const metrics = [{
-		metric: 'memer.guilds',
-		points: [now, guilds]
-	},
-	{
-		metric: 'memer.users',
-		points: [now, users]
-	},
-	{
-		metric: 'memer.vcs',
-		points: [now, vcs]
-	},
-	{
-		metric: `shard${client.shard.id}.ram`,
-		points: [now, ram]
-	}
+			metric: 'memer.guilds',
+			points: [now, guilds.toFixed()]
+		},
+		{
+			metric: 'memer.users',
+			points: [now, users.toFixed()]
+		},
+		{
+			metric: 'memer.vcs',
+			points: [now, vcs.toFixed()]
+		},
+		{
+			metric: 'memer.votes',
+			points: [now, votes.length.toFixed()]
+		},
+		{
+			metric: 'memer.commands',
+			points: [now, counters.commands.toFixed()]
+		},
+		{
+			metric: 'memer.joined',
+			points: [now, counters.joinedGuilds.toFixed()]
+		},
+		{
+			metric: 'memer.left',
+			points: [now, counters.leftGuilds.toFixed()]
+		},
+		{
+			metric: 'memer.memes',
+			points: [now, counters.memes.toFixed()]
+		},
+		{
+			metric: `shard${client.shard.id}.ram`,
+			points: [now, ram]
+		}
 	]
 
 
@@ -90,7 +119,7 @@ client.on('message', async(msg) => {
 	if (!config.devs.includes(msg.author.id) || client.ids.donors.donor1.concat(client.ids.donors.donor5, client.ids.donors.donor10).includes(msg.author.id))
 		cooldowns.active[msg.author.id].push(command)
 
-	const votes = await snekfetch.get('https://discordbots.org/api/bots/270904126974590976/votes?onlyids=1').set('Authorization', config.orgtoken)
+	
 
 	setTimeout(() => {
 		cooldowns.active[msg.author.id].splice(cooldowns.active[msg.author.id].indexOf(command), 1)
@@ -114,6 +143,7 @@ client.on('message', async(msg) => {
 })
 
 client.on('guildCreate', async(guild) => {
+	counters.joinedGuilds++
 	const guilds = await client.shard.fetchClientValues('guilds.size')
 	const count = guilds.reduce((prev, val) => prev + val, 0)
 
@@ -147,6 +177,10 @@ client.on('guildCreate', async(guild) => {
 				.setDescription(`My name is ${client.user.username}.\n\nTo get started, send \`pls help\` in your server.\n\nI am maintained by Melmsie#0006, who can be found at [this server](https://discord.gg/3GNMJBG) if you need to talk to him.`)
 		}).catch(() => console.log('The god damn guild owner couldn\'t get the message either'))
 	})
+})
+
+client.on('guildCreate', async (guild) => {
+	counters.leftGuilds++
 })
 
 
