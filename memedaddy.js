@@ -76,7 +76,7 @@ client.on('message', async(msg) => {
 		},
 		{
 			metric: 'memer.votes',
-			points: [now, votes.length]
+			points: [now, votes.body.length]
 		},
 		{
 			metric: 'memer.commands',
