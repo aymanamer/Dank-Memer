@@ -1,6 +1,5 @@
 const config = require('./config.json')
 const snekfetch = require('snekfetch')
-const fs = require('fs')
 const Discord = require('discord.js')
 const client = new Discord.Client({
 	disableEveryone: true,
@@ -61,7 +60,7 @@ client.on('message', async(msg) => {
 
 	if (!config.devs.includes(msg.author.id) || client.ids.donors.donor1.concat(client.ids.donors.donor5, client.ids.donors.donor10).includes(msg.author.id))
 		cooldowns.active[msg.author.id].push(command)
-
+	const votes = await snekfetch.get('https://discordbots.org/api/bots/270904126974590976/votes?onlyids=1').set('Authorization', config.orgtoken)
 
 
 	setTimeout(() => {
@@ -137,7 +136,6 @@ client.once('ready', async() => {
 	client.ids = require('./ids.json')
 	setInterval(async() => {
 
-		const votes = await snekfetch.get('https://discordbots.org/api/bots/270904126974590976/votes?onlyids=1').set('Authorization', config.orgtoken)
 		const guilds = (await client.shard.fetchClientValues('guilds.size')).reduce((a, b) => a + b)
 		const users = (await client.shard.fetchClientValues('users.size')).reduce((a, b) => a + b)
 		const vcs = (await client.shard.fetchClientValues('voiceConnections.size')).reduce((a, b) => a + b)
