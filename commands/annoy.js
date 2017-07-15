@@ -1,6 +1,6 @@
 const serverStaff = ['221060582986612749', '145456746721312768', '210579245607550977', '162134224353230848', '291422304544620544', '261295304337391616']
 const snakefetch = require('snekfetch')
-exports.run = async function (client, msg, undefined, config) {
+exports.run = async function (client, msg, args, config) {
 
 
 	const votes = await snakefetch.get('https://discordbots.org/api/bots/270904126974590976/votes?onlyids=1').set('Authorization', config.orgtoken)
