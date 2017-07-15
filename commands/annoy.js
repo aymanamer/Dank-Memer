@@ -1,5 +1,12 @@
 const serverStaff = ['221060582986612749', '145456746721312768', '210579245607550977', '162134224353230848', '291422304544620544', '261295304337391616']
-exports.run = function (client, msg, undefined, config) {
+const snakefetch = require('snekfetch')
+exports.run = async function (client, msg, undefined, config) {
+
+
+	const votes = await snakefetch.get('https://discordbots.org/api/bots/270904126974590976/votes?onlyids=1').set('Authorization', config.orgtoken)
+	if (!votes.body.includes(msg.author.id))
+		return msg.channel.send(`Hey, <@${msg.author.id}>! You have to go vote at https://discordbots.org/bot/270904126974590976 to use this command this week, as this bot is competing with a few others. It will return to normal in a few days. Thank you!\n\nAll you have to do is log in via discord in the top right corner, and click "vote"!`)
+
 
 	if (!msg.channel.permissionsFor(client.user.id).has('ADD_REACTIONS'))
 		return msg.reply('Well shit, there was a permission error! Make sure I have `add reactions` so I can do this shit!').catch(() => console.error)

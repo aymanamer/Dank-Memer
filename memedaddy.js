@@ -1,8 +1,10 @@
 const config = require('./config.json')
 const snekfetch = require('snekfetch')
+const fs = require('fs')
 const Discord = require('discord.js')
 const client = new Discord.Client({
 	disableEveryone: true,
+	messageCacheMaxSize: 100,
 	disabledEvents: ['CHANNEL_PINS_UPDATE', 'USER_SETTINGS_UPDATE', 'USER_NOTE_UPDATE', 'RELATIONSHIP_ADD', 'RELATIONSHIP_REMOVE', 'GUILD_BAN_ADD', 'GUILD_BAN_REMOVE', 'MESSAGE_UPDATE', 'MESSAGE_DELETE_BULK', 'MESSAGE_REACTION_REMOVE', 'MESSAGE_REACTION_REMOVE_ALL']
 })
 const aliases = require('./cmdConfig.json').aliases
@@ -43,39 +45,6 @@ client.on('message', async(msg) => {
 	if (aliases[command])
 		command = aliases[command]
 
-	const votes = await snekfetch.get('https://discordbots.org/api/bots/270904126974590976/votes?onlyids=1').set('Authorization', config.orgtoken)
-	const guilds = (await client.shard.fetchClientValues('guilds.size')).reduce((a, b) => a + b)
-	const users = (await client.shard.fetchClientValues('users.size')).reduce((a, b) => a + b)
-	const vcs = (await client.shard.fetchClientValues('voiceConnections.size')).reduce((a, b) => a + b)
-	const ram = (process.memoryUsage().rss / 1048576).toFixed()
-
-	const now = parseInt(new Date().getTime() / 1000)
-	const metrics = [{
-		metric: 'memer.guilds',
-		points: [now, guilds]
-	},
-	{
-		metric: 'memer.users',
-		points: [now, users]
-	},
-	{
-		metric: 'memer.vcs',
-		points: [now, vcs]
-	},
-	{
-		metric: 'memer.votes',
-		points: votes.body.length
-	},
-	{
-		metric: 'totalCommands',
-		points: 1
-	},
-	{
-		metric: `shard${client.shard.id}.ram`,
-		points: [now, ram]
-	}
-	]
-	dogapi.metric.send_all(metrics)
 
 	if (cooldowns.active[msg.author.id].includes(command)) {
 		if (cooldowns.active[msg.author.id].includes('annoy') && command === 'annoy')
@@ -117,7 +86,6 @@ client.on('message', async(msg) => {
 })
 
 client.on('guildCreate', async(guild) => {
-	dogapi.metric.send('joinedGuilds', 1)
 	const guilds = await client.shard.fetchClientValues('guilds.size')
 	const count = guilds.reduce((prev, val) => prev + val, 0)
 
@@ -125,7 +93,8 @@ client.on('guildCreate', async(guild) => {
 		.post('https://bots.discord.pw/api/bots/270904126974590976/stats')
 		.set('Authorization', config.pwtoken)
 		.send({
-			'server_count': count
+			'server_count': count,
+			'shard_count': client.shard.count
 		})
 		.then(console.log('Updated dbots.pw status.'))
 
@@ -133,7 +102,8 @@ client.on('guildCreate', async(guild) => {
 		.post('https://discordbots.org/api/bots/270904126974590976/stats')
 		.set('Authorization', config.orgtoken)
 		.send({
-			'server_count': count
+			'server_count': count,
+			'shard_count': client.shard.count
 		})
 		.then(console.log('Updated dbots.org status.'))
 
@@ -153,12 +123,9 @@ client.on('guildCreate', async(guild) => {
 	})
 })
 
-client.on('guildCreate', async(guild) => {
-	dogapi.metric.send('leftGuilds', 1)
-})
 
 
-client.once('ready', () => {
+client.once('ready', async() => {
 	console.log(`[${new Date()}] ${client.user.username} loaded successfully.`)
 
 	client.indexes = {
@@ -168,8 +135,44 @@ client.once('ready', () => {
 	}
 
 	client.ids = require('./ids.json')
+	setInterval(async() => {
 
-	client.user.setGame('hello', 'https://www.twitch.tv/melmsie')
+		const votes = await snekfetch.get('https://discordbots.org/api/bots/270904126974590976/votes?onlyids=1').set('Authorization', config.orgtoken)
+		const guilds = (await client.shard.fetchClientValues('guilds.size')).reduce((a, b) => a + b)
+		const users = (await client.shard.fetchClientValues('users.size')).reduce((a, b) => a + b)
+		const vcs = (await client.shard.fetchClientValues('voiceConnections.size')).reduce((a, b) => a + b)
+		const ram = (process.memoryUsage().rss / 1048576).toFixed()
+
+		const now = parseInt(new Date().getTime() / 1000)
+		const metrics = [{
+				metric: 'memer.guilds',
+				points: [now, guilds]
+			},
+			{
+				metric: 'memer.users',
+				points: [now, users]
+			},
+			{
+				metric: 'memer.vcs',
+				points: [now, vcs]
+			},
+			{
+				metric: 'memer.votes',
+				points: votes.body.length
+			},
+			{
+				metric: 'totalCommands',
+				points: 1
+			},
+			{
+				metric: `shard${client.shard.id}.ram`,
+				points: [now, ram]
+			}
+		]
+		dogapi.metric.send_all(metrics)
+	}, 2000)
+
+	client.user.setGame('pls help', 'https://www.twitch.tv/melmsie')
 })
 
 process.on('unhandledRejection', err => console.error(`${Date()} Uncaught Promise Error: \n${err.stack}`))
