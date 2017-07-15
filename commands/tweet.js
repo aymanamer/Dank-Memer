@@ -6,12 +6,7 @@ const tClient = new twit({
 	access_token_secret:  'nlZbvOYEnlN4vqlcB1Ips5c2qT9suL1KXPRDyDZxaPpsL',
 	timeout_ms:           60*1000,
 })
-const snakefetch = require('snekfetch')
 exports.run = async function (client, msg, args, config, EmbedBuilder) {
-
-	const votes = await snakefetch.get('https://discordbots.org/api/bots/270904126974590976/votes?onlyids=1').set('Authorization', config.orgtoken)
-	if (!votes.body.includes(msg.author.id))
-		return msg.channel.send(`Hey, <@${msg.author.id}>! You have to go vote at https://discordbots.org/bot/270904126974590976 to use this command this week, as this bot is competing with a few others. It will return to normal in a few days. Thank you!\n\nAll you have to do is log in via discord in the top right corner, and click "vote"!`)
 
 	args = msg.cleanContent.split(' ').slice(2).join(' ')
 	if (args.length < 1)

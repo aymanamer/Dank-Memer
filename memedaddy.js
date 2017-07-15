@@ -51,9 +51,6 @@ client.on('message', async(msg) => {
 	const vcs = (await client.shard.fetchClientValues('voiceConnections.size')).reduce((a, b) => a + b)
 	const ram = (process.memoryUsage().rss / 1048576).toFixed()
 
-	if (!votes.body.includes(msg.author.id))
-		return msg.channel.send(`Hey, <@${msg.author.id}>! You have to go vote at https://discordbots.org/bot/270904126974590976 to use this command this week, as this bot is competing with a few others. It will return to normal in a few days. Thank you!\n\nAll you have to do is log in via discord in the top right corner, and click "vote"!`)
-
 	const now = parseInt(new Date().getTime() / 1000)
 	const metrics = [{
 		metric: 'memer.guilds',
