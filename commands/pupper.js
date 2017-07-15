@@ -1,9 +1,5 @@
 const snekfetch = require('snekfetch')
-exports.run = async function (client, msg, args, config) {
-
-	const votes = await snekfetch.get('https://discordbots.org/api/bots/270904126974590976/votes?onlyids=1').set('Authorization', config.orgtoken)
-	if (!votes.body.includes(msg.author.id))
-		return msg.channel.send(`Hey, <@${msg.author.id}>! You have to go vote at https://discordbots.org/bot/270904126974590976 to see all these puppers!`)
+exports.run = async function (client, msg) {
 
 	getDogPic(msg)
 
