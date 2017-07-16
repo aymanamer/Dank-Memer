@@ -14,14 +14,14 @@ const cooldowns = {
 	active: {},
 	times: require('./cmdConfig.json').cooldowns
 }
-
+/*
 const dogapi = require('dogapi')
 const options = {
 	api_key: '8827dd750efb8cec8a656985e4974413',
 	app_key: 'f8d6a3ac647bc9a6caece15a9aadef20aa08f1f4',
 }
 dogapi.initialize(options)
-
+*/
 
 client.on('message', async(msg) => {
 	if (msg.channel.type === 'dm' || msg.author.bot ||
@@ -44,7 +44,7 @@ client.on('message', async(msg) => {
 	if (aliases[command])
 		command = aliases[command]
 
-
+/*
 	const votes = await snekfetch.get('https://discordbots.org/api/bots/270904126974590976/votes?onlyids=1').set('Authorization', config.orgtoken)
 	const guilds = (await client.shard.fetchClientValues('guilds.size')).reduce((a, b) => a + b)
 	const users = (await client.shard.fetchClientValues('users.size')).reduce((a, b) => a + b)
@@ -78,6 +78,7 @@ client.on('message', async(msg) => {
 	}
 	]
 	dogapi.metric.send_all(metrics)
+	*/
 
 	if (cooldowns.active[msg.author.id].includes(command)) {
 		if (cooldowns.active[msg.author.id].includes('annoy') && command === 'annoy')
