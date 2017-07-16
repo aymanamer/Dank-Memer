@@ -91,7 +91,7 @@ client.on('message', async(msg) => {
 
 	setTimeout(() => {
 		cooldowns.active[msg.author.id].splice(cooldowns.active[msg.author.id].indexOf(command), 1)
-	}, config.donor1.concat(config.donor5, config.donor10).includes(msg.author.id) ? cooldowns.times[command] * 0.25 : cooldowns.times[command])
+	}, client.ids.donors.donor1.concat(client.ids.donors.donor5, client.ids.donors.donor10).includes(msg.author.id) ? cooldowns.times[command] * 0.25 : cooldowns.times[command])
 
 	try {
 		delete require.cache[require.resolve(`./commands/${command}`)]
