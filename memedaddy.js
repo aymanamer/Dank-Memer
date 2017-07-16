@@ -44,8 +44,9 @@ client.on('message', async(msg) => {
 	if (aliases[command])
 		command = aliases[command]
 
-/*
+
 	const votes = await snekfetch.get('https://discordbots.org/api/bots/270904126974590976/votes?onlyids=1').set('Authorization', config.orgtoken)
+	/*
 	const guilds = (await client.shard.fetchClientValues('guilds.size')).reduce((a, b) => a + b)
 	const users = (await client.shard.fetchClientValues('users.size')).reduce((a, b) => a + b)
 	const vcs = (await client.shard.fetchClientValues('voiceConnections.size')).reduce((a, b) => a + b)
