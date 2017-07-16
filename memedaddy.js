@@ -114,6 +114,7 @@ client.on('message', async(msg) => {
 		require(`./commands/${command}`).run(client, msg, args, config, Discord.RichEmbed)
 
 	} catch (e) {
+		if (e.stack.startsWith('Error: Cannot find module')) return
 		return console.log(e)
 	}
 
@@ -177,13 +178,3 @@ process.on('uncaughtException', (err) => {
 	if (err.stack.startsWith('Error: Cannot find module')) return
 	console.log(`Caught exception: ${err.stack}`)
 })
-
-
-process.on('unhandledRejection', (err) => {
-	if (err.stack.startsWith('Error: Forbidden')) return
-	if (err.stack.startsWith('Error: Cannot find module')) return
-	if (err.stack.startsWith('RangeError: RichEmbed field values may not exceed 1024 characters.')) return
-
-	console.log(`Caught Promise Rejection: ${err.stack}`)
-})
-
