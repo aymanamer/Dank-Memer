@@ -10,11 +10,12 @@ const aliases = require('./cmdConfig.json').aliases
 
 client.login(config.token)
 
+/*
 const cooldowns = {
 	active: {},
 	times: require('./cmdConfig.json').cooldowns
 }
-/*
+
 const dogapi = require('dogapi')
 const options = {
 	api_key: '8827dd750efb8cec8a656985e4974413',
@@ -24,6 +25,7 @@ dogapi.initialize(options)
 */
 
 client.on('message', async(msg) => {
+	
 	if (msg.channel.type === 'dm' || msg.author.bot ||
 		client.ids.blocked.user.includes(msg.author.id) ||
 		client.ids.blocked.channel.includes(msg.channel.id) ||
@@ -37,15 +39,13 @@ client.on('message', async(msg) => {
 
 	if (!msg.content.toLowerCase().startsWith(config.prefix) || !command) return
 
-	if (!cooldowns.active[msg.author.id])
-		cooldowns.active[msg.author.id] = []
+//	if (!cooldowns.active[msg.author.id])
+//		cooldowns.active[msg.author.id] = []
 
 
 	if (aliases[command])
 		command = aliases[command]
 
-
-	const votes = await snekfetch.get('https://discordbots.org/api/bots/270904126974590976/votes?onlyids=1').set('Authorization', config.orgtoken)
 	/*
 	const guilds = (await client.shard.fetchClientValues('guilds.size')).reduce((a, b) => a + b)
 	const users = (await client.shard.fetchClientValues('users.size')).reduce((a, b) => a + b)
@@ -79,7 +79,7 @@ client.on('message', async(msg) => {
 	}
 	]
 	dogapi.metric.send_all(metrics)
-	*/
+	
 
 	if (cooldowns.active[msg.author.id].includes(command)) {
 		if (cooldowns.active[msg.author.id].includes('annoy') && command === 'annoy')
@@ -102,7 +102,7 @@ client.on('message', async(msg) => {
 	setTimeout(() => {
 		cooldowns.active[msg.author.id].splice(cooldowns.active[msg.author.id].indexOf(command), 1)
 	}, votes.body.includes(msg.author.id) ? cooldowns.times[command] * 0.25 : cooldowns.times[command])
-
+*/
 	try {
 		delete require.cache[require.resolve(`./commands/${command}`)]
 
