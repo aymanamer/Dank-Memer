@@ -23,6 +23,7 @@
     "request-promise": "^4.2.1",
     "snekfetch": "^3.1.8",
     "sodium": "^2.0.1",
+    "table": "^4.0.1",
     "twit": "^2.2.9",
     "util": "^0.10.3",
     "uws": "^0.14.5",

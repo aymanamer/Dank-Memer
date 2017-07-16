@@ -3,6 +3,28 @@ const util = require('util')
 const snakefetch = require('snekfetch')
 const twit = require('twit')
 const fs = require('fs')
+const table = require('table')
+
+const config = {
+	border: {
+		topBody: '─',
+		topJoin: '┬',
+		topLeft: '┌',
+		topRight: '┐',
+		bottomBody: '─',
+		bottomJoin: '┴',
+		bottomLeft: '└',
+		bottomRight: '┘',
+		bodyLeft: '│',
+		bodyRight: '│',
+		bodyJoin: '│',
+		joinBody: '─',
+		joinLeft: '├',
+		joinRight: '┤',
+		joinJoin: '┼'
+	}
+}
+
 exports.run = async function (client, msg, args, config, EmbedBuilder) {
 	if (!config.devs.includes(msg.author.id)) return
 
@@ -37,6 +59,39 @@ exports.run = async function (client, msg, args, config, EmbedBuilder) {
 			return msg.channel.send('Huh?')
 		}
 
+	if (command === 'shardinfo') {
+
+		const data = [
+			[
+				'Shard #',
+				'Guilds',
+				'Users',
+				'VCs',
+				'Ping',
+				'Memory Usage'
+			]
+		]
+		client.shard.broadcastEval('[(this.shard.id + 1), this.guilds.size, this.users.size, this.voiceConnections.size, Math.round(this.ping), (process.memoryUsage().heapUsed / 1024 / 1024).toFixed(1)]').then(r => {
+			r.map(v => {
+				const newdata = v
+				newdata[4] = v[4] + 'ms'
+				newdata[5] = v[5] + ' MB'
+				data.push(newdata)
+			})
+			data.push([
+				'Total',
+				r.map(v => v[1]).reduce((a, b) => a + b, 0),
+				r.map(v => v[2]).reduce((a, b) => a + b, 0),
+				r.map(v => v[3]).reduce((a, b) => a + b, 0),
+				Math.round(r.map(v => Number(v[4].match(/(\d+[\.]+\d+|\d+)/)[0])).reduce((a, b) => a + b, 0) / client.shard.count) + 'ms',
+				r.map(v => Number(v[5].match(/(\d+[\.]+\d+|\d+)/)[0])).reduce((a, b) => a + b, 0) + ' MB'
+			])
+
+			msg.channel.send('```\n' + table.table(data, config) + '```')
+		})
+	}
+
+
 	if (command === 'eval') {
 		let res
 		let evalTime
@@ -62,7 +117,7 @@ exports.run = async function (client, msg, args, config, EmbedBuilder) {
 	}
 
 	if (command === 'bash') {
-		await msg.channel.send(`**Input**\n\`\`\`sh\n$ ${args.join(' ')}\n\`\`\``)
+		msg.channel.send(`**Input**\n\`\`\`sh\n$ ${args.join(' ')}\n\`\`\``)
 		exec(args.join(' '), async (e, stdout, stderr) => {
 			if (stdout.length + stderr.length > 2000) {
 				const res = await snakefetch.post('https://hastebin.com/documents')
@@ -116,7 +171,7 @@ exports.run = async function (client, msg, args, config, EmbedBuilder) {
 		if (!args[0] || !args[1] || !args[2] ||
 			!['add', 'remove'].includes(args[0].toLowerCase()) ||
 			!['channel', 'user', 'guild'].includes(args[1].toLowerCase()))
-			return msg.channel.send('Argument error. Make sure your first argument is one of `add` or `remove`, your second `channel`, `guild` or `user` and your third an ID or a mention (users only; use ID\'s for channels and guilds).')
+			return msg.channel.send('Argument error. Make sure your first argument is one of `add` or `remove`, your second `channel`, `guild` or `user` and your third an ID or a mention (users only use ID\'s for channels and guilds).')
 
 		if (args[0].toLowerCase() === 'add') {
 			if (args[1].toLowerCase() === 'user')

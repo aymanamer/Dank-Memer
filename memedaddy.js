@@ -112,7 +112,6 @@ client.on('message', async(msg) => {
 		require(`./commands/${command}`).run(client, msg, args, config, Discord.RichEmbed)
 
 	} catch (e) {
-		if (e.message.includes('Cannot find module')) return
 		return console.log(e)
 	}
 
@@ -172,5 +171,17 @@ client.once('ready', () => {
 	client.user.setGame('hello', 'https://www.twitch.tv/melmsie')
 })
 
-process.on('unhandledRejection', err => console.error(`${Date()} Uncaught Promise Error: \n${err.stack}`))
-client.on('error', console.error)
+process.on('uncaughtException', (err) => {
+	if (err.stack.startsWith('Error: Cannot find module')) return
+	console.log(`Caught exception: ${err.stack}`)
+})
+
+
+process.on('unhandledRejection', (err) => {
+	if (err.stack.startsWith('Error: Forbidden')) return
+	if (err.stack.startsWith('Error: Cannot find module')) return
+	if (err.stack.startsWith('RangeError: RichEmbed field values may not exceed 1024 characters.')) return
+
+	console.log(`Caught Promise Rejection: ${err.stack}`)
+})
+
