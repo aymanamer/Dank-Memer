@@ -31,7 +31,7 @@
 		"bye": "byemom",
 		"jpeg": "needsmorejpeg"
 	},
-	"cooldowns": {
+	"cds": {
 		"magik": 10000,
 		"trigger": 10000,
 		"salty": 10000,
@@ -59,6 +59,12 @@
 		"pride": 8000,
 		"needsmorejpeg": 8000,
 		"byemom": 10000,
-		"dank": 10000
+		"dank": 10000,
+		"stats": 15000,
+		"ping": 10000
+	},
+	"cdmessages": {
+		"stats": "ur on cd for stats man",
+		"ping": "ur on cd for ping man"
 	}
 }
