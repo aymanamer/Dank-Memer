@@ -2,7 +2,12 @@ exports.run = async function (client, msg, args, config, EmbedBuilder) {
 	if (config.owner !== msg.author.id) return
 	const melmsie = client.users.get(config.owner)
 	try {
-		await client.users.get(args[0]).send({
+		let user
+		if (client.users.get(args[0]))
+			user = client.users.get(args[0])
+		else
+			user = await client.fetchUser(args[0])
+		await user.send({
 			embed: new EmbedBuilder()
 				.setColor('#3676b3')
 				.setTitle('📫 You have received a message from the developer!')
@@ -15,7 +20,4 @@ exports.run = async function (client, msg, args, config, EmbedBuilder) {
 		await msg.react('❌')
 		msg.channel.send(`**Fuck!** *${e}*`)
 	}
-
-
-
 }
