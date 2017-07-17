@@ -11,7 +11,6 @@ exports.run = async function (client, msg) {
 		.set('Api-Key', 'XfGC62d9xKiOc4IegPdz')
 		.set('data-src', avatarurl).catch(() => {
 			msg.channel.send('You dun got a 400! That means you got a naughty, naughty request. (This command will be fixed soon)')
-			msg.channel.stopTyping(true)
 		})
 
 	if (data.status === 200)

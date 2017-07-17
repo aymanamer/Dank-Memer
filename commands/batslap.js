@@ -12,6 +12,10 @@ exports.run = async function (client, msg) {
 		.get('http://get-ur-me.me/api/batslap')
 		.set('Api-Key', 'XfGC62d9xKiOc4IegPdz')
 		.set('data-src', JSON.stringify([`${avatarurl}`, `${authorurl}`]))
+		.catch(() => {
+			msg.channel.send('You dun got a 400! That means you got a naughty, naughty request. (This command will be fixed soon)')
+		})
+
 
 	if (data.status === 200)
 		await msg.channel.send({files: [{name: 'slap.png', attachment: data.body}]})
