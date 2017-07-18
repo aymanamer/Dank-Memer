@@ -1,7 +1,6 @@
 const config = require('./config.json')
 const snekfetch = require('snekfetch')
 const Discord = require('discord.js')
-const fs = require('fs')
 const client = new Discord.Client({
 	disableEveryone: true,
 	messageCacheMaxSize: 100,
@@ -46,6 +45,33 @@ client.on('message', async(msg) => {
 
 	if (aliases[command])
 		command = aliases[command]
+
+
+	const guilds = (await client.shard.fetchClientValues('guilds.size')).reduce((a, b) => a + b)
+	const users = (await client.shard.fetchClientValues('users.size')).reduce((a, b) => a + b)
+	const vcs = (await client.shard.fetchClientValues('voiceConnections.size')).reduce((a, b) => a + b)
+	const ram = (process.memoryUsage().rss / 1048576).toFixed()
+
+	const now = parseInt(new Date().getTime() / 1000)
+	const metrics = [{
+			metric: 'memer.guilds',
+			points: [now, guilds]
+		},
+		{
+			metric: 'memer.users',
+			points: [now, users]
+		},
+		{
+			metric: 'memer.vcs',
+			points: [now, vcs]
+		},
+		{
+			metric: `shard${client.shard.id}.ram`,
+			points: [now, ram]
+		}
+	]
+	dogapi.metric.send_all(metrics)
+
 
 	if (cooldowns.active[msg.author.id].includes(command)) {
 		if (cooldowns.active[msg.author.id].includes('annoy') && command === 'annoy')
@@ -133,8 +159,6 @@ client.once('ready', () => {
 		'shitpost': {}
 	}
 
-	setInterval(updateStats, 10000)
-
 	client.ids = require('./ids.json')
 
 	client.user.setGame('hello', 'https://www.twitch.tv/melmsie')
@@ -144,44 +168,3 @@ process.on('uncaughtException', (err) => {
 	if (err.stack.startsWith('Error: Cannot find module')) return
 	console.log(`Caught exception: ${err.stack}`)
 })
-
-async function updateStats () {
-	const large = (await client.shard.broadcastEval('this.guilds.filter(m => m.large).size')).reduce((a, b) => a + b)
-	const guilds = (await client.shard.fetchClientValues('guilds.size')).reduce((a, b) => a + b)
-	const users = (await client.shard.fetchClientValues('users.size')).reduce((a, b) => a + b)
-	const vcs = (await client.shard.fetchClientValues('voiceConnections.size')).reduce((a, b) => a + b)
-	const ram = (process.memoryUsage().rss / 1048576).toFixed()
-	delete require.cache[require.resolve('./dogstats.json')]
-	let commands = require('./dogstats.json')
-
-	const now = parseInt(new Date().getTime() / 1000)
-	const metrics = [{
-			metric: 'memer.guilds',
-			points: [now, guilds]
-		},
-		{
-			metric: 'memer.larges',
-			points: [now, large]
-		},
-		{
-			metric: 'memer.users',
-			points: [now, users]
-		},
-		{
-			metric: 'memer.vcs',
-			points: [now, vcs]
-		},
-		{
-			metric: 'memer.commands',
-			points: [now, commands.toString()]
-		},
-		{
-			metric: `shard${client.shard.id}.ram`,
-			points: [now, ram]
-		}
-	]
-	dogapi.metric.send_all(metrics)
-
-	commands = 0
-	fs.writeFileSync('./dogstats.json', commands)
-}
