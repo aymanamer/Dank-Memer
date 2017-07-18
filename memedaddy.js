@@ -2,6 +2,7 @@
 const config = require('./config.json')
 const snekfetch = require('snekfetch')
 const { Client, RichEmbed } = require('discord.js')
+const fs = require('fs')
 const client = new Client({
 	disableEveryone: true,
 	messageCacheMaxSize: 100,
@@ -45,33 +46,11 @@ client.on('message', async (msg) => {
 	if (aliases[command])
 		command = aliases[command]
 
-
-	const guilds = (await client.shard.fetchClientValues('guilds.size')).reduce((a, b) => a + b)
-	const users = (await client.shard.fetchClientValues('users.size')).reduce((a, b) => a + b)
-	const vcs = (await client.shard.fetchClientValues('voiceConnections.size')).reduce((a, b) => a + b)
-	const ram = (process.memoryUsage().rss / 1048576).toFixed()
-
-	const now = parseInt(new Date().getTime() / 1000)
-	const metrics = [
-		{
-			metric: 'memer.guilds',
-			points: [now, guilds]
-		},
-		{
-			metric: 'memer.users',
-			points: [now, users]
-		},
-		{
-			metric: 'memer.vcs',
-			points: [now, vcs]
-		},
-		{
-			metric: `shard${client.shard.id}.ram`,
-			points: [now, ram]
-		}
-	]
-	dogapi.metric.send_all(metrics)
-
+	delete require.cache[require.resolve('./dogstats.json')]
+	let commandStats = require('./dogstats.json')
+	commandStats++
+	console.log('hi' + commandStats)
+	fs.writeFileSync('./dogstats.json', commandStats) // up to you to change this to writeFile, the sync version will block but is less likely to fail / fault. *COUGHS* DATABASES
 
 	if (cooldowns.active[msg.author.id].includes(command)) {
 		if (Object.keys(cdmessages).includes(command)) {
@@ -158,6 +137,8 @@ client.on('guildCreate', async (guild) => {
 client.once('ready', () => {
 	console.log(`[${new Date()}] ${client.user.username} loaded successfully.`)
 
+	setInterval(updateStats, 1000)
+
 	client.indexes = {
 		'meme': {},
 		'joke': {},
@@ -173,3 +154,40 @@ process.on('uncaughtException', (err) => {
 	if (err.stack.startsWith('Error: Cannot find module')) return
 	console.log(`Caught exception: ${err.stack}`)
 })
+
+async function updateStats () {
+	const guilds = (await client.shard.fetchClientValues('guilds.size')).reduce((a, b) => a + b)
+	const users = (await client.shard.fetchClientValues('users.size')).reduce((a, b) => a + b)
+	const vcs = (await client.shard.fetchClientValues('voiceConnections.size')).reduce((a, b) => a + b)
+	const ram = (process.memoryUsage().rss / 1048576).toFixed()
+	delete require.cache[require.resolve('./dogstats.json')]
+	let commands = require('./dogstats.json')
+
+	const now = parseInt(new Date().getTime() / 1000)
+	const metrics = [
+		{
+			metric: 'memer.guilds',
+			points: [now, guilds]
+		},
+		{
+			metric: 'memer.users',
+			points: [now, users]
+		},
+		{
+			metric: 'memer.vcs',
+			points: [now, vcs]
+		},
+		{
+			metric: 'memer.commands',
+			points: [now, commands.toString()]
+		},
+		{
+			metric: `shard${client.shard.id}.ram`,
+			points: [now, ram]
+		}
+	]
+	dogapi.metric.send_all(metrics)
+
+	commands = 0
+	fs.writeFileSync('./dogstats.json', commands)
+}
