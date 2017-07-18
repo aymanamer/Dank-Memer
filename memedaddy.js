@@ -1,20 +1,20 @@
-/* eslint-disable curly */
 const config = require('./config.json')
 const snekfetch = require('snekfetch')
-const { Client, RichEmbed } = require('discord.js')
+const Discord = require('discord.js')
 const fs = require('fs')
-const client = new Client({
+const client = new Discord.Client({
 	disableEveryone: true,
 	messageCacheMaxSize: 100,
 	disabledEvents: ['CHANNEL_PINS_UPDATE', 'USER_SETTINGS_UPDATE', 'USER_NOTE_UPDATE', 'RELATIONSHIP_ADD', 'RELATIONSHIP_REMOVE', 'GUILD_BAN_ADD', 'GUILD_BAN_REMOVE', 'MESSAGE_UPDATE', 'MESSAGE_DELETE_BULK', 'MESSAGE_REACTION_REMOVE', 'MESSAGE_REACTION_REMOVE_ALL']
 })
-const { aliases, cds, cdmessages } = require('./cmdConfig.json')
+const aliases = require('./cmdConfig.json').aliases
 
 client.login(config.token)
 
+
 const cooldowns = {
 	active: {},
-	times: cds
+	times: require('./cmdConfig.json').cooldowns
 }
 
 const dogapi = require('dogapi')
@@ -25,7 +25,7 @@ const options = {
 dogapi.initialize(options)
 
 
-client.on('message', async (msg) => {
+client.on('message', async(msg) => {
 
 	if (msg.channel.type === 'dm' || msg.author.bot ||
 		client.ids.blocked.user.includes(msg.author.id) ||
@@ -43,58 +43,48 @@ client.on('message', async (msg) => {
 	if (!cooldowns.active[msg.author.id])
 		cooldowns.active[msg.author.id] = []
 
+
 	if (aliases[command])
 		command = aliases[command]
 
-	delete require.cache[require.resolve('./dogstats.json')]
-	let commandStats = require('./dogstats.json')
-	commandStats++
-	console.log('hi' + commandStats)
-	fs.writeFileSync('./dogstats.json', commandStats) // up to you to change this to writeFile, the sync version will block but is less likely to fail / fault. *COUGHS* DATABASES
-
 	if (cooldowns.active[msg.author.id].includes(command)) {
-		if (Object.keys(cdmessages).includes(command)) {
-			return msg.channel.send(cdmessages[command])
-		}
-		else {
-			return msg.channel.send('This command is currently in cooldown. Try again in a few seconds.\nIf you\'re a donor, you get to use it 75% faster!')
-		}
+		if (cooldowns.active[msg.author.id].includes('annoy') && command === 'annoy')
+			return msg.channel.send('After annoying someone, it is an hour until you can annoy someone again!\nIf you\'re a donor, you get to use it 75% faster!')
+
+		if (cooldowns.active[msg.author.id].includes('tweet') && command === 'tweet')
+			return msg.channel.send('After tweeting, it is 15 minutes until you can tweet again!\nIf you\'re a donor, you get to use it 75% faster!')
+
+		if (cooldowns.active[msg.author.id].includes('spam') && command === 'spam')
+			return msg.channel.send('After spamming, it is 10 minutes until you can spam again.')
+
+		return msg.channel.send('This command is currently in cooldown. Try again in a few seconds.\nIf you\'re a donor, you get to use it 75% faster!')
 	}
+
+	if (!config.devs.includes(msg.author.id))
+		cooldowns.active[msg.author.id].push(command)
+
+	setTimeout(() => {
+		cooldowns.active[msg.author.id].splice(cooldowns.active[msg.author.id].indexOf(command), 1)
+	}, client.ids.donors.donor1.concat(client.ids.donors.donor5, client.ids.donors.donor10).includes(msg.author.id) ? cooldowns.times[command] * 0.25 : cooldowns.times[command])
 
 	try {
 		delete require.cache[require.resolve(`./commands/${command}`)]
 
 		if (!msg.channel.permissionsFor(client.user.id).has(['SEND_MESSAGES', 'EMBED_LINKS']))
-			return msg.author.send(`I either don't have permission to send messages or I don't have permission to embed links in ${msg.channel.toString()}`).catch(err => {
+			return msg.author.send(`I either don't have permission to send messages or I don't have permission to embed links in #${msg.channel.name}`).catch(err => {
 				console.log(err.stack)
 			})
 
-		const commandFn = require(`./commands/${command}`).run
+		require(`./commands/${command}`).run(client, msg, args, config, Discord.RichEmbed)
 
-		if (commandFn.constructor.name === 'AsyncFunction') {
-			commandFn(client, msg, args, config, RichEmbed).then(res => {
-				if (res && !config.devs.includes(msg.author.id)) {
-					cooldowns.active[msg.author.id].push(command)
-					setTimeout(() => {
-						cooldowns.active[msg.author.id].splice(cooldowns.active[msg.author.id].indexOf(command), 1)
-					}, client.ids.donors.donor1.concat(client.ids.donors.donor5, client.ids.donors.donor10).includes(msg.author.id) ? cooldowns.times[command] * 0.25 : cooldowns.times[command])
-				}
-			})
-		} else {
-			if (commandFn(client, msg, args, config, RichEmbed)) {
-				cooldowns.active[msg.author.id].push(command)
-				setTimeout(() => {
-					cooldowns.active[msg.author.id].splice(cooldowns.active[msg.author.id].indexOf(command), 1)
-				}, client.ids.donors.donor1.concat(client.ids.donors.donor5, client.ids.donors.donor10).includes(msg.author.id) ? cooldowns.times[command] * 0.25 : cooldowns.times[command])
-			}
-		}
 	} catch (e) {
 		if (e.stack.startsWith('Error: Cannot find module')) return
 		return console.log(e)
 	}
+
 })
 
-client.on('guildCreate', async (guild) => {
+client.on('guildCreate', async(guild) => {
 	const guilds = await client.shard.fetchClientValues('guilds.size')
 	const count = guilds.reduce((prev, val) => prev + val, 0)
 
@@ -117,14 +107,14 @@ client.on('guildCreate', async (guild) => {
 		.then(console.log('Updated dbots.org status.'))
 
 	guild.defaultChannel.send({
-		embed: new RichEmbed()
+		embed: new Discord.RichEmbed()
 			.setColor('#656fff')
 			.setTitle('Hello!')
 			.setDescription(`My name is ${client.user.username}.\n\nTo get started, send \`pls help\`.\n\nI am maintained by Melmsie#0006, who can be found at [this server](https://discord.gg/3GNMJBG) if you need to talk to him.`)
 	}).catch(e => {
 		console.log(`Failed to send welcome message to ${guild.name}\n${e.message}`)
 		guild.owner.send({
-			embed: new RichEmbed()
+			embed: new Discord.RichEmbed()
 				.setColor('#656fff')
 				.setTitle('Hello!')
 				.setDescription(`My name is ${client.user.username}.\n\nTo get started, send \`pls help\` in your server.\n\nI am maintained by Melmsie#0006, who can be found at [this server](https://discord.gg/3GNMJBG) if you need to talk to him.`)
@@ -137,13 +127,13 @@ client.on('guildCreate', async (guild) => {
 client.once('ready', () => {
 	console.log(`[${new Date()}] ${client.user.username} loaded successfully.`)
 
-	setInterval(updateStats, 1000)
-
 	client.indexes = {
 		'meme': {},
 		'joke': {},
 		'shitpost': {}
 	}
+
+	setInterval(updateStats, 1000)
 
 	client.ids = require('./ids.json')
 
@@ -164,8 +154,7 @@ async function updateStats () {
 	let commands = require('./dogstats.json')
 
 	const now = parseInt(new Date().getTime() / 1000)
-	const metrics = [
-		{
+	const metrics = [{
 			metric: 'memer.guilds',
 			points: [now, guilds]
 		},
