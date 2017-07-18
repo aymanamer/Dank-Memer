@@ -31,7 +31,7 @@
 		"bye": "byemom",
 		"jpeg": "needsmorejpeg"
 	},
-	"cds": {
+	"cooldowns": {
 		"magik": 10000,
 		"trigger": 10000,
 		"salty": 10000,
