@@ -133,7 +133,7 @@ client.once('ready', () => {
 		'shitpost': {}
 	}
 
-	setInterval(updateStats, 60000)
+	setInterval(updateStats, 10000)
 
 	client.ids = require('./ids.json')
 
