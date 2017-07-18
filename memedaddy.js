@@ -47,6 +47,13 @@ client.on('message', async(msg) => {
 	if (aliases[command])
 		command = aliases[command]
 
+	delete require.cache[require.resolve('./dogstats.json')]
+	let commandStats = require('./dogstats.json')
+	commandStats++
+	console.log('hi' + commandStats)
+	fs.writeFileSync('./dogstats.json', commandStats) // up to you to change this to writeFile, the sync version will block but is less likely to fail / fault. *COUGHS* DATABASES
+
+
 	if (cooldowns.active[msg.author.id].includes(command)) {
 		if (cooldowns.active[msg.author.id].includes('annoy') && command === 'annoy')
 			return msg.channel.send('After annoying someone, it is an hour until you can annoy someone again!\nIf you\'re a donor, you get to use it 75% faster!')
