@@ -133,7 +133,7 @@ client.once('ready', () => {
 		'shitpost': {}
 	}
 
-	setInterval(updateStats, 1000)
+	setInterval(updateStats, 60000)
 
 	client.ids = require('./ids.json')
 
@@ -146,6 +146,7 @@ process.on('uncaughtException', (err) => {
 })
 
 async function updateStats () {
+	const large = (await client.shard.broadcastEval('this.guilds.filter(m => m.large).size')).reduce((a, b) => a + b)
 	const guilds = (await client.shard.fetchClientValues('guilds.size')).reduce((a, b) => a + b)
 	const users = (await client.shard.fetchClientValues('users.size')).reduce((a, b) => a + b)
 	const vcs = (await client.shard.fetchClientValues('voiceConnections.size')).reduce((a, b) => a + b)
@@ -157,6 +158,10 @@ async function updateStats () {
 	const metrics = [{
 			metric: 'memer.guilds',
 			points: [now, guilds]
+		},
+		{
+			metric: 'memer.larges',
+			points: [now, large]
 		},
 		{
 			metric: 'memer.users',
