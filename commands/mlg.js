@@ -1,7 +1,7 @@
-const file = Math.floor(Math.random() * 25 + 1)
+//const file = Math.floor(Math.random() * 25 + 1)
 
 exports.run = async function (client, msg) {
-
+/*
 	if (!msg.channel.permissionsFor(client.user.id).has(['CONNECT', 'SPEAK', 'ADD_REACTIONS']))
 		return msg.reply('Well shit, there was a permission error! Make sure I have `add reactions`, connect`, and `speak` so I can do this shit!').catch(() => console.error)
 
@@ -21,4 +21,6 @@ exports.run = async function (client, msg) {
 			msg.reply('I can only have one sound at once, dude. Please wait until the current sound is done or the ear-rape ghost will visit you in your sleep!')
 		}
 	}
+		*/
+	msg.reply('Due to unknown errors, this command will be down for a few days.')
 }

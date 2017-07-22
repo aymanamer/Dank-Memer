@@ -1,5 +1,8 @@
 const config = require('./config.json')
 const snekfetch = require('snekfetch')
+/*
+const thonk = require('rethinkdb')
+let connection*/
 const Discord = require('discord.js')
 const client = new Discord.Client({
 	disableEveryone: true,
@@ -95,13 +98,11 @@ client.on('message', async(msg) => {
 
 	try {
 		delete require.cache[require.resolve(`./commands/${command}`)]
-
 		if (!msg.channel.permissionsFor(client.user.id).has(['SEND_MESSAGES', 'EMBED_LINKS']))
 			return msg.author.send(`I either don't have permission to send messages or I don't have permission to embed links in #${msg.channel.name}`).catch(err => {
 				console.log(err.stack)
 			})
-
-		require(`./commands/${command}`).run(client, msg, args, config, Discord.RichEmbed)
+		require(`./commands/${command}`).run(client, msg, args, config)
 
 	} catch (e) {
 		if (e.stack.startsWith('Error: Cannot find module')) return
@@ -158,7 +159,17 @@ client.once('ready', () => {
 		'joke': {},
 		'shitpost': {}
 	}
-
+/*
+	thonk.connect({
+		host: 'localhost',
+		port: 28015
+	}, function (err, conn) {
+		if (err) {
+			throw err
+		}
+		connection = conn
+	})
+*/
 	client.ids = require('./ids.json')
 
 	client.user.setGame('hello', 'https://www.twitch.tv/melmsie')
