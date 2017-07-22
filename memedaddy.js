@@ -102,7 +102,7 @@ client.on('message', async(msg) => {
 			return msg.author.send(`I either don't have permission to send messages or I don't have permission to embed links in #${msg.channel.name}`).catch(err => {
 				console.log(err.stack)
 			})
-		require(`./commands/${command}`).run(client, msg, args, config)
+		require(`./commands/${command}`).run(client, msg, args, config, Discord.RichEmbed)
 
 	} catch (e) {
 		if (e.stack.startsWith('Error: Cannot find module')) return
