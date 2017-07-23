@@ -1,5 +1,5 @@
 exports.run = async function (client, msg, args, config, EmbedBuilder) {
-	if (config.owner !== msg.author.id) return
+	if (!config.devs.includes(msg.author.id)) return
 	const melmsie = client.users.get(config.owner)
 	try {
 		let user
