@@ -1,13 +1,17 @@
 const trump = require('react-trump')
-const { trumpers } = require('../assets/arrays.json')
-const { randomInArray } = require('../utils')
+const {
+	trumpers
+} = require('../assets/arrays.json')
+
 
 const exclamations = 1
 const incquestion = false
 
-exports.run = async function (client, msg, args, config, EmbedBuilder) {
+exports.run = async function (client, msg, args, utils) {
 
-	if (!args[0]) return msg.reply('You gotta give me something to ask Trump :eyes:')
+	if (!args[0]) {
+		return msg.reply('You gotta give me something to ask Trump :eyes:')
+	}
 
 	const question = args.join(' ')
 
@@ -18,9 +22,10 @@ exports.run = async function (client, msg, args, config, EmbedBuilder) {
 	})
 
 	msg.channel.send({
-		embed: new EmbedBuilder()
-			.setColor('#3676b3')
-			.setThumbnail(randomInArray(trumpers))
-			.setDescription(`\n${msg.author.username}: ${question}\n\nTrump: ${answer}`)
+		embed: {
+			color: utils.colors.lightblue,
+			thumbnail: { url: utils.randomInArray(trumpers)},
+			description: `\n${msg.author.username}: ${question}\n\nTrump: ${answer}`
+		}
 	})
 }

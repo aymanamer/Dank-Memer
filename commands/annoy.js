@@ -31,7 +31,7 @@ function setupAnnoy(repetitions, delay) {
 	}
 }
 
-exports.run = async function (client, msg, args, config) {
+exports.run = async function (client, msg, args, utils, config) {
 	const annoy = setupAnnoy(config.annoy.repetitions, config.annoy.delay)
 	const author = msg.author
 

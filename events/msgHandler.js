@@ -59,7 +59,7 @@ exports.handleMeDaddy = async function (client, msg, utils) {
 				console.log(err.stack)
 			})
 		}
-		require(`../commands/${command}`).run(client, msg, args, config, utils)
+		require(`../commands/${command}`).run(client, msg, args, utils, config)
 
 	} catch (e) {
 		if (e.stack.startsWith('Error: Cannot find module')) {

@@ -14,6 +14,8 @@ exports.disabledEvents = [
 	'MESSAGE_REACTION_REMOVE_ALL'
 ]
 
+exports.bannedWords = ['kys', 'kill youself', 'nigger', 'nagger', 'nigglet', 'faggot', 'fag', 'anus', 'anal', 'blowjob', 'blow job', 'dyke', 'dildo', 'cock', 'boner', 'homo', 'jizz', 'nigga', 'queer', 'pussy', 'scrotum', 'slut', 'aetheryx']
+
 exports.intro = `My name is Dank Memer.\n\nTo get started, send \`${config.prefix} help\`.\n\nI am maintained by Melmsie#0006, who can be found at [this server](https://discord.gg/3GNMJBG) if you need to talk to him.`
 
 exports.cdMsg = {
