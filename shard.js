@@ -1,13 +1,15 @@
-const Dickpunch = require('discord.js')
-const GetYourOwnToken = require('./config.json').token
+const D = require('discord.js')
+const token = require('./config.json').token
 
-const shard = new Dickpunch.ShardingManager('./memedaddy.js', {
-	token: GetYourOwnToken,
+const shard = new D.ShardingManager('./memedaddy.js', {
+	token: token,
+	totalShards: 'auto',
 	respawn: true
 })
 
-shard.spawn(12)
 
 shard.on('launch', shard => {
-	console.log(`Shard ${shard.id} is alive`)
+	console.log(`Launching shard ${shard.id + 1}/${shard.totalShards}`)
 })
+
+shard.spawn()

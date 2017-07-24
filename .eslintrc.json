@@ -25,8 +25,7 @@
         "no-whitespace-before-property": "error",
         "curly": [
             "error",
-            "multi",
-            "consistent"
+            "all"
         ],
         "eqeqeq": "error",
         "space-before-blocks": [

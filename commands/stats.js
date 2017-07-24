@@ -1,32 +1,13 @@
-exports.run = async function (client, msg, args, config, EmbedBuilder) {
-
-	const guilds = (await client.shard.fetchClientValues('guilds.size')).reduce((a, b) => a + b)
-	const vcs = (await client.shard.fetchClientValues('voiceConnections.size')).reduce((a, b) => a + b)
-	const users = (await client.shard.fetchClientValues('users.size')).reduce((a, b) => a + b)
-
-	await msg.channel.send({
-		embed: new EmbedBuilder()
-			.setColor('#7d5bbe')
-			.setTitle(`${client.user.username} - Stats (${config.version})`)
-			.setDescription(`Uptime: ${timeCon(process.uptime())}`)
-			.addField('Websocket Ping', `${(client.ping).toFixed(0)} ms`, true) // eslint-disable-line no-extra-parens
-			.addField('Shard', client.shard.id, true)
-			.addField('RAM Usage', `RSS: ${(process.memoryUsage().rss / 1048576).toFixed()}MB\nHeap: ${(process.memoryUsage().heapUsed / 1024 / 1024).toFixed(2)}MB`, true)
-			.addField('Total Servers', guilds, true)
-			.addField('Total Users', users, true)
-			.addField('Active VCs', vcs, true)
+const r = require('rethinkdb')
+exports.run = async function (client, msg, args, config) {
+	var connection = null
+	r.connect({ host: 'localhost', port: 28015 }, function (err, conn) {
+		if (err) throw err
+		connection = conn
+	})
+	r.db('test').tableCreate('authors').run(connection, function (err, result) {
+		if (err) throw err
+		console.log(JSON.stringify(result, null, 2))
 	})
 
-}
-
-function timeCon (time) {
-	let days = Math.floor(time % 31536000 / 86400)
-	let hours = Math.floor(time % 31536000 % 86400 / 3600)
-	let minutes = Math.floor(time % 31536000 % 86400 % 3600 / 60)
-	let seconds = Math.round(time % 31536000 % 86400 % 3600 % 60)
-	days = days > 9 ? days : days
-	hours = hours > 9 ? hours : hours
-	minutes = minutes > 9 ? minutes : minutes
-	seconds = seconds > 9 ? seconds : seconds
-	return (parseInt(days) > 0 ? days + (days > 1 ? ' days ' : ' day ') : '') + (parseInt(hours) === 0 && parseInt(days) === 0 ? '' : hours + (hours > 1 ? ' hours ' : ' hour ')) + (parseInt(minutes) === 0 && parseInt(hours) === 0 && parseInt(days) === 0 ? '' : minutes + (minutes > 1 ? ' minutes ' : ' minute ')) + seconds + (seconds > 1 ? ' seconds ' : ' second ')
 }
