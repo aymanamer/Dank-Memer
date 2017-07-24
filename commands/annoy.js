@@ -47,7 +47,7 @@ exports.run = async function (client, msg, args, config) {
 		if (msg.mentions.users.size === 0) {
 			await annoy(
 				author,
-				'Now I get to annoy you by sending you a message every 30 seconds for 5 minutes! Next time, you should really tag someone else to annoy!',
+				'Now I get to annoy you by sending you a message every 2 seconds for a while! Next time, you should really tag someone else to annoy when prompted!',
 				'Haha, you annoyed yourself!'
 			)
 		}
@@ -55,14 +55,14 @@ exports.run = async function (client, msg, args, config) {
 			await annoy(
 				author,
 				`${msg.mentions.users.first().username} is a staff member on my server, so I'm not gonna let you annoy them. Nice try though!`,
-				'Haha, you suck!'
+				'Do not fuck with muh squad'
 			)
 		}
 		else if (config.owner === msg.mentions.users.first().id) {
 			await annoy(
 				author,
 				'Really, you were going to try and annoy Melmsie? As if he wouldn\'t put something in place to prevent that? HA!',
-				'Haha, you suck!'
+				'Haha, you suck!!!'
 			)
 		}
 		else {
@@ -70,16 +70,16 @@ exports.run = async function (client, msg, args, config) {
 			try {
 				await annoy(
 					user,
-					`I've been sent by ${author.username} to annoy you. :^)\n\nSee you every 30 seconds for the next 5 minutes )`,
-					`I've been sent by ${author.username} to annoy you. :^)`
+					`I've been sent by ${author.username} to annoy you. :^) Prepare to hear from me every 2 seconds for a while!)`,
+					`You can thank ${author.username} for this :^)`
 				)
 			}
 			catch (e) {
-				console.log('When trying to annoy a user: ' + e.message)
+				console.log(`When trying to annoy a user: ${e.message}`)
 				await annoy(
 					author,
-					`You sent me to annoy ${user.username}, but I don't have permission to DM them! Get counter annoyed every 30 seconds for the next 5 minutes, fool!`,
-					`It's been 30 seconds! You sent me to annoy ${user.username}, but I don't have permission to DM them! Get counter annoyed, fool!!!!`
+					`You sent me to annoy ${user.username}, but I don't have permission to DM them! Get counter annoyed, fool!`,
+					'lol!'
 				)
 			}
 		}
