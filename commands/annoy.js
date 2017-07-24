@@ -45,11 +45,37 @@ exports.run = async function (client, msg, args, config) {
 		}
 
 		if (msg.mentions.users.size === 0) {
-			await annoy(
-				author,
-				'Now I get to annoy you by sending you a message every 2 seconds for a while! Next time, you should really tag someone else to annoy when prompted!',
-				'Haha, you annoyed yourself!'
-			)
+			msg.channel.send('Who do you want to annoy? Reply with a mention or cancel by sending anything else.')
+			const collector = msg.channel.createMessageCollector(m => msg.author.id === m.author.id, { time: 40000 })
+			collector.on('collect', async (m) => {
+				if (m.mentions.users.size) {
+					collector.stop()
+					const user = m.mentions.users.first()
+					try {
+						await annoy(
+							user,
+							`I've been sent by ${author.username} to annoy you. :^) Prepare to hear from me every 2 seconds for a while!`,
+							`You can thank ${author.username} for this :^)`
+						)
+					}
+					catch (e) {
+						console.log(`When trying to annoy a user: ${e.message}`)
+						await annoy(
+							author,
+							`You sent me to annoy ${user.username}, but I don't have permission to DM them! Get counter annoyed, fool!`,
+							'lol!'
+						)
+					}
+				} else {
+					msg.channel.send('Now I get to annoy you by sending you a message every 2 seconds for a while! Next time, you should really tag someone else to annoy when prompted!')
+					collector.stop()
+					await annoy(
+						author,
+						'Now I get to annoy you by sending you a message every 2 seconds for a while! Next time, you should really tag someone else to annoy when prompted!',
+						'Haha, you annoyed yourself!'
+					)
+				}
+			})
 		}
 		else if (serverStaff.includes(msg.mentions.users.first().id)) {
 			await annoy(
