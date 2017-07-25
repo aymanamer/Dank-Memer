@@ -1,10 +1,11 @@
+const twitter = require('./config.json').twitter
 const twit = require('twit')
 const tClient = new twit({
-	consumer_key:         'Gkan9QvKDjZgWnJajCPMZ8jxL',
-	consumer_secret:      '5x3EkR48doQGXxlrEG2LLvWvemE9We20TlW6dgabC7zRUiScxS',
-	access_token:         '878224959151247361-0sxlyNs1WxVNcsZQmrspT3sWjUnPd1x',
-	access_token_secret:  'nlZbvOYEnlN4vqlcB1Ips5c2qT9suL1KXPRDyDZxaPpsL',
-	timeout_ms:           60*1000,
+	consumer_key: twitter.consumer_key,
+	consumer_secret: twitter.consumer_secret,
+	access_token: twitter.access_token,
+	access_token_secret: twitter.access_token_secret,
+	timeout_ms: 60 * 1000,
 })
 exports.run = async function (client, msg, args, utils) {
 	args = msg.cleanContent.split(' ').slice(2).join(' ')
@@ -15,10 +16,18 @@ exports.run = async function (client, msg, args, utils) {
 		return msg.channel.send(`Tweet too long. You're ${args.length - 140} characters over the limit!`)
 	}
 	msg.channel.send(`Are you sure you want to tweet \`${args}\`? You will be **permanently banned** from using Dank Memer for tweets that are mean or racist. Answer with \`yes\`/\`no\`.`)
-	const collector = msg.channel.createMessageCollector(m => msg.author.id === m.author.id, { time: 40000 })
+	const collector = msg.channel.createMessageCollector(m => msg.author.id === m.author.id, {
+		time: 40000
+	})
 	collector.on('collect', (m) => {
 		if (m.content.toLowerCase() === 'yes') {
+<<<<<<< HEAD
+			tClient.post('statuses/update', {
+				status: args
+			}, (err, data, response) => {
+=======
 			tClient.post('statuses/update', { status: args }, (err, data, response) => {
+>>>>>>> 3b0b8507d7140a066aa668d9b960fafe81c2a3cd
 				if (err) {
 					return msg.channel.send(`Something went wrong. \n${err.message}`)
 				}
@@ -26,12 +35,13 @@ exports.run = async function (client, msg, args, utils) {
 					return msg.channel.send('Something went wrong. Please try again later.')
 				}
 				msg.channel.send({
-					embed:
-					{
+					embed: {
 						color: utils.colors.lightblue,
 						title: 'Tweet Sent!',
 						description: `[View here](https://twitter.com/${data.user.screen_name}/status/${data.id_str})`,
-						footer: { text: 'See this tweet, and more @plsmeme'}
+						footer: {
+							text: 'See this tweet, and more @plsmeme'
+						}
 					}
 				})
 				let badtweet = ''
@@ -59,8 +69,7 @@ exports.run = async function (client, msg, args, utils) {
 						.replace(/BEDTWIET/g, badtweet))
 							.catch(err => console.log(`TWEET BROADCASTEVAL ERR: ${err.stack}`))
 			})
-		}
-		else {
+		} else {
 			msg.channel.send('Good. Watching you :eyes:')
 		}
 		return collector.stop()
