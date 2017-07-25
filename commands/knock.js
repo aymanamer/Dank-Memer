@@ -1,5 +1,5 @@
 exports.run = async function (client, msg) {
-/*
+
 	if (!msg.channel.permissionsFor(client.user.id).has(['CONNECT', 'SPEAK', 'ADD_REACTIONS']))
 		return msg.reply('Well shit, there was a permission error! Make sure I have `add reactions`, connect`, and `speak` so I can do this shit!').catch(() => console.error)
 
@@ -16,10 +16,10 @@ exports.run = async function (client, msg) {
 				conn.channel.leave()
 			})
 		} else {
-			await msg.react('😠')
+			await msg.react('328659813921980416')
 			msg.reply('Another sound is already playing, douche')
 		}
 	}
-		*/
+		
 	msg.reply('Due to unknown errors, this command will be down for a few days.')
 }

@@ -1,11 +1,10 @@
 exports.run = async function (client, msg) {
-/*
+
 	if (!client.voiceConnections.get(msg.guild.id)) return
 	if (!msg.member.voiceChannel) return msg.channel.send('You\'re not even in a voice channel <:waitwhat:320387072290455554>')
 	if (msg.member.voiceChannel.id !== client.voiceConnections.get(msg.guild.id).channel.id) return msg.channel.send('You\'re not even in my voice channel <:waitwhat:320387072290455554>')
 
-	client.voiceConnections.get(msg.guild.id).channel.leave()
-	msg.react('😢')
-	*/
-	msg.reply('Due to unknown errors, this command will be down for a few days.')
+    await client.voiceConnections.get(msg.guild.id).dispatcher.end()
+	msg.react('325734612976402432')
+	
 }
