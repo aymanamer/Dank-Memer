@@ -1,10 +1,10 @@
-exports.run = async function (client, msg, args, config, EmbedBuilder) {
+exports.run = async function (client, msg, args, utils, config) {
 	const emoji = await client.guilds.filter(g => g.emojis.first()).random().emojis.random()
-	msg.channel.send({
-		embed: new EmbedBuilder()
-			.setColor('#3676b3')
-			.setThumbnail(emoji.url)
-			.setAuthor(emoji.name)
-			.setFooter(`from ${emoji.guild.name}`)
-	})
+	msg.channel.send({ embed: {
+		color: utils.colors.lightblue,
+		thumbnail: { url: emoji.url },
+		author: { name: emoji.name },
+		footer: { text: `from ${emoji.guild.name}` }
+
+	}})
 }

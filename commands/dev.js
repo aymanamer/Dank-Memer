@@ -25,22 +25,25 @@ const config = {
 	}
 }
 
-exports.run = async function (client, msg, args, config, EmbedBuilder) {
+exports.run = async function (client, msg, args, utils, config) {
 	if (!config.devs.includes(msg.author.id)) return
 
 	if (args[0] === 'help' || !args[0])
-		msg.channel.send({
-			embed: new EmbedBuilder()
-				.setColor('#3676b3')
-				.setDescription('Hello, I\'m not sure how tf you forgot these commands since you partially made them all, but here you go.')
-				.addField('reboot', 'reboot [shard, all]')
-				.addField('eval', 'eval <args>')
-				.addField('bash', 'bash <args>')
-				.addField('git', 'git pull')
-				.addField('donor', '[add, remove] [1, 5, 10] <id or @tag>')
-				.addField('blacklist', '[add, remove] [guild, user, channel] <id or @tag>')
-				.setDescription('Now go fuck people up with these OP commands!')
-		})
+		msg.channel.send({ embed: {
+			footer: { text: 'Now go fuck people up with these OP commands!' },
+			color: 3569331,
+			fields:
+			[ { name: 'reboot', value: 'reboot [shard, all]', inline: false },
+				{ name: 'eval', value: 'eval <args>', inline: false },
+				{ name: 'bash', value: 'bash <args>', inline: false },
+				{ name: 'git', value: 'git pull', inline: false },
+				{ name: 'donor',
+				value: '[add, remove] [1, 5, 10] <id or @tag>',
+				inline: false },
+				{ name: 'blacklist',
+				value: '[add, remove] [guild, user, channel] <id or @tag>',
+				inline: false } ]
+		}})
 
 	const command = args[0].toLowerCase()
 	args.shift()
@@ -71,24 +74,24 @@ exports.run = async function (client, msg, args, config, EmbedBuilder) {
 				'Memory Usage'
 			]
 		]
-		client.shard.broadcastEval('[(this.shard.id + 1), this.guilds.size, this.users.size, this.voiceConnections.size, Math.round(this.ping), (process.memoryUsage().heapUsed / 1024 / 1024).toFixed(1)]').then(r => {
-			r.map(v => {
-				const newdata = v
-				newdata[4] = v[4] + 'ms'
-				newdata[5] = v[5] + ' MB'
-				data.push(newdata)
-			})
-			data.push([
-				'Total',
-				r.map(v => v[1]).reduce((a, b) => a + b, 0),
-				r.map(v => v[2]).reduce((a, b) => a + b, 0),
-				r.map(v => v[3]).reduce((a, b) => a + b, 0),
-				Math.round(r.map(v => Number(v[4].match(/(\d+[\.]+\d+|\d+)/)[0])).reduce((a, b) => a + b, 0) / client.shard.count) + 'ms',
-				r.map(v => Number(v[5].match(/(\d+[\.]+\d+|\d+)/)[0])).reduce((a, b) => a + b, 0) + ' MB'
-			])
-
-			msg.channel.send('```\n' + table.table(data, config) + '```')
+		const res = await client.shard.broadcastEval('[(this.shard.id + 1), this.guilds.size, this.users.size, this.voiceConnections.size, Math.round(this.ping), (process.memoryUsage().heapUsed / 1024 / 1024).toFixed(1)]')
+		res.map(v => {
+			const newdata = v
+			newdata[4] = v[4] + 'ms'
+			newdata[5] = v[5] + ' MB'
+			data.push(newdata)
 		})
+		data.push([
+			'Total',
+			res.map(v => v[1]).reduce((a, b) => a + b, 0),
+			res.map(v => v[2]).reduce((a, b) => a + b, 0),
+			res.map(v => v[3]).reduce((a, b) => a + b, 0),
+			Math.round(res.map(v => Number(v[4].match(/(\d+[\.]+\d+|\d+)/)[0])).reduce((a, b) => a + b, 0) / client.shard.count) + 'ms',
+			res.map(v => Number(v[5].match(/(\d+[\.]+\d+|\d+)/)[0])).reduce((a, b) => a + b, 0) + ' MB'
+		])
+
+		msg.channel.send('```\n' + table.table(data, config) + '```')
+
 	}
 
 
@@ -107,13 +110,14 @@ exports.run = async function (client, msg, args, config, EmbedBuilder) {
 		} catch (err) {
 			res = err
 		}
-		msg.channel.send({
-			embed: new EmbedBuilder()
-				.setColor('#7d5bbe')
-				.addField('Input', `\`\`\`js\n${args.join(' ')}\`\`\``)
-				.addField('Output', `\`\`\`js\n${res}\`\`\``)
-				.setFooter(evalTime || evalTime === 0 ? `evaluated in ${evalTime}ms` : '')
-		})
+		msg.channel.send({ embed: {
+			color: utils.colors.lightblue,
+			fields: [
+				{ name: 'Input', value: '```js' + args.join(' ') + '```' },
+				{ name: 'Output', value: '```js' + res + '```'}
+			],
+			footer: { text: evalTime || evalTime === 0 ? `evaluated in ${evalTime}ms` : '' }
+		}})
 	}
 
 	if (command === 'bash') {
@@ -208,15 +212,12 @@ exports.run = async function (client, msg, args, config, EmbedBuilder) {
 		if (!parseInt(args[0]))
 			return msg.channel.send('Argument error. Make sure the argument(s) you\'re passing are numbers and exist.')
 		args.filter(arg => parseInt(arg)).forEach(targetTweetID => {
-			tClient.post('statuses/destroy/:id', {
-				id: targetTweetID
-			}, (err, data, response) => {
+			tClient.post('statuses/destroy/:id', { id: targetTweetID }, (err, data, response) => {
 				if (!err && response.statusCode === 200)
-					msg.channel.send({
-						embed: new EmbedBuilder()
-							.setColor('#4099FF')
-							.setDescription(`Tweet ${targetTweetID} successfully deleted.`)
-					})
+					msg.channel.send({ embed: {
+						color: 0x4099FF,
+						description: `Tweet ${targetTweetID} successfully deleted.`
+					}})
 				else
 					msg.channel.send(`Something went wrong.\nStatus code: ${response.statusCode}\nError: ${err.message}`)
 			})
