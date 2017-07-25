@@ -1,0 +1,19 @@
+{
+	"owner": "172571295077105664",
+	"devs": [
+		"172571295077105664",
+		"284122164582416385"
+	],
+	"token": "bot token",
+	"orgtoken": "discordbots.org token",
+	"pwtoken": "bots.discord.pw token",
+	"carbon": "carbonitex token",
+	"twitter": {
+		
+	}
+	"prefix": "pls",
+	"annoy": {
+		"repetitions": 80,
+		"delay": 2
+	}
+}
