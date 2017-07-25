@@ -55,9 +55,7 @@ exports.handleMeDaddy = async function (client, msg, utils) {
 	try {
 		delete require.cache[require.resolve(`../commands/${command}`)]
 		if (!msg.channel.permissionsFor(client.user.id).has(['SEND_MESSAGES', 'EMBED_LINKS'])) {
-			return msg.author.send(`I either don't have permission to send messages or I don't have permission to embed links in #${msg.channel.name}`).catch(err => {
-				console.log(err.stack)
-			})
+			return
 		}
 		require(`../commands/${command}`).run(client, msg, args, utils, config)
 
@@ -65,7 +63,7 @@ exports.handleMeDaddy = async function (client, msg, utils) {
 		if (e.stack.startsWith('Error: Cannot find module')) {
 			return
 		}
-		return console.log(e)
+		return console.log(`${command}: ${e.message}`)
 	}
 
 }
