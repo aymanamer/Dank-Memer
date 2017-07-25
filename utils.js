@@ -14,7 +14,11 @@ exports.disabledEvents = [
 	'MESSAGE_REACTION_REMOVE_ALL'
 ]
 
+<<<<<<< HEAD
 exports.bannedWords = ['kys', 'kill yourself', 'nigger', 'nagger', 'nigglet', 'faggot', 'fag', 'anus', 'anal', 'blowjob', 'blow job', 'dyke', 'dildo', 'cock', 'boner', 'homo', 'jizz', 'nigga', 'queer', 'pussy', 'scrotum', 'slut', 'aetheryx']
+=======
+exports.bannedWords = ['kys', 'kill yourself', 'nigger', 'nagger', 'nigglet', 'faggot', 'fag', 'anus', 'anal', 'blowjob', 'blow job', 'dyke', 'dildo', 'cock', 'boner', 'homo', 'jizz', 'nigga', 'queer', 'pussy', 'scrotum', 'slut', 'aetheryx', 'cum dumpster', 'cock juggling thunder cunt']
+>>>>>>> 3b0b8507d7140a066aa668d9b960fafe81c2a3cd
 
 exports.intro = `My name is Dank Memer.\n\nTo get started, send \`${config.prefix} help\`.\n\nI am maintained by Melmsie#0006, who can be found at [this server](https://discord.gg/3GNMJBG) if you need to talk to him.`
 
