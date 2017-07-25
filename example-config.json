@@ -9,8 +9,11 @@
 	"pwtoken": "bots.discord.pw token",
 	"carbon": "carbonitex token",
 	"twitter": {
-		
-	}
+		"consumer_key": "",
+		"consumer_secret": "",
+		"access_token": "",
+		"access_token_secret": ""
+	},
 	"prefix": "pls",
 	"annoy": {
 		"repetitions": 80,

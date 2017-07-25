@@ -1,4 +1,4 @@
-exports.run = function (client, msg, args, config, EmbedBuilder) {
+exports.run = function (client, msg) {
 	msg.channel.send({
 		embed: new EmbedBuilder()
 			.setColor('#3676b3')
@@ -10,6 +10,6 @@ exports.run = function (client, msg, args, config, EmbedBuilder) {
 			.addField('pls yeahboi', 'by `Moboly#1605`')
 			.addField('pls dankrate', 'by `LoverofSporks#2433`')
 			.addField('pls suprise', 'by `Liam#7475`')
-			.setFooter('Want your own custom command? Donate $10 or more at https://www.patreon.com/melmsie')
-	}).catch(() => console.error)
+			.setFooter('Want your own custom command? Donate at https://www.patreon.com/melmsie')
+	}).catch((e) => console.log(e.message))
 }

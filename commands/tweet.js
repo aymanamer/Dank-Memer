@@ -21,13 +21,9 @@ exports.run = async function (client, msg, args, utils) {
 	})
 	collector.on('collect', (m) => {
 		if (m.content.toLowerCase() === 'yes') {
-<<<<<<< HEAD
 			tClient.post('statuses/update', {
 				status: args
 			}, (err, data, response) => {
-=======
-			tClient.post('statuses/update', { status: args }, (err, data, response) => {
->>>>>>> 3b0b8507d7140a066aa668d9b960fafe81c2a3cd
 				if (err) {
 					return msg.channel.send(`Something went wrong. \n${err.message}`)
 				}

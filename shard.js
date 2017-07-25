@@ -9,7 +9,7 @@ const shard = new D.ShardingManager('./memedaddy.js', {
 
 
 shard.on('launch', shard => {
-	console.log(`Launching shard ${shard.id + 1}/${shard.totalShards}`)
+	console.log(`Launching shard ${shard.id + 1}/${shard.manager.totalShards}`)
 })
 
 shard.spawn()

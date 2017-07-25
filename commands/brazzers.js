@@ -1,18 +1,21 @@
-const snakefetch = require('snekfetch')
+const Jimp = require('jimp')
 
 exports.run = async function (client, msg) {
+	const avatarurl = msg.mentions.users.size > 0 ? msg.mentions.users.first().displayAvatarURL.replace('gif', 'png') : msg.author.displayAvatarURL.replace('gif', 'png')
+	const avatar = await Jimp.read(avatarurl)
+	const brazz = await Jimp.read('./assets/imgen/brazzers.png')
 
-	if (!msg.channel.permissionsFor(client.user.id).has('ATTACH_FILES'))
-		return msg.reply('Well shit, there was a permission error! Make sure I have `attach files` so I can do this shit!').catch(() => console.error)
+	brazz.resize(Jimp.AUTO, 100)
+	avatar.resize(350, 350)
+	avatar.composite(brazz, 150, 275)
+	avatar.getBuffer(Jimp.MIME_PNG, (err, buffer) => {
+		try {
+			await msg.channel.sendFile(buffer)
+		} catch (e) {
+			console.log(e)
+			msg.reply('there was an error with this command.')
+		}
+	})
 
-	const avatarurl = (msg.mentions.users.size > 0 ? msg.mentions.users.first().displayAvatarURL : msg.author.displayAvatarURL).replace('gif', 'png')
 
-	const data = await snakefetch
-		.get('http://get-ur-me.me/api/brazzers')
-		.set('Api-Key', 'XfGC62d9xKiOc4IegPdz')
-		.set('data-src', avatarurl)
-
-	if (data.status === 200)
-		await msg.channel.send({ files: [{ name: 'porn.png', attachment: data.body }] })
-	else msg.channel.send(`Error: ${data.text}`)
 }
