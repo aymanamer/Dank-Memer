@@ -6,8 +6,7 @@ const tClient = new twit({
 	access_token_secret:  'nlZbvOYEnlN4vqlcB1Ips5c2qT9suL1KXPRDyDZxaPpsL',
 	timeout_ms:           60*1000,
 })
-exports.run = async function (client, msg, args, config, utils) {
-
+exports.run = async function (client, msg, args, utils) {
 	args = msg.cleanContent.split(' ').slice(2).join(' ')
 	if (args.length < 1) {
 		return msg.channel.send('What do you want me to tweet?')
@@ -20,7 +19,7 @@ exports.run = async function (client, msg, args, config, utils) {
 	collector.on('collect', (m) => {
 		if (m.content.toLowerCase() === 'yes') {
 			tClient.post('statuses/update', { status: args }, (err, data, response) => {
-				if (err){
+				if (err) {
 					return msg.channel.send(`Something went wrong. \n${err.message}`)
 				}
 				if (response.statusCode !== 200) {
@@ -35,7 +34,30 @@ exports.run = async function (client, msg, args, config, utils) {
 						footer: { text: 'See this tweet, and more @plsmeme'}
 					}
 				})
-				client.shard.broadcastEval(`const { RichEmbed } = require('discord.js')\nthis.channels.has('326384964964974602') && this.channels.get('326384964964974602').send({ embed: new RichEmbed().setTitle('New tweet:').setAuthor('${msg.author.tag} | ${msg.author.id}').setDescription('${args}').addField('Sent from:', '#${msg.channel.name} in ${msg.guild.name}').setColor('#4099FF').setTimestamp(new Date()).setFooter('Tweet ID: ${data.id_str} | Guild ID: ${msg.guild.id}').setURL('https://twitter.com/${data.user.screen_name}/status/${data.id_str}')})`)
+				let badtweet = ''
+				if (utils.bannedWords.some(word => args.toLowerCase().includes(word))) {
+					badtweet = '<@&339186850910699520> BAD TWEET LADS WEE WOO WEE WOO'
+				}
+				client.shard.broadcastEval(`
+					this.channels.has('326384964964974602') && this.channels.get('326384964964974602').send('BEDTWIET', { embed: {
+    					title: 'New tweet:',
+    					url: 'https://twitter.com/PlsMeme/status/T_ID',
+						author: { name: 'A_TAG | A_ID' },
+						description: 'ARGS',
+						fields: [ { name: 'Sent from:', value: '#C_NAME in G_NAME' } ],
+						color: 0x4099FF,
+						timestamp: new Date(),
+						footer: { text: 'Tweet ID: T_ID | Guild ID: G_ID' }
+					} })`
+						.replace(/T_ID/g, data.id_str)
+						.replace(/G_ID/g, msg.guild.id)
+						.replace(/C_NAME/g, msg.channel.name.replace(/'|"|`/g, ''))
+						.replace(/G_NAME/g, msg.guild.name.replace(/'|"|`/g, ''))
+						.replace(/A_TAG/g, msg.author.tag.replace(/'|"|`/g, ''))
+						.replace(/A_ID/g, msg.author.id)
+						.replace(/ARGS/g, args.replace(/'|"|`/g, ''))
+						.replace(/BEDTWIET/g, badtweet))
+							.catch(err => console.log(`TWEET BROADCASTEVAL ERR: ${err.stack}`))
 			})
 		}
 		else {
