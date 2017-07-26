@@ -1,8 +1,8 @@
-//const gm = require('gm').subClass({imageMagick: true})
-//const sf = require('snekfetch')
+const gm = require('gm').subClass({imageMagick: true})
+const sf = require('snekfetch')
 
 exports.run = async function (client, msg) {
-/*
+
 	if (!msg.channel.permissionsFor(client.user.id).has('ATTACH_FILES'))
 		{return msg.reply('Well shit, there was a permission error! Make sure I have `attach files` so I can do this shit!').catch(() => console.error)}
 
@@ -15,10 +15,11 @@ exports.run = async function (client, msg) {
 				try {
 					await msg.channel.send({files: [{name: 'magik.png', attachment: buffer}]})
 				} catch (e) {
-					console.error(e.message)
+					console.error(e.message + ' | ' + err)
 				}
 			})
-			*/
-	msg.channel.send('Due to lack of use and high CPU usage, this command has been removed.\n\nTo tell Melmsie you want it back, do `pls bother gib me my magik image back!`')
-
+	
+}
+function getRandomInt(min, max) {
+	return Math.floor(Math.random() * (max - min + 1)) + min
 }
