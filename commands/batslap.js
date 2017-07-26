@@ -1,8 +1,11 @@
 const Jimp = require('jimp')
 
-exports.run = async function (client, msg) {
-	const avatarurl = msg.mentions.users.size > 0 ? msg.mentions.users.first().displayAvatarURL.replace('gif', 'png') : msg.author.displayAvatarURL.replace('gif', 'png')
+exports.run = async function (client, msg, args) {
+	let avatarurl = msg.mentions.users.size > 0 ? msg.mentions.users.first().displayAvatarURL.replace('gif', 'png') : msg.author.displayAvatarURL.replace('gif', 'png')
 	const authorurl = msg.mentions.users.size > 0 ? msg.author.displayAvatarURL.replace('gif', 'png') : client.user.displayAvatarURL.replace('gif', 'png')
+	if (['jpg', 'jpeg', 'gif', 'png', 'webp'].some(x => args.join(' ').includes(x))) {
+		avatarurl = args.join(' ').replace(/gif|webp/g, 'png')
+	}
 	const avatar = await Jimp.read(avatarurl)
 	const author = await Jimp.read(authorurl)
 	const bat = await Jimp.read('./assets/imgen/batman.jpg')
