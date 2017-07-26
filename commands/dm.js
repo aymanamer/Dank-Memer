@@ -15,7 +15,7 @@ exports.run = async function (client, msg, args, utils, config) {
 				title: '📫 You have received a message from the developers!',
 				description: args.slice(1).join(' '),
 				footer: {
-					text: 'To reply, please use pls bother'
+					text: 'To reply, please use pls bother "message to developers"'
 				}
 			}
 		})

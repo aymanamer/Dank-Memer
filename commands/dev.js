@@ -1,4 +1,6 @@
-const { exec } = require('child_process')
+const {
+	exec
+} = require('child_process')
 const util = require('util')
 const snakefetch = require('snekfetch')
 const twit = require('twit')
@@ -29,21 +31,45 @@ exports.run = async function (client, msg, args, utils, config) {
 	if (!config.devs.includes(msg.author.id)) return
 
 	if (args[0] === 'help' || !args[0])
-		msg.channel.send({ embed: {
-			footer: { text: 'Now go fuck people up with these OP commands!' },
-			color: 3569331,
-			fields:
-			[ { name: 'reboot', value: 'reboot [shard, all]', inline: false },
-				{ name: 'eval', value: 'eval <args>', inline: false },
-				{ name: 'bash', value: 'bash <args>', inline: false },
-				{ name: 'git', value: 'git pull', inline: false },
-				{ name: 'donor',
-				value: '[add, remove] [1, 5, 10] <id or @tag>',
-				inline: false },
-				{ name: 'blacklist',
-				value: '[add, remove] [guild, user, channel] <id or @tag>',
-				inline: false } ]
-		}})
+		msg.channel.send({
+			embed: {
+				footer: {
+					text: 'Now go fuck people up with these OP commands!'
+				},
+				color: 3569331,
+				fields: [{
+						name: 'reboot',
+						value: 'reboot [shard, all]',
+						inline: false
+					},
+					{
+						name: 'eval',
+						value: 'eval <args>',
+						inline: false
+					},
+					{
+						name: 'bash',
+						value: 'bash <args>',
+						inline: false
+					},
+					{
+						name: 'git',
+						value: 'git pull',
+						inline: false
+					},
+					{
+						name: 'donor',
+						value: '[add, remove] [1, 5, 10] <id or @tag>',
+						inline: false
+					},
+					{
+						name: 'blacklist',
+						value: '[add, remove] [guild, user, channel] <id or @tag>',
+						inline: false
+					}
+				]
+			}
+		})
 
 	const command = args[0].toLowerCase()
 	args.shift()
@@ -53,14 +79,14 @@ exports.run = async function (client, msg, args, utils, config) {
 			await msg.channel.send('Current shard rebooting...')
 			return process.exit()
 		} else if (args[0] === 'all') {
-			await msg.channel.send('All shards rebooting...')
-			exec('pm2 restart shard', (e, stderr, stdout) => {
-				if (stdout) msg.channel.send(`**Output**\n\`\`\`bash\n${stdout}\n\`\`\``)
-				if (stderr) msg.channel.send(`**Errors**\n\`\`\`bash\n${stderr}\n\`\`\``)
-			})
-		} else {
-			return msg.channel.send('Huh?')
-		}
+		await msg.channel.send('All shards rebooting...')
+		exec('pm2 restart shard', (e, stderr, stdout) => {
+			if (stdout) msg.channel.send(`**Output**\n\`\`\`bash\n${stdout}\n\`\`\``)
+			if (stderr) msg.channel.send(`**Errors**\n\`\`\`bash\n${stderr}\n\`\`\``)
+		})
+	} else {
+		return msg.channel.send('Huh?')
+	}
 
 	if (command === 'shardinfo') {
 
@@ -105,24 +131,35 @@ exports.run = async function (client, msg, args, utils, config) {
 			evalTime = Date.now() - before
 			if (typeof res === 'string')
 				res = res.replace(rep, '*')
-			else res = util.inspect(res, { depth: 0 })
+			else res = util.inspect(res, {
+					depth: 0
+				})
 				.replace(rep, '*')
 		} catch (err) {
 			res = err
 		}
-		msg.channel.send({ embed: {
-			color: utils.colors.lightblue,
-			fields: [
-				{ name: 'Input', value: '```js' + args.join(' ') + '```' },
-				{ name: 'Output', value: '```js' + res + '```'}
-			],
-			footer: { text: evalTime || evalTime === 0 ? `evaluated in ${evalTime}ms` : '' }
-		}})
+		msg.channel.send({
+			embed: {
+				color: utils.colors.lightblue,
+				fields: [{
+						name: 'Input',
+						value: '```js\n' + args.join(' ') + '```'
+					},
+					{
+						name: 'Output',
+						value: '```js\n' + res + '```'
+					}
+				],
+				footer: {
+					text: evalTime || evalTime === 0 ? `evaluated in ${evalTime}ms` : ''
+				}
+			}
+		})
 	}
 
 	if (command === 'bash') {
 		msg.channel.send(`**Input**\n\`\`\`sh\n$ ${args.join(' ')}\n\`\`\``)
-		exec(args.join(' '), async (e, stdout, stderr) => {
+		exec(args.join(' '), async(e, stdout, stderr) => {
 			if (stdout.length + stderr.length > 2000) {
 				const res = await snakefetch.post('https://hastebin.com/documents')
 					.send(`${stdout}\n\n${stderr}`)
@@ -212,12 +249,16 @@ exports.run = async function (client, msg, args, utils, config) {
 		if (!parseInt(args[0]))
 			return msg.channel.send('Argument error. Make sure the argument(s) you\'re passing are numbers and exist.')
 		args.filter(arg => parseInt(arg)).forEach(targetTweetID => {
-			tClient.post('statuses/destroy/:id', { id: targetTweetID }, (err, data, response) => {
+			tClient.post('statuses/destroy/:id', {
+				id: targetTweetID
+			}, (err, data, response) => {
 				if (!err && response.statusCode === 200)
-					msg.channel.send({ embed: {
-						color: 0x4099FF,
-						description: `Tweet ${targetTweetID} successfully deleted.`
-					}})
+					msg.channel.send({
+						embed: {
+							color: 0x4099FF,
+							description: `Tweet ${targetTweetID} successfully deleted.`
+						}
+					})
 				else
 					msg.channel.send(`Something went wrong.\nStatus code: ${response.statusCode}\nError: ${err.message}`)
 			})
@@ -227,20 +268,20 @@ exports.run = async function (client, msg, args, utils, config) {
 
 }
 
-function writeFile (msg, choice, args, ids) {
+function writeFile(msg, choice, args, ids) {
 	let successMessage
 	switch (choice) {
-	case 0:
-		successMessage = `${msg.mentions.users.size ? msg.mentions.users.map(u => u.username).join(', ') : args.slice(2).filter(arg => parseInt(arg)).join(', ')} added to donor${args[1]}.`
-		break
-	case 1:
-		successMessage = `${msg.mentions.users.size ? msg.mentions.users.first().username : args[2]} removed from donor${args[1]}.`
-		break
-	case 2:
-		successMessage = `${msg.mentions.users.size ? msg.mentions.users.map(u => u.username).join(', ') : args.slice(2).filter(arg => parseInt(arg)).join(', ')} blocked.`
-		break
-	case 3:
-		successMessage = `${args[2]} unblocked.`
+		case 0:
+			successMessage = `${msg.mentions.users.size ? msg.mentions.users.map(u => u.username).join(', ') : args.slice(2).filter(arg => parseInt(arg)).join(', ')} added to donor${args[1]}.`
+			break
+		case 1:
+			successMessage = `${msg.mentions.users.size ? msg.mentions.users.first().username : args[2]} removed from donor${args[1]}.`
+			break
+		case 2:
+			successMessage = `${msg.mentions.users.size ? msg.mentions.users.map(u => u.username).join(', ') : args.slice(2).filter(arg => parseInt(arg)).join(', ')} blocked.`
+			break
+		case 3:
+			successMessage = `${args[2]} unblocked.`
 	}
 	fs.writeFile('./ids.json', JSON.stringify(ids, '', '\t'), (err) => {
 		if (err)

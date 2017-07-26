@@ -1,18 +1,26 @@
-exports.run = function (client, msg, args, config, EmbedBuilder) {
+exports.run = async function (client, msg, args, utils) {
 	if (!msg.channel.permissionsFor(client.user.id).has('USE_EXTERNAL_EMOJIS')) {
 		return msg.reply('Well shit, there was a permission error! Make sure I have `use external emojis` so I can do this shit!').catch(() => console.error)
 	}
 
-	msg.channel.send({
-		embed: new EmbedBuilder()
-			.setColor('#3676b3')
-			.setAuthor('Commands 💯 👌 🔥')
-			.setDescription('Get donor perks [here](https://www.patreon.com/melmsie)')
-			.addField('<:feelsgreatman:326155536800284673> Memey Commands', 'annoy, asktrump, bother, cowsay, joke, justright, kill, meme, memebox, mock, pupper, pun, shitpost, spin, tweet')
-			.addField('💰 Donor Commands', 'custom, doge, dolan, fuckyeah, kappa, kappa pride, lenny, lul, megusta, patreon, repeat, spam, thisisfine, troll')
-			.addField('📷 Image Manipulation', 'batslap, brazzers, byemom, invert, jail, magik, pride, spank, trigger, warp')
-			.addField('🎙 Voice Commands', 'airhorn, knock, mlg, nicememe, rickroll, scare, shitsound, stop')
-			.addField('🔧 Utilities and Information', 'clean, help, ping, stats')
-			.setFooter('Special thanks to Aetheryx. Credit for pls trigger goes to stupidcat.')
-	}).catch((err) => console.log(err.message))
+	try {
+		await msg.channel.send({
+			embed: {
+				color: utils.colors.lightblue,
+				title: 'Commands 💯 👌 🔥',
+				description: '\nTry the new commands! `shit`, `dab`, and `rip`\n',
+				fields: [
+					{ 'name': '<:feelsgreatman:326155536800284673> Fun Commands', 'value': 'annoy, asktrump, bother, cowsay, joke, justright, kill, meme, memebox, mock, pupper, pun, shitpost, spin, tweet' },
+					{ 'name': '📷 Image Manipulation', 'value': 'batslap, brazzers, byemom, dab, invert, jail, magik, pride, rip, shit, spank, trigger, warp' },
+					{ 'name': '🎙 Voice Commands', 'value': 'airhorn, knock, mlg, nicememe, rickroll, scare, shitsound, stop' },
+					{ 'name': '🔧 Utilities and Information', 'value': 'clean, custom, data, help, ping, stats' },
+					{ 'name': '💰 Donor Commands', 'value': 'doge, dolan, fuckyeah, kappa, kappa pride, lenny, lul, megusta, patreon, repeat, spam, thisisfine, troll' }
+				],
+				footer: { text: 'Remember do use pls command, not !pls command or plscommand.' }
+			}
+		})
+	} catch (e) {
+		console.log(`${e.message}`)
+	}
+
 }

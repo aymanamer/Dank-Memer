@@ -11,7 +11,6 @@ exports.run = async function (client, msg) {
 	const avatarurl = (msg.mentions.users.size > 0 ? msg.mentions.users.first().displayAvatarURL : msg.author.displayAvatarURL).replace('gif', 'png')
 
 	const data = await sf.get(avatarurl)
-	//console.log(data)
 	gm(data.body)
 		.implode(`-${getRandomInt(3, 15)}`)
 		.roll(`+${getRandomInt(0, 256)}+${getRandomInt(0, 256)}`)
