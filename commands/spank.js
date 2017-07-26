@@ -1,4 +1,4 @@
-const snakefetch = require('snekfetch')
+const Jimp = require('jimp')
 
 exports.run = async function (client, msg) {
 
@@ -8,13 +8,29 @@ exports.run = async function (client, msg) {
 	const avatarurl = (msg.mentions.users.size > 0 ? msg.mentions.users.first().displayAvatarURL : msg.author.displayAvatarURL).replace('gif', 'png')
 	const authorurl = msg.mentions.users.size > 0 ? msg.author.displayAvatarURL.replace('gif', 'png') : client.user.displayAvatarURL.replace('gif', 'png')
 
-	const data = await snakefetch
-		.get('http://get-ur-me.me/api/spank')
-		.set('Api-Key', 'XfGC62d9xKiOc4IegPdz')
-		.set('data-src', JSON.stringify([`${avatarurl}`, `${authorurl}`]))
+	const [avatar, author] = await Promise.all([
+		Jimp.read(avatarurl),
+		Jimp.read(authorurl)
+	])
+	const spank = await Jimp.read('./assets/imgen/spank.jpg')
+	avatar.resize(120, 120)
+	author.resize(140, 140)
+	spank.resize(500, 500)
+	spank.composite(avatar, 350, 220)
+	spank.composite(author, 225, 5)
+	spank.getBuffer(Jimp.MIME_PNG, async(err, buffer) => {
+		try {
+			await msg.channel.send({
+				files: [{
+					name: 'spank.png',
+					attachment: buffer
+				}]
+			})
+		} catch (e) {
+			msg.channel.send(`Error: ${e.message}`)
+		}
 
-	if (data.status === 200)
-		await msg.channel.send({files: [{name: 'spank.png', attachment: data.body}]})
-	else msg.channel.send(`Error: ${data.text}`)
+	})
+
 
 }

@@ -13,12 +13,12 @@ exports.run = async function (client, msg) {
 	bat.crop(0, 0, 670, 400)
 	bat.composite(avatar, 390, 215)
 	bat.composite(author, 240, 75)
-	bat.getBuffer(Jimp.MIME_PNG, (err, buffer) => {
+	bat.getBuffer(Jimp.MIME_PNG, async (err, buffer) => {
 		try {
-			msg.channel.sendFile(buffer)
+			await msg.channel.send({ files: [{ name: 'bat.png', attachment: buffer }] })
 		} catch (e) {
 			console.log(e)
-			msg.reply('there was an error with this command.')
+			await msg.reply('there was an error with this command.')
 		}
 	})
 

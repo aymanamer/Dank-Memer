@@ -1,4 +1,5 @@
-exports.run = async function (client, msg, args, config, RichEmbed, thonk, connection) {
+exports.run = async function () {
+	/*
 	thonk.table('stats').run(connection, function (err, cursor) {
 		if (err) throw err
 		cursor.toArray(function (err, result) {
@@ -6,4 +7,5 @@ exports.run = async function (client, msg, args, config, RichEmbed, thonk, conne
 			console.log(JSON.stringify(result, null, 2))
 		})
 	})
+	*/
 }

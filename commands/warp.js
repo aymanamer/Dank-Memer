@@ -1,4 +1,7 @@
-const snakefetch = require('snekfetch')
+const sf = require('snekfetch')
+const gm = require('gm').subClass({
+	imageMagick: true
+})
 
 exports.run = async function (client, msg) {
 
@@ -7,13 +10,28 @@ exports.run = async function (client, msg) {
 
 	const avatarurl = (msg.mentions.users.size > 0 ? msg.mentions.users.first().displayAvatarURL : msg.author.displayAvatarURL).replace('gif', 'png')
 
-	const data = await snakefetch
-		.get('http://get-ur-me.me/api/warp')
-		.set('Api-Key', 'XfGC62d9xKiOc4IegPdz')
-		.set('data-src', avatarurl)
+	const data = await sf.get(avatarurl)
+	//console.log(data)
+	gm(data.body)
+		.implode(`-${getRandomInt(3, 15)}`)
+		.roll(`+${getRandomInt(0, 256)}+${getRandomInt(0, 256)}`)
+		.swirl(`${getRandomInt(0, 1) === 1 ? '+' : '-'}${getRandomInt(120, 180)}`)
+		.toBuffer('PNG', async (err, buf) => {
+			try {
+				await msg.channel.send({
+					files: [{
+						name: 'warp.png',
+						attachment: buf
+					}]
+				})
+			} catch (e) {
+				msg.channel.send(err)
+			}
 
-	if (data.status === 200)
-		await msg.channel.send({files: [{name: 'warp.png', attachment: data.body}]})
-	else msg.channel.send(`Error: ${data.text}`)
+		})
 
+}
+
+function getRandomInt(min, max) {
+	return Math.floor(Math.random() * (max - min + 1)) + min
 }

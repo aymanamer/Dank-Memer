@@ -13,7 +13,7 @@ exports.run = async function (client, msg) {
 	const post = posts[client.indexes.meme[msg.guild.id]]
 	client.indexes.meme[msg.guild.id]++
 
-	msg.channel.send({ embed: {
+	await msg.channel.send({ embed: {
 		title: post.data.title,
 		color: color[Math.floor(Math.random() * color.length)],
 		url: post.data.url,

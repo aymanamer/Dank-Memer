@@ -19,5 +19,4 @@ exports.run = async function (client, msg) {
 			msg.reply('only one sound at once, jerk. <:fonking:289506756667637760>')
 		}
 	}
-	
 }

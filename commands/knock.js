@@ -20,6 +20,5 @@ exports.run = async function (client, msg) {
 			msg.reply('Another sound is already playing, douche')
 		}
 	}
-		
-	msg.reply('Due to unknown errors, this command will be down for a few days.')
+
 }

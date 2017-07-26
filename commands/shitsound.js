@@ -10,7 +10,7 @@ exports.run = async function (client, msg) {
 		msg.reply('join a voice channel fam')
 	} else {
 		if (!client.voiceConnections.get(msg.guild.id)) {
-			msg.react('📢')
+			msg.react('💩')
 			const conn = await msg.member.voiceChannel.join()
 			conn.playFile(`./assets/shitsound/${file}.opus`)
 			conn.player.dispatcher.once('end', () => {
@@ -21,5 +21,5 @@ exports.run = async function (client, msg) {
 			msg.reply('I only have one mouth, dude. Please wait until the current sound is done or the ear-rape ghost will visit you in your sleep!')
 		}
 	}
-	
+
 }

@@ -11,9 +11,9 @@ exports.run = async function (client, msg, args, utils, config) {
 		const vcs    = (await client.shard.fetchClientValues('voiceConnections.size')).reduce((a, b) => a + b)
 
 		await msg.channel.send({ embed: {
-			color: utils.lightblue,
+			color: utils.colors.lightblue,
 			title: `${client.user.username} - Stats (${config.version})`,
-			description: `Uptime: ${timeCon(process.uptime())}`,
+			description: `Uptime: ${utils.timeCon(process.uptime())}`,
 			fields: [
 				{ name: 'Websocket Ping', value: `${client.ping.toFixed(0)} ms`, inline: true },
 				{ name: 'CPU Usage', value: `${percentageCPU}% Usage`, inline: true },
@@ -43,16 +43,4 @@ function cpuAverage () {
 		idle: totalIdle / cpus.length,
 		total: totalTick / cpus.length
 	}
-}
-
-function timeCon (time) {
-	let days = Math.floor(time % 31536000 / 86400)
-	let hours = Math.floor(time % 31536000 % 86400 / 3600)
-	let minutes = Math.floor(time % 31536000 % 86400 % 3600 / 60)
-	let seconds = Math.round(time % 31536000 % 86400 % 3600 % 60)
-	days = days > 9 ? days : days
-	hours = hours > 9 ? hours : hours
-	minutes = minutes > 9 ? minutes : minutes
-	seconds = seconds > 9 ? seconds : seconds
-	return (parseInt(days) > 0 ? days + (days > 1 ? ' days ' : ' day ') : '') + (parseInt(hours) === 0 && parseInt(days) === 0 ? '' : hours + (hours > 1 ? ' hours ' : ' hour ')) + (parseInt(minutes) === 0 && parseInt(hours) === 0 && parseInt(days) === 0 ? '' : minutes + (minutes > 1 ? ' minutes ' : ' minute ')) + seconds + (seconds > 1 ? ' seconds ' : ' second ')
 }

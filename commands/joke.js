@@ -5,13 +5,14 @@ exports.run = async function (client, msg) {
 	const res = await snekfetch.get('https://www.reddit.com/r/Jokes/top/.json?sort=top&t=day&limit=400')
 	const posts = res.body.data.children.filter(post => !post.data.preview && post.data.selftext.length <= 550 && post.data.title.length <= 256)
 
-	if (!client.indexes.shitpost[msg.guild.id] || client.indexes.shitpost[msg.guild.id] >= posts.length)
+	if (!client.indexes.shitpost[msg.guild.id] || client.indexes.shitpost[msg.guild.id] >= posts.length) {
 		client.indexes.shitpost[msg.guild.id] = 1
+	}
 
 	const post = posts[client.indexes.shitpost[msg.guild.id]]
 	client.indexes.shitpost[msg.guild.id]++
 
-	msg.channel.send({ embed: {
+	await msg.channel.send({ embed: {
 		title: post.data.title,
 		color: color[Math.floor(Math.random() *color.length)],
 		url: post.data.url,

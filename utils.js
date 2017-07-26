@@ -14,6 +14,18 @@ exports.disabledEvents = [
 	'MESSAGE_REACTION_REMOVE_ALL'
 ]
 
+exports.timeCon = time => {
+	let days = Math.floor(time % 31536000 / 86400)
+	let hours = Math.floor(time % 31536000 % 86400 / 3600)
+	let minutes = Math.floor(time % 31536000 % 86400 % 3600 / 60)
+	let seconds = Math.round(time % 31536000 % 86400 % 3600 % 60)
+	days = days > 9 ? days : days
+	hours = hours > 9 ? hours : hours
+	minutes = minutes > 9 ? minutes : minutes
+	seconds = seconds > 9 ? seconds : seconds
+	return (parseInt(days) > 0 ? days + (days > 1 ? ' days ' : ' day ') : '') + (parseInt(hours) === 0 && parseInt(days) === 0 ? '' : hours + (hours > 1 ? ' hours ' : ' hour ')) + (parseInt(minutes) === 0 && parseInt(hours) === 0 && parseInt(days) === 0 ? '' : minutes + (minutes > 1 ? ' minutes ' : ' minute ')) + seconds + (seconds > 1 ? ' seconds. ' : ' second. ')
+}
+
 exports.bannedWords = ['kys', 'kill yourself', 'nigger', 'nagger', 'nigglet', 'faggot', 'fag', 'anus', 'anal', 'blowjob', 'blow job', 'dyke', 'dildo', 'cock', 'boner', 'homo', 'jizz', 'nigga', 'queer', 'pussy', 'scrotum', 'slut', 'aetheryx']
 
 exports.intro = `My name is Dank Memer.\n\nTo get started, send \`${config.prefix} help\`.\n\nI am maintained by Melmsie#0006, who can be found at [this server](https://discord.gg/3GNMJBG) if you need to talk to him.`
