@@ -54,6 +54,9 @@ process.on('uncaughtException', (err) => {
 	if (err.stack.startsWith('Error: Cannot find module')) {
 		return
 	}
+	if (err.stack.startsWith('Error: socket hang up')) {
+		return
+	}
 	console.log(`Caught exception: ${err.stack}`)
 })
 
@@ -65,7 +68,7 @@ async function collectStats() {
 	metrics.gauge(`ram${client.shard.id}.rss`, (memUsage.rss / 1048576).toFixed())
 	metrics.gauge(`ram${client.shard.id}.heapUsed`, (memUsage.heapUsed / 1048576).toFixed())
 	metrics.gauge('total.guilds', guilds)
-	metrics.gauge('total.users', guilds)
+	metrics.gauge('total.users', users)
 	metrics.gauge('current.vcs', vcs)
 
 }
