@@ -8,26 +8,8 @@ const cooldowns = {
 
 exports.handleMeDaddy = async function (client, msg, utils, metrics) {
 
-	if (msg.channel.type === 'dm' && msg.author.id !== client.user.id) {
-		const badtweet = '<@172571295077105664> look at this idiot DMing me'
-
-		client.shard.broadcastEval(`
-					this.channels.has('326384964964974602') && this.channels.get('326384964964974602').send('BEDTWIET', { embed: {
-    					title: 'A_TAG',
-						description: 'ARGS',
-						thumbnail: { url: 'A_AVA' },
-						color: 0x4099FF,
-						timestamp: new Date(),
-						footer: { text: 'Author ID: A_ID' }
-					} })`
-						.replace(/A_TAG/g, msg.author.tag.replace(/'|"|`/g, ''))
-						.replace(/A_ID/g, msg.author.id)
-						.replace(/A_AVA/g, msg.author.avatarURL)
-						.replace(/ARGS/g, msg.content.replace(/'|"|`/g, ''))
-						.replace(/BEDTWIET/g, badtweet))
-						.catch(err => console.log(`TWEET BROADCASTEVAL ERR: ${err.stack}`))
-	}
-	if (msg.author.bot ||
+	if (msg.channel.type === 'dm' ||
+		msg.author.bot ||
 		client.ids.blocked.user.includes(msg.author.id) ||
 		client.ids.blocked.channel.includes(msg.channel.id) ||
 		client.ids.blocked.guild.includes(msg.guild.id)) {

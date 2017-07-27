@@ -36,7 +36,7 @@ client.on('guildDelete', async guild => {
 })
 
 client.once('ready', () => {
-
+	metrics.increment('events.ready')
 	client.ids = require('./ids.json')
 	client.user.setGame('hello', 'https://www.twitch.tv/melmsie')
 	client.indexes = {
@@ -51,12 +51,14 @@ client.once('ready', () => {
 })
 
 process.on('uncaughtException', (err) => {
+
 	if (err.stack.startsWith('Error: Cannot find module')) {
 		return
 	}
 	if (err.stack.startsWith('Error: socket hang up')) {
 		return
 	}
+	metrics.increment('events.uncaughtExceptions')
 	console.log(`Caught exception: ${err.stack}`)
 })
 
