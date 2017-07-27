@@ -5,7 +5,7 @@ const utils = require('./utils.js')
 const Discord = require('discord.js')
 const client = new Discord.Client({
 	disableEveryone: true,
-	messageCacheMaxSize: 80,
+	messageCacheMaxSize: 200,
 	disabledEvents: utils.disabledEvents
 })
 
