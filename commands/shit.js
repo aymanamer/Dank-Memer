@@ -20,7 +20,7 @@ exports.run = async function (client, msg, args) {
 
 	const text = args
 	const mom = await Jimp.read('./assets/imgen/shit.jpg')
-	const blank = await Jimp.read('./assets/imgen/empty.png')
+	const blank = await Jimp.read('./assets/imgen/Empty.png')
 
 	const font = await Jimp.loadFont(Jimp.FONT_SANS_32_BLACK)
 
