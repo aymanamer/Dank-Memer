@@ -1,8 +1,8 @@
 const snekfetch = require('snekfetch')
 const config = require('../config.json')
 
-exports.create = async(client, guild, utils, metrics) => {
-	postStats(client.shard, metrics)
+exports.create = async(client, guild, utils) => {
+	postStats(client.shard)
 
 	const embed = {
 		color: utils.colors.lightblue,
@@ -27,7 +27,7 @@ exports.create = async(client, guild, utils, metrics) => {
 		.catch(err => console.log(`GUILDHANDLER.CREATE ERR: ${err.stack}`))
 }
 
-exports.delete = async(client, guild, utils, metrics) => {
+exports.delete = async(client, guild) => {
 	
 	const str = `<:guildLeave:339203746536095744> Removed Guild: ${guild.name} | \`${guild.id}\` | Users: \`${guild.members.filter(m => !m.user.bot).size}\` - Bots: \`${guild.members.filter(m => m.user.bot).size}\` | ${new Date().toLocaleString()}`.replace(/'|"/g, '')
 	client.shard.broadcastEval(`this.channels.has('338913214513283072') && this.channels.get('338913214513283072').send('${str}')`)
@@ -35,13 +35,12 @@ exports.delete = async(client, guild, utils, metrics) => {
 
 	
 
-	postStats(client.shard, metrics)
+	postStats(client.shard)
 }
 
-async function postStats(shard, metrics) {
+async function postStats(shard) {
 	const guilds = await shard.fetchClientValues('guilds.size')
 	const count = guilds.reduce((prev, val) => prev + val, 0)
-	metrics.gauge('totalGuilds', count)
 	snekfetch
 		.post('https://bots.discord.pw/api/bots/270904126974590976/stats')
 		.set('Authorization', config.pwtoken)

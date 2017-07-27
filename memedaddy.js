@@ -13,7 +13,7 @@ const metrics = require('datadog-metrics')
 metrics.init({
 	apiKey: config.datadog.APIkey,
 	appKey: config.datadog.APPkey,
-	flushIntervalSeconds: 3,
+	flushIntervalSeconds: 5,
 	prefix: 'dank.'
 })
 
@@ -27,12 +27,12 @@ client.on('message', async msg => {
 
 client.on('guildCreate', async guild => {
 	metrics.increment('guild.joined')
-	guildHandler.create(client, guild, utils, metrics)
+	guildHandler.create(client, guild, utils)
 })
 
 client.on('guildDelete', async guild => {
 	metrics.increment('guild.left')
-	guildHandler.delete(client, guild, utils, metrics)
+	guildHandler.delete(client, guild)
 })
 
 client.once('ready', () => {
@@ -45,7 +45,7 @@ client.once('ready', () => {
 		'shitpost': {}
 	}
 
-	setInterval(collectTechnicalStats, 3000)
+	setInterval(collectStats, 3000)
 
 	console.log(`[${new Date()}] ${client.user.username} loaded on ${client.shard.id + 1} successfully.`)
 })
@@ -57,9 +57,15 @@ process.on('uncaughtException', (err) => {
 	console.log(`Caught exception: ${err.stack}`)
 })
 
-function collectTechnicalStats() {
-	var memUsage = process.memoryUsage()
+async function collectStats() {
+	const guilds = (await client.shard.fetchClientValues('guilds.size')).reduce((a, b) => a + b)
+	const users = (await client.shard.fetchClientValues('users.size')).reduce((a, b) => a + b)
+	const vcs = (await client.shard.fetchClientValues('voiceConnections.size')).reduce((a, b) => a + b)
+	const memUsage = process.memoryUsage()
 	metrics.gauge(`ram${client.shard.id}.rss`, (memUsage.rss / 1048576).toFixed())
 	metrics.gauge(`ram${client.shard.id}.heapUsed`, (memUsage.heapUsed / 1048576).toFixed())
-}
+	metrics.gauge('total.guilds', guilds)
+	metrics.gauge('total.users', guilds)
+	metrics.gauge('current.vcs', vcs)
 
+}

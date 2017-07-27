@@ -6,7 +6,7 @@ const cooldowns = {
 	times: require('../cmdConfig.json').cooldowns
 }
 
-exports.handleMeDaddy = async function (client, msg, utils) {
+exports.handleMeDaddy = async function (client, msg, utils, metrics) {
 
 	if (msg.channel.type === 'dm' && msg.author.id !== client.user.id) {
 		const badtweet = '<@172571295077105664> look at this idiot DMing me'
@@ -77,7 +77,8 @@ exports.handleMeDaddy = async function (client, msg, utils) {
 			return
 		}
 		require(`../commands/${command}`).run(client, msg, args, utils, config)
-
+		metrics.increment('total.commands')
+		metrics.increment(`command.${command}`)
 	} catch (e) {
 		if (e.stack.startsWith('Error: Cannot find module')) {
 			return
