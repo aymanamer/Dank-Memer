@@ -45,8 +45,7 @@ async function postStats(shard) {
 		.post('https://bots.discord.pw/api/bots/270904126974590976/stats')
 		.set('Authorization', config.pwtoken)
 		.send({
-			'server_count': count,
-			'shard_count': client.shard.count
+			'server_count': count
 		})
 		.end()
 
@@ -54,8 +53,7 @@ async function postStats(shard) {
 		.post('https://discordbots.org/api/bots/270904126974590976/stats')
 		.set('Authorization', config.orgtoken)
 		.send({
-			'server_count': count,
-			'shard_count': client.shard.count
+			'server_count': count
 		})
 		.end()
 
