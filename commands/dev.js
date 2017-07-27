@@ -1,11 +1,10 @@
-const {
-	exec
-} = require('child_process')
+const { exec } = require('child_process')
 const util = require('util')
 const snakefetch = require('snekfetch')
 const twit = require('twit')
 const fs = require('fs')
 const table = require('table')
+const twitter = require('../config.json').twitter
 
 const config = {
 	border: {
@@ -240,10 +239,10 @@ exports.run = async function (client, msg, args, utils, config) {
 
 	if (command === 'deletetweet') {
 		const tClient = new twit({
-			consumer_key: 'Gkan9QvKDjZgWnJajCPMZ8jxL',
-			consumer_secret: '5x3EkR48doQGXxlrEG2LLvWvemE9We20TlW6dgabC7zRUiScxS',
-			access_token: '878224959151247361-0sxlyNs1WxVNcsZQmrspT3sWjUnPd1x',
-			access_token_secret: 'nlZbvOYEnlN4vqlcB1Ips5c2qT9suL1KXPRDyDZxaPpsL',
+			consumer_key: twitter.consumer_key,
+			consumer_secret: twitter.consumer_secret,
+			access_token: twitter.access_token,
+			access_token_secret: twitter.access_token_secret,
 			timeout_ms: 60 * 1000,
 		})
 		if (!parseInt(args[0]))

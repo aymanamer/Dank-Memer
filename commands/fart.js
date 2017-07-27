@@ -12,7 +12,7 @@ exports.run = async function (client, msg) {
 			try {
 				msg.react('😅')
 				const conn = await msg.member.voiceChannel.join()
-				conn.playFile(`./assets/farts/${file}.opus`)
+				conn.playFile(`./assets/farts/${file}.mp3`)
 				conn.player.dispatcher.once('end', () => {
 					conn.channel.leave()
 				})
