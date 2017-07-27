@@ -80,5 +80,5 @@ async function collectStats() {
 	metrics.gauge('total.users', users)
 	metrics.gauge('current.vcs', vcs)
 	metrics.gauge('total.blocked', client.ids.blocked.user.length)
-	metrics.gauge('current.uptime', client.ids.blocked.user.length)
+	metrics.gauge('current.uptime', process.uptime())
 }
