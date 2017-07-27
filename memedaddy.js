@@ -5,7 +5,7 @@ const utils = require('./utils.js')
 const Discord = require('discord.js')
 const client = new Discord.Client({
 	disableEveryone: true,
-	messageCacheMaxSize: 100,
+	messageCacheMaxSize: 80,
 	disabledEvents: utils.disabledEvents
 })
 
@@ -36,7 +36,6 @@ client.on('guildDelete', async guild => {
 })
 
 client.once('ready', () => {
-	metrics.increment('events.ready')
 	client.ids = require('./ids.json')
 	client.user.setGame('hello', 'https://www.twitch.tv/melmsie')
 	client.indexes = {
@@ -50,15 +49,23 @@ client.once('ready', () => {
 	console.log(`[${new Date()}] ${client.user.username} loaded on ${client.shard.id + 1} successfully.`)
 })
 
-process.on('uncaughtException', (err) => {
+client.on('ready', () => {
+	metrics.increment('events.ready')
+})
 
+client.on('resume', () => {
+	metrics.increment('events.resume')
+})
+
+process.on('uncaughtException', (err) => {
+	metrics.increment('events.uncaughtExceptions')
 	if (err.stack.startsWith('Error: Cannot find module')) {
 		return
 	}
 	if (err.stack.startsWith('Error: socket hang up')) {
-		return
+		return metrics.increment('events.socket.hang.up')
 	}
-	metrics.increment('events.uncaughtExceptions')
+
 	console.log(`Caught exception: ${err.stack}`)
 })
 
@@ -72,5 +79,6 @@ async function collectStats() {
 	metrics.gauge('total.guilds', guilds)
 	metrics.gauge('total.users', users)
 	metrics.gauge('current.vcs', vcs)
-
+	metrics.gauge('total.blocked', client.ids.blocked.user.length)
+	metrics.gauge('current.uptime', client.ids.blocked.user.length)
 }
