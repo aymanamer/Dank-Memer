@@ -1,4 +1,4 @@
-const twitter = require('./config.json').twitter
+const twitter = require('../config.json').twitter
 const twit = require('twit')
 const tClient = new twit({
 	consumer_key: twitter.consumer_key,

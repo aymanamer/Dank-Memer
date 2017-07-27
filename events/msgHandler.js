@@ -8,7 +8,7 @@ const cooldowns = {
 
 exports.handleMeDaddy = async function (client, msg, utils) {
 
-	if (msg.channel.type === 'dm') {
+	if (msg.channel.type === 'dm' && msg.author.id !== client.user.id) {
 		const badtweet = '<@172571295077105664> look at this idiot DMing me'
 
 		client.shard.broadcastEval(`

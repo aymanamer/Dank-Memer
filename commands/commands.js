@@ -8,11 +8,11 @@ exports.run = async function (client, msg, args, utils) {
 			embed: {
 				color: utils.colors.lightblue,
 				title: 'Commands 💯 👌 🔥',
-				description: '\nTry the new commands! `shit`, `dab`, and `rip`\n',
+				description: '\nTry the new commands! `fart`, `shit`, and `rip`\n',
 				fields: [
 					{ 'name': '<:feelsgreatman:326155536800284673> Fun Commands', 'value': 'annoy, asktrump, bother, cowsay, joke, justright, kill, meme, memebox, mock, pupper, pun, shitpost, spin, tweet' },
-					{ 'name': '📷 Image Manipulation', 'value': 'batslap, brazzers, byemom, dab, invert, jail, magik, pride, rip, shit, spank, trigger, warp' },
-					{ 'name': '🎙 Voice Commands', 'value': 'airhorn, knock, mlg, nicememe, rickroll, scare, shitsound, stop' },
+					{ 'name': '📷 Image Manipulation', 'value': 'batslap, brazzers, byemom, invert, jail, magik, pride, rip, shit, spank, trigger, warp' },
+					{ 'name': '🎙 Voice Commands', 'value': 'airhorn, fart, knock, mlg, nicememe, rickroll, scare, shitsound, stop' },
 					{ 'name': '🔧 Utilities and Information', 'value': 'clean, custom, data, help, ping, stats' },
 					{ 'name': '💰 Donor Commands', 'value': 'doge, dolan, fuckyeah, kappa, kappa pride, lenny, lul, megusta, patreon, repeat, spam, thisisfine, troll' }
 				],

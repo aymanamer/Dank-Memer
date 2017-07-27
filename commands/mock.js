@@ -7,12 +7,12 @@ exports.run = async function (client, msg, args) {
 
 	const dumb = args.join(' ').replace(/c/gi, 'k').replace(/v/gi, 'c')
 	const textArray = dumb.toLowerCase().split('')
-	const done = textArray.map(capitalizeEven).join('')
+	const done = await textArray.map(capitalizeEven).join('')
 
 	await msg.channel.send(done, { files: ['https://pbs.twimg.com/media/DAU-ZPHUIAATuNy.jpg'] })
 }
 
-async function capitalizeEven (char, index) {
+function capitalizeEven (char, index) {
 	if (index % 2 === 0)
 		return char.toUpperCase()
 	else

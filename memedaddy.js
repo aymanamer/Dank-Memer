@@ -9,19 +9,30 @@ const client = new Discord.Client({
 	disabledEvents: utils.disabledEvents
 })
 
+const metrics = require('datadog-metrics')
+metrics.init({
+	apiKey: config.datadog.APIkey,
+	appKey: config.datadog.APPkey,
+	flushIntervalSeconds: 3,
+	prefix: 'dank.'
+})
+
 
 client.login(config.token)
 
 client.on('message', async msg => {
-	msgHandler.handleMeDaddy(client, msg, utils)
+	metrics.increment('messages.seen')
+	msgHandler.handleMeDaddy(client, msg, utils, metrics)
 })
 
 client.on('guildCreate', async guild => {
-	guildHandler.create(client, guild, utils)
+	metrics.increment('guild.joined')
+	guildHandler.create(client, guild, utils, metrics)
 })
 
 client.on('guildDelete', async guild => {
-	guildHandler.delete(client, guild, utils)
+	metrics.increment('guild.left')
+	guildHandler.delete(client, guild, utils, metrics)
 })
 
 client.once('ready', () => {
@@ -34,6 +45,8 @@ client.once('ready', () => {
 		'shitpost': {}
 	}
 
+	setInterval(collectTechnicalStats, 3000)
+
 	console.log(`[${new Date()}] ${client.user.username} loaded on ${client.shard.id + 1} successfully.`)
 })
 
@@ -43,3 +56,10 @@ process.on('uncaughtException', (err) => {
 	}
 	console.log(`Caught exception: ${err.stack}`)
 })
+
+function collectTechnicalStats() {
+	var memUsage = process.memoryUsage()
+	metrics.gauge(`ram${client.shard.id}.rss`, (memUsage.rss / 1048576).toFixed())
+	metrics.gauge(`ram${client.shard.id}.heapUsed`, (memUsage.heapUsed / 1048576).toFixed())
+}
+

@@ -11,7 +11,7 @@ exports.run = async function (client, msg, args) {
 	brazz.resize(Jimp.AUTO, 100)
 	avatar.resize(350, 350)
 	avatar.composite(brazz, 150, 275)
-	avatar.getBuffer(Jimp.MIME_PNG, (err, buffer) => {
+	avatar.getBuffer(Jimp.MIME_PNG, async (err, buffer) => {
 		try {
 			await msg.channel.sendFile(buffer)
 		} catch (e) {

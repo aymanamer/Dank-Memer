@@ -4,7 +4,7 @@ const token = require('./config.json').token
 const shard = new D.ShardingManager('./memedaddy.js', {
 	token: token,
 	totalShards: 'auto',
-	respawn: true
+	respawn: false
 })
 
 
