@@ -5,6 +5,13 @@ const twit = require('twit')
 const fs = require('fs')
 const table = require('table')
 const twitter = require('../config.json').twitter
+const tClient = new twit({
+	consumer_key: twitter.consumer_key,
+	consumer_secret: twitter.consumer_secret,
+	access_token: twitter.access_token,
+	access_token_secret: twitter.access_token_secret,
+	timeout_ms: 60 * 1000,
+})
 
 const config = {
 	border: {
@@ -27,6 +34,24 @@ const config = {
 }
 
 exports.run = async function (client, msg, args, utils, config) {
+	if (command === 'deletetweet' && msg.guild.member(msg.author).roles.has('339186850910699520')) {
+		if (!parseInt(args[0]))
+			return msg.channel.send('Argument error. Make sure the argument(s) you\'re passing are numbers and exist.')
+		args.filter(arg => parseInt(arg)).forEach(targetTweetID => {
+			tClient.post('statuses/destroy/:id', { id: targetTweetID }, (err, data, response) => {
+				if (!err && response.statusCode === 200)
+					msg.channel.send({
+						embed: {
+							color: 0x4099FF,
+							description: `Tweet ${targetTweetID} successfully deleted.`
+						}
+					})
+				else
+					msg.channel.send(`Something went wrong.\nStatus code: ${response.statusCode}\nError: ${err.message}`)
+			})
+		})
+	}
+
 	if (!config.devs.includes(msg.author.id)) return
 
 	if (args[0] === 'help' || !args[0])
@@ -236,35 +261,6 @@ exports.run = async function (client, msg, args, utils, config) {
 			writeFile(msg, 3, args, client.ids)
 		}
 	}
-
-	if (command === 'deletetweet') {
-		const tClient = new twit({
-			consumer_key: twitter.consumer_key,
-			consumer_secret: twitter.consumer_secret,
-			access_token: twitter.access_token,
-			access_token_secret: twitter.access_token_secret,
-			timeout_ms: 60 * 1000,
-		})
-		if (!parseInt(args[0]))
-			return msg.channel.send('Argument error. Make sure the argument(s) you\'re passing are numbers and exist.')
-		args.filter(arg => parseInt(arg)).forEach(targetTweetID => {
-			tClient.post('statuses/destroy/:id', {
-				id: targetTweetID
-			}, (err, data, response) => {
-				if (!err && response.statusCode === 200)
-					msg.channel.send({
-						embed: {
-							color: 0x4099FF,
-							description: `Tweet ${targetTweetID} successfully deleted.`
-						}
-					})
-				else
-					msg.channel.send(`Something went wrong.\nStatus code: ${response.statusCode}\nError: ${err.message}`)
-			})
-		})
-	}
-
-
 }
 
 function writeFile(msg, choice, args, ids) {
