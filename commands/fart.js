@@ -9,12 +9,16 @@ exports.run = async function (client, msg) {
 		msg.reply('join a voice channel fam')
 	} else {
 		if (!client.voiceConnections.get(msg.guild.id)) {
-			msg.react('😅')
-			const conn = await msg.member.voiceChannel.join()
-			conn.playFile(`./assets/farts/${file}.opus`)
-			conn.player.dispatcher.once('end', () => {
-				conn.channel.leave()
-			})
+			try {
+				msg.react('😅')
+				const conn = await msg.member.voiceChannel.join()
+				conn.playFile(`./assets/farts/${file}.opus`)
+				conn.player.dispatcher.once('end', () => {
+					conn.channel.leave()
+				})
+			} catch (e) {
+				console.log(`fart error: ${e.message}`)
+			}
 		} else {
 			await msg.react('328659813921980416')
 			msg.reply('I only have one butthole, dude. Please wait until the current sound is done or the ear-rape ghost will visit you in your sleep!')
