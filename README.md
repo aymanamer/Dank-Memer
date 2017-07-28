@@ -1,5 +1,9 @@
+<p align="center">
+  <a title="Codacy Badge" href="https://api.codacy.com/project/badge/Grade/83c15be03279409c9ac3ab3979cb3d23"><img src="https://www.codacy.com?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=melmsie/Dank-Memer&amp;utm_campaign=Badge_Grade"></a>
+</p>
 
-# Dank Memer [![Codacy Badge](https://api.codacy.com/project/badge/Grade/83c15be03279409c9ac3ab3979cb3d23)](https://www.codacy.com?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=melmsie/Dank-Memer&amp;utm_campaign=Badge_Grade)
+
+# Dank Memer
 
 A discord bot made primarily with node.js and discord.js, with plans to constantly add commands and grow to new platforms.
 
@@ -30,9 +34,7 @@ To get the full command list, you can do `pls help`.
 
 All commands use the same prefix, and are updated constantly!
 
-If you need any more help with anything, join this server!
-
-<iframe src="https://discordapp.com/widget?id=281482896265707520&theme=dark" width="175" height="250" allowtransparency="true" frameborder="0"></iframe>
+If you need any more help with anything, join [this server](https://discord.gg/3GNMJBG)!
 
 ## Built With
 
