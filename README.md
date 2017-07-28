@@ -27,7 +27,8 @@ The prefix to use the bot is `pls` *Example: pls ping*. No, not `!`, `?`, or `-`
 
 To get the full command list, you can do `pls help`.
 
-![pls help example](http://i.imgur.com/nMcOsHM.gifv "Help me Melmsiwan-Kenobi, you're my only hope!")
+![pls help example](http://i.imgur.com/nMcOsHM.gif "Help me Melmsiwan-Kenobi, you're my only hope!")
+
 End with an example of getting some data out of the system or using it for a little demo
 
 ## Built With
