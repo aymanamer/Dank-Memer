@@ -4,15 +4,14 @@ const servers = [
 	'110373943822540800'
 ]
 exports.run = async function (client, msg, args) {
-	if (servers.includes(msg.guild.id))
+	if (servers.includes(msg.guild.id)) {
 		return msg.channel.send('Sorry, Melmsie likes this server too much to let you spam.')
+	}
 
 	if (client.ids.donors.donor5.concat(client.ids.donors.donor10).includes(msg.author.id)) {
-		if (!args[0])
+		if (!args[0]) {
 			return msg.reply('What do you want me to spam?')
-
-		if (args.join(' ').length > 1900)
-			return msg.channel.send('Too long.', { reply: msg.author })
+		}
 
 		const intervalFunc = () => {
 			msg.channel.send(args.join(' '))

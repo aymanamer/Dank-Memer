@@ -1,6 +1,5 @@
 
 exports.run = function (client, msg, args, utils, config) {
-
 	if (!args[0]) {
 		return msg.reply(`Use this command to bother the developer, Melmsie, with bug reports or just for the sake of talking to him.\n\nExample: \`pls bother \'Your message to Melmsie\'\`\n\nJust remember, he can and will ban you from using the bot for being a dick. Currently banned: ${client.ids.blocked.user.length} idiots.`)
 	}

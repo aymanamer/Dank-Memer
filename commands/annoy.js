@@ -6,10 +6,8 @@ function send(target, text) {
 
 function repeat(times, delay, target, text) {
 	return new Promise((resolve, reject) => {
-		let interval
 		let count = 0
-
-		interval = setInterval(() => {
+		const interval = setInterval(() => {
 			count++
 			if (count >= times) {
 				clearInterval(interval)

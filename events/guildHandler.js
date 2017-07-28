@@ -10,17 +10,12 @@ exports.create = async(client, guild, utils) => {
 		description: utils.intro
 	}
 
-	guild.defaultChannel.send({
-			embed: embed
-		})
+	guild.defaultChannel.send({ embed })
 		.catch(err => {
 			console.log(`Failed to send welcome message to ${guild.name}\n${err.message}`)
-			guild.owner.send({
-					embed: embed
-				})
+			guild.owner.send({ embed: embed })
 				.catch(err => console.log(`${err.stack}: The god damn guild owner couldn\'t get the message either`))
 		})
-
 
 	const str = `<:guildJoin:339203745571405825> Joined Guild: ${guild.name} | \`${guild.id}\` | Users: \`${guild.members.filter(m => !m.user.bot).size}\` - Bots: \`${guild.members.filter(m => m.user.bot).size}\` | ${new Date().toLocaleString()}`.replace(/'|"/g, '')
 	client.shard.broadcastEval(`this.channels.has('338913214513283072') && this.channels.get('338913214513283072').send('${str}')`)
@@ -28,12 +23,9 @@ exports.create = async(client, guild, utils) => {
 }
 
 exports.delete = async(client, guild) => {
-	
 	const str = `<:guildLeave:339203746536095744> Removed Guild: ${guild.name} | \`${guild.id}\` | Users: \`${guild.members.filter(m => !m.user.bot).size}\` - Bots: \`${guild.members.filter(m => m.user.bot).size}\` | ${new Date().toLocaleString()}`.replace(/'|"/g, '')
 	client.shard.broadcastEval(`this.channels.has('338913214513283072') && this.channels.get('338913214513283072').send('${str}')`)
 		.catch(err => console.log(`GUILDHANDLER.DELETE ERR: ${err.stack}`))
-
-	
 
 	postStats(client.shard)
 }
@@ -63,6 +55,4 @@ async function postStats(shard) {
 			server_count: count
 		})
 		.end()
-
-
 }

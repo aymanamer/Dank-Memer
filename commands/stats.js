@@ -35,8 +35,9 @@ function cpuAverage () {
 	const cpus = os.cpus()
 	for (var i = 0, len = cpus.length; i < len; i++) {
 		var cpu = cpus[i]
-		for (const type in cpu.times)
+		for (const type in cpu.times) {
 			totalTick += cpu.times[type]
+		}
 		totalIdle += cpu.times.idle
 	}
 	return {

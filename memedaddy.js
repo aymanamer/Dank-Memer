@@ -1,3 +1,4 @@
+'use memes'
 const guildHandler = require('./events/guildHandler.js')
 const msgHandler = require('./events/msgHandler.js')
 const config = require('./config.json')

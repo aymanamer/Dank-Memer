@@ -1,6 +1,6 @@
 exports.run = async function (client, msg, args, utils) {
 	if (!msg.channel.permissionsFor(client.user.id).has('USE_EXTERNAL_EMOJIS')) {
-		return msg.reply('Well shit, there was a permission error! Make sure I have `use external emojis` so I can do this shit!').catch(() => console.error)
+		return msg.reply('Well shit, there was a permission error! Make sure I have `use external emojis` so I can do this shit!')
 	}
 
 	try {

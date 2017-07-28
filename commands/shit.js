@@ -1,9 +1,9 @@
 const Jimp = require('jimp')
 
 exports.run = async function (client, msg, args) {
-
-	if (!msg.channel.permissionsFor(client.user.id).has('ATTACH_FILES'))
-		return msg.reply('Well shit, there was a permission error! Make sure I have `attach files` so I can do this shit!').catch(() => console.error)
+	if (!msg.channel.permissionsFor(client.user.id).has('ATTACH_FILES')) {
+		return msg.reply('Well shit, there was a permission error! Make sure I have `attach files` so I can do this shit!')
+	}
 
 	if (msg.mentions.users.size > 0) {
 		args = msg.mentions.users.first().username
@@ -16,7 +16,6 @@ exports.run = async function (client, msg, args) {
 			args = args.join(' ')
 		}
 	}
-
 
 	const text = args
 	const mom = await Jimp.read('./assets/imgen/shit.jpg')
@@ -41,6 +40,4 @@ exports.run = async function (client, msg, args) {
 			msg.channel.send(`Error: ${err.message}`)
 		}
 	})
-
-
 }

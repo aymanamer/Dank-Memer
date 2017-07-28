@@ -2,7 +2,7 @@ const file = Math.floor(Math.random() * 5 + 1)
 
 exports.run = async function (client, msg) {
 	if (!msg.channel.permissionsFor(client.user.id).has(['CONNECT', 'SPEAK', 'ADD_REACTIONS'])) {
-		return msg.reply('Well shit, there was a permission error! Make sure I have `add reactions`, connect`, and `speak` so I can do this shit!').catch(() => console.error)
+		return msg.reply('Well shit, there was a permission error! Make sure I have `add reactions`, connect`, and `speak` so I can do this shit!')
 	}
 	if (!msg.member.voiceChannel) {
 		await msg.react('❌')

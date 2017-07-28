@@ -13,7 +13,7 @@ exports.run = async function (client, msg, args) {
 	avatar.composite(brazz, 150, 275)
 	avatar.getBuffer(Jimp.MIME_PNG, async (err, buffer) => {
 		try {
-			await msg.channel.sendFile(buffer)
+			await msg.channel.send({ files: [ { name: 'brazzers.png', attachment: buffer } ] })
 		} catch (e) {
 			console.log(e)
 			msg.reply('there was an error with this command.')

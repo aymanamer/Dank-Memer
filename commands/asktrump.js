@@ -8,7 +8,6 @@ const exclamations = 1
 const incquestion = false
 
 exports.run = async function (client, msg, args, utils) {
-
 	if (!args[0]) {
 		return msg.reply('You gotta give me something to ask Trump :eyes:')
 	}

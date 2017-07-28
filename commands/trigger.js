@@ -7,9 +7,9 @@ const options = {
 }
 
 exports.run = async function (client, msg, args) {
-
-	if (!msg.channel.permissionsFor(client.user.id).has('ATTACH_FILES'))
-		return msg.reply('Well shit, there was a permission error! Make sure I have `attach files` so I can do this shit!').catch(() => console.error)
+	if (!msg.channel.permissionsFor(client.user.id).has('ATTACH_FILES')) {
+		return msg.reply('Well shit, there was a permission error! Make sure I have `attach files` so I can do this shit!')
+	}
 
 	let avatarurl = (msg.mentions.users.size > 0 ? msg.mentions.users.first().displayAvatarURL : msg.author.displayAvatarURL).replace('gif', 'png')
 	if (['jpg', 'jpeg', 'gif', 'png', 'webp'].some(x => args.join(' ').includes(x))) {
@@ -50,13 +50,19 @@ exports.run = async function (client, msg, args) {
 	for (let i = 0; i < options.frames; i++) {
 		temp = base.clone()
 
-		if (i === 0) temp.composite(avatar, -16, -16)
-		else temp.composite(avatar, -32 + getRandomInt(-16, 16), -32 + getRandomInt(-16, 16))
+		if (i === 0) {
+			temp.composite(avatar, -16, -16)
+		} else {
+			temp.composite(avatar, -32 + getRandomInt(-16, 16), -32 + getRandomInt(-16, 16))
+		}
 
 		temp.composite(tint, 0, 0)
 
-		if (i === 0) temp.composite(text, -10, 200)
-		else temp.composite(text, -12 + getRandomInt(-8, 8), 200 + getRandomInt(-0, 12))
+		if (i === 0) {
+			temp.composite(text, -10, 200)
+		} else {
+			temp.composite(text, -12 + getRandomInt(-8, 8), 200 + getRandomInt(-0, 12))
+		}
 
 		frames.push(temp.bitmap.data)
 	}
@@ -64,7 +70,9 @@ exports.run = async function (client, msg, args) {
 	encoder.start()
 	encoder.setRepeat(0)
 	encoder.setDelay(20)
-	for (let frame of frames) encoder.addFrame(frame)
+	for (const frame of frames) {
+		encoder.addFrame(frame)
+	}
 	encoder.finish()
 
 }
