@@ -1,4 +1,5 @@
-<p style="text-align: center;"> [![Codacy Badge](https://api.codacy.com/project/badge/Grade/83c15be03279409c9ac3ab3979cb3d23)](https://www.codacy.com?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=melmsie/Dank-Memer&amp;utm_campaign=Badge_Grade)
+<p style="text-align: center;">
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/83c15be03279409c9ac3ab3979cb3d23)](https://www.codacy.com?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=melmsie/Dank-Memer&amp;utm_campaign=Badge_Grade)
 </p>
 
 # Dank Memer
