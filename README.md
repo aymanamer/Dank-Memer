@@ -1,7 +1,6 @@
 <p align="center">
-  <a title="Codacy Badge" href="https://api.codacy.com/project/badge/Grade/83c15be03279409c9ac3ab3979cb3d23"><img src="https://www.codacy.com?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=melmsie/Dank-Memer&amp;utm_campaign=Badge_Grade"></a>
+  <a title="Codacy Badge" href="https://www.codacy.com?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=melmsie/Dank-Memer&amp;utm_campaign=Badge_Grade"><img src="https://api.codacy.com/project/badge/Grade/83c15be03279409c9ac3ab3979cb3d23"></a>
 </p>
-
 
 # Dank Memer
 
