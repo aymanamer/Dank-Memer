@@ -1,34 +1,58 @@
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/83c15be03279409c9ac3ab3979cb3d23)](https://www.codacy.com?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=melmsie/Dank-Memer&amp;utm_campaign=Badge_Grade)
+
 # Dank Memer
 
-Dank Memer is a Discord bot who is made to be a server companion to just meme around and have fun. It has commands ranging from shitposting to posting pictures of random puppers.
+A discord bot made primarily with node.js and discord.js, with plans to constantly add commands and grow to new platforms.
 
-### Getting Started
+## Getting Started
 
-To see a list of all the current commands available, do
+These instructions will get you started using the bot and making sure it is set up well on your server. If you are having issues with the bot, be sure to check over these steps again.
 
-```
-pls commands
-```
-To change your prefix if you don't like pls, do
+### Prerequisites
 
-```
-pls prefix <what you want>
-```
-To get an invite link to add the bot to another server, do
+To add the bot to your server, you need to meet at least one of the following requirements:
 
-```
-pls invite
-```
+* Be the owner of the server
+* Have "Manage Server" permission on the server
+
+For the bot to work properly, it will need all of the permissions seen in the below image.
+
+![Server Permissions](http://i.imgur.com/9fkAFyN.png "Permissions Needed")
+
+You can [click here](https://goo.gl/ktrEbN) for an invite that has these permissions pre-selected for you.
+
+### Using the bot
+
+The prefix to use the bot is `pls` *Example: pls ping*. No, not `!`, `?`, or `-` like most bots. Prefixes don't have to be a common symbol!
+
+To get the full command list, you can do `pls help`.
+
+![pls help example](http://i.imgur.com/nMcOsHM.gifv "Help me Melmsiwan-Kenobi, you're my only hope!")
+End with an example of getting some data out of the system or using it for a little demo
+
+## Built With
+
+* [JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript) - The language
+* [Node](https://nodejs.org/en/) - The runtime
+* [Discord.js](https://discord.js.org/#/) - The Library
+
+## Contributing
+
+Please read [CONTRIBUTING.md](https://gist.github.com/melmsie/8bc44dbcbb7781a45ba1fbabbd617f1b) for details on our code style, and how not to trigger us.
+
+## Authors
+
+* **Melmsie** - *Initial work and owner* - [GitHub Profile](https://github.com/melmsie)
+* **Aetheryx** - *Has not given me his description yet* - [GitHub Profile](https://github.com/Aetheryx)
+
+See also the list of [contributors](https://github.com/melmsie/Dank-Memer/contributors) who participated in this project.
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
-
-I don't encourage you to self-host this bot, but I won't stop you as long as you give me credit.
+This project is licensed under the GNU AGPLv3 License - see the [LICENSE.md](LICENSE.md) file for exact details, but basically if you take my work, give me credit. You also need to have your application that uses my code under the same license.
 
 ## Acknowledgments
 
-* Crimson - Code cleaned up
-* Aether - Multiple commands
-* Blargbot - triggered command
-* Martmists - API for multiple commands
+* **Stupid Cat** - *Original author of trigger.js* - [GitHub Profile](https://github.com/Ratismal)
+* **Samoxive** - *Help with debugging stupid node errors and learning js* - [GitHub Profile](https://github.com/Samoxive)
+* **Kodehawa** - *Emotional support when dealing with stupid issues and users* - [GitHub Profile](https://github.com/Kodehawa)
