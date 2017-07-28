@@ -29,7 +29,7 @@ To get the full command list, you can do `pls help`.
 
 ![pls help example](http://i.imgur.com/nMcOsHM.gif "Help me Melmsiwan-Kenobi, you're my only hope!")
 
-End with an example of getting some data out of the system or using it for a little demo
+All commands use the same prefix, and are updated constantly!
 
 ## Built With
 
