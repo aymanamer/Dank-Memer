@@ -1,0 +1,24 @@
+{
+	"donors": {
+		"donor1": [
+			"ids"
+		],
+		"donor5": [
+			"ids"
+		],
+		"donor10": [
+			"ids"
+		]
+	},
+	"blocked": {
+		"user": [
+			"ids"
+		],
+		"channel": [
+			"ids"
+		],
+		"guild": [
+			"ids"
+		]
+	}
+}

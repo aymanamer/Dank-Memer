@@ -23,7 +23,7 @@ exports.timeCon = time => {
 	return (parseInt(days) > 0 ? days + (days > 1 ? ' days ' : ' day ') : '') + (parseInt(hours) === 0 && parseInt(days) === 0 ? '' : hours + (hours > 1 ? ' hours ' : ' hour ')) + (parseInt(minutes) === 0 && parseInt(hours) === 0 && parseInt(days) === 0 ? '' : minutes + (minutes > 1 ? ' minutes ' : ' minute ')) + seconds + (seconds > 1 ? ' seconds. ' : ' second. ')
 }
 
-exports.bannedWords = ['kys', 'kill yourself', 'nigger', 'nagger', 'nigglet', 'faggot', 'fag', 'anus', 'anal', 'blowjob', 'blow job', 'dyke', 'dildo', 'cock', 'boner', 'homo', 'jizz', 'nigga', 'queer', 'pussy', 'scrotum', 'slut', 'aetheryx']
+exports.bannedWords = ['kys', 'kill yourself', 'nigger', 'nagger', 'nigglet', 'faggot', 'benis', 'fag', 'anus', 'anal', 'blowjob', 'blow job', 'dyke', 'dildo', 'cock', 'boner', 'homo', 'jizz', 'nigga', 'queer', 'pussy', 'scrotum', 'slut', 'aetheryx', 'jews', 'cummy', 'niqquers', 'penis', 'gay', 'nibba', 'succ', 'fucc', ]
 
 exports.intro = `My name is Dank Memer.\n\nTo get started, send \`${config.prefix} help\`.\n\nI am maintained by Melmsie#0006, who can be found at [this server](https://discord.gg/3GNMJBG) if you need to talk to him.`
 
