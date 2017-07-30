@@ -8,5 +8,5 @@ exports.run = async function (client, msg) {
 
 	}
 	await client.voiceConnections.get(msg.guild.id).dispatcher.end()
-	msg.react('325734612976402432')
+	msg.react('⛔')
 }
