@@ -51,8 +51,8 @@ async function postStats(shard) {
 
 	snekfetch.post('https://www.carbonitex.net/discord/data/botdata.php')
 		.send({
-			key: config.carbon,
-			server_count: count
+			'key': config.carbon,
+			'server_count': count
 		})
 		.end()
 }
