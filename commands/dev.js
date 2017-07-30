@@ -34,9 +34,6 @@ const config = { // eslint-disable-line no-unused-vars
 }
 
 exports.run = async function (client, msg, args, utils, config) {
-
-	if (!config.devs.includes(msg.author.id)) { return }
-
 	const command = args[0].toLowerCase()
 	args.shift()
 
@@ -60,6 +57,8 @@ exports.run = async function (client, msg, args, utils, config) {
 			})
 		})
 	}
+
+	if (!config.devs.includes(msg.author.id)) { return }
 
 	if (command === 'help' || !command) {
 		return msg.channel.send({ embed: {
