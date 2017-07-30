@@ -37,7 +37,31 @@ exports.run = async function (client, msg, args, utils, config) {
 
 	if (!config.devs.includes(msg.author.id)) { return }
 
-	if (args[0] === 'help' || !args[0]) {
+	const command = args[0].toLowerCase()
+	args.shift()
+
+	if (command === 'deletetweet' && msg.guild.member(msg.author).roles.has('339186850910699520')) {
+		if (!parseInt(args[0])) {
+			return msg.channel.send('Argument error. Make sure the argument(s) you\'re passing are numbers and exist.')
+		}
+		args.filter(arg => parseInt(arg)).forEach(targetTweetID => {
+			tClient.post('statuses/destroy/:id', { id: targetTweetID }, (err, data, response) => {
+				if (!err && response.statusCode === 200) {
+					msg.channel.send({
+						embed: {
+							color: 0x4099FF,
+							description: `Tweet ${targetTweetID} successfully deleted.`
+						}
+					})
+				}
+				else {
+					msg.channel.send(`Something went wrong.\nStatus code: ${response.statusCode}\nError: ${err.message}`)
+				}
+			})
+		})
+	}
+
+	if (command === 'help' || !command) {
 		return msg.channel.send({ embed: {
 			footer: { text: 'Now go fuck people up with these OP commands!' },
 			color: 3569331,
@@ -74,30 +98,6 @@ exports.run = async function (client, msg, args, utils, config) {
 				}
 			]
 		}})
-	}
-
-	const command = args[0].toLowerCase()
-	args.shift()
-
-	if (command === 'deletetweet' && msg.guild.member(msg.author).roles.has('339186850910699520')) {
-		if (!parseInt(args[0])) {
-			return msg.channel.send('Argument error. Make sure the argument(s) you\'re passing are numbers and exist.')
-		}
-		args.filter(arg => parseInt(arg)).forEach(targetTweetID => {
-			tClient.post('statuses/destroy/:id', { id: targetTweetID }, (err, data, response) => {
-				if (!err && response.statusCode === 200) {
-					msg.channel.send({
-						embed: {
-							color: 0x4099FF,
-							description: `Tweet ${targetTweetID} successfully deleted.`
-						}
-					})
-				}
-				else {
-					msg.channel.send(`Something went wrong.\nStatus code: ${response.statusCode}\nError: ${err.message}`)
-				}
-			})
-		})
 	}
 
 	if (command === 'reboot') {
