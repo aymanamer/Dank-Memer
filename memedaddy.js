@@ -6,7 +6,7 @@ const utils = require('./utils.js')
 const Discord = require('discord.js')
 const client = new Discord.Client({
 	disableEveryone: true,
-	messageCacheMaxSize: 200,
+	messageCacheMaxSize: 80,
 	disabledEvents: utils.disabledEvents
 })
 
@@ -14,7 +14,7 @@ const metrics = require('datadog-metrics')
 metrics.init({
 	apiKey: config.datadog.APIkey,
 	appKey: config.datadog.APPkey,
-	flushIntervalSeconds: 5,
+	flushIntervalSeconds: 10,
 	prefix: 'dank.'
 })
 
@@ -45,17 +45,9 @@ client.once('ready', () => {
 		'shitpost': {}
 	}
 
-	setInterval(collectStats, 3000)
+	setInterval(collectStats, 10000)
 
 	console.log(`[${new Date()}] ${client.user.username} loaded on ${client.shard.id + 1} successfully.`)
-})
-
-client.on('ready', () => {
-	metrics.increment('events.ready')
-})
-
-client.on('resume', () => {
-	metrics.increment('events.resume')
 })
 
 process.on('uncaughtException', (err) => {
@@ -80,6 +72,5 @@ async function collectStats() {
 	metrics.gauge('total.guilds', guilds)
 	metrics.gauge('total.users', users)
 	metrics.gauge('current.vcs', vcs)
-	metrics.gauge('total.blocked', client.ids.blocked.user.length)
 	metrics.gauge('current.uptime', process.uptime())
 }
