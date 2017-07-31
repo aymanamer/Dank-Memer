@@ -42,10 +42,11 @@ client.once('ready', () => {
 	client.indexes = {
 		'meme': {},
 		'joke': {},
-		'shitpost': {}
+		'shitpost': {},
+		'thonks':{}
 	}
 
-	setInterval(collectStats, 10000)
+	setInterval(collectStats, 15000)
 
 	console.log(`[${new Date()}] ${client.user.username} loaded on ${client.shard.id + 1} successfully.`)
 })
@@ -56,7 +57,8 @@ process.on('uncaughtException', (err) => {
 		return
 	}
 	if (err.stack.startsWith('Error: socket hang up')) {
-		return metrics.increment('events.socket.hang.up')
+		metrics.increment('events.socket.hang.up')
+		return
 	}
 
 	console.log(`Caught exception: ${err.stack}`)
@@ -72,5 +74,5 @@ async function collectStats() {
 	metrics.gauge('total.guilds', guilds)
 	metrics.gauge('total.users', users)
 	metrics.gauge('current.vcs', vcs)
-	metrics.gauge('current.uptime', process.uptime())
+ 	metrics.gauge('current.uptime', process.uptime())
 }

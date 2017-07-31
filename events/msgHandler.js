@@ -1,12 +1,12 @@
 const config = require('../config.json')
 const aliases = require('../cmdConfig.json').aliases
-
+const tags = require('../tags.js')
 const cooldowns = {
 	active: {},
 	times: require('../cmdConfig.json').cooldowns
 }
 
-exports.handleMeDaddy = async function (client, msg, utils, metrics) {
+exports.handleMeDaddy = async function (client, msg, utils , metrics ) {
 
 	if (msg.channel.type === 'dm' ||
 		msg.author.bot ||
@@ -25,6 +25,25 @@ exports.handleMeDaddy = async function (client, msg, utils, metrics) {
 
 	if (!msg.content.toLowerCase().startsWith(config.prefix) || !command) {
 		return
+	}
+
+	if (Object.keys(tags).includes(command)) {
+		if (args[0] === 'info') {
+			return await msg.channel.send({
+				embed: {
+					color: utils.colors.lightblue,
+					thumbnail: {
+						url: tags[command].img
+					},
+					description: tags[command].info,
+					footer: { text: 'brought to you by knowyourmeme.com' }
+				}
+			})
+		} else {
+			return await msg.channel.send({
+				file: tags[command].img
+			})
+		}
 	}
 
 	if (!cooldowns.active[msg.author.id]) {
