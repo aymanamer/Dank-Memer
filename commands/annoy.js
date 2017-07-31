@@ -1,3 +1,4 @@
+/*
 const serverStaff = ['221060582986612749', '290638758867370006', '261525727067766784']
 
 function send(target, text) {
@@ -27,8 +28,9 @@ function setupAnnoy(repetitions, delay) {
 		await repeat(repetitions, delay, target, annoyance)
 	}
 }
-
+*/
 exports.run = async function (client, msg, args, utils, config) {
+	/*
 	const annoy = setupAnnoy(config.annoy.repetitions, config.annoy.delay)
 	const author = msg.author
 
@@ -111,5 +113,6 @@ exports.run = async function (client, msg, args, utils, config) {
 		console.error(e)
 		return false
 	}
-	return true
+	*/
+	msg.reply('This command is being removed due to the HUGE mass of complaints. \nIf you would like a bot to annoy you, this bot (http://i.imgur.com/e7BlWYC.png) will be coming soon!\nRight now it is being developed, but if you add it early with this link, (<https://goo.gl/bQ6FQ4>), you can be among the first to start annoying people again!!!')
 }
