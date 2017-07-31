@@ -8,13 +8,14 @@ exports.run = async function (client, msg, args, utils) {
 			embed: {
 				color: utils.colors.lightblue,
 				title: 'Commands 💯 👌 🔥',
-				description: '\nTry the new commands! `fart`, `shit`, and `rip`\n',
+				description: 'Try the new commands! `pls think`, `pls kitty`, and everything in the image tag section! There are also new puns!!!',
 				fields: [
-					{ 'name': '<:feelsgreatman:326155536800284673> Fun Commands', 'value': 'annoy, asktrump, bother, cowsay, joke, justright, kill, meme, memebox, mock, pupper, pun, shitpost, spin, tweet' },
+					{ 'name': '<:feelsgreatman:326155536800284673> Fun Commands', 'value': 'asktrump, bother, cowsay, joke, justright, kill, meme, memebox, mock, pupper, pun, shitpost, spin, tweet' },
 					{ 'name': '📷 Image Manipulation', 'value': 'batslap, brazzers, byemom, invert, jail, magik, pride, rip, shit, spank, trigger, warp' },
 					{ 'name': '🎙 Voice Commands', 'value': 'airhorn, fart, knock, mlg, nicememe, rickroll, scare, shitsound, stop' },
 					{ 'name': '🔧 Utilities and Information', 'value': 'clean, custom, data, help, ping, stats' },
-					{ 'name': '💰 Donor Commands', 'value': 'doge, dolan, fuckyeah, kappa, kappa pride, lenny, lul, megusta, patreon, repeat, spam, thisisfine, troll' }
+					{ 'name': '🖼 Image Tags', 'value': 'doge, dolan, kappa, lul, megusta, pepe, troll ' },
+					{ 'name': '💰 Donor Commands', 'value': 'patreon, repeat, spam' }
 				],
 				footer: { text: 'Remember do use pls command, not !pls command or plscommand.' }
 			}
