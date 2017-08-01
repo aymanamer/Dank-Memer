@@ -29,6 +29,7 @@ exports.handleMeDaddy = async function (client, msg, utils , metrics ) {
 
 	if (Object.keys(tags).includes(command)) {
 		if (args[0] === 'info') {
+			metrics.increment(`command.${command}`)
 			return await msg.channel.send({
 				embed: {
 					color: utils.colors.lightblue,

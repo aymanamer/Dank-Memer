@@ -46,5 +46,9 @@ module.exports = {
 	'alone': {
 		img: 'http://i0.kym-cdn.com/photos/images/newsfeed/000/150/505/f30fd24c56e1bcfc926883d6a51d5a00.gif',
 		info: 'Forever Alone is an exploitable rage comic character that is used to express loneliness and disappointment with life. The face has also been used as an advice animal and inspired the creation of the snowclone template “Forever an X.”'
+	},
+	'kiss': {
+		img: 'http://i.imgur.com/HaoTdum.png',
+		info: 'One of our developers, Aether, was considered the smart one until he made this image. RIP Aether!'
 	}
 }
