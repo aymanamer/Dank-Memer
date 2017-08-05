@@ -114,5 +114,5 @@ exports.run = async function (client, msg, args, utils, config) {
 		return false
 	}
 	*/
-	msg.reply('This command is being removed due to the HUGE mass of complaints. \nIf you would like a bot to annoy you, this bot (http://i.imgur.com/e7BlWYC.png) will be coming soon!\nRight now it is being developed, but if you add it early with this link, (<https://goo.gl/bQ6FQ4>), you can be among the first to start annoying people again!!!')
+	msg.reply('This command is being removed due to the HUGE mass of complaints. \nIf you would like a bot to annoy you, this bot (http://i.imgur.com/e7BlWYC.png) will be coming after the next major Dank Memer update!\nRight now it is being developed, but if you add it early with this link, (<https://goo.gl/bQ6FQ4>), you can be among the first to start annoying people again!!!')
 }

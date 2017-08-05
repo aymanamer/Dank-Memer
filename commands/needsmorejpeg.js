@@ -16,5 +16,5 @@ exports.run = async function (client, msg) {
 	else msg.channel.send(`Error: ${data.text}`)
 
 	*/
-	msg.channel.send('Due to lack of use and high CPU usage, this command has been removed.\n\nTo tell Melmsie you want it back, do `pls bother gib me my jpeg image back!`')
+	msg.channel.send('Due to lack of use and high CPU usage, this command has been removed for now.\n\nIt will be returned in the next major update of Dank Memer.')
 }

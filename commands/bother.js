@@ -18,9 +18,11 @@ exports.run = function (client, msg, args, utils, config) {
 					description: 'ARGS',
 					fields: [ { name: 'Sent from:', value: '#C_NAME in G_NAME' } ],
 					color: ${utils.colors.green},
+					footer: { text: 'Guild ID: G_ID' },
 					timestamp: new Date()
 				} })`
 					.replace(/C_NAME/g, msg.channel.name.replace(/'|"|`/g, ''))
+				.replace(/G_ID/g, msg.guild.id)
 					.replace(/G_NAME/g, msg.guild.name.replace(/'|"|`/g, ''))
 					.replace(/A_TAG/g, msg.author.tag.replace(/'|"|`/g, ''))
 					.replace(/A_ID/g, msg.author.id)

@@ -6,12 +6,12 @@ exports.run = async function (client, msg, args, utils) {
 	try {
 		await msg.channel.send({
 			embed: {
-				color: utils.colors.lightblue,
+				color: utils.colors.purple,
 				title: 'Commands 💯 👌 🔥',
-				description: 'Try the new commands! `pls think`, `pls kitty`, and everything in the image tag section! There are also new puns!!!',
+				description: 'Wanna suggest a command? Use `pls suggest`. You could get credit for it if we make the command!',
 				fields: [
 					{ 'name': '<:feelsgreatman:326155536800284673> Fun Commands', 'value': 'asktrump, bother, cowsay, joke, justright, kill, meme, memebox, mock, pupper, pun, shitpost, spin, tweet' },
-					{ 'name': '📷 Image Manipulation', 'value': 'batslap, brazzers, byemom, invert, jail, magik, pride, rip, shit, spank, trigger, warp' },
+					{ 'name': '📷 Image Manipulation', 'value': 'batslap, brazzers, byemom, invert, jail, magik, pride, rip, shit, spank, suggest, trigger, warp' },
 					{ 'name': '🎙 Voice Commands', 'value': 'airhorn, fart, knock, mlg, nicememe, rickroll, scare, shitsound, stop' },
 					{ 'name': '🔧 Utilities and Information', 'value': 'clean, custom, data, help, ping, stats' },
 					{ 'name': '🖼 Image Tags', 'value': 'alone, cry, doge, dolan, godno, kappa, lul, megusta, notsure, pepe, troll, wat ' },
