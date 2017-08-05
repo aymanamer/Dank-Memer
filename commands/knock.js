@@ -16,7 +16,7 @@ exports.run = async function (client, msg) {
 				conn.channel.leave()
 			})
 		} else {
-			await msg.react('328659813921980416')
+			await msg.react('❌')
 			msg.reply('Another sound is already playing, douche')
 		}
 	}

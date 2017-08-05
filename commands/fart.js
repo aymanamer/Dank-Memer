@@ -20,7 +20,7 @@ exports.run = async function (client, msg) {
 				console.log(`fart error: ${e.message}`)
 			}
 		} else {
-			await msg.react('328659813921980416')
+			await msg.react('❌')
 			msg.reply('I only have one butthole, dude. Please wait until the current sound is done or the ear-rape ghost will visit you in your sleep!')
 		}
 	}
