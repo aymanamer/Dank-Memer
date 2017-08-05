@@ -78,7 +78,7 @@ exports.handleMeDaddy = async function (client, msg, utils , metrics ) {
 		if (!msg.channel.permissionsFor(client.user.id).has(['SEND_MESSAGES', 'EMBED_LINKS'])) {
 			return
 		}
-		require(`../commands/${command}`).run(client, msg, args, utils, config)
+		await require(`../commands/${command}`).run(client, msg, args, utils, config)
 		metrics.increment('total.commands')
 		metrics.increment(`command.${command}`)
 	} catch (e) {
