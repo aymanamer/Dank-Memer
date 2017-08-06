@@ -1,27 +1,17 @@
-const Jimp = require('jimp')
-
-exports.run = async function (client, msg, args) {
-
-	if (!msg.channel.permissionsFor(client.user.id).has('ATTACH_FILES')) {
-		return msg.reply('Well shit, there was a permission error! Make sure I have `attach files` so I can do this shit!')
-	}
-	let avatarurl = (msg.mentions.users.size > 0 ? msg.mentions.users.first().displayAvatarURL : msg.author.displayAvatarURL).replace('gif', 'png')
+exports.run = async function (Memer, msg, args) {
+	let avatarurl = msg.mentions.length > 0 ? msg.mentions[0].staticAvatarURL : msg.author.staticAvatarURL
 	if (['jpg', 'jpeg', 'gif', 'png', 'webp'].some(x => args.join(' ').includes(x))) {
 		avatarurl = args.join(' ').replace(/gif|webp/g, 'png')
 	}
 
-	const avatar = await Jimp.read(avatarurl)
-	avatar.invert()
-	avatar.getBuffer(Jimp.MIME_PNG, async(err, buffer) => {
-		try {
-			await msg.channel.send({
-				files: [{
-					name: 'inverted.png',
-					attachment: buffer
-				}]
-			})
-		} catch (e) {
-			msg.channel.send(`Error: ${e.message}`)
-		}
-	})
+	const data = await Memer.snekfetch
+		.get('http://get-ur-me.me/api/invert')
+		.set('Api-Key', Memer.config.imgenKey)
+		.set('data-src', avatarurl)
+
+	if (data.status === 200) {
+		await msg.channel.createMessage('', { file: data.body, name: 'invert.png' })
+	} else {
+		msg.channel.createMessage(`Error: ${data.text}`)
+	}
 }
