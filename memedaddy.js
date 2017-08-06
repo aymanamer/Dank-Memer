@@ -3,20 +3,23 @@
 const msgHandler = require('./events/msgHandler.js')
 const guildHandler = require('./events/guildHandler.js')
 const Eris = require('eris')
+const utils = require('./utils.js')
 class MemerClass {
 	constructor () {
+		for (const i in Object.keys(utils)) {
+			this[Object.keys(utils)[i]] = utils[Object.keys(utils)[i]]
+		}
 		this.config = require('./config.json')
-		this.utils = require('./utils.js')
 		this.client = new Eris.Client(this.config.token, {
-			disableEvents: this.utils.disabledEvents,
+			disableEvents: this.disabledEvents,
 			disableEveryone: true,
 			messageLimit: 80
 		})
 		this.client.connect()
 		this.metrics = require('datadog-metrics')
 		/*metrics.init({
-			apiKey: config.datadog.APIkey,
-			appKey: config.datadog.APPkey,
+			apiKey: this.config.datadog.APIkey,
+			appKey: this.config.datadog.APPkey,
 			flushIntervalSeconds: 10,
 			prefix: 'dank.'
 		})*/
@@ -27,6 +30,7 @@ class MemerClass {
 			'shitpost': {},
 			'thonks':{}
 		}
+		this.snekfetch = require('snekfetch')
 	}
 }
 
@@ -43,12 +47,12 @@ Memer.client.on('ready', () => {
 
 Memer.client.on('guildCreate', async (guild) => {
 	// metrics.increment('guild.joined')
-	guildHandler.create(client, guild)
+	guildHandler.create(Memer, guild)
 })
 
 Memer.client.on('guildDelete', async (guild) => {
 	// metrics.increment('guild.left')
-	guildHandler.delete(client, guild)
+	guildHandler.delete(Memer, guild)
 })
 
 Memer.client.on('messageCreate', (msg) => {

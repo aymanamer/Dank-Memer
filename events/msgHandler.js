@@ -17,7 +17,7 @@ exports.handleMeDaddy = async function (Memer, msg) {
 		if (args[0] === 'info') {
 			return await msg.channel.createMessage({
 				embed: {
-					color: Memer.utils.colors.lightblue,
+					color: Memer.colors.lightblue,
 					thumbnail: { url: tags[command].img },
 					description: tags[command].info,
 					footer: { text: 'brought to you by knowyourmeme.com' }
@@ -38,29 +38,27 @@ exports.handleMeDaddy = async function (Memer, msg) {
 	}
 
 	if (cooldowns.active[msg.author.id].includes(command)) {
-		for (const i in Object.keys(Memer.utils.cdMsg)) {
-			if (cooldowns.active[msg.author.id].includes(Object.keys(Memer.utils.cdMsg)[i]) && command === Object.keys(Memer.utils.cdMsg)[i]) {
-				return msg.channel.createMessage(Memer.utils.cdMsg[Object.keys(Memer.utils.cdMsg)[i]])
-			} else if (parseInt(i) === Object.keys(Memer.utils.cdMsg).length - 1) {
+		for (const i in Object.keys(Memer.cdMsg)) {
+			if (cooldowns.active[msg.author.id].includes(Object.keys(Memer.cdMsg)[i]) && command === Object.keys(Memer.cdMsg)[i]) {
+				return msg.channel.createMessage(Memer.cdMsg[Object.keys(Memer.utils.cdMsg)[i]])
+			} else if (parseInt(i) === Object.keys(Memer.cdMsg).length - 1) {
 				return msg.channel.createMessage('This command is on cooldown. Donors get to use ALL commands much faster!')
 			}
 		}
 	}
 
-	//if (!Memer.config.devs.includes(msg.author.id)) {
+	if (!Memer.config.devs.includes(msg.author.id)) {
 		cooldowns.active[msg.author.id].push(command)
-	//}
-
-
+	}
 	setTimeout(() => {
 		cooldowns.active[msg.author.id].splice(cooldowns.active[msg.author.id].indexOf(command), 1)
 	}, Memer.ids.donors.donor1.concat(Memer.ids.donors.donor5, Memer.ids.donors.donor10).includes(msg.author.id) ? cooldowns.times[command] * 0.10 : cooldowns.times[command])
 
-
 	try {
 		delete require.cache[require.resolve(`../commands/${command}`)]
 		if (!msg.channel.permissionsOf(Memer.client.user.id).has('sendMessages') ||
-			!msg.channel.permissionsOf(Memer.client.user.id).has('embedLinks')) {
+			!msg.channel.permissionsOf(Memer.client.user.id).has('embedLinks') ||
+			!msg.channel.permissionsOf(Memer.client.user.id).has('attachFiles')) {
 			return
 		}
 		await require(`../commands/${command}`).run(Memer, msg, args)
