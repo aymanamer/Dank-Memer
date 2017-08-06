@@ -1,16 +1,14 @@
-const utils = require('../utils.js')
 const aliases = require('../cmdConfig.json').aliases
 const tags = require('../tags.js')
 const cooldowns = {
 	active: {},
 	times: require('../cmdConfig.json').cooldowns
 }
-const config = require('../config.json') // require from json
 const snekfetch = require('snekfetch')
 
-module.exports = async function (client, msg, metrics) {
-	let command = msg.content.slice(config.prefix.length + 1).toLowerCase().split(' ')[0]
-	const args = msg.content.split(' ').slice(2)
+exports.handleMeDaddy = async function (Memer, msg) {
+	let command = msg.content.slice(Memer.config.prefix.length + 1).toLowerCase().split(' ')[0]
+	const args = msg.content.toLowerCase().split(' ').slice(2)
 
 	if (!command) { return }
 
@@ -19,7 +17,7 @@ module.exports = async function (client, msg, metrics) {
 		if (args[0] === 'info') {
 			return await msg.channel.createMessage({
 				embed: {
-					color: utils.colors.lightblue,
+					color: Memer.utils.colors.lightblue,
 					thumbnail: { url: tags[command].img },
 					description: tags[command].info,
 					footer: { text: 'brought to you by knowyourmeme.com' }
@@ -31,13 +29,41 @@ module.exports = async function (client, msg, metrics) {
 		}
 	}
 
+	if (!cooldowns.active[msg.author.id]) {
+		cooldowns.active[msg.author.id] = []
+	}
+
+	if (aliases[command]) {
+		command = aliases[command]
+	}
+
+	if (cooldowns.active[msg.author.id].includes(command)) {
+		for (const i in Object.keys(Memer.utils.cdMsg)) {
+			if (cooldowns.active[msg.author.id].includes(Object.keys(Memer.utils.cdMsg)[i]) && command === Object.keys(Memer.utils.cdMsg)[i]) {
+				return msg.channel.createMessage(Memer.utils.cdMsg[Object.keys(Memer.utils.cdMsg)[i]])
+			} else if (parseInt(i) === Object.keys(Memer.utils.cdMsg).length - 1) {
+				return msg.channel.createMessage('This command is on cooldown. Donors get to use ALL commands much faster!')
+			}
+		}
+	}
+
+	//if (!Memer.config.devs.includes(msg.author.id)) {
+		cooldowns.active[msg.author.id].push(command)
+	//}
+
+
+	setTimeout(() => {
+		cooldowns.active[msg.author.id].splice(cooldowns.active[msg.author.id].indexOf(command), 1)
+	}, Memer.ids.donors.donor1.concat(Memer.ids.donors.donor5, Memer.ids.donors.donor10).includes(msg.author.id) ? cooldowns.times[command] * 0.10 : cooldowns.times[command])
+
+
 	try {
 		delete require.cache[require.resolve(`../commands/${command}`)]
-		if (!msg.channel.permissionsOf(client.user.id).has('sendMessages') ||
-			!msg.channel.permissionsOf(client.user.id).has('embedLinks')) {
+		if (!msg.channel.permissionsOf(Memer.client.user.id).has('sendMessages') ||
+			!msg.channel.permissionsOf(Memer.client.user.id).has('embedLinks')) {
 			return
 		}
-		await require(`../commands/${command}`).run(client, msg, args, utils, config)
+		await require(`../commands/${command}`).run(Memer, msg, args)
 		//metrics.increment('total.commands')
 		//metrics.increment(`command.${command}`)
 	} catch (e) {
