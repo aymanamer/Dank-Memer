@@ -1,17 +1,18 @@
 const file = Math.floor(Math.random() * 2 + 1)
 
-exports.run = async function (client, msg) {
-	if (!msg.channel.permissionsFor(client.user.id).has(['CONNECT', 'SPEAK', 'ADD_REACTIONS'])) {
-		return msg.reply('Well shit, there was a permission error! Make sure I have `add reactions`, connect`, and `speak` so I can do this shit!')
+exports.run = async function (Memer, msg) {
+	if (!Memer.client.getChannel(msg.member.voiceState.channelID).permissionsOf(Memer.client.user.id).has('voiceConnect') ||
+		!Memer.client.getChannel(msg.member.voiceState.channelID).permissionsOf(Memer.client.user.id).has('voiceSpeak')) {
+		return msg.channel.createMessage(`${msg.author.mention} Well shit, there was a permission error! Make sure I have \`add reactions\`, \`connect\`, and \`speak\` so I can do this shit!`)
 	}
-	if (!msg.member.voiceChannel) {
-		await msg.react('❌')
-		msg.reply('join a voice channel fam')
+	if (!msg.member.voiceState.channelID) {
+		await msg.addReaction('❌')
+		msg.channel.createMessage(`${msg.author.mention}, join a voice channel fam`)
 	} else {
-		if (!client.voiceConnections.get(msg.guild.id)) {
+		if (!Memer.client.voiceConnections.get(msg.channel.guild.id)) {
 			msg.react('👍')
-			const conn = await msg.member.voiceChannel.join()
-			conn.playFile(`./assets/horns/${file}.opus`)
+			const conn = await Memer.client.joinVoiceChannel(msg.member.voiceState.channelID)
+			conn.play(`./assets/horns/${file}.opus`)
 			conn.player.dispatcher.once('end', () => {
 				conn.channel.leave()
 			})
