@@ -8,7 +8,7 @@ const snekfetch = require('snekfetch')
 
 exports.handleMeDaddy = async function (Memer, msg) {
 	let command = msg.content.slice(Memer.config.prefix.length + 1).toLowerCase().split(' ')[0]
-	const args = msg.content.toLowerCase().split(' ').slice(2)
+	const args = msg.cleanContent.toLowerCase().split(' ').slice(2)
 
 	if (!command) { return }
 
@@ -58,7 +58,8 @@ exports.handleMeDaddy = async function (Memer, msg) {
 		delete require.cache[require.resolve(`../commands/${command}`)]
 		if (!msg.channel.permissionsOf(Memer.client.user.id).has('sendMessages') ||
 			!msg.channel.permissionsOf(Memer.client.user.id).has('embedLinks') ||
-			!msg.channel.permissionsOf(Memer.client.user.id).has('attachFiles')) {
+			!msg.channel.permissionsOf(Memer.client.user.id).has('attachFiles') ||
+			!msg.channel.permissionsOf(Memer.client.user.id).has('addReactions')) {
 			return
 		}
 		await require(`../commands/${command}`).run(Memer, msg, args)
