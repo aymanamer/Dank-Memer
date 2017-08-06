@@ -1,3 +1,3 @@
-exports.run = function (client, msg) {
-	msg.channel.createMessage('henlo testing modulority duhrr huhhrr')
+exports.run = function (Memer, msg) {
+	msg.channel.createMessage(`${msg.channel.guild.shard.latency}ms`)
 }
