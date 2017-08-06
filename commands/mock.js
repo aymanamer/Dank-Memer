@@ -1,17 +1,15 @@
-exports.run = async function (client, msg, args) {
-	if (!msg.channel.permissionsFor(client.user.id).has('ATTACH_FILES')) {
-		return msg.reply('Well shit, there was a permission error! Make sure I have `attach files` so I can do this shit!')
-	}
-
+exports.run = async function (Memer, msg, args) {
 	if (!args[0]) {
-		return msg.reply('You gotta give me something to mock :eyes:')
+		return Memer.reply('You gotta give me something to mock :eyes:')
 	}
 
 	const dumb = args.join(' ').replace(/c/gi, 'k').replace(/v/gi, 'c')
 	const textArray = dumb.toLowerCase().split('')
-	const done = await textArray.map(capitalizeEven).join('')
+	const done = textArray.map(capitalizeEven).join('')
 
-	await msg.channel.send(done, { files: ['https://pbs.twimg.com/media/DAU-ZPHUIAATuNy.jpg'] })
+	const mockimg = await Memer.snekfetch.get('https://pbs.twimg.com/media/DAU-ZPHUIAATuNy.jpg')
+
+	msg.channel.createMessage(done, { file: mockimg.body, name: 'mock.jpg' })
 }
 
 function capitalizeEven (char, index) {

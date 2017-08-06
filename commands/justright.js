@@ -1,9 +1,6 @@
 const { right } = require('../assets/arrays.json')
 
-exports.run = function (client, msg, args, utils) {
-	if (!msg.channel.permissionsFor(client.user.id).has('ATTACH_FILES')) {
-		return msg.reply('Well shit, there was a permission error! Make sure I have `attach files` so I can do this shit!')
-	}
-
-	msg.channel.send({ file: utils.randomInArray(right) })
+exports.run = async function (Memer, msg) {
+	const res = await Memer.snekfetch.get(Memer.randomInArray(right))
+	msg.channel.createMessage('', { file: res.body, name: 'justright.png' })
 }

@@ -1,22 +1,22 @@
-exports.run = async function (client, msg) {
-	if (!msg.channel.permissionsFor(client.user.id).has(['CONNECT', 'SPEAK', 'ADD_REACTIONS'])) {
-		return msg.reply('Well shit, there was a permission error! Make sure I have `add reactions`, connect`, and `speak` so I can do this shit!')
+exports.run = async function (Memer, msg) {
+	if (!Memer.client.getChannel(msg.member.voiceState.channelID).permissionsOf(Memer.client.user.id).has('voiceConnect') ||
+		!Memer.client.getChannel(msg.member.voiceState.channelID).permissionsOf(Memer.client.user.id).has('voiceSpeak')) {
+		return Memer.reply('Well shit, there was a permission error! Make sure I have `connect` and `speak` so I can do this shit!', msg)
 	}
-
-	if (!msg.member.voiceChannel) {
-		await msg.react('❌')
-		msg.reply('join a voice channel fam')
+	if (!msg.member.voiceState.channelID) {
+		await msg.addReaction('❌')
+		msg.channel.createMessage(`${msg.author.mention}, join a voice channel fam`)
 	} else {
-		if (!client.voiceConnections.get(msg.guild.id)) {
-			msg.react('🤣')
-			const conn = await msg.member.voiceChannel.join()
-			conn.playFile('./assets/nicememe.opus')
-			conn.player.dispatcher.once('end', () => {
-				conn.channel.leave()
+		if (!Memer.client.voiceConnections.get(msg.channel.guild.id)) {
+			msg.addReaction('👍')
+			const conn = await Memer.client.joinVoiceChannel(msg.member.voiceState.channelID)
+			conn.play('./assets/nicememe.opus')
+			conn.once('end', () => {
+				Memer.client.leaveVoiceChannel(msg.channel.guild.id)
 			})
 		} else {
-			await msg.react('328659813921980416')
-			msg.reply('I only have one mouth, dude. Please wait until the current sound is done or the ear-rape ghost will visit you in your sleep!')
+			await msg.addReaction('❌')
+			Memer.reply('I only have one mouth, dude. Please wait until the current sound is done or the ear-rape ghost will visit you in your sleep!', msg)
 		}
 	}
 }

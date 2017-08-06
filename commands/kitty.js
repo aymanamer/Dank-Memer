@@ -1,5 +1,5 @@
 const snekfetch = require('snekfetch')
-exports.run = async function (client, msg) {
+exports.run = function (undefined, msg) {
 	getCatPic(msg)
 }
 
@@ -9,16 +9,10 @@ async function getCatPic(msg) {
 		return getCatPic(msg)
 	}
 
-	await msg.channel.send({
-		embed: {
-			title: '😻',
-			color: '5881576',
-			image: {
-				url: data.body.file
-			},
-			footer: {
-				text: `Requested by ${msg.author.tag}`
-			}
-		}
-	})
+	msg.channel.createMessage({ embed: {
+		title: '😻',
+		color: parseInt('59BEE8', 16),
+		image: { url: data.body.file },
+		footer: { text: `Requested by ${msg.author.username}#${msg.author.discriminator}` }
+	}})
 }

@@ -1,8 +1,6 @@
-const snekfetch = require('snekfetch')
-
-exports.run = async function (client, msg) {
-	const joek = await snekfetch
+exports.run = async function (Memer, msg) {
+	const joek = await Memer.snekfetch
 		.get('https://icanhazdadjoke.com/')
 		.set('Accept', 'application/json')
-	await msg.channel.send(joek.body.joke)
+	msg.channel.createMessage(joek.body.joke)
 }

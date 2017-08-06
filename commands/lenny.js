@@ -1,3 +1,3 @@
-exports.run = async function (client, msg) {
-	await msg.channel.send('( ͡° ͜ʖ ͡° )')
+exports.run = function (undefined, msg) {
+	msg.channel.createMessage('( ͡° ͜ʖ ͡° )')
 }
