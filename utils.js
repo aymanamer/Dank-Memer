@@ -1,5 +1,9 @@
 const config = require('./config.json')
 
+exports.reply = (str, msg) => {
+	msg.channel.createMessage(`${msg.author.mention}, ${str}`)
+}
+
 exports.disabledEvents = {
 	'CHANNEL_PINS_UPDATE': true,
 	'USER_SETTINGS_UPDATE': true,
@@ -47,15 +51,68 @@ exports.colors = {
 exports.randomInArray = array =>
 	array[Math.floor(Math.random() * array.length)]
 
+exports.codeblock = (str, lang) => {
+	return `${'```'}${lang || ''}\n${str}\n${'```'}`
+}
+
 exports.vaporize = text => {
 	return text.split('').map(char => {
 		if (char === ' ') {
-			return
+			return '    '
 		}
-		'    '
 		const c = char.charCodeAt(0)
 		return c >= 33 && c <= 126 ?
 			String.fromCharCode(c - 33 + 65281) :
 			char
 	}).join('')
+}
+
+// Might want to move MessageCollector to another file or something.
+
+const EventEmitter = require('events').EventEmitter
+class MessageCollector extends EventEmitter {
+	constructor (channel, filter, options = {}) {
+		super()
+		this.filter = filter
+		this.channel = channel
+		this.options = options
+		this.ended = false
+		this.collected = []
+		this.bot = channel.guild.shard.client
+
+		this.listener = message => this.verify(message)
+		this.bot.on('messageCreate', this.listener)
+		if (options.time) {
+			setTimeout(() => this.stop('time'), options.time)
+		}
+	}
+	verify (message) {
+		if (this.channel.id !== message.channel.id) { return }
+		if(this.filter(message)) {
+			this.collected.push(message)
+
+			this.emit('message', message)
+			if (this.collected.length >= this.options.maxMatches) {
+				this.stop('maxMatches')
+			}
+			return true
+		}
+		return false
+	}
+	stop (reason) {
+		if (this.ended) { return }
+		this.ended = true
+		this.bot.removeListener('messageCreate', this.listener)
+
+		this.emit('end', this.collected, reason)
+	}
+}
+
+exports.createMessageCollector = (channel, filter, options) => { // Might want to move MessageCollector to another file or something.
+	const collector = new MessageCollector(channel, filter, options)
+	return new Promise(resolve => {
+		collector.on('end', (collected, reason) => {
+			resolve([collected, reason])
+		})
+	})
 }
