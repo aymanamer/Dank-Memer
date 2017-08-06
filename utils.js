@@ -1,15 +1,14 @@
 const config = require('./config.json')
 
-exports.disabledEvents = [
-	'CHANNEL_PINS_UPDATE',
-	'USER_SETTINGS_UPDATE',
-	'USER_NOTE_UPDATE',
-	'RELATIONSHIP_ADD',
-	'RELATIONSHIP_REMOVE',
-	'GUILD_BAN_ADD',
-	'GUILD_BAN_REMOVE'
-
-]
+exports.disabledEvents = {
+	'CHANNEL_PINS_UPDATE': true,
+	'USER_SETTINGS_UPDATE': true,
+	'USER_NOTE_UPDATE': true,
+	'RELATIONSHIP_ADD': true,
+	'RELATIONSHIP_REMOVE': true,
+	'GUILD_BAN_ADD': true,
+	'GUILD_BAN_REMOVE': true,
+}
 
 exports.timeCon = time => {
 	let days = Math.floor(time % 31536000 / 86400)
