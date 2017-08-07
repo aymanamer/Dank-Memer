@@ -106,14 +106,18 @@ exports.run = async function (Memer, msg, args) {
 		msg.channel.send(table.table(data, config), { code: 'js' })
 	}*/
 
-
 	if (command === 'eval') {
 		let res
 		let evalTime
+		const silent = res.includes('--silent') ? true : false
+		const asynchr = res.includes('--async') ? true : false
+		if (silent || asynchr) {
+			res = res.replace('--silent', '').replace('--async', '')
+		}
 		try {
 			const rep = new RegExp(Memer.client.token, 'gi')
 			const before = Date.now()
-			res = eval(args.join(' '))
+			res = asynchr ? eval(`(async()=>{${res}})();`) : eval(res)
 			evalTime = Date.now() - before
 			if (typeof res === 'string') {
 				res = res.replace(rep, '*')
@@ -124,14 +128,16 @@ exports.run = async function (Memer, msg, args) {
 		} catch (err) {
 			res = err
 		}
-		msg.channel.createMessage({ embed: {
-			color: Memer.colors.lightblue,
-			fields: [
-				{ name: 'Input', value: Memer.codeblock(args.join(' '), 'js') }, // eslint-disable-line prefer-template
-				{ name: 'Output', value: Memer.codeblock(res, 'js')  } // eslint-disable-line prefer-template
-			],
-			footer: { text: evalTime || evalTime === 0 ? `evaluated in ${evalTime}ms` : '' }
-		}})
+		if (!silent) {
+			msg.channel.createMessage({ embed: {
+				color: Memer.colors.lightblue,
+				fields: [
+					{ name: 'Input', value: Memer.codeblock(args.join(' '), 'js') }, // eslint-disable-line prefer-template
+					{ name: 'Output', value: Memer.codeblock(res, 'js')  } // eslint-disable-line prefer-template
+				],
+				footer: { text: evalTime || evalTime === 0 ? `evaluated in ${evalTime}ms` : '' }
+			}})
+		}
 	}
 
 	if (command === 'bash') {
