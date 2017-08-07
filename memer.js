@@ -13,8 +13,9 @@ class MemerClass {
 		this.client = new Eris.Client(this.config.token, {
 			disableEvents: this.disabledEvents,
 			disableEveryone: true,
-			messageLimit: 80,
-			maxShards: 16
+			messageLimit: 100,
+			autoreconnect: true,
+			maxShards: 2
 		})
 		this.client.connect()
 		this.metrics = require('datadog-metrics')
@@ -22,7 +23,7 @@ class MemerClass {
 			apiKey: this.config.datadog.APIkey,
 			appKey: this.config.datadog.APPkey,
 			flushIntervalSeconds: 10,
-			prefix: 'dank.'
+			prefix: 'test.'
 		})
 		this.ids = require('./ids.json')
 		this.indexes = {
@@ -38,7 +39,7 @@ class MemerClass {
 const Memer = new MemerClass()
 
 Memer.client.on('ready', () => {
-	Memer.client.editStatus(null, { name: 'hello', type: 1, url: 'https://www.twitch.tv/melmsie' })
+	Memer.client.editStatus(null, { name: 'pls help me', type: 1, url: 'https://www.twitch.tv/melmsie' })
 
 	console.log(`Logged in as ${Memer.client.user.username}#${Memer.client.user.discriminator}.`)
 
@@ -55,7 +56,7 @@ Memer.client.on('guildDelete', async (guild) => {
 	guildHandler.delete(Memer, guild)
 })
 
-Memer.client.on('messageCreate', (msg) => {
+Memer.client.on('messageCreate', async (msg) => {
 	Memer.metrics.increment('messages.seen')
 	if (!msg.channel.guild ||
 	msg.author.bot ||
