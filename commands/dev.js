@@ -56,18 +56,22 @@ exports.run = async function (Memer, msg, args) {
 	}
 
 	if (command === 'eval') {
-		let res = args.join(' ')
+		let input = args.join(' ')
 		let evalTime
-		const silent = res.includes('--silent') ? true : false
-		const asynchr = res.includes('--async') ? true : false
+		const silent = input.includes('--silent') ? true : false
+		const asynchr = input.includes('--async') ? true : false
 		if (silent || asynchr) {
-			res = res.replace('--silent', '').replace('--async', '')
+			input = input.replace('--silent', '').replace('--async', '')
 		}
+		let res
 		try {
-			const rep = new RegExp(Memer.client.token, 'gi')
 			const before = Date.now()
-			res = asynchr ? eval(`(async()=>{${res}})();`) : eval(res)
+			res = asynchr ? eval(`(async()=>{return ${input}})();`) : eval(input)
+			if (res instanceof Promise && asynchr) {
+				res = await res
+			}
 			evalTime = Date.now() - before
+			const rep = new RegExp(Memer.client.token, 'gi')
 			if (typeof res === 'string') {
 				res = res.replace(rep, '*')
 			} else {
@@ -81,7 +85,7 @@ exports.run = async function (Memer, msg, args) {
 			msg.channel.createMessage({ embed: {
 				color: Memer.colors.lightblue,
 				fields: [
-					{ name: 'Input', value: Memer.codeblock(args.join(' '), 'js') }, // eslint-disable-line prefer-template
+					{ name: 'Input', value: Memer.codeblock(input, 'js') }, // eslint-disable-line prefer-template
 					{ name: 'Output', value: Memer.codeblock(res, 'js')  } // eslint-disable-line prefer-template
 				],
 				footer: { text: evalTime || evalTime === 0 ? `evaluated in ${evalTime}ms` : '' }
