@@ -4,7 +4,7 @@ exports.run = async function (Memer, msg, args) {
 	}
 
 	if (args.join(' ').toLowerCase() === 'a cool command idea') {
-		return Memer.reply('That\'s not how you use this command. You need to *actually* think of a suggestion, not literally `a cool command idea`.')
+		return Memer.reply('That\'s not how you use this command. You need to *actually* think of a suggestion, not literally `a cool command idea`.', msg)
 	}
 
 	msg.channel.createMessage(`Are you sure you want to suggest \`${args.join(' ')}\`?\n\nYou will be **permanently banned** from using Dank Memer for any messages that are seen as trolling or rude. Answer with \`yes\`/\`no\`.`)

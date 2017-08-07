@@ -33,6 +33,12 @@ class MemerClass {
 			'thonks':{}
 		}
 		this.snekfetch = require('snekfetch')
+		this.r = require('rethinkdb')
+		this.connection = null
+		this.r.connect({ host: 'localhost', port: 28015 }, (err, conn) => {
+			if (err) {throw err}
+			this.connection = conn
+		})
 	}
 }
 
