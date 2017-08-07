@@ -2,7 +2,6 @@ const { exec } = require('child_process')
 const util = require('util')
 const twit = require('twit')
 const fs = require('fs')
-//const table = require('table')
 const twitter = require('../config.json').twitter
 const tClient = new twit({
 	consumer_key: twitter.consumer_key,
@@ -11,26 +10,6 @@ const tClient = new twit({
 	access_token_secret: twitter.access_token_secret,
 	timeout_ms: 60 * 1000,
 })
-
-/*const config = { // eslint-disable-line no-unused-vars
-	border: {
-		topBody: '─',
-		topJoin: '┬',
-		topLeft: '┌',
-		topRight: '┐',
-		bottomBody: '─',
-		bottomJoin: '┴',
-		bottomLeft: '└',
-		bottomRight: '┘',
-		bodyLeft: '│',
-		bodyRight: '│',
-		bodyJoin: '│',
-		joinBody: '─',
-		joinLeft: '├',
-		joinRight: '┤',
-		joinJoin: '┼'
-	}
-}*/
 
 exports.run = async function (Memer, msg, args) {
 	if (args[0] === 'help' || !args[0]) {
@@ -76,38 +55,8 @@ exports.run = async function (Memer, msg, args) {
 		return process.exit()
 	}
 
-	/*if (command === 'shardinfo') { // Fuck this for now
-		const data = [
-			[
-				'Shard #',
-				'Guilds',
-				'Users',
-				'VCs',
-				'Ping',
-				'Memory Usage'
-			]
-		]
-		const res = await client.shard.broadcastEval('[(this.shard.id + 1), this.guilds.size, this.users.size, this.voiceConnections.size, Math.round(this.ping), (process.memoryUsage().heapUsed / 1024 / 1024).toFixed(1)]')
-		res.map(v => {
-			const newdata = v
-			newdata[4] = `${v[4]} ms`
-			newdata[5] = `${v[5]} MB`
-			data.push(newdata)
-		})
-		data.push([
-			'Total',
-			res.map(v => v[1]).reduce((a, b) => a + b, 0),
-			res.map(v => v[2]).reduce((a, b) => a + b, 0),
-			res.map(v => v[3]).reduce((a, b) => a + b, 0),
-			`${Math.round(res.map(v => Number(v[4].match(/(\d+[\.]+\d+|\d+)/)[0])).reduce((a, b) => a + b, 0) / client.shard.count)} ms`, // eslint-disable-line prefer-template
-			`${res.map(v => Number(v[5].match(/(\d+[\.]+\d+|\d+)/)[0])).reduce((a, b) => a + b, 0)} MB`
-		])
-
-		msg.channel.send(table.table(data, config), { code: 'js' })
-	}*/
-
 	if (command === 'eval') {
-		let res
+		let res = args.join(' ')
 		let evalTime
 		const silent = res.includes('--silent') ? true : false
 		const asynchr = res.includes('--async') ? true : false

@@ -14,8 +14,6 @@ exports.create = async (Memer, guild) => {
 				.catch(err => console.log(`${err.stack}: The god damn guild owner couldn\'t get the message either`))
 		})
 
-	//const str = `<:guildJoin:339203745571405825> Joined Guild: ${guild.name} | \`${guild.id}\` | Users: \`${guild.members.filter(m => !m.user.bot).size}\` - Bots: \`${guild.members.filter(m => m.user.bot).size}\` | ${new Date().toLocaleString()}`.replace(/'|"/g, '')
-
 	Memer.client.guilds.get('281482896265707520').channels.get('338913214513283072').createMessage({
 		embed: {
 			color: Memer.colors.lightblue,
@@ -26,11 +24,7 @@ exports.create = async (Memer, guild) => {
 				text: `Shard ${guild.shard.id} | ${new Date().toLocaleString().replace(/'|"/g, '')}`
 			}
 		}
-	})
-
-
-	//client.shard.broadcastEval(`this.channels.has('338913214513283072') && this.channels.get('338913214513283072').send('${str}')`)
-		.catch(err => console.log(`GUILDHANDLER.CREATE ERR: ${err.stack}`))
+	}).catch(err => console.log(`GUILDHANDLER.CREATE ERR: ${err.stack}`))
 }
 
 exports.delete = async (Memer, guild) => {
@@ -45,8 +39,6 @@ exports.delete = async (Memer, guild) => {
 				text: `Shard ${guild.shard.id} | ${new Date().toLocaleString().replace(/'|"/g, '')}`}
 		}
 	})
-
-	Memer.client.guilds.get('281482896265707520').channels.get('338913214513283072').createMessage('henlo')
 
 	postStats(Memer)
 }
