@@ -1,5 +1,5 @@
-exports.create = async(Memer, guild) => {
-	//postStats(Memer)
+exports.create = async (Memer, guild) => {
+	postStats(Memer)
 
 	const embed = {
 		color: Memer.utils.colors.lightblue,
@@ -10,7 +10,7 @@ exports.create = async(Memer, guild) => {
 	guild.defaultChannel.createMessage({ embed })
 		.catch(err => {
 			console.log(`Failed to send welcome message to ${guild.name}\n${err.message}`)
-			guild.owner.send({ embed: embed })
+			guild.owner.createMessage({ embed })
 				.catch(err => console.log(`${err.stack}: The god damn guild owner couldn\'t get the message either`))
 		})
 
@@ -28,7 +28,7 @@ exports.delete = async (Memer, guild) => {
 
 	Memer.client.guilds.get('281482896265707520').channels.get('338913214513283072').createMessage('henlo')
 
-	// postStats(Memer)
+	postStats(Memer)
 }
 
 async function postStats (Memer) {
@@ -42,7 +42,7 @@ async function postStats (Memer) {
 		await Memer.snekfetch
 			.post(botlists[i][0])
 			.set('Authorization', botlists[i][1])
-			.send({ 'server_count': Memer.client.guilds.size })
+			.send(botlists[i][0].includes('carbonitex') ? { 'servercount': Memer.client.guilds.size } : { 'server_count': Memer.client.guilds.size }) // matt plz
 			.end()
 	}
 }

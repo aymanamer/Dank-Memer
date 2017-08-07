@@ -14,7 +14,7 @@ exports.run = async function (Memer, msg, args) {
 	}
 
 	if (args.join(' ').length > 140) {
-		return msg.channel.send(`Tweet too long. You're ${args.join(' ').length - 140} characters over the limit!`)
+		return msg.channel.createMessage(`Tweet too long. You're ${args.join(' ').length - 140} characters over the limit!`)
 	}
 
 	msg.channel.createMessage(`Are you sure you want to tweet \`${args}\`?\nYou will be **permanently banned** from using Dank Memer for tweets that are mean or racist. Currently banned: ${Memer.ids.blocked.user.length} idiots.\n\nAnswer with \`yes\`/\`no\`.`)

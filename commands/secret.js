@@ -1,5 +1,5 @@
 exports.run = function (Memer, msg) {
-	msg.channel.send({ embed: {
+	msg.channel.createMessage({ embed: {
 		color: Memer.colors.lightblue,
 		title: 'The fuck is this?',
 		description: 'Congrats, you found some commands that are hidden! Either these are being slowly phased out of use, they are beta commands, or commands that melmsie just does not tell people about!',
