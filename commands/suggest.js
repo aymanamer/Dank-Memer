@@ -3,6 +3,10 @@ exports.run = async function (Memer, msg, args) {
 		return Memer.reply(`Use this command to suggest things to the developers.\n\nExample: \`pls suggest \'a cool command idea\'\`\n\nJust remember, you can and will be banned from using the bot for being a dick. Currently banned: ${client.ids.blocked.user.length} idiots.`, msg)
 	}
 
+	if (args.join(' ').toLowerCase() === 'a cool command idea') {
+		return Memer.reply('That\'s not how you use this command. You need to *actually* think of a suggestion, not literally `a cool command idea`.')
+	}
+
 	msg.channel.createMessage(`Are you sure you want to suggest \`${args.join(' ')}\`?\n\nYou will be **permanently banned** from using Dank Memer for any messages that are seen as trolling or rude. Answer with \`yes\`/\`no\`.`)
 
 	const [messages, reason] = await Memer.createMessageCollector(msg.channel, m => m.author.id === msg.author.id, { maxMatches: 1, time: 30000 })
