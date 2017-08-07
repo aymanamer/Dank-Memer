@@ -2,45 +2,7 @@
 
 const msgHandler = require('./events/msgHandler.js')
 const guildHandler = require('./events/guildHandler.js')
-const Eris = require('eris')
-const utils = require('./utils.js')
-class MemerClass {
-	constructor () {
-		for (const i in Object.keys(utils)) {
-			this[Object.keys(utils)[i]] = utils[Object.keys(utils)[i]]
-		}
-		this.config = require('./config.json')
-		this.client = new Eris.Client(this.config.token, {
-			disableEvents: this.disabledEvents,
-			disableEveryone: true,
-			messageLimit: 100,
-			autoreconnect: true,
-			maxShards: 2
-		})
-		this.client.connect()
-		this.metrics = require('datadog-metrics')
-		this.metrics.init({
-			apiKey: this.config.datadog.APIkey,
-			appKey: this.config.datadog.APPkey,
-			flushIntervalSeconds: 10,
-			prefix: 'test.'
-		})
-		this.ids = require('./ids.json')
-		this.indexes = {
-			'meme': {},
-			'joke': {},
-			'shitpost': {},
-			'thonks':{}
-		}
-		this.snekfetch = require('snekfetch')
-		this.r = require('rethinkdb')
-		this.connection = null
-		this.r.connect({ host: 'localhost', port: 28015 }, (err, conn) => {
-			if (err) {throw err}
-			this.connection = conn
-		})
-	}
-}
+const MemerClass = require('./utils/memerClass.js')
 
 const Memer = new MemerClass()
 
