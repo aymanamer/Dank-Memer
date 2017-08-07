@@ -2,9 +2,9 @@ exports.create = async (Memer, guild) => {
 	postStats(Memer)
 
 	const embed = {
-		color: Memer.utils.colors.lightblue,
+		color: Memer.colors.lightblue,
 		title: 'Hello!',
-		description: Memer.utils.intro
+		description: Memer.intro
 	}
 
 	guild.defaultChannel.createMessage({ embed })
@@ -16,7 +16,17 @@ exports.create = async (Memer, guild) => {
 
 	//const str = `<:guildJoin:339203745571405825> Joined Guild: ${guild.name} | \`${guild.id}\` | Users: \`${guild.members.filter(m => !m.user.bot).size}\` - Bots: \`${guild.members.filter(m => m.user.bot).size}\` | ${new Date().toLocaleString()}`.replace(/'|"/g, '')
 
-	Memer.client.guilds.get('281482896265707520').channels.get('338913214513283072').createMessage('henlo')
+	Memer.client.guilds.get('281482896265707520').channels.get('338913214513283072').createMessage({
+		embed: {
+			color: Memer.colors.lightblue,
+			title: 'Joined Guild',
+			thumbnail: { url: guild.iconURL },
+			description: `**Name | ID**: ${guild.name} | ${guild.id}\n**Humans | Bots**: ${guild.members.filter(m => !m.bot).length} | ${guild.members.filter(m => m.bot).length}\n**Owner**: ${guild.members.get(guild.ownerID).user.username}`,
+			footer: {
+				text: `Shard ${guild.shard.id} | ${new Date().toLocaleString().replace(/'|"/g, '')}`
+			}
+		}
+	})
 
 
 	//client.shard.broadcastEval(`this.channels.has('338913214513283072') && this.channels.get('338913214513283072').send('${str}')`)
@@ -24,7 +34,17 @@ exports.create = async (Memer, guild) => {
 }
 
 exports.delete = async (Memer, guild) => {
-	const str = `<:guildLeave:339203746536095744> Removed Guild: ${guild.name} | \`${guild.id}\` | Users: \`${guild.members.filter(m => !m.user.bot).size}\` - Bots: \`${guild.members.filter(m => m.user.bot).size}\` | ${new Date().toLocaleString()}`.replace(/'|"/g, '')
+
+	Memer.client.guilds.get('281482896265707520').channels.get('338913214513283072').createMessage({
+		embed: {
+			color: Memer.colors.red,
+			title: 'Left Guild',
+			thumbnail: { url: guild.iconURL },
+			description: `**Name | ID**: ${guild.name} | ${guild.id}\n**Humans | Bots**: ${guild.members.filter(m => !m.bot).length} | ${guild.members.filter(m => m.bot).length}\n**Owner**: ${guild.members.get(guild.ownerID).user.username}`,
+			footer: {
+				text: `Shard ${guild.shard.id} | ${new Date().toLocaleString().replace(/'|"/g, '')}`}
+		}
+	})
 
 	Memer.client.guilds.get('281482896265707520').channels.get('338913214513283072').createMessage('henlo')
 
