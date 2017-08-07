@@ -63,8 +63,8 @@ exports.handleMeDaddy = async function (Memer, msg) {
 			return
 		}
 		await require(`../commands/${command}`).run(Memer, msg, args)
-		//metrics.increment('total.commands')
-		//metrics.increment(`command.${command}`)
+		Memer.metrics.increment('total.commands')
+		Memer.metrics.increment(`command.${command}`)
 	} catch (e) {
 		if (e.stack.startsWith('Error: Cannot find module')) {
 			return
