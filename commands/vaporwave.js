@@ -1,8 +1,6 @@
-const { vaporize } = require('../utils')
-
-exports.run = async function (client, msg, args) {
+exports.run = function (Memer, msg, args) {
 	if (!args[0]) {
-		return msg.reply('You gotta give me something to vaporize :eyes:')
+		return Memer.reply('You gotta give me something to vaporize :eyes:', msg)
 	}
-	await msg.channel.send(vaporize(args.join(' ')))
+	msg.channel.createMessage(Memer.vaporize(args.join(' ')))
 }

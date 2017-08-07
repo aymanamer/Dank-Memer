@@ -7,72 +7,54 @@ const tClient = new twit({
 	access_token_secret: twitter.access_token_secret,
 	timeout_ms: 60 * 1000,
 })
-exports.run = async function (client, msg, args, utils) {
-	args = msg.cleanContent.split(' ').slice(2).join(' ')
-	if (args.length < 1) {
-		return msg.channel.send('What do you want me to tweet?')
+
+exports.run = async function (Memer, msg, args) {
+	if (!args[0] || msg.mentions[0]) {
+		return Memer.reply('What do you want me to tweet?', msg)
 	}
-	if (args.length > 140) {
-		return msg.channel.send(`Tweet too long. You're ${args.length - 140} characters over the limit!`)
+
+	if (args.join(' ').length > 140) {
+		return msg.channel.send(`Tweet too long. You're ${args.join(' ').length - 140} characters over the limit!`)
 	}
-	msg.channel.send(`Are you sure you want to tweet \`${args}\`? You will be **permanently banned** from using Dank Memer for tweets that are mean or racist. Answer with \`yes\`/\`no\`.`)
-	const collector = msg.channel.createMessageCollector(m => msg.author.id === m.author.id, {
-		time: 40000
-	})
-	collector.on('collect', (m) => {
-		if (m.content.toLowerCase() === 'yes') {
-			tClient.post('statuses/update', {
-				status: args
-			}, (err, data, response) => {
-				if (err) {
-					return msg.channel.send(`Something went wrong. \n${err.message}`)
-				}
-				if (response.statusCode !== 200) {
-					return msg.channel.send('Something went wrong. Please try again later.')
-				}
-				msg.channel.send({
+
+	msg.channel.createMessage(`Are you sure you want to tweet \`${args}\`?\nYou will be **permanently banned** from using Dank Memer for tweets that are mean or racist. Currently banned: ${Memer.ids.blocked.user.length} idiots.\n\nAnswer with \`yes\`/\`no\`.`)
+
+	const [messages, reason] = await Memer.createMessageCollector(msg.channel, m => m.author.id === msg.author.id, { maxMatches: 1, time: 30000 })
+
+	if (reason === 'maxMatches' && messages[0].content.toLowerCase() === 'yes') {
+		tClient.post('statuses/update', { status: args }, (err, data, response) => {
+			if (err) {
+				return msg.channel.createMessage(`Something went wrong. \n${err.message}`)
+			}
+			if (response.statusCode !== 200) {
+				return msg.channel.createMessage('Something went wrong. Please try again later.')
+			}
+			msg.channel.createMessage({ embed: {
+				color: Memer.colors.lightblue,
+				title: 'Tweet Sent!',
+				description: `[View here](https://twitter.com/${data.user.screen_name}/status/${data.id_str})`,
+				footer: { text: 'See this tweet, and more @plsmeme' }
+			}})
+			Memer.client.guilds.get('281482896265707520').channels.get('326384964964974602')
+				.createMessage({
+					content: Memer.bannedWords.some(word => args.join(' ').toLowerCase().includes(word)) ? '<@&339186850910699520> BAD TWEET LADS WEE WOO WEE WOO' : '',
 					embed: {
-						color: utils.colors.lightblue,
-						title: 'Tweet Sent!',
-						description: `[View here](https://twitter.com/${data.user.screen_name}/status/${data.id_str})`,
-						footer: {
-							text: 'See this tweet, and more @plsmeme'
-						}
-					}
-				})
-				let badtweet = ''
-				if (utils.bannedWords.some(word => args.toLowerCase().includes(word))) {
-					badtweet = '<@&339186850910699520> BAD TWEET LADS WEE WOO WEE WOO'
-				}
-				client.shard.broadcastEval(`
-					this.channels.has('326384964964974602') && this.channels.get('326384964964974602').send('BEDTWIET', { embed: {
-    					title: 'New tweet:',
-    					url: 'https://twitter.com/PlsMeme/status/T_ID',
-						author: { name: 'A_TAG | A_ID' },
-						description: 'ARGS',
-						fields: [ { name: 'Sent from:', value: '#C_NAME in G_NAME' } ],
+						title: 'New tweet:',
+						url: `https://twitter.com/PlsMeme/status/${data.id_str}`,
+						author: { name: `${msg.author.username}#${msg.author.discriminator} | ${msg.author.id}` },
+						description: args.join(' '),
+						fields: [ { name: 'Sent from:', value: `#${msg.channel.name} in ${msg.channel.guild.name}` } ],
 						color: 0x4099FF,
+						footer: { text: `Tweet ID: ${data.id_str} | Guild ID: ${msg.channel.guild.id} `},
 						timestamp: new Date(),
-						footer: { text: 'Tweet ID: T_ID | Guild ID: G_ID' }
-					} })`
-						.replace(/T_ID/g, data.id_str)
-						.replace(/G_ID/g, msg.guild.id)
-						.replace(/C_NAME/g, msg.channel.name.replace(/'|"|`/g, ''))
-						.replace(/G_NAME/g, msg.guild.name.replace(/'|"|`/g, ''))
-						.replace(/A_TAG/g, msg.author.tag.replace(/'|"|`/g, ''))
-						.replace(/A_ID/g, msg.author.id)
-						.replace(/ARGS/g, args.replace(/'|"|`/g, ''))
-						.replace(/BEDTWIET/g, badtweet))
-							.catch(err => console.log(`TWEET BROADCASTEVAL ERR: ${err.stack}`))
-			})
-		} else {
-			msg.channel.send('Good. Watching you :eyes:')
-		}
-		return collector.stop()
-	})
-	collector.on('end', (collected, reason) => {
-		if (reason === 'time') {
-			msg.channel.send('Prompt timed out.')
-		}
-	})
+					}})
+		})
+	} else if (reason === 'maxMatches' && messages[0].content.toLowerCase() === 'no') {
+		msg.channel.createMessage('Good. Watching you :eyes:')
+	} else if (reason === 'maxMatches') {
+		msg.channel.createMessage('placeholder') // placeholder
+	} else {
+		msg.channel.createMessage('Prompt timed out.')
+	}
 }
+

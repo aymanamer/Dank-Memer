@@ -8,7 +8,7 @@ const snekfetch = require('snekfetch')
 
 exports.handleMeDaddy = async function (Memer, msg) {
 	let command = msg.content.slice(Memer.config.prefix.length + 1).toLowerCase().split(' ')[0]
-	const args = msg.cleanContent.toLowerCase().split(' ').slice(2)
+	const args = msg.cleanContent.split(' ').slice(2)
 
 	if (!command) { return }
 
