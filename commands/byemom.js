@@ -1,16 +1,27 @@
 exports.run = async function (Memer, msg, args) {
-	let avatarurl = msg.mentions.length > 0 ? msg.mentions[0].staticAvatarURL : msg.author.staticAvatarURL
-	if (['jpg', 'jpeg', 'gif', 'png', 'webp'].some(x => args.join(' ').includes(x))) {
-		avatarurl = args.join(' ').replace(/gif|webp/g, 'png')
+	const avatarurl = msg.mentions.length > 0 ? msg.mentions[0].staticAvatarURL : msg.author.staticAvatarURL
+
+
+	if (args.length < 1) {
+		return msg.channel.createMessage('You need to add something to search on google, try again.')
+	}
+	if (args.length > 140) {
+		return msg.channel.createMessage(`Google Search too long. You're ${args.length - 140} characters over the limit!`)
+	}
+
+	if (msg.mentions.length > 0) {
+		args = args.join(' ').substr(21)
+	} else {
+		args = args.join(' ')
 	}
 
 	const data = await Memer.snekfetch
 		.get('http://get-ur-me.me/api/byemom')
 		.set('Api-Key', Memer.config.imgenKey)
-		.set('data-src', ['https://cdn.discordapp.com/attachments/343527586971779087/343828761365708801/brazzers.png', 'hi'])
+		.set('data-src', JSON.stringify([`${avatarurl}`, `${args}`]))
 
 	if (data.status === 200) {
-		await msg.channel.createMessage('', { file: data.body, name: 'brazzers.png' })
+		await msg.channel.createMessage('', { file: data.body, name: 'byemom.png' })
 	} else {
 		msg.channel.createMessage(`Error: ${data.text}`)
 	}
