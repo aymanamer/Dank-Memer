@@ -1,14 +1,8 @@
 const cowsay = require('cowsay')
 
-exports.run = async function (client, msg, args) {
+exports.run = async function (Memer, msg, args) {
 	if (!args[0]) {
-		return msg.reply('You gotta give me something to say :eyes:')
+		return Memer.reply('You gotta give me something to say :eyes:', msg)
 	}
-
-	try {
-		await msg.channel.send(cowsay.say({ text: args.join(' '), e: 'oO', T: 'U ' }), { code: true })
-	} catch (e) {
-		console.log(e.message)
-	}
-
+	msg.channel.createMessage(Memer.codeblock(cowsay.say({ text: args.join(' '), e: 'oO', T: 'U' })))
 }

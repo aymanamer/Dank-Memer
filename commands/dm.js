@@ -1,27 +1,20 @@
-exports.run = async function (client, msg, args, utils, config) {
-	if (!config.devs.includes(msg.author.id)) {
+exports.run = async function (Memer, msg, args) {
+	if (!Memer.config.devs.includes(msg.author.id)) {
 		return
 	}
 	try {
-		let user
-		if (client.users.get(args[0])) {
-			user = client.users.get(args[0])
-		} else {
-			user = await client.fetchUser(args[0])
-		}
-		await user.send({
+		const channel = await Memer.client.getDMChannel(args[0])
+		channel.createMessage({
 			embed: {
-				color: utils.colors.purple,
+				color: Memer.colors.purple,
 				title: '📫 You have received a message from the developers!',
 				description: args.slice(1).join(' '),
-				footer: {
-					text: 'To reply, please use pls bother "message to developers"'
-				}
+				footer: { text: 'To reply, please use pls bother.' }
 			}
 		})
-		await msg.react('📧')
+		await msg.addReaction('📧')
 	} catch (e) {
-		await msg.react('❌')
-		msg.channel.send(`**Fuck!** *${e.message}*`)
+		await msg.addReaction('❌')
+		msg.channel.createMessage(`**Fuck!** *${e.message}*`)
 	}
 }

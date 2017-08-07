@@ -1,26 +1,17 @@
-const Jimp = require('jimp')
-
-exports.run = async function (client, msg, args) {
-	let avatarurl = msg.mentions.users.size > 0 ? msg.mentions.users.first().displayAvatarURL.replace('gif', 'png') : msg.author.displayAvatarURL.replace('gif', 'png')
+exports.run = async function (Memer, msg, args) {
+	let avatarurl = msg.mentions.length > 0 ? msg.mentions[0].staticAvatarURL : msg.author.staticAvatarURL
 	if (['jpg', 'jpeg', 'gif', 'png', 'webp'].some(x => args.join(' ').includes(x))) {
 		avatarurl = args.join(' ').replace(/gif|webp/g, 'png')
 	}
 
-	const avatar = await Jimp.read(avatarurl)
-	const brazz = await Jimp.read('./assets/imgen/jail.png')
+	const data = await Memer.snekfetch
+		.get('http://get-ur-me.me/api/jail')
+		.set('Api-Key', Memer.config.imgenKey)
+		.set('data-src', avatarurl)
 
-	avatar.greyscale()
-	brazz.resize(Jimp.AUTO, 350)
-	avatar.resize(350, 350)
-	avatar.composite(brazz, 0, 0)
-	avatar.getBuffer(Jimp.MIME_PNG, async (err, buffer) => {
-		try {
-			await msg.channel.send({files: [{name: 'jail.png', attachment: buffer}]})
-		} catch (e) {
-			console.log(e)
-			await msg.reply('there was an error with this command.')
-		}
-	})
-
-
+	if (data.status === 200) {
+		await msg.channel.createMessage('', { file: data.body, name: 'jail.png' })
+	} else {
+		msg.channel.createMessage(`Error: ${data.text}`)
+	}
 }

@@ -1,36 +1,17 @@
-const Jimp = require('jimp')
-
-exports.run = async function (client, msg, args) {
-	if (!msg.channel.permissionsFor(client.user.id).has('ATTACH_FILES')) {
-		return msg.reply('Well shit, there was a permission error! Make sure I have `attach files` so I can do this shit!')
-	}
-
-	let avatarurl = (msg.mentions.users.size > 0 ? msg.mentions.users.first().displayAvatarURL : msg.author.displayAvatarURL).replace('gif', 'png')
-	const authorurl = msg.mentions.users.size > 0 ? msg.author.displayAvatarURL.replace('gif', 'png') : client.user.displayAvatarURL.replace('gif', 'png')
+exports.run = async function (Memer, msg, args) {
+	let avatarurl = msg.mentions.length > 0 ? msg.mentions[0].staticAvatarURL : msg.author.staticAvatarURL
 	if (['jpg', 'jpeg', 'gif', 'png', 'webp'].some(x => args.join(' ').includes(x))) {
 		avatarurl = args.join(' ').replace(/gif|webp/g, 'png')
 	}
 
-	const [avatar, author] = await Promise.all([
-		Jimp.read(avatarurl),
-		Jimp.read(authorurl)
-	])
-	const spank = await Jimp.read('./assets/imgen/spank.jpg')
-	avatar.resize(120, 120)
-	author.resize(140, 140)
-	spank.resize(500, 500)
-	spank.composite(avatar, 350, 220)
-	spank.composite(author, 225, 5)
-	spank.getBuffer(Jimp.MIME_PNG, async(err, buffer) => {
-		try {
-			await msg.channel.send({
-				files: [{
-					name: 'spank.png',
-					attachment: buffer
-				}]
-			})
-		} catch (e) {
-			msg.channel.send(`Error: ${e.message}`)
-		}
-	})
+	const data = await Memer.snekfetch
+		.get('http://get-ur-me.me/api/byemom')
+		.set('Api-Key', Memer.config.imgenKey)
+		.set('data-src', ['https://cdn.discordapp.com/attachments/343527586971779087/343828761365708801/brazzers.png', 'https://cdn.discordapp.com/attachments/343527586971779087/343828761365708801/brazzers.png'])
+
+	if (data.status === 200) {
+		await msg.channel.createMessage('', { file: data.body, name: 'spank.png' })
+	} else {
+		msg.channel.createMessage(`Error: ${data.text}`)
+	}
 }

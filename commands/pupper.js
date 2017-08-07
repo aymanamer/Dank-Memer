@@ -9,16 +9,10 @@ async function getDogPic(msg) {
 		return getDogPic(msg)
 	}
 
-	await msg.channel.send({
-		embed: {
-			title: '🐶',
-			color: '5881576',
-			image: {
-				url: data.body.url
-			},
-			footer: {
-				text: `Requested by ${msg.author.tag}`
-			}
-		}
-	})
+	msg.channel.createMessage({ embed: {
+		title: '🐶',
+		color: parseInt('59BEE8', 16),
+		image: { url: data.body.url },
+		footer: { text: `Requested by ${msg.author.username}#${msg.author.discriminator}` }
+	}})
 }
