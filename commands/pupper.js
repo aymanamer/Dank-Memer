@@ -1,10 +1,10 @@
-const snekfetch = require('snekfetch')
-exports.run = async function (client, msg) {
+
+exports.run = async function (Memer, msg) {
 	getDogPic(msg)
 }
 
-async function getDogPic(msg) {
-	const data = await snekfetch.get('https://random.dog/woof.json')
+async function getDogPic(Memer, msg) {
+	const data = await Memer.snek.get('https://random.dog/woof.json')
 	if (data.body.url.includes('.mp4')) {
 		return getDogPic(msg)
 	}

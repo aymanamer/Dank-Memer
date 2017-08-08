@@ -15,7 +15,7 @@ exports.run = async function (Memer, msg, args) {
 		args = args.join(' ')
 	}
 
-	const data = await Memer.snekfetch
+	const data = await Memer.snek
 		.get('http://get-ur-me.me/api/byemom')
 		.set('Api-Key', Memer.config.imgenKey)
 		.set('data-src', JSON.stringify([`${avatarurl}`, `${args}`]))

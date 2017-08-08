@@ -7,7 +7,7 @@ exports.run = async function (Memer, msg, args) {
 	const textArray = dumb.toLowerCase().split('')
 	const done = textArray.map(capitalizeEven).join('')
 
-	const mockimg = await Memer.snekfetch.get('https://pbs.twimg.com/media/DAU-ZPHUIAATuNy.jpg')
+	const mockimg = await Memer.snek.get('https://pbs.twimg.com/media/DAU-ZPHUIAATuNy.jpg')
 
 	msg.channel.createMessage(done, { file: mockimg.body, name: 'mock.jpg' })
 }

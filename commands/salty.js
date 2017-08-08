@@ -4,7 +4,7 @@ exports.run = async function (Memer, msg, args) {
 		avatarurl = args.join(' ').replace(/gif|webp/g, 'png')
 	}
 
-	const data = await Memer.snekfetch
+	const data = await Memer.snek
 		.get('http://get-ur-me.me/api/salty')
 		.set('Api-Key', Memer.config.imgenKey)
 		.set('data-src', avatarurl)
