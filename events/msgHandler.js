@@ -4,7 +4,6 @@ const cooldowns = {
 	active: {},
 	times: require('../cmdConfig.json').cooldowns
 }
-const snekfetch = require('snekfetch')
 
 exports.handleMeDaddy = async function (Memer, msg) {
 	let command = msg.content.slice(Memer.config.prefix.length + 1).toLowerCase().split(' ')[0]
@@ -24,7 +23,7 @@ exports.handleMeDaddy = async function (Memer, msg) {
 				}
 			})
 		} else {
-			const res = await snekfetch.get(tags[command].img)
+			const res = await Memer.snek.get(tags[command].img)
 			return await msg.channel.createMessage('', { file: res.body, name: 'hi.png' })
 		}
 	}
