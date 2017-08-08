@@ -1,6 +1,6 @@
 exports.run = async function (Memer, msg, args) {
-	if (!Memer.ids.donors.donor1.concat(Memer.ids.donors.donor10, Memer.ids.donors.donor5).includes(msg.author.id)) {
-		return Memer.reply('This is a donator only command! To gain access, you must donate $1 or more here: <https://www.patreon.com/melmsie>', msg)
+	if (!Memer.client.guilds.get('281482896265707520').members.has(msg.author.id) || !msg.member.roles.includes('334171428649959447')) {
+		return Memer.reply('You need to be on Melmsie\'s server and be a donor to use this command! To join the server, use `pls invite`. To donate, use `pls donate`.', msg)
 	}
 
 	if (!args[0]) {
