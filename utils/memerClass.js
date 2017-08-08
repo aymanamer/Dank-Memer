@@ -48,4 +48,8 @@ module.exports = class MemerClass {
 	reply (str, msg) {
 		msg.channel.createMessage(`${msg.author.mention}, ${str}`)
 	}
+
+	isDonator (userID, donatorLevel) {
+		/* code here */
+	}
 }
