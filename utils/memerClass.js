@@ -3,7 +3,6 @@ const utils = require('./main.js')
 const messageCollector = require('./messageCollector.js')
 module.exports = class MemerClass {
 	constructor () {
-		this.db = {}
 		for (const i in Object.keys(utils)) {
 			this[Object.keys(utils)[i]] = utils[Object.keys(utils)[i]]
 		}
@@ -28,13 +27,9 @@ module.exports = class MemerClass {
 			'shitpost': {},
 			'thonks':{}
 		}
-		this.snekfetch = require('snekfetch')
-		this.r = require('rethinkdb')
-		this.connection = null
-		this.r.connect({ host: 'localhost', port: 28015 }, (err, conn) => {
-			if (err) {throw err}
-			this.connection = conn
-		})
+		this.snek = require('snekfetch')
+		this.r = require('rethinkdbdash')()
+		this.db = require('./dbFunctions.js')(this.r)
 	}
 
 	createMessageCollector (channel, filter, options) {
@@ -52,55 +47,5 @@ module.exports = class MemerClass {
 
 	reply (str, msg) {
 		msg.channel.createMessage(`${msg.author.mention}, ${str}`)
-	}
-
-	createGuild (guild) { // All of these need to be moved to this.db when I know how to localize this to an external file :c
-		return new Promise((resolve, reject) => {
-			this.r.table('guilds')
-				.insert({
-					id: guild.id,
-					prefix: this.config.defaultPrefix,
-					disabledCommands: []
-				})
-				.run(this.connection, (err, res) => {
-					console.log(res)
-					if (err) {
-						return reject(err)
-					} else if (res.errors !== 0) {
-						reject(res.first_error)
-					} else {
-						resolve(true)
-					}
-				})
-		})
-	}
-
-	getGuild (guild) {
-		return new Promise((resolve, reject) => {
-			this.r.table('guilds')
-				.get(guild.id)
-				.run(this.connection)
-				.then(res => {
-					resolve(res)
-				})
-				.catch(err => {
-					reject(err)
-				})
-		})
-	}
-
-	updateGuild (guildEntry) {
-		return new Promise((resolve, reject) => {
-			this.r.table('guilds')
-				.insert(guildEntry, { conflict: 'update' })
-				.run(this.connection, (err, res) => {
-					console.log(res)
-					if (err || !res || res.errors !== 0) {
-						return reject(err)
-					} else {
-						resolve(JSON.stringify(guildEntry))
-					}
-				})
-		})
 	}
 }
