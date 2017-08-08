@@ -50,6 +50,16 @@ module.exports = class MemerClass {
 	}
 
 	isDonator (userID, donatorLevel) {
-		/* code here */
+		const userRoles = this.client.guilds.get('281482896265707520').members.get(userID).roles
+		if (!donatorLevel) {
+			return userRoles.includes(this.roleIDs['base'])
+		}
+		if (userRoles.includes(this.roleIDs[donatorLevel])) {
+			return true
+		} else if (donatorLevel === '5') {
+			return userRoles.includes(this.roleIDs['10'])
+		} else {
+			return false
+		}
 	}
 }

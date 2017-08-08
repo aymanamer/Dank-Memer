@@ -10,6 +10,12 @@ exports.disabledEvents = {
 	'GUILD_BAN_REMOVE': true,
 }
 
+exports.roleIDs = {
+	'base': '334171428649959447',
+	'5': '344571417074991105',
+	'10': '344571468715261952'
+}
+
 exports.timeCon = time => {
 	let days = Math.floor(time % 31536000 / 86400)
 	let hours = Math.floor(time % 31536000 % 86400 / 3600)
