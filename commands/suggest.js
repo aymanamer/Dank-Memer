@@ -1,6 +1,6 @@
 exports.run = async function (Memer, msg, args) {
 	if (!args[0] || msg.mentions[0]) {
-		return Memer.reply(`Use this command to suggest things to the developers.\n\nExample: \`pls suggest \'a cool command idea\'\`\n\nJust remember, you can and will be banned from using the bot for being a dick. Currently banned: ${client.ids.blocked.user.length} idiots.`, msg)
+		return Memer.reply(`Use this command to suggest things to the developers.\n\nExample: \`pls suggest \'a cool command idea\'\`\n\nJust remember, you can and will be banned from using the bot for being a dick.`, msg)
 	}
 
 	if (args.join(' ').toLowerCase() === 'a cool command idea') {
