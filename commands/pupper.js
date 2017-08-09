@@ -1,6 +1,5 @@
-
 exports.run = async function (Memer, msg) {
-	getDogPic(msg)
+	getDogPic(Memer, msg)
 }
 
 async function getDogPic(Memer, msg) {
@@ -9,10 +8,12 @@ async function getDogPic(Memer, msg) {
 		return getDogPic(msg)
 	}
 
-	msg.channel.createMessage({ embed: {
-		title: '🐶',
-		color: parseInt('59BEE8', 16),
-		image: { url: data.body.url },
-		footer: { text: `Requested by ${msg.author.username}#${msg.author.discriminator}` }
-	}})
+	msg.channel.createMessage({
+		embed: {
+			title: '🐶',
+			color: parseInt('59BEE8', 16),
+			image: { url: data.body.url },
+			footer: { text: `Requested by ${msg.author.username}#${msg.author.discriminator}` }
+		}
+	})
 }
