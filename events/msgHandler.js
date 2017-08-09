@@ -68,6 +68,6 @@ exports.handleMeDaddy = async function (Memer, msg) {
 		if (e.stack.startsWith('Error: Cannot find module')) {
 			return
 		}
-		return console.log(`${command}: ${e.message}`)
+		return console.log(`${msg.author.username} | ${msg.author.id} | ${command}: ${e.message}`)
 	}
 }
