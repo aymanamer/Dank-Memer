@@ -10,7 +10,8 @@ module.exports = class MemerClass {
 		this.client = new Eris.Client(this.config.token, {
 			disableEvents: this.disabledEvents,
 			disableEveryone: true,
-			messageLimit: 100
+			messageLimit: 50,
+			maxShards: 16
 		})
 		this.client.connect()
 		this.metrics = require('datadog-metrics')
@@ -18,7 +19,7 @@ module.exports = class MemerClass {
 			apiKey: this.config.datadog.APIkey,
 			appKey: this.config.datadog.APPkey,
 			flushIntervalSeconds: 10,
-			prefix: 'test.'
+			prefix: 'dank.'
 		})
 		this.ids = require('../ids.json')
 		this.indexes = {
@@ -28,8 +29,9 @@ module.exports = class MemerClass {
 			'thonks':{}
 		}
 		this.snek = require('snekfetch')
+		/*
 		this.r = require('rethinkdbdash')()
-		this.db = require('./dbFunctions.js')(this.r)
+		this.db = require('./dbFunctions.js')(this.r)*/
 	}
 
 	createMessageCollector (channel, filter, options) {
