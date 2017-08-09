@@ -8,7 +8,7 @@ exports.run = async function (Memer, msg) {
 		Memer.indexes.shitpost[msg.channel.guild.id] = 1
 	}
 
-	const post = posts[client.indexes.shitpost[msg.channel.guild.id]]
+	const post = posts[Memer.indexes.shitpost[msg.channel.guild.id]]
 	Memer.indexes.shitpost[msg.channel.guild.id]++
 
 	await msg.channel.createMessage({

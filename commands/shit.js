@@ -1,18 +1,14 @@
 const Jimp = require('jimp')
 
-exports.run = async function (client, msg, args) {
-	/*
-	if (!msg.channel.permissionsFor(client.user.id).has('ATTACH_FILES')) {
-		return msg.reply('Well shit, there was a permission error! Make sure I have `attach files` so I can do this shit!')
-	}*/
+exports.run = async function (Memer, msg, args) {
 
-	if (msg.mentions.users.size > 0) {
-		args = msg.mentions.users.first().username
+	if (!msg.mentions[0]) {
+		args = msg.mentions[0].username
 	} else {
 		if (args < 1) {
 			args = msg.author.username
 		} else if (args.join(' ').length > 35) {
-			return msg.channel.send(`This shit was too large. You're ${args.join(' ').length - 35} characters over the limit!`)
+			return msg.channel.createMessage(`This shit was too large. You're ${args.join(' ').length - 35} characters over the limit!`)
 		} else {
 			args = args.join(' ')
 		}
@@ -29,13 +25,10 @@ exports.run = async function (client, msg, args) {
 	search.rotate(310)
 
 	mom.composite(search, 195, 585)
-	mom.getBuffer(Jimp.MIME_PNG, async(err, buffer) => {
+	mom.getBuffer(Jimp.MIME_PNG, async (err, buffer) => {
 		try {
-			await msg.channel.send({
-				files: [{
-					name: 'shit.png',
-					attachment: buffer
-				}]
+			await msg.channel.createMessage('', {
+				file: buffer, name: 'shit.png'
 			})
 		} catch (err) {
 			msg.channel.send(`Error: ${err.message}`)

@@ -1,6 +1,6 @@
 exports.run = async function (Memer, msg, args) {
 	if (!args[0]) {
-		return Memer.reply('You gotta give me something to mock :eyes:')
+		return Memer.reply('You gotta give me something to mock :eyes:', msg)
 	}
 
 	const dumb = args.join(' ').replace(/c/gi, 'k').replace(/v/gi, 'c')
