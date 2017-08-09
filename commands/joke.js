@@ -1,5 +1,3 @@
-const color = [0x7d5bbe, 0xa3d3fe, 0x333333, 0x007acc, 0xf56154,  0xdc3522]
-
 exports.run = async function (Memer, msg) {
 	const res = await Memer.snek.get('https://www.reddit.com/r/Jokes/top/.json?sort=top&t=day&limit=400')
 	const posts = res.body.data.children.filter(post => !post.data.preview && post.data.selftext.length <= 550 && post.data.title.length <= 256)
@@ -13,7 +11,7 @@ exports.run = async function (Memer, msg) {
 
 	msg.channel.createMessage({ embed: {
 		title: post.data.title,
-		color: color[Math.floor(Math.random() *color.length)],
+		color: Memer.randomColor(),
 		url: post.data.url,
 		description: post.data.selftext,
 		footer: { text: `posted by ${post.data.author}` }

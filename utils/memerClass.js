@@ -7,10 +7,12 @@ module.exports = class MemerClass {
 			this[Object.keys(utils)[i]] = utils[Object.keys(utils)[i]]
 		}
 		this.config = require('../config.json')
+		this.version = this.config.version
 		this.client = new Eris.Client(this.config.token, {
 			disableEvents: this.disabledEvents,
 			disableEveryone: true,
 			messageLimit: 50,
+			defaultImageFormat: 'png',
 			maxShards: 16
 		})
 		this.client.connect()
