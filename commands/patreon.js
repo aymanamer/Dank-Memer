@@ -1,4 +1,4 @@
-exports.run = function (Memer, msg) {
+exports.run = async function (Memer, msg) {
 	msg.channel.createMessage({ embed: {
 		title: 'Donate to Dank Memer on Patreon!',
 		description: 'For donating at any tier on patreon, you can get a ton of rewards!',

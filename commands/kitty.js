@@ -1,4 +1,4 @@
-exports.run = function (Memer, msg) {
+exports.run = async function (Memer, msg) {
 	getCatPic(msg)
 }
 
