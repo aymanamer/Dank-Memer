@@ -58,6 +58,11 @@ process.on('uncaughtException', (err) => {
 	console.log(`Caught exception: ${err.stack}`)
 })
 
+process.on('unhandledrejection', (err) => {
+	Memer.metrics.increment('events.unhandledrejection')
+	console.log(`Rejection: ${err.stack}`)
+})
+
 async function collectStats () {
 	const memUsage = process.memoryUsage()
 	Memer.metrics.gauge('ram.rss', (memUsage.rss / 1048576).toFixed())
