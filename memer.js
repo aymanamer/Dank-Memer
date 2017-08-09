@@ -58,7 +58,7 @@ process.on('uncaughtException', (err) => {
 	console.log(`Caught exception: ${err.stack}`)
 })
 
-process.on('unhandledrejection', (err) => {
+process.on('UnhandledPromiseRejectionWarning', (err) => {
 	Memer.metrics.increment('events.unhandledrejection')
 	console.log(`Rejection: ${err.stack}`)
 })
