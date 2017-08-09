@@ -11,7 +11,7 @@ exports.run = async function (Memer, msg) {
 		description: 'Wanna suggest a command? Use `pls suggest`. You could get credit for it if we make the command!',
 		fields: [
 			{ name: `${funemoji} Fun Commands`, value: 'asktrump, bother, cowsay, joke, justright, kill, meme, memebox, mock, pupper, pun, shitpost, spin, tweet' },
-			{ name: '📷 Image Manipulation', value: 'brazzers, byemom, invert, jail, magik, pride, suggest, trigger, warp' },
+			{ name: '📷 Image Manipulation', value: 'brazzers, byemom, invert, jail, magik, pride, shit, suggest, trigger, warp' },
 			{ name: '🎙 Voice Commands', value: 'airhorn, fart, knock, mlg, nicememe, rickroll, scare, shitsound, stop' },
 			{ name: '🔧 Utilities and Information', value: 'clean, custom, data, help, ping, stats' },
 			{ name: '🖼 Image Tags', value: 'alone, cry, doge, dolan, godno, kappa, lul, megusta, notsure, pepe, troll, wat ' },

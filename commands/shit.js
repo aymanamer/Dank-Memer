@@ -2,7 +2,7 @@ const Jimp = require('jimp')
 
 exports.run = async function (Memer, msg, args) {
 
-	if (!msg.mentions[0]) {
+	if (msg.mentions[0]) {
 		args = msg.mentions[0].username
 	} else {
 		if (args < 1) {
