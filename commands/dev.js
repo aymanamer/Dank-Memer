@@ -51,7 +51,7 @@ exports.run = async function (Memer, msg, args) {
 	if (!Memer.config.devs.includes(msg.author.id)) { return }
 
 	if (command === 'reboot') {
-		await msg.channel.send('All shards rebooting...')
+		await msg.channel.createMessage('All shards rebooting...')
 		return process.exit()
 	}
 
@@ -94,19 +94,19 @@ exports.run = async function (Memer, msg, args) {
 	}
 
 	if (command === 'bash') {
-		msg.channel.send(`**Input**\n${Memer.codeblock(args.join(' '), 'sh')}`)
+		msg.channel.createMessage(`**Input**\n${Memer.codeblock(args.join(' '), 'sh')}`)
 		exec(args.join(' '), async (e, stdout, stderr) => {
 			if (stdout.length + stderr.length > 2000) {
-				const res = await Memer.snekfetch.post('https://hastebin.com/documents')
+				const res = await Memer.snek.post('https://hastebin.com/documents')
 					.send(`${stdout}\n\n${stderr}`)
-					.catch(err => msg.channel.send(err.message))
-				msg.channel.send(`Console log exceeds 2000 characters. View here: https://hastebin.com/${res.body.key}.`)
+					.catch(err => msg.channel.createMessage(err.message))
+				msg.channel.createMessage(`Console log exceeds 2000 characters. View here: https://hastebin.com/${res.body.key}.`)
 			} else {
 				if (stdout) {
-					msg.channel.send(`**Output**\n${Memer.codeblock(stdout, 'bash')}`)
+					msg.channel.createMessage(`**Output**\n${Memer.codeblock(stdout, 'bash')}`)
 				}
 				if (stderr) {
-					msg.channel.send(`**Errors**\n${Memer.codeblock(stdout, 'bash')}`)
+					msg.channel.createMessage(`**Errors**\n${Memer.codeblock(stdout, 'bash')}`)
 				}
 				if (!stderr && !stdout) {
 					msg.react('\u2611')
@@ -117,14 +117,14 @@ exports.run = async function (Memer, msg, args) {
 
 	if (command === 'git') {
 		if (args[0] === 'pull') {
-			await msg.channel.send('Pulling out...')
+			await msg.channel.createMessage('Pulling out...')
 			exec('git pull', (e, stderr, stdout) => {
 				if (stdout || stderr) {
-					msg.channel.send(`**Output**\n${Memer.codeblock(`${stdout}\n\n${stderr}`, 'bash')}`)
+					msg.channel.createMessage(`**Output**\n${Memer.codeblock(`${stdout}\n\n${stderr}`, 'bash')}`)
 				}
 			})
 		} else {
-			msg.channel.send('As of right now, only `git pull` is available.')
+			msg.channel.createMessage('As of right now, only `git pull` is available.')
 		}
 	}
 
