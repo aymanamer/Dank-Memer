@@ -12,7 +12,7 @@ exports.handleMeDaddy = async function (Memer, msg) {
 	if (!command) { return }
 
 	if (Object.keys(tags).includes(command)) {
-		//metrics.increment(`command.${command}`)
+		metrics.increment(`command.${command}`)
 		if (args[0] === 'info') {
 			return await msg.channel.createMessage({
 				embed: {
