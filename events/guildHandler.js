@@ -51,7 +51,7 @@ async function postStats (Memer) {
 	]
 
 	for (const i in botlists) {
-		await Memer.snekfetch
+		await Memer.snek
 			.post(botlists[i][0])
 			.set('Authorization', botlists[i][1])
 			.send(botlists[i][0].includes('carbonitex') ? { 'servercount': Memer.client.guilds.size } : { 'server_count': Memer.client.guilds.size }) // matt plz

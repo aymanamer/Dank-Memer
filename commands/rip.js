@@ -1,7 +1,7 @@
 const Jimp = require('jimp')
 
-exports.run = async function (client, msg, args) {
-	let avatarurl = msg.mentions.length > 0 ? msg.mentions[0].staticAvatarURL : msg.author.staticAvatarURL
+exports.run = async function (Memer, msg, args) {
+	let avatarurl = msg.mentions[0] ? msg.mentions[0].staticAvatarURL : msg.author.staticAvatarURL
 
 	if (['jpg', 'jpeg', 'gif', 'png', 'webp'].some(x => args.join(' ').includes(x))) {
 		avatarurl = args.join(' ').replace(/gif|webp/g, 'png')
@@ -17,7 +17,7 @@ exports.run = async function (client, msg, args) {
 			await msg.channel.createMessage('', { file: buffer, name: 'rip.png' })
 		} catch (e) {
 			console.log(e)
-			await msg.reply('there was an error with this command.')
+			await Memer.reply('there was an error with this command.', msg)
 		}
 	})
 

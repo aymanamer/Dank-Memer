@@ -1,44 +1,39 @@
-const os = require('os')
+const moment = require('moment')
+require('moment-duration-format')
+const package = require('../package.json')
 exports.run = async function (Memer, msg) {
-	const startMeasure = cpuAverage()
-	setTimeout(async () => {
-		const endMeasure      = cpuAverage()
-		const idleDifference  = endMeasure.idle - startMeasure.idle
-		const totalDifference = endMeasure.total - startMeasure.total
-		const percentageCPU   = 100 - ~~(100 * idleDifference / totalDifference)
-
-		await msg.channel.createMessage({ embed: {
-			color: Memer.colors.lightblue,
-			title: `${Memer.client.user.username} - Stats (${Memer.config.version})`,
-			description: `Uptime: ${Memer.timeCon(process.uptime())}`,
+	await msg.channel.createMessage({
+		embed: {
+			color: '5881576',
 			fields: [
-				{ name: 'Websocket Ping', value: `${msg.channel.guild.shard.latency.toFixed()} ms`, inline: true },
-				{ name: 'CPU Usage', value: `${percentageCPU}% Usage`, inline: true },
-				{ name: 'RAM Usage', value: `RSS: ${(process.memoryUsage().rss / 1048576).toFixed()}MB\nHeap: ${(process.memoryUsage().heapUsed / 1024 / 1024).toFixed(2)}MB`, inline: true },
-				{ name: 'Total Servers', value: Memer.client.guilds.size, inline: true },
-				{ name: 'Total Users', value: Memer.client.users.size, inline: true },
-				{ name: 'Active VCs', value: Memer.client.voiceConnections.size, inline: true },
-				{ name: 'Blacklisted Users', value: Memer.ids.blocked.user.length, inline: true },
-				{ name: 'Blacklisted Servers', value: Memer.ids.blocked.guild.length, inline: true },
-				{ name: 'Donor Count', value: Memer.ids.donors.donor1.length + Memer.ids.donors.donor5.length + Memer.ids.donors.donor10.length, inline: true }
+				{
+					name: '-------------------------------------- Technical ---------------------------------------',
+					value: '```\n' +
+					`Uptime          |   ${moment.duration(process.uptime(), 'seconds').format('dd:hh:mm:ss')}\n` +
+					`Heap Used       |   ${(process.memoryUsage().heapUsed / 1024 / 1024).toFixed(2)}MB\n` +
+					`Ping            |   ${msg.channel.guild.shard.latency.toFixed(0)}ms\n` +
+					`Build           |   v${Memer.version}\n` +
+					'\n```'
+				},
+				{
+					name: '--------------------------------------- Statistics --------------------------------------',
+					value: '```\n' +
+					`Guilds          |   ${Memer.client.guilds.size}\n` +
+					`Users           |   ${Memer.client.users.size}\n` +
+					`Active VCs      |   ${Memer.client.voiceConnections.size}\n` +
+					`Large Guilds    |   ${Memer.client.guilds.filter(m => m.large).length}\n` +
+					`Exclusivity     |   ${Memer.client.guilds.filter(g => g.members.filter(m => m.bot).length === 1).length}\n`+
+					'\n```'
+				},
+				{
+					name: '-------------------------------------- Other Info --------------------------------------',
+					value: '```\n' +
+					`Node Version    |   ${process.version}\n` +
+					`Dependencies    |   ${Object.keys(package.dependencies).length}\n` +
+					`Platform        |   ${process.platform}\n` +
+					'\n```'
+				}
 			]
-		}})
-	}, 100)
-}
-
-function cpuAverage () {
-	let totalIdle = 0,
-		totalTick = 0
-	const cpus = os.cpus()
-	for (let i = 0, len = cpus.length; i < len; i++) {
-		const cpu = cpus[i]
-		for (const type in cpu.times) {
-			totalTick += cpu.times[type]
 		}
-		totalIdle += cpu.times.idle
-	}
-	return {
-		idle: totalIdle / cpus.length,
-		total: totalTick / cpus.length
-	}
+	})
 }

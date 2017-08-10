@@ -4,7 +4,6 @@ const cooldowns = {
 	active: {},
 	times: require('../cmdConfig.json').cooldowns
 }
-const snekfetch = require('snekfetch')
 
 exports.handleMeDaddy = async function (Memer, msg) {
 	let command = msg.content.slice(Memer.config.prefix.length + 1).toLowerCase().split(' ')[0]
@@ -24,7 +23,7 @@ exports.handleMeDaddy = async function (Memer, msg) {
 				}
 			})
 		} else {
-			const res = await snekfetch.get(tags[command].img)
+			const res = await Memer.snek.get(tags[command].img)
 			return await msg.channel.createMessage('', { file: res.body, name: 'hi.png' })
 		}
 	}
@@ -40,7 +39,7 @@ exports.handleMeDaddy = async function (Memer, msg) {
 	if (cooldowns.active[msg.author.id].includes(command)) {
 		for (const i in Object.keys(Memer.cdMsg)) {
 			if (cooldowns.active[msg.author.id].includes(Object.keys(Memer.cdMsg)[i]) && command === Object.keys(Memer.cdMsg)[i]) {
-				return msg.channel.createMessage(Memer.cdMsg[Object.keys(Memer.utils.cdMsg)[i]])
+				return msg.channel.createMessage(Memer.cdMsg[Object.keys(Memer.cdMsg)[i]])
 			} else if (parseInt(i) === Object.keys(Memer.cdMsg).length - 1) {
 				return msg.channel.createMessage('This command is on cooldown. Donors get to use ALL commands much faster!')
 			}
@@ -69,6 +68,6 @@ exports.handleMeDaddy = async function (Memer, msg) {
 		if (e.stack.startsWith('Error: Cannot find module')) {
 			return
 		}
-		return console.log(`${command}: ${e.message}`)
+		return console.log(`${msg.author.username} | ${msg.author.id} | ${command}: ${e.message}`)
 	}
 }

@@ -58,6 +58,11 @@ process.on('uncaughtException', (err) => {
 	console.log(`Caught exception: ${err.stack}`)
 })
 
+process.on('UnhandledPromiseRejectionWarning', (err) => {
+	Memer.metrics.increment('events.unhandledrejection')
+	console.log(`Rejection: ${err.stack}`)
+})
+
 async function collectStats () {
 	const memUsage = process.memoryUsage()
 	Memer.metrics.gauge('ram.rss', (memUsage.rss / 1048576).toFixed())
@@ -65,5 +70,7 @@ async function collectStats () {
 	Memer.metrics.gauge('total.guilds', Memer.client.guilds.size)
 	Memer.metrics.gauge('total.users', Memer.client.users.size)
 	Memer.metrics.gauge('current.vcs', Memer.client.voiceConnections.size)
+	Memer.metrics.gauge('total.largeGuilds', Memer.client.guilds.filter(m => m.large).length)
+	Memer.metrics.gauge('total.exclusive', Memer.client.guilds.filter(g => g.members.filter(m => m.bot).length === 1).length)
 	Memer.metrics.gauge('current.uptime', process.uptime())
 }

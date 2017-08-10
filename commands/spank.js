@@ -4,7 +4,7 @@ exports.run = async function (Memer, msg, args) {
 		avatarurl = args.join(' ').replace(/gif|webp/g, 'png')
 	}
 
-	const data = await Memer.snekfetch
+	const data = await Memer.snek
 		.get('http://get-ur-me.me/api/byemom')
 		.set('Api-Key', Memer.config.imgenKey)
 		.set('data-src', ['https://cdn.discordapp.com/attachments/343527586971779087/343828761365708801/brazzers.png', 'https://cdn.discordapp.com/attachments/343527586971779087/343828761365708801/brazzers.png'])

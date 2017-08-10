@@ -8,6 +8,8 @@ exports.disabledEvents = {
 	'RELATIONSHIP_REMOVE': true,
 	'GUILD_BAN_ADD': true,
 	'GUILD_BAN_REMOVE': true,
+	'TYPING_START': true,
+	'PRESENCE_UPDATE': true
 }
 
 exports.roleIDs = {
@@ -47,6 +49,15 @@ exports.colors = {
 	slate: '2500908',
 	white: '16777215',
 	yellow: '16250241'
+}
+exports.randomColor = () => {
+	const letters = '0123456789'
+	let color = ''
+	for (let i = 0; i < 7; i++) {
+		color += letters[Math.floor(Math.random() * 10)]
+	}
+
+	return color
 }
 
 exports.randomInArray = array => {
