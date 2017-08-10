@@ -15,8 +15,11 @@ exports.run = async function (Memer, msg) {
 		msg.addReaction('👍')
 		const conn = await Memer.client.joinVoiceChannel(msg.member.voiceState.channelID)
 		conn.play(`./assets/horns/${file}.opus`)
-		conn.once('end', () => {
-			Memer.client.leaveVoiceChannel(msg.channel.guild.id)
+		conn.once('end', async () => {
+			await Memer.client.leaveVoiceChannel(msg.channel.guild.id)
+			if (Memer.client.voiceConnections.get(msg.channel.guild.id)) {
+				Memer.client.leaveVoiceChannel(Memer.client.voiceConnections.get(msg.channel.guild.id).channelID)
+			}
 		})
 	} else {
 		await msg.addReaction('❌')
