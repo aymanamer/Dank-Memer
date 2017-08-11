@@ -9,5 +9,10 @@ exports.run = async function (Memer, msg) {
 		return msg.channel.createMessage('You\'re not even in my voice channel <:waitwhat:320387072290455554>')
 	}
 	await Memer.client.voiceConnections.get(msg.channel.guild.id).stopPlaying()
+	if (Memer.client.voiceConnections.get(msg.channel.guild.id)) {
+		await Memer.client.voiceConnections.get(msg.channel.guild.id).disconnect()
+		await Memer.client.voiceConnections.get(msg.channel.guild.id)._destroy()
+		await Memer.client.voiceConnections.remove(Memer.client.voiceConnections.get(msg.guild.id))
+	}
 	msg.addReaction('❌')
 }

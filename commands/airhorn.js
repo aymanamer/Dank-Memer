@@ -18,7 +18,9 @@ exports.run = async function (Memer, msg) {
 		conn.once('end', async () => {
 			await Memer.client.leaveVoiceChannel(msg.channel.guild.id)
 			if (Memer.client.voiceConnections.get(msg.channel.guild.id)) {
-				Memer.client.leaveVoiceChannel(Memer.client.voiceConnections.get(msg.channel.guild.id).channelID)
+				await Memer.client.voiceConnections.get(msg.channel.guild.id).disconnect()
+				await Memer.client.voiceConnections.get(msg.channel.guild.id)._destroy()
+				await Memer.client.voiceConnections.remove(Memer.client.voiceConnections.get(msg.guild.id))
 			}
 		})
 	} else {
