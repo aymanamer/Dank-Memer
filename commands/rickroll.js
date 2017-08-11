@@ -14,7 +14,7 @@ exports.run = async function (Memer, msg) {
 		const conn = await Memer.client.joinVoiceChannel(msg.member.voiceState.channelID)
 		conn.play('./assets/rickroll.opus')
 		conn.once('end', async() => {
-			await Memer.client.leaveVoiceChannel(msg.channel.guild.id)
+			await Memer.client.leaveVoiceChannel(msg.member.voiceState.channelID)
 			if (Memer.client.voiceConnections.get(msg.channel.guild.id)) {
 				await Memer.client.voiceConnections.get(msg.channel.guild.id).disconnect()
 				await Memer.client.voiceConnections.get(msg.channel.guild.id)._destroy()
