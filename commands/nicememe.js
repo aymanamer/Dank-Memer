@@ -8,13 +8,12 @@ exports.run = async function (Memer, msg) {
 		!Memer.client.getChannel(msg.member.voiceState.channelID).permissionsOf(Memer.client.user.id).has('voiceSpeak')) {
 		return Memer.reply('Well shit, there was a permission error! Make sure I have `connect` and `speak` so I can do this shit!', msg)
 	}
-
 	if (!Memer.client.voiceConnections.get(msg.channel.guild.id)) {
 		msg.addReaction('👍')
 		const conn = await Memer.client.leaveVoiceChannel(msg.channel.guild.members.get(Memer.client.user.id).voiceState.channelID)
 		conn.play('./assets/nicememe.opus')
 		conn.once('end', async() => {
-			await Memer.client.leaveVoiceChannel(msg.member.voiceState.channelID)
+			await Memer.client.leaveVoiceChannel(msg.channel.guild.members.get(Memer.client.user.id).voiceState.channelID)
 			if (Memer.client.voiceConnections.get(msg.channel.guild.id)) {
 				await Memer.client.voiceConnections.get(msg.channel.guild.id).disconnect()
 				await Memer.client.voiceConnections.get(msg.channel.guild.id)._destroy()
