@@ -14,31 +14,9 @@ exports.create = async (Memer, guild) => {
 				.catch(err => console.log(`${err.stack}: The god damn guild owner couldn\'t get the message either`))
 		})
 
-	Memer.client.guilds.get('281482896265707520').channels.get('338913214513283072').createMessage({
-		embed: {
-			color: Memer.colors.lightblue,
-			title: 'Joined Guild',
-			thumbnail: { url: guild.iconURL },
-			description: `**Name | ID**: ${guild.name} | ${guild.id}\n**Humans | Bots**: ${guild.members.filter(m => !m.bot).length} | ${guild.members.filter(m => m.bot).length}\n**Owner**: ${guild.members.get(guild.ownerID).user.username}`,
-			footer: {
-				text: `Shard ${guild.shard.id} | ${new Date().toLocaleString().replace(/'|"/g, '')}`
-			}
-		}
-	}).catch(err => console.log(`GUILDHANDLER.CREATE ERR: ${err.stack}`))
 }
 
-exports.delete = async (Memer, guild) => {
-
-	Memer.client.guilds.get('281482896265707520').channels.get('338913214513283072').createMessage({
-		embed: {
-			color: Memer.colors.red,
-			title: 'Left Guild',
-			thumbnail: { url: guild.iconURL },
-			description: `**Name | ID**: ${guild.name} | ${guild.id}\n**Humans | Bots**: ${guild.members.filter(m => !m.bot).length} | ${guild.members.filter(m => m.bot).length}\n**Owner**: ${guild.members.get(guild.ownerID).user.username}`,
-			footer: {
-				text: `Shard ${guild.shard.id} | ${new Date().toLocaleString().replace(/'|"/g, '')}`}
-		}
-	})
+exports.delete = async (Memer) => {
 
 	postStats(Memer)
 }
