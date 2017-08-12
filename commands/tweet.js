@@ -17,7 +17,7 @@ exports.run = async function (Memer, msg, args) {
 		return msg.channel.createMessage(`Tweet too long. You're ${args.join(' ').length - 140} characters over the limit!`)
 	}
 
-	msg.channel.createMessage(`Are you sure you want to tweet \`${args}\`?\nYou will be **permanently banned** from using Dank Memer for tweets that are mean or racist. Currently banned: ${Memer.ids.blocked.user.length} idiots.\n\nAnswer with \`yes\`/\`no\`.`)
+	msg.channel.createMessage(`Are you sure you want to tweet \`${args.join(' ')}\`?\nYou will be **permanently banned** from using Dank Memer for tweets that are mean or racist. Currently banned: ${Memer.ids.blocked.user.length} idiots.\n\nAnswer with \`yes\`/\`no\`.`)
 
 	const [messages, reason] = await Memer.createMessageCollector(msg.channel, m => m.author.id === msg.author.id, { maxMatches: 1, time: 30000 })
 
