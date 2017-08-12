@@ -8,8 +8,8 @@ exports.run = async function (Memer, msg) {
 
 	if (!Memer.client.getChannel(msg.member.voiceState.channelID).permissionsOf(Memer.client.user.id).has('voiceConnect') ||
 		!Memer.client.getChannel(msg.member.voiceState.channelID).permissionsOf(Memer.client.user.id).has('voiceSpeak')) {
-		return Memer.reply('Well shit, there was a permission error! Make sure I have `connect` and `speak` so I can do this shit!', msg);
-	};
+		return Memer.reply('Well shit, there was a permission error! Make sure I have `connect` and `speak` so I can do this shit!', msg)
+	}
 
 	if (!Memer.client.voiceConnections.get(msg.channel.guild.id)) {
 		msg.addReaction('👍')
@@ -27,5 +27,4 @@ exports.run = async function (Memer, msg) {
 		await msg.addReaction('❌')
 		Memer.reply('I only have one butthole, dude. Please wait until the current sound is done or the ear-rape ghost will visit you in your sleep!', msg)
 	}
-
 }
