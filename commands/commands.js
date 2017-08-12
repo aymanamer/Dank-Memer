@@ -8,7 +8,7 @@ exports.run = async function (Memer, msg) {
 	msg.channel.createMessage({ embed: {
 		color: Memer.colors.purple,
 		title: 'Commands 💯 👌 🔥',
-		description: 'Wanna suggest a command? Use `pls suggest`. You could get credit for it if we make the command!',
+		description: 'pls dab is coming soon! To have a chance at yourself dabbing in the command, send me a picture of you dabbing! Do `pls suggest <link to an image of you dabbing>` and you might be in the command! You can also suggest pictures of other people/things dabbing!',
 		fields: [
 			{ name: `${funemoji} Fun Commands`, value: 'asktrump, bother, cowsay, joke, justright, kill, meme, memebox, mock, pupper, pun, shitpost, spin, tweet' },
 			{ name: '📷 Image Manipulation', value: 'brazzers, byemom, invert, jail, magik, pride, rip, shit, suggest, trigger, warp' },

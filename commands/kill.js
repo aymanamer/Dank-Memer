@@ -1,7 +1,7 @@
 const { kill } = require('../assets/arrays.json')
 
 exports.run = async function (Memer, msg, args) {
-	if (args.join(' ').includes('me')) {
+	if (args[0] === 'me') {
 		return Memer.reply('no you can do it yourself. Please tag someone else to kill.', msg)
 	}
 	if (!msg.mentions[0]) {
