@@ -70,6 +70,12 @@ exports.run = async function (Memer, msg, args) {
 			if (res instanceof Promise && asynchr) {
 				res = await res
 			}
+			if (JSON.stringify(res).length > 994) {
+				res = await Memer.snek.post('https://hastebin.com/documents')
+					.send(JSON.stringify(res, '', '\t'))
+					.catch(err => msg.channel.createMessage(err.message))
+				return msg.channel.createMessage(`Eval output exceeds 2000 characters. View here: https://hastebin.com/${res.body.key}.`)
+			}
 			evalTime = Date.now() - before
 			const rep = new RegExp(Memer.client.token, 'gi')
 			if (typeof res === 'string') {
@@ -96,7 +102,7 @@ exports.run = async function (Memer, msg, args) {
 	if (command === 'bash') {
 		msg.channel.createMessage(`**Input**\n${Memer.codeblock(args.join(' '), 'sh')}`)
 		exec(args.join(' '), async (e, stdout, stderr) => {
-			if (stdout.length + stderr.length > 2000) {
+			if (stdout.length + stderr.length > 994) {
 				const res = await Memer.snek.post('https://hastebin.com/documents')
 					.send(`${stdout}\n\n${stderr}`)
 					.catch(err => msg.channel.createMessage(err.message))

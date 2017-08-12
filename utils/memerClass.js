@@ -13,7 +13,7 @@ module.exports = class MemerClass {
 			disableEveryone: true,
 			messageLimit: 50,
 			defaultImageFormat: 'png',
-			maxShards: 16
+			maxShards: 1
 		})
 		this.client.connect()
 		this.metrics = require('datadog-metrics')
@@ -21,7 +21,7 @@ module.exports = class MemerClass {
 			apiKey: this.config.datadog.APIkey,
 			appKey: this.config.datadog.APPkey,
 			flushIntervalSeconds: 10,
-			prefix: 'dank.'
+			prefix: 'test.'
 		})
 		this.ids = require('../ids.json')
 		this.indexes = {
@@ -30,6 +30,7 @@ module.exports = class MemerClass {
 			'shitpost': {},
 			'thonks':{}
 		}
+		this.memes = require('../assets/memes.json')
 		this.snek = require('snekfetch')
 		/*
 		this.r = require('rethinkdbdash')()
