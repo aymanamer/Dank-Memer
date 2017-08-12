@@ -38,11 +38,13 @@ Memer.client.on('messageCreate', async (msg) => {
 		return msg.channel.createMessage(`Hello, ${msg.author.username}. My prefix is \`${Memer.config.prefix}\`. Example: \`${Memer.config.prefix} meme\``)
 	}
 
-	if (!msg.content.toLowerCase().startsWith(Memer.config.prefix)) {
+	const gConfig = await Memer.db.getGuild(msg.channel.guild.id) || await Memer.db.createGuild(msg.channel.guild.id)
+
+	if (!msg.content.toLowerCase().startsWith(gConfig.prefix)) {
 		return
 	}
 
-	msgHandler.handleMeDaddy(Memer, msg)
+	msgHandler.handleMeDaddy(Memer, msg, gConfig)
 })
 
 process.on('uncaughtException', (err) => {

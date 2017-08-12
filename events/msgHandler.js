@@ -5,11 +5,10 @@ const cooldowns = {
 	times: require('../cmdConfig.json').cooldowns
 }
 
-exports.handleMeDaddy = async function (Memer, msg) {
-	let command = msg.content.slice(Memer.config.prefix.length + 1).toLowerCase().split(' ')[0]
-	const args = msg.cleanContent.split(' ').slice(2)
-
-	if (!command) { return }
+exports.handleMeDaddy = async function (Memer, msg, gConfig) {
+	let command = msg.content.slice(gConfig.prefix.length + 1).toLowerCase().split(' ')[0]
+	if (!command || gConfig.disabledCommands.includes(command) || gConfig.disabledCommands.includes(aliases[command])) { return }
+	const args = msg.cleanContent.split(' ').slice(gConfig.prefix.split(' ').length + 1)
 
 	if (Object.keys(tags).includes(command)) {
 		Memer.metrics.increment(`command.${command}`)

@@ -1,31 +1,32 @@
 const config = require('../config.json')
 module.exports = r => ({
-	createGuild: async (guildID) => {
-		return await r.table('guilds')
+	createGuild: async function createGuild (guildID) {
+		await r.table('guilds')
 			.insert({
 				id: guildID,
 				prefix: config.defaultPrefix,
 				disabledCommands: []
 			})
 			.run()
+		return this.getGuild(guildID)
 	},
-	getGuild: async (guildID) => {
+	getGuild: async function getGuild (guildID) {
 		return await r.table('guilds')
 			.get(guildID)
 			.run()
 	},
-	updateGuild: async (guildEntry) => {
-		return await this.r.table('guilds')
+	updateGuild: async function updateGuild (guildEntry) {
+		return await r.table('guilds')
 			.insert(guildEntry, { conflict: 'update' })
 			.run()
 	},
-	deleteGuild: async (guildID) => {
+	deleteGuild: async function deleteGuild (guildID) {
 		return await r.table('guilds')
 			.get(guildID)
 			.delete()
 			.run()
 	},
-	getAllGuilds: async () => {
+	getAllGuilds: async function deleteGuild () {
 		return await r.table('guilds')
 			.run()
 	}

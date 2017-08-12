@@ -1,6 +1,7 @@
 const Eris = require('eris')
 const utils = require('./main.js')
 const messageCollector = require('./messageCollector.js')
+
 module.exports = class MemerClass {
 	constructor () {
 		for (const i in Object.keys(utils)) {
@@ -13,7 +14,7 @@ module.exports = class MemerClass {
 			disableEveryone: true,
 			messageLimit: 50,
 			defaultImageFormat: 'png',
-			maxShards: 1
+			maxShards: 2
 		})
 		this.client.connect()
 		this.metrics = require('datadog-metrics')
@@ -30,11 +31,11 @@ module.exports = class MemerClass {
 			'shitpost': {},
 			'thonks':{}
 		}
-		this.memes = require('../assets/memes.json')
 		this.snek = require('snekfetch')
-		/*
 		this.r = require('rethinkdbdash')()
-		this.db = require('./dbFunctions.js')(this.r)*/
+		this.db = require('./dbFunctions.js')(this.r)
+		this.memes = require('../assets/memes.json')
+		this.commands = require('fs').readdirSync('commands').join(' ').replace(/.js/g, '').split(' ').concat(Object.keys(require('../cmdConfig.json').aliases)) // ewww
 	}
 
 	createMessageCollector (channel, filter, options) {
