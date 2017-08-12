@@ -22,7 +22,7 @@ exports.run = async function (Memer, msg, args) {
 	const [messages, reason] = await Memer.createMessageCollector(msg.channel, m => m.author.id === msg.author.id, { maxMatches: 1, time: 30000 })
 
 	if (reason === 'maxMatches' && messages[0].content.toLowerCase() === 'yes') {
-		tClient.post('statuses/update', { status: args }, (err, data, response) => {
+		tClient.post('statuses/update', { status: args.join(' ') }, (err, data, response) => {
 			if (err) {
 				return msg.channel.createMessage(`Something went wrong. \n${err.message}`)
 			}
