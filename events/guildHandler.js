@@ -8,16 +8,17 @@ exports.create = async (Memer, guild) => {
 	}
 
 	guild.defaultChannel.createMessage({ embed })
-		.catch(err => {
+		.catch(async err => {
 			console.log(`Failed to send welcome message to ${guild.name}\n${err.message}`)
-			guild.owner.createMessage({ embed })
+			const owner = await Memer.client.get(guild.ownerID)
+			owner.createMessage({ embed })
 				.catch(err => console.log(`${err.stack}: The god damn guild owner couldn\'t get the message either`))
 		})
 
 }
 
-exports.delete = async (Memer) => {
-
+exports.delete = async (Memer, guild) => {
+	Memer.db.deleteGuild(guild.id)
 	postStats(Memer)
 }
 
