@@ -13,7 +13,7 @@ exports.run = async function (Memer, msg) {
 
 	if (!Memer.client.voiceConnections.get(msg.channel.guild.id)) {
 		msg.addReaction('👍')
-		const conn = await Memer.client.joinVoiceChannel(conn.channelID)
+		const conn = await Memer.client.joinVoiceChannel(msg.member.voiceState.channelID)
 		conn.play(`./assets/farts/${file}.mp3`)
 		conn.once('end', async () => {
 			await Memer.client.leaveVoiceChannel(conn.channelID)
