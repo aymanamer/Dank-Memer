@@ -10,7 +10,7 @@ exports.run = async function (Memer, msg) {
 	}
 	if (!Memer.client.voiceConnections.get(msg.channel.guild.id)) {
 		msg.addReaction('👍')
-		const conn = await Memer.client.leaveVoiceChannel(msg.channel.guild.members.get(Memer.client.user.id).voiceState.channelID)
+		const conn = await Memer.client.joinVoiceChannel(msg.member.voiceState.channelID)
 		conn.play('./assets/nicememe.opus')
 		conn.once('end', async() => {
 			await Memer.client.leaveVoiceChannel(conn.channelID)
