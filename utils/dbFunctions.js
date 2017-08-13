@@ -56,6 +56,7 @@ module.exports = r => ({
 	},
 	getCooldown: async function getCooldown (command, ownerID) {
 		const profile = await r.table('cooldowns').get(ownerID).run()
+		if (!profile) { return 1 }
 		const cooldowns = profile.cooldowns.find(item => item[command])
 		if (!cooldowns) { return 1 }
 		return profile.cooldowns.find(item => item[command])[command]
