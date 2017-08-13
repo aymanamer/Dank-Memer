@@ -16,8 +16,9 @@ exports.run = async function (Memer, msg) {
 		const conn = await Memer.client.joinVoiceChannel(msg.member.voiceState.channelID)
 		conn.play(`./assets/shitsound/${file}.opus`)
 		conn.once('end', async() => {
-			await Memer.client.leaveVoiceChannel(msg.channel.guild.members.get(Memer.client.user.id).voiceState.channelID)
+			await Memer.client.leaveVoiceChannel(conn.channelID)
 			if (Memer.client.voiceConnections.get(msg.channel.guild.id)) {
+				console.error(`${Date} hey shitsound.js fucked up`)
 				await Memer.client.voiceConnections.get(msg.channel.guild.id).disconnect()
 				await Memer.client.voiceConnections.get(msg.channel.guild.id)._destroy()
 				await Memer.client.voiceConnections.remove(Memer.client.voiceConnections.get(msg.guild.id))
