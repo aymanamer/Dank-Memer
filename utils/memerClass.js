@@ -13,8 +13,7 @@ module.exports = class MemerClass {
 			disableEvents: this.disabledEvents,
 			disableEveryone: true,
 			messageLimit: 50,
-			defaultImageFormat: 'png',
-			maxShards: 2
+			defaultImageFormat: 'png'
 		})
 		this.client.connect()
 		this.metrics = require('datadog-metrics')
@@ -56,14 +55,15 @@ module.exports = class MemerClass {
 	}
 
 	isDonator (userID, donatorLevel) {
-		const userRoles = this.client.guilds.get('281482896265707520').members.get(userID).roles
+		const user = this.client.guilds.get('281482896265707520').members.get(userID)
+		if (!user) { return false }
 		if (!donatorLevel) {
-			return userRoles.includes(this.roleIDs['base'])
+			return user.roles.includes(this.roleIDs['base'])
 		}
-		if (userRoles.includes(this.roleIDs[donatorLevel])) {
+		if (user.roles.includes(this.roleIDs[donatorLevel])) {
 			return true
 		} else if (donatorLevel === '5') {
-			return userRoles.includes(this.roleIDs['10'])
+			return user.roles.includes(this.roleIDs['10'])
 		} else {
 			return false
 		}
