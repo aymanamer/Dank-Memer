@@ -21,7 +21,7 @@ exports.run = async function (Memer, msg, args) {
 		blank.resize(275, 200)
 		let search = blank.print(font, 0, 0, text, 178)
 
-		mom.composite(search, 75, 355)
+		mom.composite(search, 70, 335)
 		mom.getBuffer(Jimp.MIME_PNG, async (err, buffer) => {
 			await msg.channel.createMessage('', { file: buffer, name: 'search.png' })
 		})
