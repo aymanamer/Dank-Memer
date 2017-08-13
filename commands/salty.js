@@ -10,7 +10,7 @@ exports.run = async function (Memer, msg, args) {
 		.set('data-src', avatarurl)
 
 	if (data.status === 200) {
-		await msg.channel.createMessage('', { file: data.body, name: 'salty.gif-' })
+		await msg.channel.createMessage('', { file: data.body, name: 'salty.gif' })
 	} else {
 		msg.channel.createMessage(`Error: ${data.text}`)
 	}
