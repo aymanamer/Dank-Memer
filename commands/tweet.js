@@ -9,6 +9,10 @@ const tClient = new twit({
 })
 
 exports.run = async function (Memer, msg, args) {
+	if (!Memer.isDonator(msg.author.id)) {
+		return Memer.reply('You need to both be on Melmsie\'s server and be a donor to use this command (you can thank all the assholes who decided to ruin it)! To join the server, use `pls invite`. To donate, use `pls donate`.', msg)
+	}
+
 	if (!args[0] || msg.mentions[0]) {
 		return Memer.reply('What do you want me to tweet?', msg)
 	}
