@@ -1,4 +1,4 @@
-exports.run = async function (Memer, msg, args) {
+/*exports.run = async function (Memer, msg, args) {
 	if (!msg.channel.permissionsOf(Memer.client.user.id).has('readMessageHistory')) {
 		return Memer.reply('Well shit, there was a permission error! Make sure I have `read message history` so I can do this shit!', msg)
 	}
@@ -11,4 +11,4 @@ exports.run = async function (Memer, msg, args) {
 	} else {
 		messages.forEach(m => m.delete())
 	}
-}
+}*/
