@@ -25,7 +25,7 @@ exports.run = async function (Memer, msg, args) {
 				timestamp: new Date(),
 				description: args.join(' ')
 			}})
-		Memer.reply('Your message has been sent to bother Melmsie!', msg)
+		Memer.reply('Your suggestion has been sent to the developers.', msg);
 	} else if (reason === 'maxMatches' && messages[0].content.toLowerCase() === 'no') {
 		msg.channel.createMessage('Good. Watching you :eyes:')
 	} else if (reason === 'maxMatches') {
