@@ -12,11 +12,11 @@ exports.run = async function (Memer, msg, args) {
 			meme = args.split('=')[0].trim()
 			args = args.split('=')[1].trim()
 		} else {
-			return msg.channel.createMessage('You need to select a meme template. Try again.')
+			return msg.channel.createMessage('You need to select a meme template. Please look at the list of possible memes here: <https://github.com/melmsie/Dank-Memer/wiki/Memegen-list> and try again.')
 		}
 
 	} else {
-		return msg.channel.createMessage('You need to select a meme template and use `=` after it. Try again.')
+		return msg.channel.createMessage('You need to select a meme template and use `=` after it. Please look at the list of possible memes here: <https://github.com/melmsie/Dank-Memer/wiki/Memegen-list> and try again.')
 	}
 
 	if (args.includes('|')) {
@@ -29,7 +29,7 @@ exports.run = async function (Memer, msg, args) {
 	}
 
 	if (!Memer.memes.includes(meme)) {
-		return msg.channel.createMessage('That is not a valid meme template. Please look at the list of possible memes here: <https://hastebin.com/bigexijihi> and try again.')
+		return msg.channel.createMessage('That is not a valid meme template. Please look at the list of possible memes here: <https://github.com/melmsie/Dank-Memer/wiki/Memegen-list> and try again.')
 	}
 	const maymay = await Memer.snek
 		.get(`https://ronreiter-meme-generator.p.mashape.com/meme?bottom=${bottom}&font=Impact&font_size=35&meme=${meme}&top=${top}`)

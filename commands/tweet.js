@@ -52,7 +52,7 @@ exports.run = async function (Memer, msg, args) {
 	} else if (reason === 'maxMatches' && messages[0].content.toLowerCase() === 'no') {
 		msg.channel.createMessage('Good. Watching you :eyes:')
 	} else if (reason === 'maxMatches') {
-		msg.channel.createMessage('placeholder') // placeholder
+		msg.channel.createMessage('mk bye then') // placeholder
 	} else {
 		msg.channel.createMessage('Prompt timed out.')
 	}
