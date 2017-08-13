@@ -64,3 +64,4 @@ This project is licensed under the GNU AGPLv3 License - see the [LICENSE.md](LIC
 * **Stupid Cat** - *Original author of trigger.js* - [GitHub Profile](https://github.com/Ratismal)
 * **Samoxive** - *Help with debugging stupid node errors and learning js* - [GitHub Profile](https://github.com/Samoxive)
 * **Kodehawa** - *Emotional support when dealing with stupid issues and users* - [GitHub Profile](https://github.com/Kodehawa)
+* **LoverofSporks#2433** - *Went through 800 meme templates to give everyone a better experience <3* 
