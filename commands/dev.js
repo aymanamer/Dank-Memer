@@ -70,7 +70,7 @@ exports.run = async function (Memer, msg, args) {
 			if (res instanceof Promise && asynchr) {
 				res = await res
 			}
-			if (JSON.stringify(res).length > 994) {
+			if (JSON.stringify(res).length > 800) {
 				res = await Memer.snek.post('https://hastebin.com/documents')
 					.send(JSON.stringify(res, '', '\t'))
 					.catch(err => msg.channel.createMessage(err.message))

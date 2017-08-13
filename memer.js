@@ -34,11 +34,11 @@ Memer.client.on('messageCreate', async (msg) => {
 		return
 	}
 
-	if (msg.mentions.find(m => m.id === Memer.client.user.id) && msg.content.toLowerCase().includes('help')) {
-		return msg.channel.createMessage(`Hello, ${msg.author.username}. My prefix is \`${Memer.config.prefix}\`. Example: \`${Memer.config.prefix} meme\``)
-	}
-
 	const gConfig = await Memer.db.getGuild(msg.channel.guild.id) || await Memer.db.createGuild(msg.channel.guild.id)
+
+	if (msg.mentions.find(m => m.id === Memer.client.user.id) && msg.content.toLowerCase().includes('help')) {
+		return msg.channel.createMessage(`Hello, ${msg.author.username}. My prefix is \`${gConfig.prefix}\`. Example: \`${gConfig.prefix} meme\``)
+	}
 
 	if (!msg.content.toLowerCase().startsWith(gConfig.prefix)) {
 		return

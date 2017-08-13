@@ -12,8 +12,7 @@ module.exports = class MemerClass {
 		this.client = new Eris.Client(this.config.token, {
 			disableEvents: this.disabledEvents,
 			disableEveryone: true,
-			messageLimit: 50,
-			defaultImageFormat: 'png'
+			messageLimit: 50
 		})
 		this.client.connect()
 		this.metrics = require('datadog-metrics')
