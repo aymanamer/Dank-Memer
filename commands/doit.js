@@ -13,7 +13,7 @@ exports.run = async function (Memer, msg) {
 		msg.addReaction('👍')
 		const conn = await Memer.client.joinVoiceChannel(msg.member.voiceState.channelID)
 		conn.play('./assets/custom/doit.opus')
-		conn.once('end', async () => {
+		conn.on('end', async () => {
 			await Memer.client.leaveVoiceChannel(conn.channelID)
 			if (Memer.client.voiceConnections.get(msg.channel.guild.id)) {
 				console.error(`${Date} hey doit.js fucked up`)

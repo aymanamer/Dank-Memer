@@ -39,10 +39,6 @@ module.exports = {
 		img: 'https://media.tenor.com/images/d0a4caede6c27bb39ea426d82bbb2112/tenor.gif',
 		info: '“No God, Please No!” is a memorable quote uttered by Michael Scott, a regional manager of paper distribution company Dunder Mifflin Inc. in the U.S. adaptation of TV sitcom The Office, upon reacting to the unannounced return of the company’s former human resources representative Toby Flenderson. On the web, a variety of remixed video clips and animated GIFs featuring Michael Scott’s quote have been used as a reaction image or video to express one’s extreme aversion towards something.'
 	},
-	'cry': {
-		img: 'http://i2.kym-cdn.com/photos/images/newsfeed/000/053/748/Best-Cry-Ever.gif',
-		info: 'Best Cry Ever is a series of remix videos based on a scene from the reality TV show Intervention, in which former boxer Rocky Lockridge has an emotional breakdown as his son professes his love for him. Due to the unordinary nature of his high pitched cry, the video became a popular source for parodies and remixes on YouTube.'
-	},
 	'alone': {
 		img: 'http://i0.kym-cdn.com/photos/images/newsfeed/000/150/505/f30fd24c56e1bcfc926883d6a51d5a00.gif',
 		info: 'Forever Alone is an exploitable rage comic character that is used to express loneliness and disappointment with life. The face has also been used as an advice animal and inspired the creation of the snowclone template “Forever an X.”'

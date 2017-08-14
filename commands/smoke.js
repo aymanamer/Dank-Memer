@@ -16,7 +16,7 @@ exports.run = async function (Memer, msg) {
 			msg.addReaction('☁')
 			const conn = await Memer.client.joinVoiceChannel(msg.member.voiceState.channelID)
 			conn.play('./assets/weed.opus')
-			conn.once('end', async () => {
+			conn.on('end', async () => {
 				await Memer.client.leaveVoiceChannel(msg.channel.guild.members.get(Memer.client.user.id).voiceState.channelID)
 				if (Memer.client.voiceConnections.get(msg.channel.guild.id)) {
 					await Memer.client.voiceConnections.get(msg.channel.guild.id).disconnect()

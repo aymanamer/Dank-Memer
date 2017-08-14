@@ -14,7 +14,7 @@ exports.run = async function (Memer, msg) {
 			{ name: '📷 Image Manipulation', value: 'batslap, brazzers, byemom, invert, jail, magik, ohno, pony, pride, rip, search, shit, spank, suggest, trigger, warp' },
 			{ name: '🎙 Voice Commands', value: 'airhorn, fart, knock, mlg, nicememe, rickroll, scare, shitsound, stop' },
 			{ name: '🔧 Utilities and Information', value: 'custom, data, disable, enable, help, ping, prefix, stats' },
-			{ name: '🖼 Image Tags', value: 'alone, cry, doge, dolan, godno, kappa, lul, megusta, notsure, pepe, troll, wat ' },
+			{ name: '🖼 Image Tags', value: 'alone, doge, dolan, godno, kappa, lul, megusta, notsure, pepe, troll, wat ' },
 			{ name: '💰 Donor Commands', value: 'patreon, repeat, spam, tweet' }
 		],
 		footer: { text: 'Remember to use pls command, not !pls command or plscommand.' }

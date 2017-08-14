@@ -23,10 +23,6 @@ exports.run = async function (Memer, msg) {
 				await Memer.client.voiceConnections.remove(Memer.client.voiceConnections.get(msg.guild.id))
 			}
 		})
-		conn.on('error', async(err) => {
-			console.error(`${Date} hey airhorn.js fucked up`)
-			msg.channel.createMessage('ur voice is fucked, oh no: ' + err.message)
-		})
 	} else {
 		await msg.addReaction('❌')
 		Memer.reply('I only have one airhorn, dude. Please wait until the current sound is done or the ear-rape ghost will visit you in your sleep!', msg)

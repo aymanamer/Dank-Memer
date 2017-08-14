@@ -32,7 +32,7 @@ exports.timeCon = time => {
 
 exports.bannedWords = ['kys', 'hitler', 'nazi', 'kill your self', 'kill yourself', 'nigger', 'nagger', 'nigglet', 'faggot', 'benis', 'fag', 'anus', 'anal', 'blowjob', 'blow job', 'dyke', 'dildo', 'cock', 'boner', 'homo', 'jizz', 'nigga', 'queer', 'pussy', 'scrotum', 'slut', 'aetheryx', 'jews', 'cummy', 'niqquers', 'penis', 'gay', 'nibba', 'succ', 'fucc', 'ni🅱🅱a', 'niqqa']
 
-exports.intro = `My name is Dank Memer.\n\nTo get started, send \`${config.prefix} help\`. All commands are run this way, for example, pls meme.\n\nI am maintained by Melmsie#0006, who can be found at [this server](https://discord.gg/3GNMJBG) if you need to talk to him.`
+exports.intro = `My name is Dank Memer.\n\nTo get started, send \`${config.defaultPrefix} help\`. All commands are run this way, for example, pls meme.\n\nI am maintained by Melmsie#0006, who can be found at [this server](https://discord.gg/3GNMJBG) if you need to talk to him.`
 
 exports.cdMsg = {
 	'tweet': 'You can only tweet every 15 minutes. Donors can do it much faster!',
