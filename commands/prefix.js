@@ -1,4 +1,7 @@
 exports.run = async function (Memer, msg, args) {
+	if (!msg.member.permission.has('manageGuild')) {
+		return Memer.reply('You are not authorized to use this command. ', msg)
+	}
 	const gConfig = await Memer.db.getGuild(msg.channel.guild.id)
 	if (!args[0]) {
 		return Memer.reply(`What do you want your new prefix to be?\n\nExample: \`${gConfig.prefix} prefix plz\``, msg) // please think of a better example..
