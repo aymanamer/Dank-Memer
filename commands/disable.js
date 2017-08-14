@@ -1,4 +1,7 @@
 exports.run = async function (Memer, msg, args) {
+	if (!msg.member.permission.has('manageGuild')) {
+		return Memer.reply('You are not authorized to use this command. ', msg)
+	}
 	const gConfig = await Memer.db.getGuild(msg.channel.guild.id)
 	args = removeDuplicates(args.filter(cmd => !gConfig.disabledCommands.includes(cmd)))
 	if (!args[0]) {
