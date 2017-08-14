@@ -10,9 +10,6 @@ exports.create = async (Memer, guild) => {
 	guild.defaultChannel.createMessage({ embed })
 		.catch(async err => {
 			console.log(`Failed to send welcome message to ${guild.name}\n${err.message}`)
-			const owner = await Memer.client.get(guild.ownerID)
-			owner.createMessage({ embed })
-				.catch(err => console.log(`${err.stack}: The god damn guild owner couldn\'t get the message either`))
 		})
 
 }
