@@ -42,7 +42,7 @@ If you need any more help with anything, join [this server](https://discord.gg/3
 
 * [JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript) - The language
 * [Node](https://nodejs.org/en/) - The runtime
-* [Discord.js](https://discord.js.org/#/) - The Library
+* [Eris](https://abal.moe/Eris) - The Library
 
 ## Contributing
 
