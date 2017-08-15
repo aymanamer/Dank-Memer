@@ -31,7 +31,7 @@ exports.run = async function (Memer, msg, args) {
 				file: buffer, name: 'shit.png'
 			})
 		} catch (err) {
-			msg.channel.send(`Error: ${err.message}`)
+			msg.channel.createMessage(`Error: ${err.message}`)
 		}
 	})
 }
