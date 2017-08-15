@@ -8,8 +8,7 @@ exports.disabledEvents = {
 	'RELATIONSHIP_REMOVE': true,
 	'GUILD_BAN_ADD': true,
 	'GUILD_BAN_REMOVE': true,
-	'TYPING_START': true,
-	'PRESENCE_UPDATE': true
+	'TYPING_START': true
 }
 
 exports.roleIDs = {
