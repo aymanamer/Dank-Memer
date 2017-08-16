@@ -46,5 +46,9 @@ module.exports = {
 	'kiss': {
 		img: 'https://image.ibb.co/gWWUNF/Untitled.png',
 		info: 'One of our developers, Aether, was considered the smart one until he made this image. RIP Aether!'
+	},
+	'dogeden': {
+		img: 'https://yt3.ggpht.com/-kEajR3NzPFo/AAAAAAAAAAI/AAAAAAAAAAA/uyBM7nN1G-o/s900-c-k-no-mo-rj-c0xffffff/photo.jpg',
+		info: 'A custom command for OfficerRicky'
 	}
 }
