@@ -56,41 +56,39 @@ exports.run = async function (Memer, msg, args) {
 	}
 
 	if (command === 'eval') {
-		let input = args.join(' ')
-		let evalTime
-		const silent = input.includes('--silent') ? true : false
-		const asynchr = input.includes('--async') ? true : false
-		if (silent || asynchr) {
-			input = input.replace('--silent', '').replace('--async', '')
-		}
 		let res
+		let evalTime
 		try {
+			const rep = new RegExp(client.token, 'gi')
 			const before = Date.now()
-			res = asynchr ? eval(`(async()=>{return ${input}})();`) : eval(input)
-			if (res instanceof Promise && asynchr) {
-				res = await res
-			}
+			res = eval(args.join(' '))
 			evalTime = Date.now() - before
-			const rep = new RegExp(Memer.client.token, 'gi')
-			if (typeof res === 'string') {
+			if (typeof res === 'string')
 				res = res.replace(rep, '*')
-			} else {
-				res = util.inspect(res, { depth: 0 })
-					.replace(rep, '*')
-			}
+			else res = util.inspect(res, {
+				depth: 0
+			})
+				.replace(rep, '*')
 		} catch (err) {
 			res = err
 		}
-		if (!silent) {
-			msg.channel.createMessage({ embed: {
+		msg.channel.createMessage({
+			embed: {
 				color: Memer.colors.lightblue,
-				fields: [
-					{ name: 'Input', value: Memer.codeblock(input, 'js') }, // eslint-disable-line prefer-template
-					{ name: 'Output', value: Memer.codeblock(res, 'js')  } // eslint-disable-line prefer-template
+				fields: [{
+					name: 'Input',
+					value: '```js\n' + args.join(' ') + '```'
+				},
+				{
+					name: 'Output',
+					value: '```js\n' + res + '```'
+				}
 				],
-				footer: { text: evalTime || evalTime === 0 ? `evaluated in ${evalTime}ms` : '' }
-			}})
-		}
+				footer: {
+					text: evalTime || evalTime === 0 ? `evaluated in ${evalTime}ms` : ''
+				}
+			}
+		})
 	}
 
 	if (command === 'bash') {

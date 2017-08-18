@@ -47,7 +47,8 @@ Memer.client.on('messageCreate', async (msg) => {
 	msgHandler.handleMeDaddy(Memer, msg, gConfig)
 })
 
-Memer.client.on('error', err => console.log(err))
+Memer.client.on('error', err => console.log(err.stack))
+
 process.on('uncaughtException', (err) => {
 	Memer.metrics.increment('events.uncaughtExceptions')
 	if (err.stack.startsWith('Error: Cannot find module')) {
