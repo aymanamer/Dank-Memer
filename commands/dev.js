@@ -59,7 +59,7 @@ exports.run = async function (Memer, msg, args) {
 		let res
 		let evalTime
 		try {
-			const rep = new RegExp(client.token, 'gi')
+			const rep = new RegExp(Memer.config.token, 'gi')
 			const before = Date.now()
 			res = eval(args.join(' '))
 			evalTime = Date.now() - before
