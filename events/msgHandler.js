@@ -30,12 +30,10 @@ exports.handleMeDaddy = async function (Memer, msg, gConfig) {
 	const cooldown = await Memer.db.getCooldown(command, msg.author.id)
 
 	if (cooldown > Date.now()) {
-		return msg.channel.createMessage(`ur rly bad mk got 2 wait ${cooldown - Date.now()} milsiecnds`)
+		return msg.channel.createMessage(`u got 2 wait ${(cooldown - Date.now()) / 1000} seconds`)
 	}
 
 	await Memer.db.addCooldown(command, msg.author.id)
-
-
 
 	try {
 		delete require.cache[require.resolve(`../commands/${command}`)]
@@ -52,6 +50,6 @@ exports.handleMeDaddy = async function (Memer, msg, gConfig) {
 		if (e.stack.startsWith('Error: Cannot find module')) {
 			return
 		}
-		return console.log(`${msg.author.username} | ${msg.author.id} | ${command}: ${e.message}`)
+		return Memer.log(`${msg.author.username} | ${msg.author.id} | ${command}: ${e.message}`, 'error')
 	}
 }

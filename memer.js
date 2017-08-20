@@ -9,7 +9,7 @@ const Memer = new MemerClass()
 Memer.client.on('ready', () => {
 	Memer.client.editStatus(null, { name: 'pls help me', type: 1, url: 'https://www.twitch.tv/melmsie' })
 
-	console.log(`Logged in as ${Memer.client.user.username}#${Memer.client.user.discriminator}.`)
+	Memer.log(`Logged in as ${Memer.client.user.username}#${Memer.client.user.discriminator}.`)
 
 	setInterval(collectStats, 15000)
 })
@@ -47,7 +47,7 @@ Memer.client.on('messageCreate', async (msg) => {
 	msgHandler.handleMeDaddy(Memer, msg, gConfig)
 })
 
-Memer.client.on('error', err => console.log(err.stack))
+Memer.client.on('error', err => Memer.log(err.stack, 'error'))
 
 process.on('uncaughtException', (err) => {
 	Memer.metrics.increment('events.uncaughtExceptions')
@@ -59,12 +59,12 @@ process.on('uncaughtException', (err) => {
 		return
 	}
 
-	console.log(`Caught exception: ${err.stack}`)
+	Memer.log(`Caught exception: ${err.stack}`, 'error')
 })
 
 process.on('UnhandledPromiseRejectionWarning', (err) => {
 	Memer.metrics.increment('events.unhandledrejection')
-	console.log(`Rejection: ${err.stack}`)
+	Memer.log(`Rejection: ${err.stack}`, 'error')
 })
 
 async function collectStats () {

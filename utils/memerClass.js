@@ -4,6 +4,7 @@ const messageCollector = require('./messageCollector.js')
 
 module.exports = class MemerClass {
 	constructor () {
+		this.log = require('../utils/logger.js')
 		for (const i in Object.keys(utils)) {
 			this[Object.keys(utils)[i]] = utils[Object.keys(utils)[i]]
 		}
@@ -28,7 +29,8 @@ module.exports = class MemerClass {
 			'meme': {},
 			'joke': {},
 			'shitpost': {},
-			'thonks':{}
+			'thonks': {},
+			'gt': {}
 		}
 		this.snek = require('snekfetch')
 		this.r = require('rethinkdbdash')()
@@ -51,6 +53,9 @@ module.exports = class MemerClass {
 	}
 
 	reply (str, msg) {
+		if (!msg.channel) {
+			return this.log('hmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm, spaghetti', 'warn')
+		}
 		msg.channel.createMessage(`${msg.author.mention}, ${str}`)
 	}
 

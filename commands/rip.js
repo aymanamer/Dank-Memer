@@ -16,7 +16,7 @@ exports.run = async function (Memer, msg, args) {
 		try {
 			await msg.channel.createMessage('', { file: buffer, name: 'rip.png' })
 		} catch (e) {
-			console.log(e)
+			Memer.log(e.stack, 'error')
 			await Memer.reply('there was an error with this command.', msg)
 		}
 	})

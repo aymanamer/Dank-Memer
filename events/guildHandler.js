@@ -9,7 +9,7 @@ exports.create = async (Memer, guild) => {
 
 	guild.defaultChannel.createMessage({ embed })
 		.catch(async err => {
-			console.log(`Failed to send welcome message to ${guild.name}\n${err.message}`)
+			Memer.log(`Failed to send welcome message to ${guild.name}\n${err.message}`, 'info')
 		})
 
 }
