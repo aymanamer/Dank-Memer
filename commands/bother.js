@@ -8,20 +8,24 @@ exports.run = async function (Memer, msg, args) {
 	const [messages, reason] = await Memer.createMessageCollector(msg.channel, m => m.author.id === msg.author.id, { maxMatches: 1, time: 30000 })
 
 	if (reason === 'maxMatches' && messages[0].content.toLowerCase() === 'yes') {
-		Memer.client.guilds.get('281482896265707520').channels.get('326384964964974602')
-			.createMessage({ embed: {
-				author: { name: `${msg.author.username}#${msg.author.discriminator} ${msg.author.id}` },
-				fields: [ { name: 'Sent from:', value: `#${msg.channel.name} in ${msg.channel.guild.name}` } ],
-				color: Memer.colors.green,
-				footer: { text: `Guild ID: ${msg.channel.guild.id} `},
-				timestamp: new Date(),
-				description: args.join(' ')
-			}})
+		const guild = Memer.client.guilds.get('345979581850714112')
+		if (!guild || !guild.channels.get('345979581850714112')) {
+			Memer.log('Uncached channel on bother', 'warn')
+			return msg.channel.createMessage('Something went wrong. Please try again later.')
+		}
+		Memer.client.createMessage('326384964964974602', { embed: {
+			author: { name: `${msg.author.username}#${msg.author.discriminator} ${msg.author.id}` },
+			fields: [ { name: 'Sent from:', value: `#${msg.channel.name} in ${msg.channel.guild.name}` } ],
+			color: Memer.colors.green,
+			footer: { text: `Guild ID: ${msg.channel.guild.id} `},
+			timestamp: new Date(),
+			description: args.join(' ')
+		}})
 		Memer.reply('Your message has been sent to bother Melmsie!', msg)
 	} else if (reason === 'maxMatches' && messages[0].content.toLowerCase() === 'no') {
 		msg.channel.createMessage('Good. Watching you :eyes:')
 	} else if (reason === 'maxMatches') {
-		msg.channel.createMessage('mk bye then') // placeholder
+		msg.channel.createMessage('mk bye then')
 	} else {
 		msg.channel.createMessage('Prompt timed out.')
 	}

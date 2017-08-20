@@ -39,24 +39,23 @@ exports.run = async function (Memer, msg, args) {
 				description: `[View here](https://twitter.com/${data.user.screen_name}/status/${data.id_str})`,
 				footer: { text: 'See this tweet, and more @plsmeme' }
 			}})
-			Memer.client.guilds.get('281482896265707520').channels.get('326384964964974602')
-				.createMessage({
-					content: Memer.bannedWords.some(word => args.join(' ').toLowerCase().includes(word)) ? '<@&339186850910699520> BAD TWEET LADS WEE WOO WEE WOO' : '',
-					embed: {
-						title: 'New tweet:',
-						url: `https://twitter.com/PlsMeme/status/${data.id_str}`,
-						author: { name: `${msg.author.username}#${msg.author.discriminator} | ${msg.author.id}` },
-						description: args.join(' '),
-						fields: [ { name: 'Sent from:', value: `#${msg.channel.name} in ${msg.channel.guild.name}` } ],
-						color: 0x4099FF,
-						footer: { text: `Tweet ID: ${data.id_str} | Guild ID: ${msg.channel.guild.id} `},
-						timestamp: new Date(),
-					}})
+			Memer.client.createMessage('326384964964974602', {
+				content: Memer.bannedWords.some(word => args.join(' ').toLowerCase().includes(word)) ? '<@&339186850910699520> BAD TWEET LADS WEE WOO WEE WOO' : '',
+				embed: {
+					title: 'New tweet:',
+					url: `https://twitter.com/PlsMeme/status/${data.id_str}`,
+					author: { name: `${msg.author.username}#${msg.author.discriminator} | ${msg.author.id}` },
+					description: args.join(' '),
+					fields: [ { name: 'Sent from:', value: `#${msg.channel.name} in ${msg.channel.guild.name}` } ],
+					color: 0x4099FF,
+					footer: { text: `Tweet ID: ${data.id_str} | Guild ID: ${msg.channel.guild.id} `},
+					timestamp: new Date(),
+				}})
 		})
 	} else if (reason === 'maxMatches' && messages[0].content.toLowerCase() === 'no') {
 		msg.channel.createMessage('Good. Watching you :eyes:')
 	} else if (reason === 'maxMatches') {
-		msg.channel.createMessage('mk bye then') // placeholder
+		msg.channel.createMessage('mk bye then')
 	} else {
 		msg.channel.createMessage('Prompt timed out.')
 	}
