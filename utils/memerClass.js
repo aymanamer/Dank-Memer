@@ -14,7 +14,7 @@ module.exports = class MemerClass {
 			disableEvents: this.disabledEvents,
 			disableEveryone: true,
 			messageLimit: 50,
-			maxShards: 1
+			maxShards: 18
 		})
 		this.client.connect()
 		this.metrics = require('datadog-metrics')
@@ -22,7 +22,7 @@ module.exports = class MemerClass {
 			apiKey: this.config.datadog.APIkey,
 			appKey: this.config.datadog.APPkey,
 			flushIntervalSeconds: 10,
-			prefix: 'test.'
+			prefix: 'dank.'
 		})
 		this.ids = require('../ids.json')
 		this.indexes = {
