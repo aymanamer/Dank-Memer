@@ -113,6 +113,28 @@ exports.run = async function (Memer, msg, args) {
 		})
 	}
 
+	if (command === 'speedtest') {
+		msg.channel.createMessage(`**nice speed test bro, too bad ur internet sux**\n${Memer.codeblock('speed-test -j', 'sh')}`)
+		exec('speed-test -j', async (e, stdout, stderr) => {
+			if (stdout.length + stderr.length > 994) {
+				const res = await Memer.snek.post('https://hastebin.com/documents')
+					.send(`${stdout}\n\n${stderr}`)
+					.catch(err => msg.channel.createMessage(err.message))
+				msg.channel.createMessage(`Console log exceeds 2000 characters. View here: https://hastebin.com/${res.body.key}.`)
+			} else {
+				if (stdout) {
+					msg.channel.createMessage(`**heres ur speedtest bruv**\n${Memer.codeblock(stdout, 'bash')}`)
+				}
+				if (stderr) {
+					msg.channel.createMessage(`**ur speedtest is bork brah**\n${Memer.codeblock(stdout, 'bash')}`)
+				}
+				if (!stderr && !stdout) {
+					msg.react('\u2611')
+				}
+			}
+		})
+	}
+
 	if (command === 'git') {
 		if (args[0] === 'pull') {
 			await msg.channel.createMessage('Pulling out...')

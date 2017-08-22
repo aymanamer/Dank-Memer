@@ -3,7 +3,6 @@ exports.run = async function (Memer, msg, args) {
 	if (['jpg', 'jpeg', 'gif', 'png', 'webp'].some(x => args.join(' ').includes(x))) {
 		avatarurl = args.join(' ').replace(/gif|webp/g, 'png')
 	}
-
 	const data = await Memer.snek
 		.get('http://getame.me/api/trigger')
 		.set('Api-Key', Memer.config.imgenKey)
