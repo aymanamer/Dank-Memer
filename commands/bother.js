@@ -8,7 +8,7 @@ exports.run = async function (Memer, msg, args) {
 	const [messages, reason] = await Memer.createMessageCollector(msg.channel, m => m.author.id === msg.author.id, { maxMatches: 1, time: 30000 })
 
 	if (reason === 'maxMatches' && messages[0].content.toLowerCase() === 'yes') {
-		const guild = Memer.client.guilds.get('345979581850714112')
+		const guild = Memer.client.guilds.get('281482896265707520')
 		if (!guild || !guild.channels.get('345979581850714112')) {
 			Memer.log('Uncached channel on bother', 'warn')
 			return msg.channel.createMessage('Something went wrong. Please try again later.')
