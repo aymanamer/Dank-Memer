@@ -7,7 +7,7 @@ exports.create = async (Memer, guild) => {
 		description: Memer.intro
 	}
 
-	guild.channels.get(guild.channels.map(m => m.id)[0]).createMessage('', { embed })
+	guild.channels.get(guild.channels.map(m => m.id)[0]).createMessage({ embed })
 		.catch(async err => {
 			Memer.log(`Failed to send welcome message to ${guild.name}\n${err.message}`, 'info')
 		})
