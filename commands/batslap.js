@@ -3,7 +3,7 @@ exports.run = async function (Memer, msg) {
 	const authorurl = (msg.mentions.length > 0 ? msg.author.staticAvatarURL : Memer.client.user.staticAvatarURL).replace('gif', 'png')
 
 	const data = await Memer.snek
-		.get('http://get-ur-me.me/api/batslap')
+		.get('http://getame.me/api/batslap')
 		.set('Api-Key', Memer.config.imgenKey)
 		.set('data-src', JSON.stringify([`${avatarurl}`, `${authorurl}`]))
 

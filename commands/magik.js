@@ -5,7 +5,7 @@ exports.run = async function (Memer, msg, args) {
 	}
 
 	const data = await Memer.snek
-		.get('http://get-ur-me.me/api/magik')
+		.get('http://getame.me/api/magik')
 		.set('Api-Key', Memer.config.imgenKey)
 		.set('data-src', avatarurl)
 
