@@ -8,12 +8,11 @@ exports.run = async function (Memer, msg) {
 	msg.channel.createMessage({ embed: {
 		color: Memer.colors.purple,
 		title: 'Commands 💯 👌 🔥',
-		description: 'Try out the new commands! Batslap, disable, enable, memegen, ohno, pony, prefix, search, and spank!',
+		description: 'Henlo, we removed commands. Sorry, but not sorry.',
 		fields: [
-			{ name: `${funemoji} Fun Commands`, value: 'asktrump, bother, cowsay, joke, justright, kill, meme, memebox, memegen, mock, pupper, pun, shitpost, spin' },
-			{ name: '📷 Image Manipulation', value: 'batslap, brazzers, byemom, invert, jail, magik, ohno, pony, pride, rip, search, shit, spank, suggest, trigger, warp' },
-			{ name: '🎙 Voice Commands', value: 'airhorn, fart, knock, mlg, nicememe, rickroll, scare, shitsound, stop' },
-			{ name: '🔧 Utilities and Information', value: 'custom, data, disable, enable, help, ping, prefix, stats' },
+			{ name: `${funemoji} Fun Commands`, value: 'asktrump, greentext, joke, justright, kill, meme, memegen, mock, pupper, pun, shitpost, spin' },
+			{ name: '📷 Image Manipulation', value: 'batslap, brazzers, byemom, invert, jail, magik, pony, pride, rip, search, shit, spank, trigger, warp' },
+			{ name: '🔧 Utilities and Information', value: 'disable, enable, help, ping, prefix, stats' },
 			{ name: '🖼 Image Tags', value: 'alone, doge, dolan, godno, kappa, lul, megusta, notsure, pepe, troll, wat ' },
 			{ name: '💰 Donor Commands', value: 'patreon, repeat, spam, tweet' }
 		],
