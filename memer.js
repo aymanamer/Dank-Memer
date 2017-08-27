@@ -7,7 +7,11 @@ const MemerClass = require('./utils/memerClass.js')
 const Memer = new MemerClass()
 
 Memer.client.on('ready', () => {
-	Memer.client.editStatus(null, { name: 'pls help me', type: 1, url: 'https://www.twitch.tv/melmsie' })
+	Memer.client.editStatus(null, {
+		name: 'pls help',
+		type: 1,
+		url: 'https://www.twitch.tv/teamzars'
+	})
 
 	Memer.log(`Logged in as ${Memer.client.user.username}#${Memer.client.user.discriminator}.`)
 
