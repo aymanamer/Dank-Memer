@@ -13,6 +13,8 @@ Memer.client.on('ready', () => {
 		url: 'https://www.twitch.tv/teamzars'
 	})
 
+	setTimeout(() => process.exit(), 21000000)
+
 	Memer.log(`Logged in as ${Memer.client.user.username}#${Memer.client.user.discriminator}.`)
 
 	setInterval(collectStats, 15000)
