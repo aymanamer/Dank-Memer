@@ -1,5 +1,9 @@
-'use memes'
+const config = require('./config.json');
 
+const Sharder = require('eris-sharder');
+const sharder = new Sharder(config.token, '/mainClass.js', { stats: true });
+
+/*
 const msgHandler = require('./events/msgHandler.js')
 const guildHandler = require('./events/guildHandler.js')
 const MemerClass = require('./utils/memerClass.js')
@@ -63,4 +67,4 @@ process.on('uncaughtException', (err) => {
 
 process.on('UnhandledPromiseRejectionWarning', (err) => {
 	Memer.log(`Rejection: ${err.stack}`, 'error')
-})
+})*/
