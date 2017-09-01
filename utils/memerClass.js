@@ -13,23 +13,15 @@ module.exports = class MemerClass {
 		this.client = new Eris.Client(this.config.token, {
 			disableEvents: this.disabledEvents,
 			disableEveryone: true,
-			messageLimit: 50,
-			maxShards: 18
+			messageLimit: 100,
+			maxShards: 20
 		})
 		this.client.connect()
-		this.metrics = require('datadog-metrics')
-		this.metrics.init({
-			apiKey: this.config.datadog.APIkey,
-			appKey: this.config.datadog.APPkey,
-			flushIntervalSeconds: 10,
-			prefix: 'dank.'
-		})
 		this.ids = require('../ids.json')
 		this.indexes = {
 			'meme': {},
 			'joke': {},
 			'shitpost': {},
-			'thonks': {},
 			'gt': {}
 		}
 		this.snek = require('snekfetch')

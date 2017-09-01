@@ -13,25 +13,23 @@ Memer.client.on('ready', () => {
 		url: 'https://www.twitch.tv/teamzars'
 	})
 
-	setTimeout(() => process.exit(), 21000000)
+	setTimeout(() => {
+		console.log('Bot Restarting!')
+		process.exit()
+	}, 21000000)
 
 	Memer.log(`Logged in as ${Memer.client.user.username}#${Memer.client.user.discriminator}.`)
-
-	setInterval(collectStats, 15000)
 })
 
 Memer.client.on('guildCreate', async (guild) => {
-	Memer.metrics.increment('guild.joined')
 	guildHandler.create(Memer, guild)
 })
 
 Memer.client.on('guildDelete', async (guild) => {
-	Memer.metrics.increment('guild.left')
 	guildHandler.delete(Memer, guild)
 })
 
 Memer.client.on('messageCreate', async (msg) => {
-	Memer.metrics.increment('messages.seen')
 	if (!msg.channel.guild ||
 	msg.author.bot ||
 	Memer.ids.blocked.user.includes(msg.author.id) ||
@@ -56,12 +54,7 @@ Memer.client.on('messageCreate', async (msg) => {
 Memer.client.on('error', err => Memer.log(err.stack, 'error'))
 
 process.on('uncaughtException', (err) => {
-	Memer.metrics.increment('events.uncaughtExceptions')
 	if (err.stack.startsWith('Error: Cannot find module')) {
-		return
-	}
-	if (err.stack.startsWith('Error: socket hang up')) {
-		Memer.metrics.increment('events.socket.hang.up')
 		return
 	}
 
@@ -69,18 +62,5 @@ process.on('uncaughtException', (err) => {
 })
 
 process.on('UnhandledPromiseRejectionWarning', (err) => {
-	Memer.metrics.increment('events.unhandledrejection')
 	Memer.log(`Rejection: ${err.stack}`, 'error')
 })
-
-async function collectStats () {
-	const memUsage = process.memoryUsage()
-	Memer.metrics.gauge('ram.rss', (memUsage.rss / 1048576).toFixed())
-	Memer.metrics.gauge('ram.heapUsed', (memUsage.heapUsed / 1048576).toFixed())
-	Memer.metrics.gauge('total.guilds', Memer.client.guilds.size)
-	Memer.metrics.gauge('total.users', Memer.client.users.size)
-	Memer.metrics.gauge('current.vcs', Memer.client.voiceConnections.size)
-	Memer.metrics.gauge('total.largeGuilds', Memer.client.guilds.filter(m => m.large).length)
-	Memer.metrics.gauge('total.exclusive', Memer.client.guilds.filter(g => g.members.filter(m => m.bot).length === 1).length)
-	Memer.metrics.gauge('current.uptime', process.uptime())
-}

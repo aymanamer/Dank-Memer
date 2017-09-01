@@ -7,7 +7,6 @@ exports.handleMeDaddy = async function (Memer, msg, gConfig) {
 	const args = msg.cleanContent.split(' ').slice(gConfig.prefix.split(' ').length + 1)
 
 	if (Object.keys(tags).includes(command)) {
-		Memer.metrics.increment(`command.${command}`)
 		if (args[0] === 'info') {
 			return await msg.channel.createMessage({
 				embed: {
@@ -44,8 +43,6 @@ exports.handleMeDaddy = async function (Memer, msg, gConfig) {
 			return
 		}
 		await require(`../commands/${command}`).run(Memer, msg, args)
-		Memer.metrics.increment('total.commands')
-		Memer.metrics.increment(`command.${command}`)
 	} catch (e) {
 		if (e.stack.startsWith('Error: Cannot find module')) {
 			return
