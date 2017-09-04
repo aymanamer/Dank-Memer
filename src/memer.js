@@ -1,14 +1,17 @@
 const config = require('./config.json');
 
 const Sharder = require('eris-sharder');
+const snek = require('snekfetch');
+const r = require('rethinkdbdash')();
 const master = new Sharder(config.token, '/mainClass.js', {
+    name: 'Dank Memer',
     stats: true,
     webhooks: {
 
     }
 });
 
-const snek = require('snekfetch');
+
 const botlists = new Map([
     ['https://bots.discord.pw/api/bots/270904126974590976/stats', config.pwtoken],
     ['https://discordbots.org/api/bots/270904126974590976/stats', config.orgtoken],
@@ -16,6 +19,9 @@ const botlists = new Map([
 ]);
 
 master.on('stats', res => {
+    r.table('stats')
+        .insert({ id: 1, stats: res }, { conflict: 'update' })
+        .run();
     return;
     botlists.forEach(async (token, url) => {
         await snek
