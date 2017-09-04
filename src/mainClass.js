@@ -90,7 +90,7 @@ class Memer {
     async messageCreate (msg) {
         if (!msg.channel.guild ||
         msg.author.bot ||
-        this.db.isBlocked(msg.author.id, msg.channel.guild.id)) {
+        await this.db.isBlocked(msg.author.id, msg.channel.guild.id)) {
             return;
         }
 
