@@ -1,240 +1,240 @@
-const { exec } = require('child_process')
-const util = require('util')
-const twit = require('twit')
-const fs = require('fs')
-const twitter = require('../config.json').twitter
-const tClient = new twit({
-	consumer_key: twitter.consumer_key,
-	consumer_secret: twitter.consumer_secret,
-	access_token: twitter.access_token,
-	access_token_secret: twitter.access_token_secret,
-	timeout_ms: 60 * 1000,
-})
+const { exec } = require('child_process');
+const util = require('util');
+const twit = require('twit');
+const twitter = require('../config.json').twitter;
+/*const tClient = new twit({
+    consumer_key: twitter.consumer_key,
+    consumer_secret: twitter.consumer_secret,
+    access_token: twitter.access_token,
+    access_token_secret: twitter.access_token_secret,
+    timeout_ms: 60 * 1000,
+});*/
+const table = require('table');
+const tableConfig = {
+    border: {
+        topBody: '─',
+        topJoin: '┬',
+        topLeft: '┌',
+        topRight: '┐',
+        bottomBody: '─',
+        bottomJoin: '┴',
+        bottomLeft: '└',
+        bottomRight: '┘',
+        bodyLeft: '│',
+        bodyRight: '│',
+        bodyJoin: '│',
+        joinBody: '─',
+        joinLeft: '├',
+        joinRight: '┤',
+        joinJoin: '┼'
+    }
+}
+
 
 exports.run = async function (Memer, msg, args) {
-	if (args[0] === 'help' || !args[0]) {
-		return msg.channel.createMessage({ embed: {
-			footer: { text: 'Now go fuck people up with these OP commands!' },
-			color: 3569331,
-			fields: [
+    if (args[0] === 'help' || !args[0]) {
+        return msg.channel.createMessage({ embed: {
+            footer: { text: 'Now go fuck people up with these OP commands!' },
+            color: 3569331,
+            fields: [
 				{ name: 'reboot', 	 value: 'reboot [shard, all]' },
 				{ name: 'eval', 	 value: 'eval <args>' },
 				{ name: 'bash', 	 value: 'bash <args>' },
 				{ name: 'git', 		 value: 'git pull' },
 				{ name: 'donor', 	 value: '[add, remove] [1, 5, 10] <id or @tag>' },
 				{ name: 'blacklist', value: '[add, remove] [guild, user, channel] <id or @tag>' }
-			]
-		}})
-	}
+            ]
+        }});
+    }
 
-	const command = args[0]
-	args.shift()
+    const command = args[0];
+    args.shift();
 
-	if (command === 'deletetweet' && msg.member.roles.includes('339186850910699520')) {
-		if (!parseInt(args[0])) {
-			return msg.channel.createMessage('Argument error. Make sure the argument(s) you\'re passing are numbers and exist.')
-		}
-		args.filter(arg => parseInt(arg)).forEach(targetTweetID => {
-			tClient.post('statuses/destroy/:id', { id: targetTweetID }, (err, data, response) => {
-				if (!err && response.statusCode === 200) {
-					msg.channel.createMessage({ embed: {
-						color: 0x4099FF,
-						description: `Tweet ${targetTweetID} successfully deleted.`
-					}})
-				} else {
-					msg.channel.createMessage(`Something went wrong.\nStatus code: ${response.statusCode}\nError: ${err.message}`)
-				}
-			})
-		})
-	}
+    if (command === 'deletetweet' && msg.member.roles.includes('339186850910699520')) {
+        if (!parseInt(args[0])) {
+            return msg.channel.createMessage('Argument error. Make sure the argument(s) you\'re passing are numbers and exist.');
+        }
+        args.filter(arg => parseInt(arg)).forEach(targetTweetID => {
+            tClient.post('statuses/destroy/:id', { id: targetTweetID }, (err, data, response) => {
+                if (!err && response.statusCode === 200) {
+                    msg.channel.createMessage({ embed: {
+                        color: 0x4099FF,
+                        description: `Tweet ${targetTweetID} successfully deleted.`
+                    }});
+                } else {
+                    msg.channel.createMessage(`Something went wrong.\nStatus code: ${response.statusCode}\nError: ${err.message}`);
+                }
+            });
+        });
+    }
 
-	if (!Memer.config.devs.includes(msg.author.id)) { return }
+    if (command === 'info') {
+        const data = [
+            [
+                'Cluster #',
+                'Shards',
+                'Memory Usage',
+                'Uptime'
+            ]
+        ];
 
-	if (command === 'reboot') {
-		await msg.channel.createMessage('All shards rebooting...')
-		return process.exit()
-	}
+        const res = (await Memer.db.getStats()).clusters;
 
-	if (command === 'eval') {
-		let res
-		let evalTime
-		try {
-			const rep = new RegExp(Memer.config.token, 'gi')
-			const before = Date.now()
-			res = eval(args.join(' '))
-			evalTime = Date.now() - before
-			if (typeof res === 'string')
-				res = res.replace(rep, '*')
-			else res = util.inspect(res, {
-				depth: 0
-			})
-				.replace(rep, '*')
-		} catch (err) {
-			res = err
-		}
-		msg.channel.createMessage({
-			embed: {
-				color: Memer.colors.lightblue,
-				fields: [{
-					name: 'Input',
-					value: '```js\n' + args.join(' ') + '```'
-				},
-				{
-					name: 'Output',
-					value: '```js\n' + res + '```'
-				}
-				],
-				footer: {
-					text: evalTime || evalTime === 0 ? `evaluated in ${evalTime}ms` : ''
-				}
-			}
-		})
-	}
+        res.forEach(cluster => {
+            data.push([cluster.cluster, cluster.shards, `${cluster.ram}MB`, cluster.uptime]);
+        });
 
-	if (command === 'bash') {
-		msg.channel.createMessage(`**Input**\n${Memer.codeblock(args.join(' '), 'sh')}`)
-		exec(args.join(' '), async (e, stdout, stderr) => {
-			if (stdout.length + stderr.length > 994) {
-				const res = await Memer.snek.post('https://hastebin.com/documents')
+        data.push(['Total', res.map(c => c.shards).reduce((a, b) => a + b, 0), `${res.map(c => c.ram).reduce((a, b) => a + b, 0)}MB`, '']);
+
+        return msg.channel.createMessage(Memer.codeblock(table.table(data, tableConfig), 'prolog'))
+    }
+
+    if (!Memer.config.devs.includes(msg.author.id)) {
+        return;
+    }
+
+    if (command === 'reboot') {
+        if (args[0] === 'cluster') {
+            await msg.channel.createMessage('Rebooting this cluster...');
+            return process.exit();
+        } else {
+            await msg.channel.createMessage('All clusters rebooting...');
+            return exec('pm2 restart memer', () => { msg.channel.createMessage('Huh?'); });
+        }
+    }
+
+    if (command === 'eval') {
+        let input = args.join(' ');
+        const silent = input.includes('--silent');
+        const asynchr = input.includes('--async');
+        if (silent || asynchr) {
+            input = input.replace(/--silent|--async/g, '');
+        }
+
+        let result;
+        let evalTime;
+        try {
+            const before = Date.now();
+            result = asynchr ? eval(`(async()=>{${input}})();`) : eval(input);
+            evalTime = Date.now() - before;
+            if (result instanceof Promise && asynchr) {
+                result = await result;
+            }
+            if (typeof result !== 'string') {
+                result = util.inspect(result, { depth: 0 });
+            }
+            const tokenRegex = new RegExp(Memer.config.token, 'gi');
+            result = result.replace(tokenRegex, '[TOKEN]');
+        } catch (err) {
+            result = err.message;
+        }
+
+        if (!silent) {
+            msg.channel.createMessage({ embed: {
+                color: Memer.colors.lightblue,
+                fields: [
+                    { name: 'Input', value: Memer.codeblock(input, 'js') },
+                    { name: 'Output', value: Memer.codeblock(result, 'js') }
+                ],
+                footer: { text: evalTime || evalTime === 0 ? `evaluated in ${evalTime}ms` : '' }
+            }});
+        } else {
+            msg.delete().catch(() => {});
+        }
+    }
+
+    if (command === 'bash') {
+        msg.channel.createMessage(`**Input**\n${Memer.codeblock(args.join(' '), 'sh')}`);
+        exec(args.join(' '), async (e, stdout, stderr) => {
+            if (stdout.length + stderr.length > 994) {
+                const res = await Memer.snek.post('https://hastebin.com/documents')
 					.send(`${stdout}\n\n${stderr}`)
-					.catch(err => msg.channel.createMessage(err.message))
-				msg.channel.createMessage(`Console log exceeds 2000 characters. View here: https://hastebin.com/${res.body.key}.`)
-			} else {
-				if (stdout) {
-					msg.channel.createMessage(`**Output**\n${Memer.codeblock(stdout, 'bash')}`)
-				}
-				if (stderr) {
-					msg.channel.createMessage(`**Errors**\n${Memer.codeblock(stdout, 'bash')}`)
-				}
-				if (!stderr && !stdout) {
-					msg.react('\u2611')
-				}
-			}
-		})
-	}
+					.catch(err => msg.channel.createMessage(err.message));
+                msg.channel.createMessage(`Console log exceeds 2000 characters. View here: https://hastebin.com/${res.body.key}.`);
+            } else {
+                if (stdout) {
+                    msg.channel.createMessage(`**Output**\n${Memer.codeblock(stdout, 'bash')}`);
+                }
+                if (stderr) {
+                    msg.channel.createMessage(`**Errors**\n${Memer.codeblock(stdout, 'bash')}`);
+                }
+                if (!stderr && !stdout) {
+                    msg.react('\u2611');
+                }
+            }
+        });
+    }
 
-	if (command === 'speedtest') {
-		msg.channel.createMessage(`**nice speed test bro, too bad ur internet sux**\n${Memer.codeblock('speed-test -j', 'sh')}`)
-		exec('speed-test -j', async (e, stdout, stderr) => {
-			if (stdout.length + stderr.length > 994) {
-				const res = await Memer.snek.post('https://hastebin.com/documents')
-					.send(`${stdout}\n\n${stderr}`)
-					.catch(err => msg.channel.createMessage(err.message))
-				msg.channel.createMessage(`Console log exceeds 2000 characters. View here: https://hastebin.com/${res.body.key}.`)
-			} else {
-				if (stdout) {
-					msg.channel.createMessage(`**heres ur speedtest bruv**\n${Memer.codeblock(stdout, 'bash')}`)
-				}
-				if (stderr) {
-					msg.channel.createMessage(`**ur speedtest is bork brah**\n${Memer.codeblock(stdout, 'bash')}`)
-				}
-				if (!stderr && !stdout) {
-					msg.react('\u2611')
-				}
-			}
-		})
-	}
+    if (command === 'speedtest') {
+        msg.channel.createMessage(`**nice speed test bro, too bad ur internet sux**\n${Memer.codeblock('speed-test -j', 'sh')}`);
+        exec('speed-test -j', async (e, stdout, stderr) => {
+            if (stdout) {
+                msg.channel.createMessage(`**heres ur speedtest bruv**\n${Memer.codeblock(stdout, 'bash')}`);
+            }
+            if (stderr) {
+                msg.channel.createMessage(`**ur speedtest is bork brah**\n${Memer.codeblock(stdout, 'bash')}`);
+            }
+            if (!stderr && !stdout) {
+                msg.react('\u2611');
+            }
+        });
+    }
 
-	if (command === 'git') {
-		if (args[0] === 'pull') {
-			await msg.channel.createMessage('Pulling out...')
-			exec('git pull', (e, stderr, stdout) => {
-				if (stdout || stderr) {
-					msg.channel.createMessage(`**Output**\n${Memer.codeblock(`${stdout}\n\n${stderr}`, 'bash')}`)
-				}
-			})
-		} else {
-			msg.channel.createMessage('As of right now, only `git pull` is available.')
-		}
-	}
+    if (command === 'git') {
+        if (args[0] === 'pull') {
+            await msg.channel.createMessage('Pulling out...');
+            exec('git pull', (e, stderr, stdout) => {
+                if (stdout || stderr) {
+                    msg.channel.createMessage(`**Output**\n${Memer.codeblock(`${stdout}\n\n${stderr}`, 'bash')}`);
+                }
+            });
+        } else {
+            msg.channel.createMessage('As of right now, only `git pull` is available.');
+        }
+    }
 
-	if (command === 'donor') {
-		if (!args[0] || !args[1] || !['add', 'remove'].includes(args[0]) || !['1', '5', '10'].includes(args[1])) {
-			return msg.channel.createMessage('Argument error. The first argument must be one of `add` or `remove`, and the second must be one of `1`, `5` or `10`.')
-		}
+    const arguments = msg.mentions[0] ? msg.mentions.map(u => u.id) : args.slice(2).filter(arg => parseInt(arg));
 
-		if (args[0] === 'add') {
-			Memer.ids.donors[`donor${args[1]}`] = Memer.ids.donors[`donor${args[1]}`].concat(msg.mentions[0] ? msg.mentions.map(u => u.id) : args.slice(2).filter(arg => parseInt(arg)))
-			writeFile(msg, 0, args, Memer.ids)
-		} else if (args[0] === 'remove') {
-			if (args[3]) {
-				msg.channel.createMessage('You can\'t remove multiple people from donor status (yet). The command is going to ignore all member args except the first.')
-			}
-			if (Memer.ids.donors[`donor${args[1]}`].indexOf(msg.mentions[0] ? msg.mentions[0].id : args[2]) === -1) {
-				return msg.channel.createMessage(`\`${args[2]}\` not found in donor${args[1]}.`)
-			}
-			if (msg.mentions[0]) {
-				args[2] = msg.mentions[0].id
-			}
-			else if (!parseInt(args[2])) {
-				return msg.channel.createMessage('The third arg must either be a mention or an ID.')
-			}
-			const index = Memer.ids.donors[`donor${args[1]}`].indexOf(args[2])
-			Memer.ids.donors[`donor${args[1]}`].splice(index, 1)
-			writeFile(msg, 1, args, Memer.ids)
-		}
-	}
+    if (command === 'donor') {
+        if (!args[0] || !args[1] || !['add', 'remove'].includes(args[0]) || !['1', '5', '10'].includes(args[1])) {
+            return msg.channel.createMessage('Argument error. The first argument must be one of `add` or `remove`, and the second must be one of `1`, `5` or `10`.');
+        }
 
-	if (command === 'blacklist') {
-		if (!args[0] || !args[1] || !args[2] ||
-			!['add', 'remove'].includes(args[0].toLowerCase()) ||
-			!['channel', 'user', 'guild'].includes(args[1].toLowerCase())) {
-			return msg.channel.createMessage('Argument error. Make sure your first argument is one of `add` or `remove`, your second `channel`, `guild` or `user` and your third an ID or a mention (users only use ID\'s for channels and guilds).')
-		}
+        if (args[0] === 'add') {
+            arguments.forEach(id => Memer.db.addDonator(id, parseInt(args[1])));
+            msg.channel.createMessage(`Successfully added ${arguments.join(', ')} to tier ${args[1]}.`);
+        } else if (args[0] === 'remove') {
+            if (!arguments.some(async arg => await Memer.db.isDonator(arg, 1))) {
+                return msg.channel.createMessage(`\`${arguments.some(async arg => await Memer.db.isDonator(arg, 1))}\` not found in donor database.`);
+            }
+            arguments.forEach(id => Memer.db.removeDonator(id, parseInt(args[1])));
+            msg.channel.createMessage(`Successfully removed ${arguments.join(', ')}.`);
+        }
+    }
 
-		if (args[0].toLowerCase() === 'add') {
-			if (args[1].toLowerCase() === 'user') {
-				Memer.ids.blocked.user = Memer.ids.blocked.user.concat(msg.mentions[0] ? msg.mentions.map(u => u.id) : args.slice(2).filter(arg => parseInt(arg)))
-			}
-			if (args[1].toLowerCase() === 'channel') {
-				Memer.ids.blocked.channel = Memer.ids.blocked.channel.concat(args.slice(2).filter(arg => parseInt(arg)))
-			}
+    if (command === 'blacklist') {
+        if (!args[0] || !args[1] || !args[2] ||
+			!['add', 'remove'].includes(args[0].toLowerCase())) {
+            return msg.channel.createMessage('Argument error. Make sure your first argument is one of `add` or `remove`, your second `guild` or `user` and your third an ID or a mention (ID\'s user only).');
+        }
 
-			if (args[1].toLowerCase() === 'guild' || args[1].toLowerCase() === 'server') {
-				Memer.ids.blocked.guild = Memer.ids.blocked.guild.concat(args.slice(2).filter(arg => parseInt(arg)))
-			}
-			writeFile(msg, 2, args, Memer.ids)
-		} else if (args[0].toLowerCase() === 'remove') {
-			if (args[3]) {
-				msg.channel.createMessage('You can\'t unblacklist multiple items (yet). The command is going to ignore all args except the first.')
-			}
-			if (Memer.ids.blocked[args[1]].indexOf(msg.mentions[0] ? msg.mentions[0].id : args[2]) === -1) {
-				return msg.channel.createMessage(`\`${args[2]}\` not found in blocked database. Please block to unblock. :^)`)
-			}
-			if (msg.mentions[0]) {
-				args[2] = msg.mentions[0].id
-			}
-			else if (!parseInt(args[2])) {
-				return msg.channel.createMessage('The third arg must either be a mention or an ID, or in the case of channels and guilds, just an ID.')
-			}
-			const index = Memer.ids.blocked[args[1]].indexOf(args[2])
-			Memer.ids.blocked[`${args[1]}`].splice(index, 1)
-			writeFile(msg, 3, args, Memer.ids)
-		}
-	}
-}
+        if (args[0].toLowerCase() === 'add') {
+            arguments.forEach(id => Memer.db.addBlock(id, parseInt(args[1])));
+            msg.channel.createMessage(`Successfully blacklisted ${arguments.join(', ')}.`);
+        } else if (args[0].toLowerCase() === 'remove') {
+            if (!arguments.some(async arg => await Memer.db.isBlocked(arg))) {
+                return msg.channel.createMessage(`\`${arguments}\` not found in blocked database. Please block to unblock. :^)`);
+            }
+            arguments.forEach(id => Memer.db.removeBlock(id));
+            msg.channel.createMessage(`Successfully unblacklisted ${arguments.join(', ')}.`);
+        }
+    }
+};
 
-function writeFile(msg, choice, args, ids) {
-	let successMessage
-	switch (choice) {
-	case 0:
-		successMessage = `${msg.mentions[0] ? msg.mentions.map(u => u.username).join(', ') : args.slice(2).filter(arg => parseInt(arg)).join(', ')} added to donor${args[1]}.`
-		break
-	case 1:
-		successMessage = `${msg.mentions[0] ? msg.mentions[0].username : args[2]} removed from donor${args[1]}.`
-		break
-	case 2:
-		successMessage = `${msg.mentions[0] ? msg.mentions.map(u => u.username).join(', ') : args.slice(2).filter(arg => parseInt(arg)).join(', ')} blocked.`
-		break
-	case 3:
-		successMessage = `${args[2]} unblocked.`
-	}
-	fs.writeFile('./ids.json', JSON.stringify(ids, '', '\t'), (err) => {
-		if (err) {
-			return msg.channel.createMessage(`Well fuck. ${err.message}`)
-		}
-		else {
-			return msg.channel.createMessage(successMessage)
-		}
-	})
-}
+exports.props = {
+    name        : 'dev',
+    usage       : '{command} you really don\'t need docs for this ',
+    aliases     : [],
+    cooldown    : 1,
+    description : 'henlo, u stinky birb'
+};
