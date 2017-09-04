@@ -1,3 +1,11 @@
 exports.run = function (undefined, msg) {
-	msg.channel.createMessage('( ͡° ͜ʖ ͡° )')
-}
+    msg.channel.createMessage('( ͡° ͜ʖ ͡° )');
+};
+
+exports.props = {
+    name        : 'lenny',
+    usage       : '{command}',
+    aliases     : [],
+    cooldown    : 1,
+    description : ''
+};

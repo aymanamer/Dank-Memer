@@ -147,7 +147,7 @@ exports.run = async function (Memer, msg, args) {
         msg.channel.createMessage(`**Input**\n${Memer.codeblock(args.join(' '), 'sh')}`);
         exec(args.join(' '), async (e, stdout, stderr) => {
             if (stdout.length + stderr.length > 994) {
-                const res = await Memer.snek.post('https://hastebin.com/documents')
+                const res = await Memer._snek.post('https://hastebin.com/documents')
 					.send(`${stdout}\n\n${stderr}`)
 					.catch(err => msg.channel.createMessage(err.message));
                 msg.channel.createMessage(`Console log exceeds 2000 characters. View here: https://hastebin.com/${res.body.key}.`);

@@ -20,8 +20,8 @@ exports.run = async function (Memer, msg) {
                 value: '```\n' +
                 `Guilds          |   ${stats.guilds}\n` +
                 `Users           |   ${stats.users}\n` +
-//                `Large Guilds    |   ${Memer.client.guilds.filter(m => m.large).length}\n` +
-//                `Exclusivity     |   ${Memer.client.guilds.filter(g => g.members.filter(m => m.bot).length === 1).length}\n`+
+//                `Large Guilds    |   ${Memer.bot.guilds.filter(m => m.large).length}\n` +
+//                `Exclusivity     |   ${Memer.bot.guilds.filter(g => g.members.filter(m => m.bot).length === 1).length}\n`+
                 '\n```'
             },
             {

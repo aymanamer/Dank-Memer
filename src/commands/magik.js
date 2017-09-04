@@ -4,7 +4,7 @@ exports.run = async function (Memer, msg, args) {
 		avatarurl = args.join(' ').replace(/gif|webp/g, 'png')
 	}
 
-	const data = await Memer.snek
+	const data = await Memer._snek
 		.get('http://getame.me/api/magik')
 		.set('Api-Key', Memer.config.imgenKey)
 		.set('data-src', avatarurl)
@@ -15,3 +15,12 @@ exports.run = async function (Memer, msg, args) {
 		msg.channel.createMessage(`Error: ${data.text}`)
 	}
 }
+
+
+exports.props = {
+    name        : 'magik',
+    usage       : '{command} magik',
+    aliases     : [],
+    cooldown    : 1000,
+    description : 'hi'
+};
