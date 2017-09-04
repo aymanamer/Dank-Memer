@@ -93,8 +93,39 @@ module.exports = Bot => ({
             .run();
     },
 
-    isBlocked: async function isBlocked (guildID, authorID) {
-        const res = await Bot.r.table('blocked').get(guildID).run() || await Bot.r.table('blocked').get(authorID).run()
+    isBlocked: async function isBlocked (guildID, authorID = 1) {
+        const res = await Bot.r.table('blocked').get(guildID).run() ||
+            await Bot.r.table('blocked').get(authorID).run();
+
         return Boolean(res);
+    },
+
+
+    addDonator: async function addDonator (id, donatorLevel) {
+        return await Bot.r.table('donators')
+            .insert({ id, donatorLevel })
+            .run();
+    },
+
+    removeDonator: async function removeDonator (id) {
+        return await Bot.r.table('donators')
+            .get(id)
+            .delete()
+            .run();
+    },
+
+    isDonator: async function isDonator (id, donatorLevel) {
+        const res = await Bot.r.table('donators')
+            .get(id)
+            .run();
+        return res ? res.donatorLevel >= donatorLevel : false;
+    },
+
+    
+    getStats: async function getStats () {
+        const res = await Bot.r.table('stats')
+            .get(1)
+            .run();
+        return res.stats;
     }
 });
