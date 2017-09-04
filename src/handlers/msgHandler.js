@@ -43,7 +43,7 @@ exports.handleMeDaddy = async function (Memer, msg, gConfig) {
         msg.reply = (str) => { msg.channel.createMessage(`${msg.author.mention}, ${str}`); };
         await command.run(Memer, msg, args);
     } catch (e) {
-        msg.channel.createMessage('Something went wrong while executing this command. \nPlease join here (https://goo.gl/yyngZG) if the issue persists.'); // meme-ier format?
+        msg.channel.createMessage('Something went wrong while executing this command. \nPlease join here (<https://goo.gl/yyngZG>) if the issue persists.'); // meme-ier format?
         return Memer.log(`Command error:\n\tCommand: ${command.props.name}\n\tSupplied arguments: ${args.join(', ')}\n\tError: ${e.stack}`, 'error');
     }
 };
