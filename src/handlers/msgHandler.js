@@ -22,7 +22,7 @@ exports.handleMeDaddy = async function (Memer, msg, gConfig) {
         return;
     }
 
-    if (!command.run || gConfig.disabledCommands.includes(command)) {
+    if (!command.run || gConfig.disabledCommands.includes(command.props.name)) {
         return;
     }
 
