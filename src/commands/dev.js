@@ -2,13 +2,13 @@ const { exec } = require('child_process');
 const util = require('util');
 const twit = require('twit');
 const twitter = require('../config.json').twitter;
-/*const tClient = new twit({
+const tClient = new twit({
     consumer_key: twitter.consumer_key,
     consumer_secret: twitter.consumer_secret,
     access_token: twitter.access_token,
     access_token_secret: twitter.access_token_secret,
     timeout_ms: 60 * 1000,
-});*/
+});
 const table = require('table');
 const tableConfig = {
     border: {
@@ -28,7 +28,7 @@ const tableConfig = {
         joinRight: '┤',
         joinJoin: '┼'
     }
-}
+};
 
 
 exports.run = async function (Memer, msg, args) {
