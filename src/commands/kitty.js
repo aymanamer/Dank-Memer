@@ -21,7 +21,7 @@ async function getCatPic(Memer, msg) {
 exports.props = {
     name        : 'kitty',
     usage       : '{command}',
-    aliases     : [],
-    cooldown    : 1,
-    description : ''
+    aliases     : ['pussy', 'cat', 'meow'],
+    cooldown    : 1000,
+    description : 'Lets see some pretty kittys!'
 };

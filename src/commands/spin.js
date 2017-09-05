@@ -7,7 +7,7 @@ exports.run = async function (Memer, msg) {
 exports.props = {
     name        : 'spin',
     usage       : '{command}',
-    aliases     : [],
-    cooldown    : 1,
-    description : ''
+    aliases     : ['fidget'],
+    cooldown    : 1000,
+    description : 'Spin the cancer spinner!'
 };

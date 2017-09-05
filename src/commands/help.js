@@ -7,23 +7,23 @@ exports.run = async function (Memer, msg) {
     }
     msg.channel.createMessage({ embed: {
         color: Memer.colors.purple,
-        title: 'Commands 💯 👌 🔥',
-        description: 'Henlo, we removed commands. Sorry, but not sorry.',
+        title: 'Available Commands',
+        description: 'Henlo, stinky.',
         fields: [
 			{ name: `${funemoji} Fun Commands`, value: 'asktrump, greentext, joke, justright, kill, meme, memegen, mock, pupper, pun, shitpost, spin' },
-			{ name: '📷 Image Manipulation', value: 'batslap, brazzers, byemom, invert, jail, magik, pride, rip, shit, spank, trigger, warp' },
-			{ name: '🔧 Utilities and Information', value: 'disable, enable, help, ping, prefix, stats' },
+			{ name: '📷 Image Manipulation', value: 'batslap, brazzers, byemom, dank, invert, jail, magik, pride, salty, shit, spank, trigger, warp' },
+            { name: '🔧 Utilities and Information', value: 'clean, disable, enable, help, patreon, ping, prefix, stats' },
 			{ name: '🖼 Image Tags', value: 'alone, doge, dolan, godno, kappa, lul, megusta, notsure, pepe, troll, wat ' },
-			{ name: '💰 Donor Commands', value: 'patreon, repeat, spam, tweet' }
+			{ name: '💰 Donor Commands', value: 'say, tweet' }
         ],
-        footer: { text: 'Remember to use pls command, not !pls command or plscommand.' }
+        footer: { text: 'Want access to donor commands? Donate here: https://www.patreon.com/melmsie' }
     } });
 };
 
 exports.props = {
     name        : 'help',
     usage       : '{command}',
-    aliases     : [],
-    cooldown    : 1,
-    description : ''
+    aliases     : ['cmds', 'commands'],
+    cooldown    : 1000,
+    description : 'See a list of commands available.'
 };

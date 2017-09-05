@@ -22,8 +22,8 @@ exports.run = async function (Memer, msg, args) {
 
 exports.props = {
     name        : 'mock',
-    usage       : '{command}',
+    usage       : '{command} "text to be mocked"',
     aliases     : [],
-    cooldown    : 1,
-    description : ''
+    cooldown    : 1000,
+    description : 'Mock the stupid shit your friend says!'
 };

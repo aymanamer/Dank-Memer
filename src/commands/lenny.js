@@ -6,6 +6,6 @@ exports.props = {
     name        : 'lenny',
     usage       : '{command}',
     aliases     : [],
-    cooldown    : 1,
-    description : ''
+    cooldown    : 1000,
+    description: '( ͡° ͜ʖ ͡° )'
 };

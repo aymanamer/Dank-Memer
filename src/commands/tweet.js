@@ -65,6 +65,6 @@ exports.props = {
     name        : 'tweet',
     usage       : '{command}',
     aliases     : [],
-    cooldown    : 1,
+    cooldown    : 5000,
     description : ''
 };

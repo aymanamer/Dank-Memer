@@ -8,7 +8,7 @@ exports.run = async function (Memer, msg) {
 exports.props = {
     name        : 'pun',
     usage       : '{command}',
-    aliases     : [],
-    cooldown    : 1,
-    description : ''
+    aliases     : ['dadjoke'],
+    cooldown    : 1000,
+    description : 'Are they dad jokes, or are they puns? Is there even a difference?'
 };

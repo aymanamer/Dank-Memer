@@ -40,8 +40,8 @@ exports.run = async function (Memer, msg, args) {
 
 exports.props = {
     name        : 'memegen',
-    usage       : '{command}',
-    aliases     : [],
-    cooldown    : 1,
-    description : ''
+    usage: '{command} "meme name" = "line one" | "line two"',
+    aliases     : ['make'],
+    cooldown    : 1000,
+    description : 'Make some hot new memes on your own!'
 };

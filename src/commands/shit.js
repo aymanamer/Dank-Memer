@@ -39,7 +39,7 @@ exports.run = async function (Memer, msg, args) {
 exports.props = {
     name        : 'shit',
     usage       : '{command}',
-    aliases     : [],
-    cooldown    : 1,
-    description : ''
+    aliases     : ['shitty'],
+    cooldown    : 3000,
+    description : 'The shit on my shoe!'
 };
