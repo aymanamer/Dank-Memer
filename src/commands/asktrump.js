@@ -26,7 +26,7 @@ exports.run = async function (Memer, msg, args) {
 exports.props = {
     name        : 'asktrump',
     usage       : '{command} <question>',
-    aliases     : ['one'],
+    aliases     : ['trump', 'donald'],
     cooldown    : 1000,
-    description : ''
+    description : 'Ask the president whatever you\'d like!'
 };

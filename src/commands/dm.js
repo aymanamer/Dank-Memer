@@ -21,8 +21,8 @@ exports.run = async function (Memer, msg, args) {
 
 exports.props = {
     name        : 'dm',
-    usage       : '{command}',
-    aliases     : [],
+    usage       : '{command} <id> <shit>',
+    aliases     : ['slideintothedms'],
     cooldown    : 1,
-    description : ''
+    description : 'aether stinks'
 };

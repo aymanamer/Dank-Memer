@@ -28,8 +28,8 @@ function removeDuplicates (arr) {
 
 exports.props = {
     name        : 'disable',
-    usage       : '{command}',
+    usage       : '{command} <commands to disable>',
     aliases     : [],
-    cooldown    : 1,
-    description : ''
+    cooldown    : 1000,
+    description : 'Use this command to disable commands you do not wish for your server to use'
 };

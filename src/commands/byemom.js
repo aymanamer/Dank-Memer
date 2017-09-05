@@ -28,8 +28,8 @@ exports.run = async function (Memer, msg, args) {
 
 exports.props = {
     name        : 'byemom',
-    usage       : '{command}',
-    aliases     : [],
-    cooldown    : 1,
-    description : ''
+    usage       : '{command} <something to google search>',
+    aliases     : ['bye', 'google'],
+    cooldown    : 3000,
+    description : 'Quick, mom is gone, what are you gonna search on google?'
 };

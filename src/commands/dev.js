@@ -234,7 +234,7 @@ exports.run = async function (Memer, msg, args) {
 exports.props = {
     name        : 'dev',
     usage       : '{command} you really don\'t need docs for this ',
-    aliases     : [],
+    aliases     : ['stupid-bot'],
     cooldown    : 1,
     description : 'henlo, u stinky birb'
 };

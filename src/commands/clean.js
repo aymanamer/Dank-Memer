@@ -13,7 +13,7 @@ exports.run = async function (Memer, msg, args) {
 exports.props = {
     name        : 'clean',
     usage       : '{command}',
-    aliases     : [],
-    cooldown    : 1,
-    description : ''
+    aliases     : ['purge'],
+    cooldown    : 2000,
+    description : 'Will quickly clean the last 10 messages, or however many you specify.'
 };
