@@ -73,12 +73,10 @@ class Memer {
         };
         guild.channels.get(guild.channels.filter(c => c.type === 0).map(c => c.id)[0]).createMessage({ embed }) // DM owner instead?
             .catch(() => {});
-        // this.postStats(); TEMP
     }
 
     guildDelete (guild) {
         this.db.deleteGuild(guild.id);
-        // this.postStats(); TEMP
     }
 
     get defaultGuildConfig () {
