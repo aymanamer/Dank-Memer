@@ -18,6 +18,8 @@ class Memer {
     }
 
     launch () {
+        this.loadCommands();
+
         this.bot
             .on('ready', this.ready.bind(this))
             .on('guildCreate', this.guildCreate.bind(this))
@@ -26,7 +28,6 @@ class Memer {
             .on('error', this.onError.bind(this));
 
         this.ready();
-        this.loadCommands();
     }
 
     ready () {
@@ -45,7 +46,6 @@ class Memer {
             }
 
             files.forEach(file => {
-                if (file === 'temp') return // TEMP
                 try {
                     const command = require(this._join(__dirname, path, file));
                     this.cmds.set(command.props.name, command);
