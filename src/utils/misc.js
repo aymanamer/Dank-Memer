@@ -1,4 +1,7 @@
 const config = require('../config.json');
+const moment = require('moment');
+require('moment-duration-format');
+
 module.exports = {
     colors: {
         lightblue: '12054271',
@@ -42,5 +45,9 @@ module.exports = {
 
     codeblock: (str, lang) => {
         return `${'```'}${lang || ''}\n${str}\n${'```'}`;
+    },
+
+    parseTime: (time, format) => {
+        return moment.duration(parseInt(time), format || 'seconds').format('dd:hh:mm:ss');
     }
 };
