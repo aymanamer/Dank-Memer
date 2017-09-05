@@ -1,16 +1,5 @@
 const config = require('../config.json');
 module.exports = {
-    disabledEvents: {
-        'CHANNEL_PINS_UPDATE': true,
-        'USER_SETTINGS_UPDATE': true,
-        'USER_NOTE_UPDATE': true,
-        'RELATIONSHIP_ADD': true,
-        'RELATIONSHIP_REMOVE': true,
-        'GUILD_BAN_ADD': true,
-        'GUILD_BAN_REMOVE': true,
-        'TYPING_START': true
-    },
-
     colors: {
         lightblue: '12054271',
         purple: '7869695',
@@ -45,6 +34,10 @@ module.exports = {
 
     randomInArray: (array) => {
         return array[Math.floor(Math.random() * array.length)];
+    },
+
+    removeDuplicates: (array) => {
+        return Array.from(new Set(array).values());
     },
 
     codeblock: (str, lang) => {
