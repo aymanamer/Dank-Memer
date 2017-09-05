@@ -1,16 +1,16 @@
 exports.run = async function (Memer, msg, args) {
     if (!msg.member.permission.has('manageGuild')) {
-        return Memer.reply('You are not authorized to use this command. ', msg);
+        return msg.reply('You are not authorized to use this command. ', msg);
     }
-    const gConfig = await Memer.db.getGuild(msg.channel.guild.id);
+    const gConfig = await Memer.db.getGuild(msg.channel.guild.id) || await Memer.db.createGuild(msg.channel.guild.id);
     if (!args[0]) {
-        return Memer.reply(`What do you want your new prefix to be?\n\nExample: \`${gConfig.prefix} prefix plz\``, msg); // please think of a better example..
+        return msg.reply(`What do you want your new prefix to be?\n\nExample: \`${gConfig.prefix} prefix plz\``); // please think of a better example..
     }
     if (args.join(' ').length > 10) {
-        return Memer.reply(`Your prefix can't be over 10 characters long. You're ${args.join(' ').length - 10} characters over the limit.`, msg);
+        return msg.reply(`Your prefix can't be over 10 characters long. You're ${args.join(' ').length - 10} characters over the limit.`);
     }
     if (gConfig.prefix === args.join(' ')) {
-        return Memer.reply(`\`${gConfig.prefix}\` is already your current prefix.`, msg);
+        return msg.reply(`\`${gConfig.prefix}\` is already your current prefix.`);
     }
     gConfig.prefix = args.join(' ');
     await Memer.db.updateGuild(gConfig);
