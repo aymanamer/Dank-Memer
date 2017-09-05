@@ -114,14 +114,14 @@ module.exports = Bot => ({
             .run();
     },
 
-    isDonator: async function isDonator (id, donatorLevel) {
+    isDonator: async function isDonator (id, donatorLevel = 1) {
         const res = await Bot.r.table('donators')
             .get(id)
             .run();
         return res ? res.donatorLevel >= donatorLevel : false;
     },
 
-    
+
     getStats: async function getStats () {
         const res = await Bot.r.table('stats')
             .get(1)

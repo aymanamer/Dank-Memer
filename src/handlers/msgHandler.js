@@ -22,13 +22,14 @@ exports.handleMeDaddy = async function (Memer, msg, gConfig) {
         return;
     }
 
-    if (!command.run || gConfig.disabledCommands.includes(command)) {
+    if (!command.run || gConfig.disabledCommands.includes(command.props.name)) {
         return;
     }
 
     const cooldown = await Memer.db.getCooldown(command.props.name, msg.author.id);
     if (cooldown > Date.now()) {
-        return msg.channel.createMessage(`u got 2 wait ${(cooldown - Date.now()) / 1000} seconds`);
+        const waitTime = (cooldown - Date.now()) / 1000;
+        return msg.channel.createMessage(`u got 2 wait ${waitTime > 60 ? Memer.parseTime(waitTime) : `${waitTime.toFixed()} secunds`}!!!1!`);
     }
     await Memer.db.addCooldown(command.props.name, msg.author.id);
 

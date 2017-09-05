@@ -2,13 +2,13 @@ const { exec } = require('child_process');
 const util = require('util');
 const twit = require('twit');
 const twitter = require('../config.json').twitter;
-/*const tClient = new twit({
+const tClient = new twit({
     consumer_key: twitter.consumer_key,
     consumer_secret: twitter.consumer_secret,
     access_token: twitter.access_token,
     access_token_secret: twitter.access_token_secret,
     timeout_ms: 60 * 1000,
-});*/
+});
 const table = require('table');
 const tableConfig = {
     border: {
@@ -28,7 +28,7 @@ const tableConfig = {
         joinRight: '┤',
         joinJoin: '┼'
     }
-}
+};
 
 
 exports.run = async function (Memer, msg, args) {
@@ -81,12 +81,12 @@ exports.run = async function (Memer, msg, args) {
         const res = (await Memer.db.getStats()).clusters;
 
         res.forEach(cluster => {
-            data.push([cluster.cluster, cluster.shards, `${cluster.ram}MB`, cluster.uptime]);
+            data.push([cluster.cluster, cluster.shards, `${cluster.ram}MB`, Memer.parseTime(cluster.uptime)]);
         });
 
         data.push(['Total', res.map(c => c.shards).reduce((a, b) => a + b, 0), `${res.map(c => c.ram).reduce((a, b) => a + b, 0)}MB`, '']);
 
-        return msg.channel.createMessage(Memer.codeblock(table.table(data, tableConfig), 'prolog'))
+        return msg.channel.createMessage(Memer.codeblock(table.table(data, tableConfig), 'prolog'));
     }
 
     if (!Memer.config.devs.includes(msg.author.id)) {

@@ -6,9 +6,8 @@ const r = require('rethinkdbdash')();
 const master = new Sharder(config.token, '/mainClass.js', {
     name: 'Dank Memer',
     stats: true,
-    webhooks: {
-
-    }
+    webhooks: config.webhooks,
+    clientOptions: config.clientOptions
 });
 
 
@@ -22,7 +21,7 @@ master.on('stats', res => {
     r.table('stats')
         .insert({ id: 1, stats: res }, { conflict: 'update' })
         .run();
-    return;
+    return; // TEMP
     botlists.forEach(async (token, url) => {
         await snek
             .post(url)

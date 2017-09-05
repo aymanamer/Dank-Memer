@@ -1,6 +1,6 @@
 exports.run = async function (Memer, msg, args) {
     if (!Memer.isDonator(msg.author.id)) {
-        return Memer.reply('You need to both be on Melmsie\'s server and be a donor to use this command! To join the server, use `pls invite`. To donate, use `pls donate`.', msg);
+        return msg.reply('You need to both be on Melmsie\'s server and be a donor to use this command! To join the server, use `pls invite`. To donate, use `pls donate`.');
     }
 
     if (!args[0]) {

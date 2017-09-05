@@ -1,5 +1,6 @@
 const fs = require('fs');
 const msgHandler = require('./handlers/msgHandler.js');
+const botPackage = require('../package.json');
 
 class Memer {
     constructor (bot) {
@@ -18,6 +19,8 @@ class Memer {
     }
 
     launch () {
+        this.loadCommands();
+
         this.bot
             .on('ready', this.ready.bind(this))
             .on('guildCreate', this.guildCreate.bind(this))
@@ -26,7 +29,6 @@ class Memer {
             .on('error', this.onError.bind(this));
 
         this.ready();
-        this.loadCommands();
     }
 
     ready () {
@@ -45,7 +47,6 @@ class Memer {
             }
 
             files.forEach(file => {
-                if (file === 'temp') return // TEMP
                 try {
                     const command = require(this._join(__dirname, path, file));
                     this.cmds.set(command.props.name, command);
@@ -72,12 +73,10 @@ class Memer {
         };
         guild.channels.get(guild.channels.filter(c => c.type === 0).map(c => c.id)[0]).createMessage({ embed }) // DM owner instead?
             .catch(() => {});
-        // this.postStats(); TEMP
     }
 
     guildDelete (guild) {
         this.db.deleteGuild(guild.id);
-        // this.postStats(); TEMP
     }
 
     get defaultGuildConfig () {
@@ -85,6 +84,10 @@ class Memer {
             prefix: this.config.defaultPrefix,
             disabledCommands: []
         };
+    }
+
+    get package () {
+        return botPackage;
     }
 
     async messageCreate (msg) {
