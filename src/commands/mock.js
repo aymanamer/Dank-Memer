@@ -4,11 +4,11 @@ const capitalizeEven = (char, index) => {
     } else {
         return char;
     }
-}
+};
 
 exports.run = async function (Memer, msg, args) {
     if (!args[0]) {
-        return Memer.reply('You gotta give me something to mock :eyes:', msg);
+        return msg.reply('You gotta give me something to mock :eyes:');
     }
 
     const dumb = args.join(' ').replace(/c/gi, 'k').replace(/v/gi, 'c');
@@ -24,6 +24,6 @@ exports.props = {
     name        : 'mock',
     usage       : '{command}',
     aliases     : [],
-    cooldown    : 1,
+    cooldown    : 1000,
     description : ''
 };

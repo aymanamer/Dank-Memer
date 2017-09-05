@@ -6,7 +6,7 @@
   "dependencies": {
     "cowsay": "^1.2.1",
     "datadog-metrics": "^0.6.0",
-    "eris-sharder": "^1.4.7",
+    "eris-sharder": "^1.4.8",
     "erlpack": "^0.1.2",
     "jimp": "^0.2.28",
     "libsodium-wrappers": "^0.5.4",
