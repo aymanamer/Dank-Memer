@@ -1,5 +1,6 @@
 const fs = require('fs');
 const msgHandler = require('./handlers/msgHandler.js');
+const botPackage = require('../package.json');
 
 class Memer {
     constructor (bot) {
@@ -85,6 +86,10 @@ class Memer {
             prefix: this.config.defaultPrefix,
             disabledCommands: []
         };
+    }
+
+    get package () {
+        return botPackage;
     }
 
     async messageCreate (msg) {

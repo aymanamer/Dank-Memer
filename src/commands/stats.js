@@ -1,6 +1,3 @@
-const moment = require('moment');
-require('moment-duration-format');
-const package = require('../../package.json');
 exports.run = async function (Memer, msg) {
     const stats = await Memer.db.getStats();
     await msg.channel.createMessage({ embed: {
@@ -9,7 +6,7 @@ exports.run = async function (Memer, msg) {
             {
                 name: '-------------------------------------- Technical ---------------------------------------',
                 value: '```\n' +
-                `Uptime          |   ${moment.duration(process.uptime(), 'seconds').format('dd:hh:mm:ss')}\n` +
+                `Uptime          |   ${Memer.parseTime(process.uptime())}\n` +
                 `Heap Used       |   ${stats.totalRam}MB\n` +
                 `Ping            |   ${msg.channel.guild.shard.latency.toFixed()}ms\n` +
                 `Build           |   v${Memer.version}\n` +
@@ -28,7 +25,7 @@ exports.run = async function (Memer, msg) {
                 name: '-------------------------------------- Other Info --------------------------------------',
                 value: '```\n' +
                 `Node Version    |   ${process.version}\n` +
-                `Dependencies    |   ${Object.keys(package.dependencies).length}\n` +
+                `Dependencies    |   ${Object.keys(Memer.package.dependencies).length}\n` +
                 `Platform        |   ${process.platform}\n` +
                 '\n```'
             }
