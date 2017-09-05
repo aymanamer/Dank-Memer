@@ -11,13 +11,12 @@
     "rules": {
         "semi": [
             "error",
-            "never"
+            "always"
         ],
         "quotes": [
             "error",
             "single"
         ],
-        "no-console": "off",
         "no-extra-parens": "error",
         "space-before-function-paren": [
             "off"
@@ -37,16 +36,10 @@
         "prefer-template": "error",
         "indent": [
             "error",
-            "tab"
+            4
         ],
         "no-trailing-spaces": "error",
         "no-dupe-args": "off"
     },
-    "globals": {
-        "client": true,
-        "settings": true,
-        "Discord": true,
-        "db": true,
-        "prefixdb": true
-    }
+    "globals": {}
 }
