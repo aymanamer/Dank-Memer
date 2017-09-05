@@ -15,7 +15,7 @@ exports.run = async function (Memer, msg, args) {
         return msg.reply(`Specify a command to disable, or multiple.\n\nExample: \`${gConfig.prefix} disable meme trigger shitsound\` or \`${gConfig.prefix} disable meme\``);
     }
     if (args.some(cmd => !Memer.cmds.has(cmd))) {
-        msg.reply(`The following commands are invalid: \n\n${args.filter(cmd => !Memer.cmds.has(cmd)).map(cmd => `\`${cmd}\``).join(', ')}\n\nPlease make sure all of your commands are valid and try again.`);
+        return msg.reply(`The following commands are invalid: \n\n${args.filter(cmd => !Memer.cmds.has(cmd)).map(cmd => `\`${cmd}\``).join(', ')}\n\nPlease make sure all of your commands are valid and try again.`);
     }
     gConfig.disabledCommands = gConfig.disabledCommands.concat(args);
     await Memer.db.updateGuild(gConfig);
