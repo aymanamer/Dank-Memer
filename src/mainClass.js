@@ -14,7 +14,12 @@ class Memer {
         this.cmds = new Map();
         this.aliases = new Map();
         this.tags = new Map();
-
+        this.indexes = {
+            'meme': {},
+            'joke': {},
+            'shitpost': {},
+            'gt': {}
+        };
         Object.assign(this, require('./utils/misc.js'));
     }
 
