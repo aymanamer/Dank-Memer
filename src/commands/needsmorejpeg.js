@@ -18,8 +18,8 @@ exports.run = async function (Memer, msg, args) {
 
 exports.props = {
     name        : 'needsmorejpeg',
-    usage       : '{command}',
-    aliases     : [],
-    cooldown    : 1,
-    description : ''
+    usage       : '{command} @user',
+    aliases     : ['jpeg'],
+    cooldown    : 1000,
+    description : 'Make something jpeg!'
 };

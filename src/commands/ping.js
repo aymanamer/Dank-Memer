@@ -5,7 +5,7 @@ exports.run = function (Memer, msg) {
 exports.props = {
     name        : 'ping',
     usage       : '{command}',
-    aliases     : ['hi'],
-    cooldown    : 1500,
+    aliases     : ['pong'],
+    cooldown    : 1000,
     description : 'hi'
 };

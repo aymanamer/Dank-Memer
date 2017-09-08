@@ -20,6 +20,6 @@ exports.props = {
     name        : 'warp',
     usage       : '{command}',
     aliases     : [],
-    cooldown    : 1,
-    description : ''
+    cooldown    : 3000,
+    description : 'Warp some image shit'
 };

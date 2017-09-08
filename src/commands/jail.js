@@ -18,8 +18,8 @@ exports.run = async function (Memer, msg, args) {
 
 exports.props = {
     name        : 'jail',
-    usage       : '{command}',
-    aliases     : [],
-    cooldown    : 1,
-    description : ''
+    usage       : '{command} @user',
+    aliases     : ['prison'],
+    cooldown    : 3000,
+    description : 'Send your friends to jail!'
 };

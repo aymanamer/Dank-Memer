@@ -1,19 +1,21 @@
 exports.run = async function (Memer, msg, args) {
     if (!args[0]) {
         const funemoji = msg.channel.permissionsOf(Memer.bot.user.id).has('externalEmojis') ? '<:feelsgreatman:326155536800284673>' : ':joy:';
-        msg.channel.createMessage({ embed: {
-            color: Memer.colors.purple,
-            title: 'Commands 💯 👌 🔥',
-            description: 'Henlo, we removed commands. Sorry, but not sorry.',
-            fields: [
-                { name: `${funemoji} Fun Commands`, value: 'asktrump, greentext, joke, justright, kill, meme, memegen, mock, pupper, pun, shitpost, spin' },
-                { name: '📷 Image Manipulation', value: 'batslap, brazzers, byemom, invert, jail, magik, pride, rip, shit, spank, trigger, warp' },
-                { name: '🔧 Utilities and Information', value: 'disable, enable, help, ping, prefix, stats' },
-                { name: '🖼 Image Tags', value: 'alone, doge, dolan, godno, kappa, lul, megusta, notsure, pepe, troll, wat ' },
-                { name: '💰 Donor Commands', value: 'patreon, repeat, spam, tweet' }
-            ],
-            footer: { text: 'Remember to use pls command, not !pls command or plscommand.' }
-        } });
+        msg.channel.createMessage({
+            embed: {
+                color: Memer.colors.purple,
+                title: 'Available Commands',
+                description: 'Henlo, stinky.',
+                fields: [
+                    { name: `${funemoji} Fun Commands`, value: 'asktrump, greentext, joke, justright, kill, meme, memegen, mock, pupper, pun, shitpost, spin' },
+                    { name: '📷 Image Manipulation', value: 'batslap, brazzers, byemom, dank, invert, jail, magik, pride, salty, shit, spank, trigger, warp' },
+                    { name: '🔧 Utilities and Information', value: 'clean, disable, enable, help, patreon, ping, prefix, stats' },
+                    { name: '🖼 Image Tags', value: 'alone, doge, dolan, godno, kappa, lul, megusta, notsure, pepe, troll, wat ' },
+                    { name: '💰 Donor Commands', value: 'say, tweet' }
+                ],
+                footer: { text: 'Want access to donor commands? Donate here: https://www.patreon.com/melmsie' }
+            }
+        });
     } else {
         if (!Memer.cmds.has(args[0]) && !Memer.aliases.has(args[0])) {
             return msg.channel.createMessage(`Command \`${args[0]}\` not found.`);
@@ -35,7 +37,7 @@ exports.run = async function (Memer, msg, args) {
 exports.props = {
     name        : 'help',
     usage       : '{command}',
-    aliases     : [],
-    cooldown    : 1,
-    description : ''
+    aliases     : ['cmds', 'commands'],
+    cooldown    : 1000,
+    description : 'See a list of commands available.'
 };

@@ -24,7 +24,7 @@ exports.run = async function (Memer, msg) {
 exports.props = {
     name        : 'shitpost',
     usage       : '{command}',
-    aliases     : [],
-    cooldown    : 1,
-    description : ''
+    aliases     : ['copypasta'],
+    cooldown    : 1000,
+    description : 'See the top copypastas on reddit!'
 };

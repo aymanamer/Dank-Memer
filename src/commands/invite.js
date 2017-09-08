@@ -11,7 +11,7 @@ exports.run = function (Memer, msg) {
 exports.props = {
     name        : 'invite',
     usage       : '{command}',
-    aliases     : [],
-    cooldown    : 1,
-    description : ''
+    aliases     : ['gibinvite'],
+    cooldown    : 1000,
+    description : 'Get an invite for the bot or to the support server.'
 };

@@ -18,8 +18,8 @@ exports.run = async function (Memer, msg, args) {
 
 exports.props = {
     name        : 'pride',
-    usage       : '{command}',
-    aliases     : [],
-    cooldown    : 1,
-    description : ''
+    usage       : '{command} @user',
+    aliases     : ['gay'],
+    cooldown    : 3000,
+    description : 'Show your gay pride!'
 };

@@ -18,7 +18,7 @@ exports.run = async function (Memer, msg, args) {
 exports.props = {
     name        : 'trigger',
     usage       : '{command}',
-    aliases     : [],
-    cooldown    : 1,
-    description : ''
+    aliases     : ['triggered'],
+    cooldown    : 3000,
+    description : 'UR SO TRIGGERED BRO'
 };

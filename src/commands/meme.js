@@ -24,7 +24,7 @@ exports.run = async function (Memer, msg) {
 exports.props = {
     name        : 'meme',
     usage       : '{command}',
-    aliases     : [],
-    cooldown    : 1,
-    description : ''
+    aliases     : ['maymay'],
+    cooldown    : 1000,
+    description : 'See the top new memes on reddit!'
 };

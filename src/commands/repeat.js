@@ -11,9 +11,9 @@ exports.run = async function (Memer, msg, args) {
 };
 
 exports.props = {
-    name        : '1',
-    usage       : '{command}',
-    aliases     : [],
+    name        : 'repeat',
+    usage       : '{command} "what you want the bot to say"',
+    aliases     : ['say'],
     cooldown    : 1,
-    description : ''
+    description : 'Make the bot say whatever you want!'
 };

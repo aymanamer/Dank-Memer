@@ -11,7 +11,7 @@ exports.run = async function (Memer, msg) {
 exports.props = {
     name        : 'patreon',
     usage       : '{command}',
-    aliases     : [],
+    aliases     : ['donate', 'gibmonies'],
     cooldown    : 1,
-    description : ''
+    description : 'See how you can donate to the bot and gain access to donor features!'
 };

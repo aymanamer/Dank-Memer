@@ -8,7 +8,7 @@ exports.run = async function (Memer, msg) {
 exports.props = {
     name        : 'justright',
     usage       : '{command}',
-    aliases     : [],
-    cooldown    : 1,
-    description : ''
+    aliases     : ['okhand'],
+    cooldown    : 1000,
+    description : 'Express how "just right" something is with this command.'
 };

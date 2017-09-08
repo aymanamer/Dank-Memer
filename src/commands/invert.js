@@ -18,8 +18,8 @@ exports.run = async function (Memer, msg, args) {
 
 exports.props = {
     name        : 'invert',
-    usage       : '{command}',
+    usage       : '{command} @user',
     aliases     : [],
-    cooldown    : 1,
-    description : ''
+    cooldown    : 3000,
+    description : 'Invert your image!'
 };

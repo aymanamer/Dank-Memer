@@ -21,7 +21,7 @@ async function getDogPic(Memer, msg) {
 exports.props = {
     name        : 'pupper',
     usage       : '{command}',
-    aliases     : [],
-    cooldown    : 1,
-    description : ''
+    aliases     : ['doggo', 'yipper'],
+    cooldown    : 1000,
+    description : 'See some cute doggos!'
 };
