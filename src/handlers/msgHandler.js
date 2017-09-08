@@ -5,7 +5,7 @@ exports.handleMeDaddy = async function (Memer, msg, gConfig) {
     if (Memer.cmds.has(command)) {
         command = Memer.cmds.get(command);
     } else if (Memer.aliases.has(command)) {
-        command = Memer.commands.get(Memer.aliases.get(command));
+        command = Memer.cmds.get(Memer.aliases.get(command));
     } else if (Memer.tags.has(command)) {
         const tag = Memer.tags.get(command);
         if (args[0] === 'info') {
