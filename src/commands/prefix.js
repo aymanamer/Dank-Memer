@@ -24,6 +24,6 @@ exports.props = {
     name        : 'prefix',
     usage       : '{command} "prefix of your choice',
     aliases     : [],
-    cooldown    : 300000,
+    cooldown    : 60000,
     description : 'Change Dank Memer\'s prefix!'
 };

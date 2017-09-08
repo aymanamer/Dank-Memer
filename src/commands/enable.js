@@ -31,6 +31,6 @@ exports.props = {
     name        : 'enable',
     usage       : '{command}',
     aliases     : [],
-    cooldown    : 1000,
+    cooldown    : 60000,
     description : ''
 };
