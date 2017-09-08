@@ -81,7 +81,7 @@ exports.run = async function (Memer, msg, args) {
         const res = (await Memer.db.getStats()).clusters;
 
         res.forEach(cluster => {
-            data.push([cluster.cluster, cluster.shards, `${cluster.ram}MB`, Memer.parseTime(cluster.uptime)]);
+            data.push([cluster.cluster, cluster.shards, `${cluster.ram}MB`, Memer.parseTime(cluster.uptime / 1000)]);
         });
 
         data.push(['Total', res.map(c => c.shards).reduce((a, b) => a + b, 0), `${res.map(c => c.ram).reduce((a, b) => a + b, 0)}MB`, '']);
