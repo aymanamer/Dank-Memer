@@ -1,11 +1,12 @@
 {
   "name": "dank-memer",
-  "version": "8.1.0",
+  "version": "8.1.2",
   "description": "Dank dreams that turn into dank memes",
   "main": "src/memer.js",
   "dependencies": {
     "cowsay": "^1.2.1",
     "datadog-metrics": "^0.6.0",
+    "eris": "github:abalabahaha/eris#dev",
     "eris-sharder": "^1.4.8",
     "erlpack": "^0.1.2",
     "jimp": "^0.2.28",
@@ -14,7 +15,7 @@
     "moment-duration-format": "^1.3.0",
     "react-trump": "^0.2.1",
     "rethinkdbdash": "^2.3.31",
-    "snekfetch": "^3.3.0",
+    "snekfetch": "^3.2.9",
     "sodium": "^2.0.1",
     "table": "^4.0.1",
     "twit": "^2.2.9",
