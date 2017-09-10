@@ -26,6 +26,6 @@ exports.props = {
     name        : 'disable',
     usage       : '{command} <commands to disable>',
     aliases     : [],
-    cooldown    : 1000,
+    cooldown    : 60000,
     description : 'Use this command to disable commands you do not wish for your server to use'
 };

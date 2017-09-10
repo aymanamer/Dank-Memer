@@ -5,7 +5,7 @@ exports.run = async function (Memer, msg) {
 async function getCatPic(Memer, msg) {
     const data = await Memer._snek.get('https://random.cat/meow');
     if (data.body.file.includes('.mp4')) {
-        return getCatPic(msg);
+        return getCatPic(Memer, msg);
     }
 
     msg.channel.createMessage({
