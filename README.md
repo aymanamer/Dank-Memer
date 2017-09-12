@@ -51,7 +51,7 @@ Please read [CONTRIBUTING.md](https://gist.github.com/melmsie/8bc44dbcbb7781a45b
 ## Authors
 
 * **Melmsie** - *Initial work and owner* - [GitHub Profile](https://github.com/melmsie)
-* **Aetheryx** - *Has not given me his description yet* - [GitHub Profile](https://github.com/Aetheryx)
+* **Aetheryx** - *I like trains* - [GitHub Profile](https://github.com/Aetheryx)
 
 See also the list of [contributors](https://github.com/melmsie/Dank-Memer/contributors) who participated in this project.
 

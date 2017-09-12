@@ -7,9 +7,9 @@ exports.run = async function (Memer, msg) {
                 name: '-------------------------------------- Technical ---------------------------------------',
                 value: '```\n' +
                 `Uptime          |   ${Memer.parseTime(process.uptime())}\n` +
-                `Heap Used       |   ${stats.totalRam}MB\n` +
+                `Heap Used       |   ${stats.totalRam.toFixed(2)}MB\n` +
                 `Ping            |   ${msg.channel.guild.shard.latency.toFixed()}ms\n` +
-                `Build           |   v${Memer.version}\n` +
+                `Build           |   v${Memer.package.version}\n` +
                 '\n```'
             },
             {

@@ -1,6 +1,6 @@
 exports.run = async function (Memer, msg, args) {
     const permissions = msg.channel.permissionsOf(Memer.bot.user.id);
-    if (!permissions.has('readMessageHistory') || permissions.has('manageMessages')) {
+    if (!permissions.has('readMessageHistory') || !permissions.has('manageMessages')) {
         return msg.reply('Well shit, there was a permission error! Make sure I have `read message history` and `manage messages` so I can do this shit!');
     }
 
