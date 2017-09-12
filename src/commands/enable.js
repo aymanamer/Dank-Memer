@@ -15,7 +15,7 @@ exports.run = async function (Memer, msg, args) {
         return msg.reply(`Specify a command to enable, or multiple.\n\nExample: \`${gConfig.prefix} enable meme trigger shitsound\` or \`${gConfig.prefix} enable meme\``);
     }
     if (args.some(cmd => !Memer.cmds.has(cmd) && !Memer.aliases.has(cmd))) {
-        return msg.reply(`The following commands are invalid: \n\n${args.filter(cmd => !Memer.commands.includes(cmd) && !Memer.aliases.has(cmd)).map(cmd => `\`${cmd}\``).join(', ')}\n\nPlease make sure all of your commands are valid and try again.`);
+        return msg.reply(`The following commands are invalid: \n\n${args.filter(cmd => !Memer.cmds.has(cmd)).map(cmd => `\`${cmd}\``).join(', ')}\n\nPlease make sure all of your commands are valid and try again.`);
     }
     if (args.some(cmd => !gConfig.disabledCommands.includes(cmd))) {
         return msg.channel.createMessage(`The following commands currently aren't disabled: \n\n${args.filter(cmd => !gConfig.disabledCommands.includes(cmd)).map(cmd => `\`${cmd}\``).join(', ')}  \n\nPlease make sure all of your arguments are valid and try again.`);
