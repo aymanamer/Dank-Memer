@@ -18,7 +18,7 @@ exports.run = async function (Memer, msg, args) {
 		})
 	} else {
 		if (!Memer.cmds.has(args[0]) && !Memer.aliases.has(args[0])) {
-			return msg.channel.createMessage(`Command \`${args[0]}\` not found.`)
+			return
 		}
 
 		const prefix = (await Memer.db.getGuild(msg.channel.guild.id) || Memer.defaultGuildConfig).prefix
