@@ -1,131 +1,131 @@
 module.exports = Bot => ({
-    createGuild: async function createGuild (guildID) {
-        await Bot.r.table('guilds')
+	createGuild: async function createGuild (guildID) {
+		await Bot.r.table('guilds')
             .insert({
-                id: guildID,
-                prefix: Bot.config.defaultPrefix,
-                disabledCommands: []
-            })
-            .run();
-        return this.getGuild(guildID);
-    },
+	id: guildID,
+	prefix: Bot.config.defaultPrefix,
+	disabledCommands: []
+})
+            .run()
+		return this.getGuild(guildID)
+	},
 
-    getGuild: async function getGuild (guildID) {
-        return await Bot.r.table('guilds')
+	getGuild: async function getGuild (guildID) {
+		return await Bot.r.table('guilds')
             .get(guildID)
-            .run();
-    },
+            .run()
+	},
 
-    updateGuild: async function updateGuild (guildEntry) {
-        return await Bot.r.table('guilds')
+	updateGuild: async function updateGuild (guildEntry) {
+		return await Bot.r.table('guilds')
             .insert(guildEntry, { conflict: 'update' })
-            .run();
-    },
+            .run()
+	},
 
-    deleteGuild: async function deleteGuild (guildID) {
-        return await Bot.r.table('guilds')
+	deleteGuild: async function deleteGuild (guildID) {
+		return await Bot.r.table('guilds')
             .get(guildID)
             .delete()
-            .run();
-    },
+            .run()
+	},
 
 
-    addCooldown: async function addCooldown (command, ownerID) {
-        if (!Bot.cmds.has(command)) {
-            return;
-        }
-        const cooldown = Bot.cmds.get(command).props.cooldown;
-        const profile = await this.getCooldowns(ownerID);
-        if (!profile) {
-            return await this.createCooldowns(command, ownerID);
-        }
-        if (profile.cooldowns.some(cmd => cmd[command])) {
-            profile.cooldowns.forEach(cmd => {
-                if (cmd[command]) {
-                    cmd[command] = Date.now() + cooldown;
-                }
-            });
-        } else {
-            profile.cooldowns.push({ [command]: Date.now() + cooldown });
-        }
-        return await Bot.r.table('cooldowns')
-            .insert({ id: ownerID, cooldowns: profile.cooldowns }, { conflict: 'update' });
-    },
+	addCooldown: async function addCooldown (command, ownerID) {
+		if (!Bot.cmds.has(command)) {
+			return
+		}
+		const cooldown = Bot.cmds.get(command).props.cooldown
+		const profile = await this.getCooldowns(ownerID)
+		if (!profile) {
+			return await this.createCooldowns(command, ownerID)
+		}
+		if (profile.cooldowns.some(cmd => cmd[command])) {
+			profile.cooldowns.forEach(cmd => {
+				if (cmd[command]) {
+					cmd[command] = Date.now() + cooldown
+				}
+			})
+		} else {
+			profile.cooldowns.push({ [command]: Date.now() + cooldown })
+		}
+		return await Bot.r.table('cooldowns')
+            .insert({ id: ownerID, cooldowns: profile.cooldowns }, { conflict: 'update' })
+	},
 
-    createCooldowns: async function createCooldowns (command, ownerID) {
-        if (!Bot.cmds.has(command)) {
-            return;
-        }
-        const cooldown = Bot.cmds.get(command).props.cooldown;
-        return await Bot.r.table('cooldowns')
-            .insert({ id: ownerID, cooldowns: [ { [command]: Date.now() + cooldown } ] });
-    },
+	createCooldowns: async function createCooldowns (command, ownerID) {
+		if (!Bot.cmds.has(command)) {
+			return
+		}
+		const cooldown = Bot.cmds.get(command).props.cooldown
+		return await Bot.r.table('cooldowns')
+            .insert({ id: ownerID, cooldowns: [ { [command]: Date.now() + cooldown } ] })
+	},
 
-    getCooldowns: async function getCooldown (ownerID) {
-        return await Bot.r.table('cooldowns')
+	getCooldowns: async function getCooldown (ownerID) {
+		return await Bot.r.table('cooldowns')
             .get(ownerID)
-            .run();
-    },
+            .run()
+	},
 
 
-    getCooldown: async function getCooldown (command, ownerID) {
-        const profile = await Bot.r.table('cooldowns').get(ownerID).run();
-        if (!profile) {
-            return 1;
-        }
-        const cooldowns = profile.cooldowns.find(item => item[command]);
-        if (!cooldowns) {
-            return 1;
-        }
-        return profile.cooldowns.find(item => item[command])[command];
-    },
+	getCooldown: async function getCooldown (command, ownerID) {
+		const profile = await Bot.r.table('cooldowns').get(ownerID).run()
+		if (!profile) {
+			return 1
+		}
+		const cooldowns = profile.cooldowns.find(item => item[command])
+		if (!cooldowns) {
+			return 1
+		}
+		return profile.cooldowns.find(item => item[command])[command]
+	},
 
-    addBlock: async function addBlock (id) {
-        return await Bot.r.table('blocked')
+	addBlock: async function addBlock (id) {
+		return await Bot.r.table('blocked')
             .insert({ id })
-            .run();
-    },
+            .run()
+	},
 
-    removeBlock: async function removeBlock (id) {
-        return await Bot.r.table('blocked')
+	removeBlock: async function removeBlock (id) {
+		return await Bot.r.table('blocked')
             .get(id)
             .delete()
-            .run();
-    },
+            .run()
+	},
 
-    isBlocked: async function isBlocked (guildID, authorID = 1) {
-        const res = await Bot.r.table('blocked').get(guildID).run() ||
-            await Bot.r.table('blocked').get(authorID).run();
+	isBlocked: async function isBlocked (guildID, authorID = 1) {
+		const res = await Bot.r.table('blocked').get(guildID).run() ||
+            await Bot.r.table('blocked').get(authorID).run()
 
-        return Boolean(res);
-    },
+		return Boolean(res)
+	},
 
 
-    addDonator: async function addDonator (id, donatorLevel) {
-        return await Bot.r.table('donators')
+	addDonator: async function addDonator (id, donatorLevel) {
+		return await Bot.r.table('donators')
             .insert({ id, donatorLevel })
-            .run();
-    },
+            .run()
+	},
 
-    removeDonator: async function removeDonator (id) {
-        return await Bot.r.table('donators')
+	removeDonator: async function removeDonator (id) {
+		return await Bot.r.table('donators')
             .get(id)
             .delete()
-            .run();
-    },
+            .run()
+	},
 
-    isDonator: async function isDonator (id, donatorLevel = 1) {
-        const res = await Bot.r.table('donators')
+	isDonator: async function isDonator (id, donatorLevel = 1) {
+		const res = await Bot.r.table('donators')
             .get(id)
-            .run();
-        return res ? res.donatorLevel >= donatorLevel : false;
-    },
+            .run()
+		return res ? res.donatorLevel >= donatorLevel : false
+	},
 
 
-    getStats: async function getStats () {
-        const res = await Bot.r.table('stats')
+	getStats: async function getStats () {
+		const res = await Bot.r.table('stats')
             .get(1)
-            .run();
-        return res.stats;
-    }
-});
+            .run()
+		return res.stats
+	}
+})
