@@ -5,22 +5,21 @@ exports.run = async function (Memer, msg, args) {
 	}
 
 	const data = await Memer._snek
-		.get('http://getame.me/api/magik')
+		.get('http://getame.me/api/jpeg')
 		.set('Api-Key', Memer.config.imgenKey)
 		.set('data-src', avatarurl)
 
 	if (data.status === 200) {
-		await msg.channel.createMessage('', { file: data.body, name: 'magik.png' })
+		await msg.channel.createMessage('', { file: data.body, name: 'jpeg.png' })
 	} else {
 		msg.channel.createMessage(`Error: ${data.text}`)
 	}
 }
 
-
 exports.props = {
-	name        : 'magik',
+	name        : 'needsmorejpeg',
 	usage       : '{command} @user',
-	aliases     : ['squiggle'],
-	cooldown    : 3000,
-	description : 'Make something magik!'
+	aliases     : ['jpeg'],
+	cooldown    : 1000,
+	description : 'Make something jpeg!'
 }

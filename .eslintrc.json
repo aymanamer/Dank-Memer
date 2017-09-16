@@ -9,37 +9,20 @@
         "es6": true
     },
     "rules": {
-        "semi": [
-            "error",
-            "always"
-        ],
-        "quotes": [
-            "error",
-            "single"
-        ],
+        "semi": ["error", "never"],
+        "quotes": ["error", "single"],
+        "no-console": "off",
         "no-extra-parens": "error",
-        "space-before-function-paren": [
-            "off"
-        ],
+        "space-before-function-paren": ["off"],
         "no-whitespace-before-property": "error",
-        "curly": [
-            "error",
-            "all"
-        ],
+        "curly": ["error", "all"],
         "eqeqeq": "error",
-        "space-before-blocks": [
-            "error",
-            "always"
-        ],
+        "space-before-blocks": ["error", "always"],
         "prefer-arrow-callback": "off",
         "prefer-const": "error",
         "prefer-template": "error",
-        "indent": [
-            "error",
-            4
-        ],
+        "indent": ["error", "tab"],
         "no-trailing-spaces": "error",
         "no-dupe-args": "off"
-    },
-    "globals": {}
+    }
 }
