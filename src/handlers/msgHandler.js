@@ -36,9 +36,9 @@ exports.handleMeDaddy = async function (Memer, msg, gConfig) {
 	try {
 		const permissions = msg.channel.permissionsOf(Memer.bot.user.id)
 		if (!permissions.has('sendMessages') ||
-        !permissions.has('embedLinks') ||
-        !permissions.has('attachFiles') ||
-        !permissions.has('addReactions')) {
+								!permissions.has('embedLinks') ||
+								!permissions.has('attachFiles') ||
+								!permissions.has('addReactions')) {
 			return
 		}
 		msg.reply = (str) => { msg.channel.createMessage(`${msg.author.mention}, ${str}`) }

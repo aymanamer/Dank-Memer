@@ -27,11 +27,11 @@ class Memer {
 		this.loadCommands()
 
 		this.bot
-            .on('ready', this.ready.bind(this))
-            .on('guildCreate', this.guildCreate.bind(this))
-            .on('guildDelete', this.guildDelete.bind(this))
-            .on('messageCreate', this.messageCreate.bind(this))
-            .on('error', this.onError.bind(this))
+			.on('ready', this.ready.bind(this))
+			.on('guildCreate', this.guildCreate.bind(this))
+			.on('guildDelete', this.guildDelete.bind(this))
+			.on('messageCreate', this.messageCreate.bind(this))
+			.on('error', this.onError.bind(this))
 
 		this.ready()
 	}
@@ -77,7 +77,7 @@ class Memer {
 			description: this.intro
 		}
 		guild.channels.get(guild.channels.filter(c => c.type === 0).map(c => c.id)[0]).createMessage({ embed }) // DM owner instead?
-            .catch(() => {})
+			.catch(() => {})
 	}
 
 	guildDelete (guild) {
@@ -97,8 +97,8 @@ class Memer {
 
 	async messageCreate (msg) {
 		if (!msg.channel.guild ||
-        msg.author.bot ||
-        await this.db.isBlocked(msg.author.id, msg.channel.guild.id)) {
+								msg.author.bot ||
+								await this.db.isBlocked(msg.author.id, msg.channel.guild.id)) {
 			return
 		}
 

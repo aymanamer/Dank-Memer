@@ -133,8 +133,8 @@ exports.run = async function (Memer, msg, args) {
 			msg.channel.createMessage({ embed: {
 				color: Memer.colors.lightblue,
 				fields: [
-                    { name: 'Input', value: Memer.codeblock(input, 'js') },
-                    { name: 'Output', value: Memer.codeblock(result, 'js') }
+					{ name: 'Input', value: Memer.codeblock(input, 'js') },
+					{ name: 'Output', value: Memer.codeblock(result, 'js') }
 				],
 				footer: { text: evalTime || evalTime === 0 ? `evaluated in ${evalTime}ms` : '' }
 			}})
