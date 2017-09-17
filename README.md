@@ -2,6 +2,8 @@
 <a title="memes" href=""><img src="https://cdn.discordapp.com/attachments/340306589036838922/340320643830644736/Dankbg.jpg"></a>
 </p>
 <p align="center">
+
+  <a title="Travis" href="https://travis-ci.org/melmsie/Dank-Memer"><img src="https://travis-ci.org/melmsie/Dank-Memer.svg?branch=master"></a>
   <a title="BotVersion" href="https://github.com/melmsie/Dank-Memer/releases"><img src="https://img.shields.io/github/release/melmsie/Dank-Memer.svg"></a> 
   <a title="Version" href=""><img src="https://img.shields.io/badge/node.js-8.2.1-brightgreen.svg"></a>
   <a title="Codacy Badge" href="https://www.codacy.com?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=melmsie/Dank-Memer&amp;utm_campaign=Badge_Grade"><img src="https://api.codacy.com/project/badge/Grade/83c15be03279409c9ac3ab3979cb3d23"></a>
