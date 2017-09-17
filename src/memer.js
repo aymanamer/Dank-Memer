@@ -22,7 +22,6 @@ master.on('stats', res => {
 	r.table('stats')
         .insert({ id: 1, stats: res }, { conflict: 'update' })
         .run()
-        return
 	botlists.forEach(async (token, url) => {
 		await snek
             .post(url)

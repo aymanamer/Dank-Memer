@@ -21,7 +21,9 @@
     "twit": "^2.2.9",
     "uws": "^8.14.1"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "eslint": "^4.7.0"
+  },
   "scripts": {
     "test": "eslint ."
   },
