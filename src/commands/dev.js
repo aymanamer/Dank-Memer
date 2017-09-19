@@ -1,16 +1,15 @@
 const { exec } = require('child_process')
 const util = require('util')
 const twit = require('twit')
-const twitter = require('../config.json').twitter
-const tClient = new twit({
-	consumer_key: twitter.consumer_key,
-	consumer_secret: twitter.consumer_secret,
-	access_token: twitter.access_token,
-	access_token_secret: twitter.access_token_secret,
-	timeout_ms: 60 * 1000,
-})
+
 const table = require('table')
 const tableConfig = {
+	columns: {
+		0: { width: 7 },
+		1: { width: 6 },
+		2: { width: 15 },
+		3: { width: 15 }
+	},
 	border: {
 		topBody: '─',
 		topJoin: '┬',
@@ -68,29 +67,42 @@ exports.run = async function (Memer, msg, args) {
 		})
 	}
 
-	if (command === 'info') {
-		const data = [
-			[
-				'Cluster #',
-				'Shards',
-				'Memory Usage',
-				'Uptime'
-			]
-		]
-
-		const res = (await Memer.db.getStats()).clusters
-
-		res.forEach(cluster => {
-			data.push([cluster.cluster, cluster.shards, `${cluster.ram}MB`, Memer.parseTime(cluster.uptime / 1000)])
-		})
-
-		data.push(['Total', res.map(c => c.shards).reduce((a, b) => a + b, 0), `${res.map(c => c.ram).reduce((a, b) => a + b, 0)}MB`, ''])
-
-		return msg.channel.createMessage(Memer.codeblock(table.table(data, tableConfig), 'prolog'))
-	}
-
 	if (!Memer.config.devs.includes(msg.author.id)) {
 		return
+	}
+
+	if (command === 'info') {
+		const tableData = [[[
+			'Cluster',
+			'Shards',
+			'Memory Usage',
+			'Uptime'
+		]], [], [], []]
+
+		const totalData = (await Memer.db.getStats()).clusters
+		const shardCount = totalData.length
+		const section = shardCount / 4
+
+		for (let i = 0; i <= shardCount - 1; i++) {
+			const data = totalData[i]
+			const target = i < section * 1 ? 0 : i < section * 2 ? 1 : i < section * 3 ? 2 : 3
+			tableData[target].push([
+				data.cluster,
+				data.shards,
+				`${parseFloat(data.ram).toFixed(2)}MB`,
+				Memer.parseTime(data.uptime / 1000)
+			])
+		}
+
+		tableData[3].push(['Total',
+			totalData.map(c => c.shards).reduce((a, b) => a + b, 0),
+			`${parseFloat(totalData.map(c => c.ram).reduce((a, b) => a + b, 0) / 1024).toFixed(2)}GB`,
+			''
+		])
+
+		tableData.forEach(data => {
+			msg.channel.createMessage(Memer.codeblock(table.table(data, tableConfig), 'prolog'))
+		})
 	}
 
 	if (command === 'reboot') {
