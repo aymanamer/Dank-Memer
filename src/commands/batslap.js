@@ -6,7 +6,7 @@ exports.run = async function (Memer, msg, args) {
 	}
 
 	const data = await Memer._snek
-		.get('http://localhost/api/batslap')
+		.get('http://getame.me/api/batslap')
 		.set('Api-Key', Memer.config.imgenKey)
 		.set('data-src', JSON.stringify([`${avatarurl}`, `${authorurl}`]))
 
