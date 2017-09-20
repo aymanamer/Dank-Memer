@@ -5,9 +5,7 @@ exports.run = async function (Memer, msg, args) {
 	}
 
 	const data = await Memer._snek
-		.get('http://getame.me/api/magik')
-		.set('Api-Key', Memer.config.imgenKey)
-		.set('data-src', avatarurl)
+		.get(`https://discord.services/api/magik?url=${avatarurl}`)
 
 	if (data.status === 200) {
 		await msg.channel.createMessage('', { file: data.body, name: 'magik.png' })
@@ -21,6 +19,6 @@ exports.props = {
 	name        : 'magik',
 	usage       : '{command} @user',
 	aliases     : ['squiggle'],
-	cooldown    : 3000,
+	cooldown    : 5000,
 	description : 'Make something magik!'
 }

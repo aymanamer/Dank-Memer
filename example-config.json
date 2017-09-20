@@ -1,13 +1,42 @@
 {
-	"owner": "172571295077105664",
+	"token": "",
+	"defaultPrefix": "",
+	"version": "",
 	"devs": [
 		"172571295077105664",
 		"284122164582416385"
 	],
-	"token": "bot token",
-	"orgtoken": "discordbots.org token",
-	"pwtoken": "bots.discord.pw token",
-	"carbon": "carbonitex token",
+	"imgenKey": "",
+	"clientOptions": {
+		"disableEvents": {
+			"CHANNEL_PINS_UPDATE": true,
+			"USER_SETTINGS_UPDATE": true,
+			"USER_NOTE_UPDATE": true,
+			"RELATIONSHIP_ADD": true,
+			"RELATIONSHIP_REMOVE": true,
+			"GUILD_BAN_ADD": true,
+			"GUILD_BAN_REMOVE": true,
+			"TYPING_START": true
+		},
+		"disableEveryone": true,
+		"messageLimit": 100,
+		"maxShards": 20
+	},
+	"webhooks": {
+		"shard": {
+			"id": "",
+			"token": ""
+		},
+		"cluster": {
+			"id": "",
+			"token": ""
+		}
+	},
+	"mashape": "",
+	"orgtoken": "",
+	"novo": "",
+	"pwtoken": "",
+	"carbon": "",
 	"twitter": {
 		"consumer_key": "",
 		"consumer_secret": "",
@@ -15,12 +44,16 @@
 		"access_token_secret": ""
 	},
 	"datadog": {
-		"apikey": "",
-		"appkey": ""
+		"APIkey": "",
+		"APPkey": ""
 	},
-	"prefix": "pls",
 	"annoy": {
 		"repetitions": 80,
 		"delay": 2
+	},
+	"urls": {
+		"imgen": "",
+		"reddit": "",
+		"invite": ""
 	}
 }
