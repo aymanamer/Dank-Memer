@@ -29,7 +29,7 @@ master.on('stats', res => {
 			.send({
 				[`server${url.includes('carbonitex') ? '' : '_'}count`] : res.guilds, // matt plz
 				key: token
-			 }) 
+			})
 			.end()
 	})
 })
