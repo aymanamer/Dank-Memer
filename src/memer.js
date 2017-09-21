@@ -26,7 +26,7 @@ master.on('stats', res => {
 		await snek
 			.post(url)
 			.set('Authorization', token)
-			.send({ [`server${url.includes('carbonitex') ? '_' : ''}count`] : res.guilds }) // matt plz
+			.send({ [`server${url.includes('carbonitex') ? '' : '_'}count`] : res.guilds }) // matt plz
 			.end()
 	})
 })
