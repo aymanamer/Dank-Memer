@@ -12,7 +12,6 @@ const master = new Sharder(config.token, '/mainClass.js', {
 
 
 const botlists = new Map([
-	['https://novo.archbox.pro/api/bots/270904126974590976', config.novo],
 	['https://bots.discord.pw/api/bots/270904126974590976/stats', config.pwtoken],
 	['https://discordbots.org/api/bots/270904126974590976/stats', config.orgtoken],
 	['https://www.carbonitex.net/discord/data/botdata.php', config.carbon]
