@@ -5,7 +5,7 @@ exports.run = async function (Memer, msg, args) {
 	}
 
 	const data = await Memer._snek
-		.get('http://localhost/api/warp')
+		.get('http://getame.me/api/warp')
 		.set('Api-Key', Memer.config.imgenKey)
 		.set('data-src', avatarurl)
 
