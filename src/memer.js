@@ -25,8 +25,11 @@ master.on('stats', res => {
 	botlists.forEach(async (token, url) => {
 		await snek
 			.post(url)
-			.set(`${url.includes('carbonitex') ? 'key' : 'Authorization'}`, token)
-			.send({ [`server${url.includes('carbonitex') ? '' : '_'}count`] : res.guilds }) // matt plz
+			.set('Authorization', token)
+			.send({
+			    [`server${url.includes('carbonitex') ? '' : '_'}count`] : res.guilds,
+			    key: token
+			 }) // matt plz
 			.end()
 	})
 })
