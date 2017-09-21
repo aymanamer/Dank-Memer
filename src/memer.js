@@ -27,9 +27,9 @@ master.on('stats', res => {
 			.post(url)
 			.set('Authorization', token)
 			.send({
-			    [`server${url.includes('carbonitex') ? '' : '_'}count`] : res.guilds,
-			    key: token
-			 }) // matt plz
+				[`server${url.includes('carbonitex') ? '' : '_'}count`] : res.guilds, // matt plz
+				key: token
+			 }) 
 			.end()
 	})
 })
