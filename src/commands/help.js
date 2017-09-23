@@ -8,7 +8,7 @@ exports.run = async function (Memer, msg, args) {
 				description: 'Henlo, stinky.',
 				fields: [
 					{ name: `${funemoji} Fun Commands`, value: 'asktrump, greentext, joke, justright, kill, meme, memegen, mock, pupper, pun, shitpost, spin' },
-					{ name: '📷 Image Manipulation', value: 'batslap, brazzers, byemom, dank, invert, jail, magik, pride, salty, shit, spank, trigger, warp' },
+					{ name: '📷 Image Manipulation', value: 'ban, batslap, brazzers, byemom, cancer, dank, delete, hitler, invert, jail, magik, pride, salty, shit, spank, trigger, warp' },
 					{ name: '🔧 Utilities and Information', value: 'clean, disable, enable, help, patreon, ping, prefix, stats' },
 					{ name: '🖼 Image Tags', value: 'alone, doge, dolan, godno, kappa, lul, megusta, notsure, pepe, troll, wat ' },
 					{ name: '💰 Donor Commands', value: 'say, tweet' }
