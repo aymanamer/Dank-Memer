@@ -14,6 +14,13 @@ class Memer {
 		this.cmds = new Map()
 		this.aliases = new Map()
 		this.tags = new Map()
+		this.metrics = require('datadog-metrics')
+		this.metrics.init({
+			apiKey: this.config.datadog.APIkey,
+			appKey: this.config.datadog.APPkey,
+			flushIntervalSeconds: 10,
+			prefix: 'dank.'
+		})
 		this.indexes = {
 			'meme': {},
 			'joke': {},
@@ -71,6 +78,7 @@ class Memer {
 	}
 
 	guildCreate (guild) {
+		this.metrics.increment('guildCreate')
 		const embed = {
 			color: this.colors.lightblue,
 			title: 'Hello!',
@@ -81,7 +89,9 @@ class Memer {
 	}
 
 	guildDelete (guild) {
+		this.metrics.increment('guildDelete')
 		this.db.deleteGuild(guild.id)
+		//datadog
 	}
 
 	get defaultGuildConfig () {
@@ -96,6 +106,7 @@ class Memer {
 	}
 
 	async messageCreate (msg) {
+		this.metrics.increment('messagesSeen')
 		if (!msg.channel.guild ||
 								msg.author.bot ||
 								await this.db.isBlocked(msg.author.id, msg.channel.guild.id)) {
@@ -108,6 +119,7 @@ class Memer {
 			return msg.channel.createMessage(`Hello, ${msg.author.username}. My prefix is \`${gConfig.prefix}\`. Example: \`${gConfig.prefix} meme\``)
 		}
 		if (msg.content.toLowerCase().startsWith(gConfig.prefix)) {
+			this.metrics.increment('commandsTotal')
 			msgHandler.handleMeDaddy(this, msg, gConfig)
 		}
 	}

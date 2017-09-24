@@ -1,3 +1,11 @@
+const metrics = require('datadog-metrics')
+const config = require('./config.json')
+metrics.init({
+	apiKey: config.datadog.APIkey,
+	appKey: config.datadog.APPkey,
+	flushIntervalSeconds: 10,
+	prefix: 'dank.'
+})
 module.exports = Bot => ({
 	createGuild: async function createGuild (guildID) {
 		await Bot.r.table('guilds')
@@ -7,22 +15,26 @@ module.exports = Bot => ({
 				disabledCommands: []
 			})
 			.run()
+		metrics.increment('db.createGuild')
 		return this.getGuild(guildID)
 	},
 
 	getGuild: async function getGuild (guildID) {
+		metrics.increment('db.getGuild')
 		return await Bot.r.table('guilds')
 			.get(guildID)
 			.run()
 	},
 
 	updateGuild: async function updateGuild (guildEntry) {
+		metrics.increment('db.updateGuild')
 		return await Bot.r.table('guilds')
 			.insert(guildEntry, { conflict: 'update' })
 			.run()
 	},
 
 	deleteGuild: async function deleteGuild (guildID) {
+		metrics.increment('db.deleteGuild')
 		return await Bot.r.table('guilds')
 			.get(guildID)
 			.delete()
@@ -31,6 +43,7 @@ module.exports = Bot => ({
 
 
 	addCooldown: async function addCooldown (command, ownerID) {
+		metrics.increment('db.addCooldown')
 		if (!Bot.cmds.has(command)) {
 			return
 		}
@@ -53,6 +66,7 @@ module.exports = Bot => ({
 	},
 
 	createCooldowns: async function createCooldowns (command, ownerID) {
+		metrics.increment('db.createCooldown')
 		if (!Bot.cmds.has(command)) {
 			return
 		}
@@ -62,6 +76,7 @@ module.exports = Bot => ({
 	},
 
 	getCooldowns: async function getCooldown (ownerID) {
+		metrics.increment('db.getCooldown')
 		return await Bot.r.table('cooldowns')
 			.get(ownerID)
 			.run()
@@ -123,6 +138,7 @@ module.exports = Bot => ({
 
 
 	getStats: async function getStats () {
+		metrics.increment('db.getStats')
 		const res = await Bot.r.table('stats')
 			.get(1)
 			.run()
