@@ -3,9 +3,12 @@ exports.handleMeDaddy = async function (Memer, msg, gConfig) {
 	const args = msg.cleanContent.split(' ').slice(gConfig.prefix.split(' ').length + 1)
 	if (Memer.cmds.has(command)) {
 		command = Memer.cmds.get(command)
+		Memer.metrics.increment(`commands.${command}`)
 	} else if (Memer.aliases.has(command)) {
 		command = Memer.cmds.get(Memer.aliases.get(command))
+		Memer.metrics.increment(`commands.${command}`)
 	} else if (Memer.tags.has(command)) {
+		Memer.metrics.increment(`commands.${command}`)
 		const tag = Memer.tags.get(command)
 		if (args[0] === 'info') {
 			await msg.channel.createMessage({ embed: {
@@ -32,7 +35,6 @@ exports.handleMeDaddy = async function (Memer, msg, gConfig) {
 		return msg.channel.createMessage(`u got 2 wait ${waitTime > 60 ? Memer.parseTime(waitTime) : `${waitTime.toFixed()} secunds`}!!!1!`)
 	}
 	await Memer.db.addCooldown(command.props.name, msg.author.id)
-	Memer.metrics.increment(`commands.${command}`)
 
 	try {
 		const permissions = msg.channel.permissionsOf(Memer.bot.user.id)
