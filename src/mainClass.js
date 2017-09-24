@@ -1,9 +1,12 @@
 const fs = require('fs')
 const msgHandler = require('./handlers/msgHandler.js')
 const botPackage = require('../package.json')
+const Base = require('eris-sharder').Base
 
-class Memer {
+class Memer extends Base {
 	constructor (bot) {
+		super(bot)
+
 		this.bot = bot
 		this.log = require('./utils/logger.js')
 		this._snek = require('snekfetch')

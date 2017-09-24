@@ -6,7 +6,7 @@ metrics.init({
 	flushIntervalSeconds: 10,
 	prefix: 'dank.'
 })
-const Sharder = require('eris-sharder')
+const Sharder = require('eris-sharder').Master
 //const snek = require('snekfetch')
 const r = require('rethinkdbdash')()
 const master = new Sharder(config.token, '/mainClass.js', {
