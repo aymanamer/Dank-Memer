@@ -1,5 +1,5 @@
 const metrics = require('datadog-metrics')
-const config = require('./config.json')
+const config = require('../config.json')
 metrics.init({
 	apiKey: config.datadog.APIkey,
 	appKey: config.datadog.APPkey,
