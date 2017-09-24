@@ -84,6 +84,7 @@ module.exports = Bot => ({
 
 
 	getCooldown: async function getCooldown (command, ownerID) {
+		metrics.increment('db.getCooldown')
 		const profile = await Bot.r.table('cooldowns').get(ownerID).run()
 		if (!profile) {
 			return 1
@@ -96,12 +97,14 @@ module.exports = Bot => ({
 	},
 
 	addBlock: async function addBlock (id) {
+		metrics.increment('db.addBlock')
 		return await Bot.r.table('blocked')
 			.insert({ id })
 			.run()
 	},
 
 	removeBlock: async function removeBlock (id) {
+		metrics.increment('db.removeBlock')
 		return await Bot.r.table('blocked')
 			.get(id)
 			.delete()
@@ -109,6 +112,7 @@ module.exports = Bot => ({
 	},
 
 	isBlocked: async function isBlocked (guildID, authorID = 1) {
+		metrics.increment('db.checkBlock')
 		const res = await Bot.r.table('blocked').get(guildID).run() ||
 												await Bot.r.table('blocked').get(authorID).run()
 
@@ -117,12 +121,14 @@ module.exports = Bot => ({
 
 
 	addDonator: async function addDonator (id, donatorLevel) {
+		metrics.increment('db.addDonor')
 		return await Bot.r.table('donators')
 			.insert({ id, donatorLevel })
 			.run()
 	},
 
 	removeDonator: async function removeDonator (id) {
+		metrics.increment('db.removeDonor')
 		return await Bot.r.table('donators')
 			.get(id)
 			.delete()
@@ -130,6 +136,7 @@ module.exports = Bot => ({
 	},
 
 	isDonator: async function isDonator (id, donatorLevel = 1) {
+		metrics.increment('db.checkDonor')
 		const res = await Bot.r.table('donators')
 			.get(id)
 			.run()
