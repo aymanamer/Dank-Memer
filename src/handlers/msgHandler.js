@@ -2,11 +2,11 @@ exports.handleMeDaddy = async function (Memer, msg, gConfig) {
 	let command = msg.content.slice(gConfig.prefix.length + 1).toLowerCase().split(' ')[0]
 	const args = msg.cleanContent.split(' ').slice(gConfig.prefix.split(' ').length + 1)
 	if (Memer.cmds.has(command)) {
+		Memer.metrics.increment(`commands.${command}`)
 		command = Memer.cmds.get(command)
-		Memer.metrics.increment(`commands.${command}`)
 	} else if (Memer.aliases.has(command)) {
-		command = Memer.cmds.get(Memer.aliases.get(command))
 		Memer.metrics.increment(`commands.${command}`)
+		command = Memer.cmds.get(Memer.aliases.get(command))
 	} else if (Memer.tags.has(command)) {
 		Memer.metrics.increment(`commands.${command}`)
 		const tag = Memer.tags.get(command)
