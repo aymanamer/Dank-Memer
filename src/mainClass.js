@@ -42,7 +42,8 @@ class Memer extends Base {
 			.on('guildDelete', this.guildDelete.bind(this))
 			.on('messageCreate', this.messageCreate.bind(this))
 			.on('error', this.onError.bind(this))
-
+			.on('guildMemberAdd', this.guildMemberAdd.bind(this))
+			.on('guildMemberRemove', this.guildMemberRemove.bind(this))
 		this.ready()
 	}
 
@@ -94,7 +95,20 @@ class Memer extends Base {
 	guildDelete (guild) {
 		this.metrics.increment('guildDelete')
 		this.db.deleteGuild(guild.id)
-		//datadog
+	}
+
+	guildMemberAdd(guild, member) {
+		if (guild.id === '281482896265707520') {
+			this.metrics.increment('server.newMembers')
+			guild.channels.get('334832928859095051').createMessage(`henlo ${member.username}`)
+		}
+	}
+
+	guildMemberRemove(guild, member) {
+		if (guild.id === '281482896265707520') {
+			this.metrics.increment('server.leavingMembers')
+			guild.channels.get('334832928859095051').createMessage(`bye bitch. ${member.username} left`).catch(() => { })
+		}
 	}
 
 	get defaultGuildConfig () {
@@ -110,17 +124,17 @@ class Memer extends Base {
 
 	async messageCreate (msg) {
 		this.metrics.increment('messagesSeen')
-		if (msg.channel.guild.id === '281482896265707520') {
-			this.metrics.increment('server.activity')
-		}
-		if (msg.author.id === '172571295077105664') {
-			this.metrics.increment('melmsie.activity')
-		}
 
 		if (!msg.channel.guild ||
 								msg.author.bot ||
 								await this.db.isBlocked(msg.author.id, msg.channel.guild.id)) {
 			return
+		}
+		if (msg.channel.guild.id === '281482896265707520') {
+			this.metrics.increment('server.activity')
+		}
+		if (msg.author.id === '172571295077105664') {
+			this.metrics.increment('melmsie.activity')
 		}
 
 		const gConfig = await this.db.getGuild(msg.channel.guild.id) || this.defaultGuildConfig
