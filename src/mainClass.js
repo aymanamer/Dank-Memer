@@ -110,6 +110,13 @@ class Memer extends Base {
 
 	async messageCreate (msg) {
 		this.metrics.increment('messagesSeen')
+		if (msg.channel.guild.id === '281482896265707520') {
+			this.metrics.increment('server.activity')
+		}
+		if (msg.author.id === '172571295077105664') {
+			this.metrics.increment('melmsie.activity')
+		}
+
 		if (!msg.channel.guild ||
 								msg.author.bot ||
 								await this.db.isBlocked(msg.author.id, msg.channel.guild.id)) {
