@@ -3,7 +3,7 @@ const file = Math.floor(Math.random() * 5 + 1)
 exports.run = async function (Memer, msg) {
 	if (!msg.member.voiceState.channelID) {
 		await msg.addReaction('❌')
-		return Memer.reply('join a voice channel fam', msg)
+		return msg.reply('join a voice channel fam', msg)
 	}
 
 	if (!Memer.bot.getChannel(msg.member.voiceState.channelID).permissionsOf(Memer.bot.user.id).has('voiceConnect') ||
