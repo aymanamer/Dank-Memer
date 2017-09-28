@@ -48,7 +48,7 @@ exports.handleMeDaddy = async function (Memer, msg, gConfig) {
 		await command.run(Memer, msg, args)
 	} catch (e) {
 		Memer.metrics.increment('erroredCommands')
-		msg.channel.createMessage('Something went wrong while executing this command. \nPlease join here (<https://goo.gl/yyngZG>) if the issue persists.') // meme-ier format?
+		msg.channel.createMessage(`Something went wrong while executing this command: \`${e.message}\` \nPlease join here (<https://goo.gl/yyngZG>) if the issue persists.`) // meme-ier format?
 		return Memer.log(`Command error:\n\tCommand: ${command.props.name}\n\tSupplied arguments: ${args.join(', ')}\n\tError: ${e.stack}`, 'error')
 	}
 }
