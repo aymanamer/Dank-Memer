@@ -38,7 +38,7 @@ exports.run = async function (Memer, msg, args) {
 		}})
 		try {
 			Memer.bot.createMessage('326384964964974602', {
-				content: Memer.bannedWords.some(word => args.join(' ').toLowerCase().includes(word)) ? '<@&339186850910699520> BAD TWEET LADS WEE WOO WEE WOO' : '',
+				content: Memer.bannedWords.some(word => args.join(' ').toLowerCase().includes(word)) ? '<@172571295077105664> BAD TWEET LAD WEE WOO WEE WOO' : '',
 				embed: {
 					title: 'New tweet:',
 					url: `https://twitter.com/PlsMeme/status/${data.id_str}`,
