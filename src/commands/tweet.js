@@ -23,7 +23,8 @@ exports.run = async function (Memer, msg, args) {
 		return msg.channel.createMessage(`Tweet too long. You're ${args.join(' ').length - 140} characters over the limit!`)
 	}
 
-	tClient.post('statuses/update', { status: args.join(' ') }, (err, data, response) => {
+	tClient.post('statuses/update', {
+		status: `${args.join(' ')} -${msg.author.username}#${msg.author.discriminator}` }, (err, data, response) => {
 		if (err) {
 			return msg.channel.createMessage(`Something went wrong. \n${err.message}`)
 		}

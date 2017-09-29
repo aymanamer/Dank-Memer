@@ -1,6 +1,7 @@
 const { exec } = require('child_process')
 const util = require('util')
 const twit = require('twit')
+
 const twitter = require('../config.json').twitter
 const tClient = new twit({
 	consumer_key: twitter.consumer_key,
@@ -9,6 +10,7 @@ const tClient = new twit({
 	access_token_secret: twitter.access_token_secret,
 	timeout_ms: 60 * 1000,
 })
+
 const table = require('table')
 const tableConfig = {
 	columns: {
@@ -56,7 +58,7 @@ exports.run = async function (Memer, msg, args) {
 	const command = args[0]
 	args.shift()
 
-	if (command === 'deletetweet' && msg.member.roles.includes('339186850910699520')) {
+	if (command === 'deletetweet' && msg.member.roles.includes('334170299979399169')) {
 		if (!parseInt(args[0])) {
 			return msg.channel.createMessage('Argument error. Make sure the argument(s) you\'re passing are numbers and exist.')
 		}
