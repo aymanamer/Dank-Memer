@@ -29,8 +29,8 @@
         "https://cdn.discordapp.com/attachments/324949972313440256/324950228585414658/Metreos.png",
         "https://cdn.discordapp.com/attachments/324949972313440256/324950274118778881/Asgore.jpg"
     ],
-     "kill": [
-        "$author slips bleach into $mention lemonade.",
+    "kill": [
+        "$author slips bleach into $mention's lemonade.",
         "$mention dies of natural causes.",
         "$mention dies from bad succ.",
         "$mention dies from dabbing too hard.",
@@ -40,6 +40,13 @@
         "$author hired me to kill you, but I don't want to! $mention",
         "$mention slips on a banana peel and falls down the stairs.",
         "$author murders $mention with an axe.",
+        "$author pressed delete. It deleted $mention",
+        "$mention dies because they used a bobby pin to lift their eyelashes",
+        "$mention dies because they were just too angery.",
+        "$mention decided it was a good idea to fight a tiger while smelling like meat. It did not end well.",
+        "$mention disappeared from the universe.",
+        "$mention drank some toxic soda before it was recalled.",
+        "$mention was killed by $author with baby wipes.",
         "$mention dies in a horrible accident, and it was engineered by $author.",
         "$mention dies of starvation.",
         "$author decapitates $mention with a sword.",
