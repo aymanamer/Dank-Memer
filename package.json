@@ -23,7 +23,6 @@
     "uws": "^8.14.1"
   },
   "devDependencies": {
-    "eslint": "^4.7.0",
     "standard": "^10.0.3"
   },
   "scripts": {
