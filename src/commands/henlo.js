@@ -21,7 +21,7 @@ exports.run = async function (Memer, msg, args) {
 		return msg.create('hmm, you seemed to find a way to break this. GG at beating my 5am brain.')
 	}
 	console.log('5')
-	msg.channel.create(`henlo ${mention}\nyou stinky ${mention}\ngo ${text} ugly`)
+	msg.channel.createMessage(`henlo ${mention}\nyou stinky ${mention}\ngo ${text} ugly`)
 }
 
 exports.props = {
