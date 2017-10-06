@@ -1,7 +1,7 @@
 const {
 	henlo
 } = require('../assets/arrays.json')
-exports.run = async function (Memer, msg) {
+exports.run = async function (Memer, msg, args) {
 	if (!args[0]) {
 		let mention = msg.author.username
 		let text = Memer.randomInArray(henlo)
