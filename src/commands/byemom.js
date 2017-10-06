@@ -8,12 +8,6 @@ exports.run = async function (Memer, msg, args) {
     return msg.channel.createMessage(`Google Search too long. You're ${args.length - 140} characters over the limit!`)
   }
 
-  if (msg.mentions.length > 0) {
-    args = args.join(' ').substr(21)
-  } else {
-    args = args.join(' ')
-  }
-
   const data = await Memer._snek
     .get('http://localhost/api/byemom')
     .set('Api-Key', Memer.config.imgenKey)
