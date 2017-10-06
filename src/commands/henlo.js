@@ -3,18 +3,22 @@ const {
 } = require('../assets/arrays.json')
 exports.run = async function (Memer, msg, args) {
 	if (!args[0]) {
+		console.log('1')
 		let mention = msg.author.username
 		let text = Memer.randomInArray(henlo)
 	} else if (msg.mentions.length > 0) {
+		console.log('2')
 		let mention = msg.mentions[0].username
 		let text = args[1] ? args[1] : Memer.randomInArray(henlo)
 	} else if (msg.mentions.length === 0) {
+		console.log('3')
 		let mention = msg.author.username
 		let text = args[0] ? args[0] : Memer.randomInArray(henlo)
 	} else {
+		console.log('4')
 		return msg.create('hmm, you seemed to find a way to break this. GG at beating my 5am brain.')
 	}
-
+	console.log('5')
 	msg.channel.create(`henlo ${mention}\nyou stinky ${mention}\ngo ${text} ugly`)
 }
 
