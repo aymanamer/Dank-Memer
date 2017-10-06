@@ -7,11 +7,11 @@ exports.run = async function (Memer, msg, args) {
         title: 'Available Commands',
         description: 'In celebration of 50k servers coming soon, donor commands are available for everyone for a while. AND pls fart is back for a short time!',
         fields: [
-          { name: `${funemoji} Fun Commands`, value: 'asktrump, fart, greentext, joke, justright, kill, meme, memegen, mock, pupper, pun, shitpost, spin' },
+          { name: `${funemoji} Fun Commands`, value: 'asktrump, fart, greentext, henlo, joke, justright, kill, meme, memegen, mock, pupper, pun, shitpost, spin' },
           { name: '📷 Image Manipulation', value: 'ban, batslap, brazzers, byemom, cancer, dank, delete, hitler, invert, jail, magik, pride, salty, shit, spank, trigger, warp' },
           { name: '🔧 Utilities and Information', value: 'clean, disable, enable, help, patreon, ping, prefix, stats' },
           { name: '🖼 Image Tags', value: 'alone, doge, dolan, godno, kappa, lul, megusta, notsure, pepe, troll, wat ' },
-          { name: '💰 Donor Commands', value: 'say, tweet' }
+          { name: '💰 Donor Commands', value: 'say, ~~tweet~~' }
         ],
         footer: { text: 'Want access to donor commands? Donate here: https://www.patreon.com/melmsie' }
       }
