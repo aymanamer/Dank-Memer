@@ -9,7 +9,7 @@ exports.run = async function (Memer, msg, args) {
 		text = Memer.randomInArray(henlo)
 	} else if (msg.mentions.length > 0) {
 		mention = msg.mentions[0].username
-		text = args.join(' ').replace(`@${msg.mentions[0].username}`, '') > 0 ? args.join(' ').replace(`@${msg.mentions[0].username}`, '') : Memer.randomInArray(henlo)
+		text = args.join(' ').replace(`@${msg.mentions[0].username}`, '').length > 0 ? args.join(' ').replace(`@${msg.mentions[0].username}`, '') : Memer.randomInArray(henlo)
 	} else if (msg.mentions.length === 0) {
 		mention = msg.author.username
 		text = args[0] ? args.join(' ') : Memer.randomInArray(henlo)
