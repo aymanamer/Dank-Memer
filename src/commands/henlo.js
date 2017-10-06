@@ -9,10 +9,10 @@ exports.run = async function (Memer, msg, args) {
 		text = Memer.randomInArray(henlo)
 	} else if (msg.mentions.length > 0) {
 		mention = msg.mentions[0].username
-		text = args[1] ? args[1] : Memer.randomInArray(henlo)
+		text = args[1] ? args.substr(21) : Memer.randomInArray(henlo)
 	} else if (msg.mentions.length === 0) {
 		mention = msg.author.username
-		text = args[0] ? args[0] : Memer.randomInArray(henlo)
+		text = args[0] ? args.join(' ') : Memer.randomInArray(henlo)
 	} else {
 		return msg.create('hmm, you seemed to find a way to break this. GG at beating my 5am brain.')
 	}
