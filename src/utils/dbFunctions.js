@@ -22,9 +22,18 @@ module.exports = Bot => ({
   },
 
   getEffs: async function getEffs (id, index) {
-    return Bot.r.table('effs')
+    const effs = await Bot.r.table('effs')
       .getAll(id, { index })
       .run()
+
+    return effs.sort((a, b) => b.effs - a.effs)
+  },
+
+  getAllEffs: async function getEffs () {
+    const effs = await Bot.r.table('effs')
+      .run()
+
+    return effs.sort((a, b) => b.effs - a.effs)
   },
 
   createGuild: async function createGuild (guildID) {
