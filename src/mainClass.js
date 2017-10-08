@@ -51,7 +51,7 @@ class Memer extends Base {
     this.bot.editStatus(null, {
       name: 'pls help',
       type: 1,
-      url: 'https://www.twitch.tv/teamzars'
+      url: 'https://www.twitch.tv/m3lmsie'
     })
   }
 
