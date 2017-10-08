@@ -1,12 +1,32 @@
-const metrics = require('datadog-metrics')
-const config = require('../config.json')
-metrics.init({
-  apiKey: config.datadog.APIkey,
-  appKey: config.datadog.APPkey,
-  flushIntervalSeconds: 10,
-  prefix: 'dank.'
-})
 module.exports = Bot => ({
+  addEff: async function addEff (userID, guildID) {
+    let effs = await this.getEffs(userID, 'userID')
+    if (!effs[0] || !effs.filter(eff => eff.guildID === guildID)[0]) {
+      return this.createEff(userID, guildID)
+    }
+    const eff = effs.filter(eff => eff.guildID === guildID)[0]
+    eff.effs++
+
+    return Bot.r.table('effs')
+      .insert(eff, { conflict: 'update' })
+  },
+
+  createEff: async function createEff (userID, guildID) {
+    return Bot.r.table('effs')
+      .insert({
+        userID,
+        guildID,
+        effs: 1
+      })
+      .run()
+  },
+
+  getEffs: async function getEffs (id, index) {
+    return Bot.r.table('effs')
+      .getAll(id, { index })
+      .run()
+  },
+
   createGuild: async function createGuild (guildID) {
     await Bot.r.table('guilds')
       .insert({
@@ -15,26 +35,26 @@ module.exports = Bot => ({
         disabledCommands: []
       })
       .run()
-    metrics.increment('db.createGuild')
+    Bot.metrics.increment('db.createGuild')
     return this.getGuild(guildID)
   },
 
   getGuild: async function getGuild (guildID) {
-    metrics.increment('db.getGuild')
+    Bot.metrics.increment('db.getGuild')
     return Bot.r.table('guilds')
       .get(guildID)
       .run()
   },
 
   updateGuild: async function updateGuild (guildEntry) {
-    metrics.increment('db.updateGuild')
+    Bot.metrics.increment('db.updateGuild')
     return Bot.r.table('guilds')
       .insert(guildEntry, { conflict: 'update' })
       .run()
   },
 
   deleteGuild: async function deleteGuild (guildID) {
-    metrics.increment('db.deleteGuild')
+    Bot.metrics.increment('db.deleteGuild')
     return Bot.r.table('guilds')
       .get(guildID)
       .delete()
@@ -42,7 +62,7 @@ module.exports = Bot => ({
   },
 
   addCooldown: async function addCooldown (command, ownerID) {
-    metrics.increment('db.addCooldown')
+    Bot.metrics.increment('db.addCooldown')
     if (!Bot.cmds.has(command)) {
       return
     }
@@ -65,7 +85,7 @@ module.exports = Bot => ({
   },
 
   createCooldowns: async function createCooldowns (command, ownerID) {
-    metrics.increment('db.createCooldown')
+    Bot.metrics.increment('db.createCooldown')
     if (!Bot.cmds.has(command)) {
       return
     }
@@ -75,14 +95,14 @@ module.exports = Bot => ({
   },
 
   getCooldowns: async function getCooldown (ownerID) {
-    metrics.increment('db.getCooldown')
+    Bot.metrics.increment('db.getCooldown')
     return Bot.r.table('cooldowns')
       .get(ownerID)
       .run()
   },
 
   getCooldown: async function getCooldown (command, ownerID) {
-    metrics.increment('db.getCooldown')
+    Bot.metrics.increment('db.getCooldown')
     const profile = await Bot.r.table('cooldowns').get(ownerID).run()
     if (!profile) {
       return 1
@@ -95,14 +115,14 @@ module.exports = Bot => ({
   },
 
   addBlock: async function addBlock (id) {
-    metrics.increment('db.addBlock')
+    Bot.metrics.increment('db.addBlock')
     return Bot.r.table('blocked')
       .insert({ id })
       .run()
   },
 
   removeBlock: async function removeBlock (id) {
-    metrics.increment('db.removeBlock')
+    Bot.metrics.increment('db.removeBlock')
     return Bot.r.table('blocked')
       .get(id)
       .delete()
@@ -110,22 +130,22 @@ module.exports = Bot => ({
   },
 
   isBlocked: async function isBlocked (guildID, authorID = 1) {
-    metrics.increment('db.checkBlock')
+    Bot.metrics.increment('db.checkBlock')
     const res = await Bot.r.table('blocked').get(guildID).run() ||
-                        await Bot.r.table('blocked').get(authorID).run()
+                await Bot.r.table('blocked').get(authorID).run()
 
     return Boolean(res)
   },
 
   addDonator: async function addDonator (id, donatorLevel) {
-    metrics.increment('db.addDonor')
+    Bot.metrics.increment('db.addDonor')
     return Bot.r.table('donators')
       .insert({ id, donatorLevel })
       .run()
   },
 
   removeDonator: async function removeDonator (id) {
-    metrics.increment('db.removeDonor')
+    Bot.metrics.increment('db.removeDonor')
     return Bot.r.table('donators')
       .get(id)
       .delete()
@@ -133,7 +153,7 @@ module.exports = Bot => ({
   },
 
   isDonator: async function isDonator (id, donatorLevel = 1) {
-    metrics.increment('db.checkDonor')
+    Bot.metrics.increment('db.checkDonor')
     const res = await Bot.r.table('donators')
       .get(id)
       .run()
@@ -141,7 +161,7 @@ module.exports = Bot => ({
   },
 
   getStats: async function getStats () {
-    metrics.increment('db.getStats')
+    Bot.metrics.increment('db.getStats')
     const res = await Bot.r.table('stats')
       .get(1)
       .run()
