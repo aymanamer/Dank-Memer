@@ -17,13 +17,18 @@ exports.run = async function (Memer, msg, args) {
   const mom = await Jimp.read('./assets/imgen/thesearch.png')
   const blank = await Jimp.read('./assets/imgen/Empty.png')
 
-  Jimp.loadFont(Jimp.FONT_SANS_16_BLACK).then(function (font) {
+  Jimp.loadFont(Jimp.FONT_SANS_16_BLACK).then(font => {
     blank.resize(275, 200)
     const search = blank.print(font, 0, 0, text, 178)
 
     mom.composite(search, 65, 335)
     mom.getBuffer(Jimp.MIME_PNG, async (err, buffer) => {
-      await msg.channel.createMessage('', { file: buffer, name: 'search.png' })
+      if (err) {
+        msg.channel.createMessage(`Error: ${err.message}`)
+      }
+      await msg.channel.createMessage('', {
+        file: buffer, name: 'search.png'
+      })
     })
   })
 }

@@ -25,13 +25,12 @@ exports.run = async function (Memer, msg, args) {
 
   mom.composite(search, 195, 585)
   mom.getBuffer(Jimp.MIME_PNG, async (err, buffer) => {
-    try {
-      await msg.channel.createMessage('', {
-        file: buffer, name: 'shit.png'
-      })
-    } catch (err) {
+    if (err) {
       msg.channel.createMessage(`Error: ${err.message}`)
     }
+    await msg.channel.createMessage('', {
+      file: buffer, name: 'shit.png'
+    })
   })
 }
 

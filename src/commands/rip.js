@@ -13,12 +13,12 @@ exports.run = async function (Memer, msg, args) {
   bat.resize(642, 806)
   bat.composite(avatar, 175, 385)
   bat.getBuffer(Jimp.MIME_PNG, async (err, buffer) => {
-    try {
-      await msg.channel.createMessage('', { file: buffer, name: 'rip.png' })
-    } catch (e) {
-      Memer.log(e.stack, 'error')
-      await msg.reply('there was an error with this command.')
+    if (err) {
+      msg.channel.createMessage(`Error: ${err.message}`)
     }
+    await msg.channel.createMessage('', {
+      file: buffer, name: 'rip.png'
+    })
   })
 }
 

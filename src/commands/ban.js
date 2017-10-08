@@ -13,13 +13,12 @@ exports.run = async function (Memer, msg, args) {
 
   template.composite(bad, 93, 365)
   template.getBuffer(Jimp.MIME_PNG, async (err, buffer) => {
-    try {
-      await msg.channel.createMessage('', {
-        file: buffer, name: 'ban.png'
-      })
-    } catch (err) {
-      msg.channel.createMessage(`Error: ${err.message}`)
+    if (err) {
+      return msg.channel.createMessage(`Error: ${err.message}`)
     }
+    await msg.channel.createMessage('', {
+      file: buffer, name: 'ban.png'
+    })
   })
 }
 

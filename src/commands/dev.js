@@ -1,14 +1,14 @@
 const { exec } = require('child_process')
 const util = require('util')
-const twit = require('twit')
+const Twit = require('twit')
 
 const twitter = require('../config.json').twitter
-const tClient = new twit({
+const tClient = new Twit({
   consumer_key: twitter.consumer_key,
   consumer_secret: twitter.consumer_secret,
   access_token: twitter.access_token,
   access_token_secret: twitter.access_token_secret,
-  timeout_ms: 60 * 1000,
+  timeout_ms: 60 * 1000
 })
 
 const table = require('table')
@@ -38,25 +38,23 @@ const tableConfig = {
   }
 }
 
-
 exports.run = async function (Memer, msg, args) {
   if (args[0] === 'help' || !args[0]) {
     return msg.channel.createMessage({ embed: {
       footer: { text: 'Now go fuck people up with these OP commands!' },
       color: 3569331,
       fields: [
-        { name: 'reboot',    value: 'reboot [shard, all]' },
-        { name: 'eval',    value: 'eval <args>' },
-        { name: 'bash',    value: 'bash <args>' },
-        { name: 'git',      value: 'git pull' },
-        { name: 'donor',    value: '[add, remove] [1, 5, 10] <id or @tag>' },
+        { name: 'reboot', value: 'reboot [shard, all]' },
+        { name: 'eval', value: 'eval <args>' },
+        { name: 'bash', value: 'bash <args>' },
+        { name: 'git', value: 'git pull' },
+        { name: 'donor', value: '[add, remove] [1, 5, 10] <id or @tag>' },
         { name: 'blacklist', value: '[add, remove] [guild, user, channel] <id or @tag>' }
       ]
     }})
   }
 
-  const command = args[0]
-  args.shift()
+  const command = args.shift()
 
   if (command === 'deletetweet' && msg.member.roles.includes('334170299979399169')) {
     if (!parseInt(args[0])) {
@@ -136,7 +134,7 @@ exports.run = async function (Memer, msg, args) {
     let evalTime
     try {
       const before = Date.now()
-      result = asynchr ? eval(`(async()=>{${input}})();`) : eval(input)
+      result = asynchr ? eval(`(async()=>{${input}})();`) : eval(input) // eslint-disable-line
       evalTime = Date.now() - before
       if (result instanceof Promise && asynchr) {
         result = await result
@@ -214,7 +212,7 @@ exports.run = async function (Memer, msg, args) {
     }
   }
 
-  const arguments = msg.mentions[0] ? msg.mentions.map(u => u.id) : args.slice(2).filter(arg => parseInt(arg))
+  const ids = msg.mentions[0] ? msg.mentions.map(u => u.id) : args.slice(2).filter(arg => parseInt(arg))
 
   if (command === 'donor') {
     if (!args[0] || !args[1] || !['add', 'remove'].includes(args[0]) || !['1', '5', '10'].includes(args[1])) {
@@ -222,14 +220,14 @@ exports.run = async function (Memer, msg, args) {
     }
 
     if (args[0] === 'add') {
-      arguments.forEach(id => Memer.db.addDonator(id, parseInt(args[1])))
-      msg.channel.createMessage(`Successfully added ${arguments.join(', ')} to tier ${args[1]}.`)
+      ids.forEach(id => Memer.db.addDonator(id, parseInt(args[1])))
+      msg.channel.createMessage(`Successfully added ${ids.join(', ')} to tier ${args[1]}.`)
     } else if (args[0] === 'remove') {
-      if (!arguments.some(async arg => await Memer.db.isDonator(arg, 1))) {
-        return msg.channel.createMessage(`\`${arguments.some(async arg => await Memer.db.isDonator(arg, 1))}\` not found in donor database.`)
+      if (!ids.some(async arg => await Memer.db.isDonator(arg, 1))) { // eslint-disable-line
+        return msg.channel.createMessage(`\`${ids.some(async arg => await Memer.db.isDonator(arg, 1))}\` not found in donor database.`) // eslint-disable-line
       }
-      arguments.forEach(id => Memer.db.removeDonator(id, parseInt(args[1])))
-      msg.channel.createMessage(`Successfully removed ${arguments.join(', ')}.`)
+      ids.forEach(id => Memer.db.removeDonator(id, parseInt(args[1])))
+      msg.channel.createMessage(`Successfully removed ${ids.join(', ')}.`)
     }
   }
 
@@ -240,22 +238,22 @@ exports.run = async function (Memer, msg, args) {
     }
 
     if (args[0].toLowerCase() === 'add') {
-      arguments.forEach(id => Memer.db.addBlock(id, parseInt(args[1])))
-      msg.channel.createMessage(`Successfully blacklisted ${arguments.join(', ')}.`)
+      ids.forEach(id => Memer.db.addBlock(id, parseInt(args[1])))
+      msg.channel.createMessage(`Successfully blacklisted ${ids.join(', ')}.`)
     } else if (args[0].toLowerCase() === 'remove') {
-      if (!arguments.some(async arg => await Memer.db.isBlocked(arg))) {
-        return msg.channel.createMessage(`\`${arguments}\` not found in blocked database. Please block to unblock. :^)`)
+      if (!ids.some(async arg => await Memer.db.isBlocked(arg))) { // eslint-disable-line
+        return msg.channel.createMessage(`\`${ids}\` not found in blocked database. Please block to unblock. :^)`)
       }
-      arguments.forEach(id => Memer.db.removeBlock(id))
-      msg.channel.createMessage(`Successfully unblacklisted ${arguments.join(', ')}.`)
+      ids.forEach(id => Memer.db.removeBlock(id))
+      msg.channel.createMessage(`Successfully unblacklisted ${ids.join(', ')}.`)
     }
   }
 }
 
 exports.props = {
-  name        : 'dev',
-  usage       : '{command} you really don\'t need docs for this ',
-  aliases     : ['stupid-bot'],
-  cooldown    : 1,
-  description : 'henlo, u stinky birb'
+  name: 'dev',
+  usage: '{command} you really don\'t need docs for this ',
+  aliases: ['stupid-bot'],
+  cooldown: 1,
+  description: 'henlo, u stinky birb'
 }

@@ -1,4 +1,4 @@
-exports.run = function (undefined, msg) {
+exports.run = function (_, msg) {
   msg.channel.createMessage('( ͡° ͜ʖ ͡° )')
 }
 
