@@ -30,7 +30,7 @@ module.exports = Bot => ({
   },
 
   getAllEffs: async function getEffs () {
-    const effs = await Bot.r.table('effs')
+    const effs = await Bot.r.table('effs').limit(25)
       .run()
 
     return effs.sort((a, b) => b.effs - a.effs)
