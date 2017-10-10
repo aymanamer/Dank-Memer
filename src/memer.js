@@ -3,8 +3,8 @@ const metrics = require('datadog-metrics')
 metrics.init({
   apiKey: config.datadog.APIkey,
   appKey: config.datadog.APPkey,
-  flushIntervalSeconds: 60,
-  prefix: 'test.'
+  flushIntervalSeconds: 10,
+  prefix: 'dank.'
 })
 const Sharder = require('eris-sharder').Master
 const snek = require('snekfetch')
@@ -31,7 +31,6 @@ master.on('stats', res => {
   r.table('stats')
     .insert({ id: 1, stats: res }, { conflict: 'update' })
     .run()
-    return
   botlists.forEach(async (token, url) => {
     await snek
       .post(url)
