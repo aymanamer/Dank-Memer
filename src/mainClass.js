@@ -124,18 +124,16 @@ class Memer extends Base {
 
   async messageCreate (msg) {
     this.metrics.increment('messagesSeen')
-
     if (!msg.channel.guild ||
                 msg.author.bot ||
                 await this.db.isBlocked(msg.author.id, msg.channel.guild.id)) {
       return
     }
-    if (msg.channel.guild.id === '281482896265707520') {
-      this.metrics.increment('server.activity')
+
+    if (/\b([fF])\b/g.test(msg.content)) {
+      this.db.addEff(msg.author.id, msg.channel.guild.id)
     }
-    if (msg.author.id === '172571295077105664') {
-      this.metrics.increment('melmsie.activity')
-    }
+
 
     const gConfig = await this.db.getGuild(msg.channel.guild.id) || this.defaultGuildConfig
 
