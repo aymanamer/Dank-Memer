@@ -1,15 +1,5 @@
 const { exec } = require('child_process')
 const util = require('util')
-const Twit = require('twit')
-
-const twitter = require('../config.json').twitter
-const tClient = new Twit({
-  consumer_key: twitter.consumer_key,
-  consumer_secret: twitter.consumer_secret,
-  access_token: twitter.access_token,
-  access_token_secret: twitter.access_token_secret,
-  timeout_ms: 60 * 1000
-})
 
 const table = require('table')
 const tableConfig = {
@@ -55,24 +45,6 @@ exports.run = async function (Memer, msg, args) {
   }
 
   const command = args.shift()
-
-  if (command === 'deletetweet' && msg.member.roles.includes('334170299979399169')) {
-    if (!parseInt(args[0])) {
-      return msg.channel.createMessage('Argument error. Make sure the argument(s) you\'re passing are numbers and exist.')
-    }
-    args.filter(arg => parseInt(arg)).forEach(targetTweetID => {
-      tClient.post('statuses/destroy/:id', { id: targetTweetID }, (err, data, response) => {
-        if (!err && response.statusCode === 200) {
-          msg.channel.createMessage({ embed: {
-            color: 0x4099FF,
-            description: `Tweet ${targetTweetID} successfully deleted.`
-          }})
-        } else {
-          msg.channel.createMessage(`Something went wrong.\nStatus code: ${response.statusCode}\nError: ${err.message}`)
-        }
-      })
-    })
-  }
 
   if (!Memer.config.devs.includes(msg.author.id)) {
     return
@@ -184,6 +156,16 @@ exports.run = async function (Memer, msg, args) {
     })
   }
 
+  if (command === 'avi') {
+  
+    try {
+      setAvatar(Memer, args[0])
+      msg.channel.createMessage('k boss')
+    } catch (err) {
+      console.log(err.stack)
+    }
+  }
+
   if (command === 'speedtest') {
     msg.channel.createMessage(`**nice speed test bro, too bad ur internet sux**\n${Memer.codeblock('speed-test -j', 'sh')}`)
     exec('speed-test -j', async (e, stdout, stderr) => {
@@ -257,4 +239,11 @@ exports.props = {
   cooldown: 1,
   description: 'henlo, u stinky birb',
   perms: []
+}
+
+function setAvatar(Memer, url) {
+  require('snekfetch').get(url).end((err, res) => {
+    console.log(JSON.stringify(res.body))
+    Memer.bot.editSelf({ avatar: `data:${res.header["content-type"]};base64,${res.body.toString("base64")}` });
+  })
 }

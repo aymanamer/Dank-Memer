@@ -13,7 +13,7 @@ exports.run = function (Memer, msg) {
 exports.props = {
 	name: 'watch',
 	usage: '{command}',
-	aliases: ['twitch'],
+	aliases: ['twitch', 'stream'],
 	cooldown: 1000,
 	description: 'Watch the developer of this bot stream.',
 	perms: ['embedLinks']

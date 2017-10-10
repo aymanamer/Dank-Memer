@@ -5,15 +5,14 @@ exports.run = async function (Memer, msg, args) {
       embed: {
         color: Memer.colors.purple,
         title: 'Available Commands',
-        description: 'Hey stinky! [Join my server](https://discord.gg/3GNMJBG) or ur a stinky normie.',
+        description: 'Pls boo is available until the end of the month!',
         fields: [
-          { name: `${funemoji} Fun Commands`, value: 'asktrump, fart, greentext, henlo, joke, justright, kill, meme, memegen, mock, pupper, pun, shitpost, spin' },
+          { name: `${funemoji} Fun Commands`, value: 'asktrump, boo, fart, greentext, henlo, joke, justright, kill, meme, memegen, mock, pupper, pun, say, shitpost, spin' },
           { name: '📷 Image Manipulation', value: 'ban, batslap, brazzers, byemom, cancer, dank, delete, hitler, invert, jail, magik, pride, salty, shit, spank, trigger, warp' },
-          { name: '🔧 Utilities and Information', value: 'clean, disable, enable, help, patreon, ping, prefix, stats, watch' },
-          { name: '🖼 Image Tags', value: 'alone, doge, dolan, godno, kappa, lul, megusta, notsure, pepe, troll, wat ' },
-          { name: '💰 Donor Commands', value: 'say, ~~tweet~~' }
+          { name: '🔧 Utilities and Information', value: 'clean, credits, disable, enable, feedback, help, patreon, ping, prefix, stats, watch' },
+          { name: '🖼 Image Tags', value: 'alone, doge, dolan, godno, kappa, lul, megusta, notsure, pepe, troll, wat ' }
         ],
-        footer: { text: 'Want access to donor commands? Donate here: https://www.patreon.com/melmsie' }
+        footer: { text: 'Help spread the memes. Vote here: https://discordbots.org/bot/memes' }
       }
     })
   } else {
