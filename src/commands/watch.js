@@ -5,7 +5,7 @@ exports.run = function (Memer, msg) {
 			author: { name: 'Watch Melmsie Stream!' },
 			thumbnail: {
 				url: 'https://avatars1.githubusercontent.com/u/20218284?v=4&s=460' },
-			description: `Melmsie streams tons of different games, come check it out!`
+			description: `Melmsie streams tons of different games, [come check it out!](https://www.twitch.tv/m3lmsie)`
 		}
 	})
 }
