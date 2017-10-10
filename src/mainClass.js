@@ -97,20 +97,6 @@ class Memer extends Base {
     this.db.deleteGuild(guild.id)
   }
 
-  guildMemberAdd (guild, member) {
-    if (guild.id === '281482896265707520') {
-      this.metrics.increment('server.newMembers')
-      guild.channels.get('334832928859095051').createMessage(`henlo ${member.username}`)
-    }
-  }
-
-  guildMemberRemove (guild, member) {
-    if (guild.id === '281482896265707520') {
-      this.metrics.increment('server.leavingMembers')
-      guild.channels.get('334832928859095051').createMessage(`bye bitch. ${member.username} left`).catch(() => { })
-    }
-  }
-
   get defaultGuildConfig () {
     return {
       prefix: this.config.defaultPrefix,
