@@ -21,5 +21,6 @@ exports.props = {
   usage: '{command}',
   aliases: [],
   cooldown: 3000,
-  description: 'Warp some image shit'
+  description: 'Warp some image shit',
+  perms: ['attachFiles']
 }

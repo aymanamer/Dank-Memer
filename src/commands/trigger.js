@@ -20,5 +20,6 @@ exports.props = {
   usage: '{command}',
   aliases: ['triggered'],
   cooldown: 3000,
-  description: 'UR SO TRIGGERED BRO'
+  description: 'UR SO TRIGGERED BRO',
+  perms: ['attachFiles']
 }

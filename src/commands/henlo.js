@@ -12,7 +12,7 @@ exports.run = async function (Memer, msg, args) {
     mention = msg.author.username
     text = args[0] ? args.join(' ') : Memer.randomInArray(henlo)
   } else {
-    return msg.create('hmm, you seemed to find a way to break this. GG at beating my 5am brain.')
+    return msg.channel.createMessage('hmm, you seemed to find a way to break this. GG at beating my 5am brain.')
   }
 
   msg.channel.createMessage(`henlo ${mention}\nyou stinky ${mention}\ngo ${text} ugly`)
@@ -23,5 +23,6 @@ exports.props = {
   usage: '{command} @user thing to do',
   aliases: ['stinky'],
   cooldown: 1000,
-  description: 'teach that stinky BOI a lesson'
+  description: 'teach that stinky BOI a lesson',
+  perms: []
 }

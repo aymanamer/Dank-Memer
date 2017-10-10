@@ -22,5 +22,6 @@ exports.props = {
   usage: '{command}',
   aliases: ['end'],
   cooldown: 1000,
-  description: 'STOP FARTING'
+  description: 'STOP FARTING',
+  perms: []
 }

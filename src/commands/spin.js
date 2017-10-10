@@ -9,5 +9,6 @@ exports.props = {
   usage: '{command}',
   aliases: ['fidget'],
   cooldown: 1000,
-  description: 'Spin the cancer spinner!'
+  description: 'Spin the cancer spinner!',
+  perms: []
 }

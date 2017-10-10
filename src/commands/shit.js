@@ -39,5 +39,6 @@ exports.props = {
   usage: '{command}',
   aliases: ['shitty'],
   cooldown: 3000,
-  description: 'The shit on my shoe!'
+  description: 'The shit on my shoe!',
+  perms: ['attachFiles']
 }

@@ -9,7 +9,7 @@ exports.run = async function (Memer, msg, args) {
         color: Memer.colors.purple,
         title: '📫 You have received a message from the developers!',
         description: args.slice(1).join(' '),
-        footer: { text: 'To reply, please use pls bother.' }
+        footer: { text: 'To reply, please use pls feedback.' }
       }
     })
     await msg.addReaction('📧')
@@ -24,5 +24,6 @@ exports.props = {
   usage: '{command} <id> <shit>',
   aliases: ['slideintothedms'],
   cooldown: 1,
-  description: 'aether stinks'
+  description: 'aether stinks',
+  perms: []
 }

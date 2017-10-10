@@ -32,5 +32,6 @@ exports.props = {
   usage: '{command}',
   aliases: [],
   cooldown: 60000,
-  description: ''
+  description: 'Use this command to enable disabled commands.',
+  perms: []
 }

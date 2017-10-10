@@ -13,5 +13,6 @@ exports.props = {
   usage: '{command}',
   aliases: ['gibinvite'],
   cooldown: 1000,
-  description: 'Get an invite for the bot or to the support server.'
+  description: 'Get an invite for the bot or to the support server.',
+  perms: ['embedLinks']
 }

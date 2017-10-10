@@ -10,5 +10,6 @@ exports.props = {
   usage: '{command}',
   aliases: ['dadjoke'],
   cooldown: 1000,
-  description: 'Are they dad jokes, or are they puns? Is there even a difference?'
+  description: 'Are they dad jokes, or are they puns? Is there even a difference?',
+  perms: []
 }

@@ -7,5 +7,6 @@ exports.props = {
   usage: '{command}',
   aliases: [],
   cooldown: 1000,
-  description: '( ͡° ͜ʖ ͡° )'
+  description: '( ͡° ͜ʖ ͡° )',
+  perms: []
 }

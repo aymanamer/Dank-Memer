@@ -25,5 +25,6 @@ exports.props = {
   usage: '{command} "prefix of your choice',
   aliases: [],
   cooldown: 60000,
-  description: 'Change Dank Memer\'s prefix!'
+  description: 'Change Dank Memer\'s prefix!',
+  perms: ['embedLinks']
 }

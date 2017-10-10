@@ -43,5 +43,6 @@ exports.props = {
   usage: '{command} "meme name" = "line one" | "line two"',
   aliases: ['make'],
   cooldown: 1000,
-  description: 'Make some hot new memes on your own!'
+  description: 'Make some hot new memes on your own!',
+  perms: ['attachFiles']
 }

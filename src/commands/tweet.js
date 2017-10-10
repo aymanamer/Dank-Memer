@@ -8,5 +8,6 @@ exports.props = {
   usage: '{command} what you wanna tweet',
   aliases: ['twitter'],
   cooldown: 20000,
-  description: 'this was ruined'
+  description: 'this was ruined',
+  perms: []
 }

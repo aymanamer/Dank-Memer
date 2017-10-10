@@ -5,11 +5,11 @@ exports.run = async function (Memer, msg, args) {
       embed: {
         color: Memer.colors.purple,
         title: 'Available Commands',
-        description: 'In celebration of 50k servers coming soon, donor commands are available for everyone for a while. AND pls fart is back for a short time!',
+        description: 'Hey stinky! [Join my server](https://discord.gg/3GNMJBG) or ur a stinky normie.',
         fields: [
           { name: `${funemoji} Fun Commands`, value: 'asktrump, fart, greentext, henlo, joke, justright, kill, meme, memegen, mock, pupper, pun, shitpost, spin' },
           { name: '📷 Image Manipulation', value: 'ban, batslap, brazzers, byemom, cancer, dank, delete, hitler, invert, jail, magik, pride, salty, shit, spank, trigger, warp' },
-          { name: '🔧 Utilities and Information', value: 'clean, disable, enable, help, patreon, ping, prefix, stats' },
+          { name: '🔧 Utilities and Information', value: 'clean, disable, enable, help, patreon, ping, prefix, stats, watch' },
           { name: '🖼 Image Tags', value: 'alone, doge, dolan, godno, kappa, lul, megusta, notsure, pepe, troll, wat ' },
           { name: '💰 Donor Commands', value: 'say, ~~tweet~~' }
         ],
@@ -39,5 +39,6 @@ exports.props = {
   usage: '{command}',
   aliases: ['cmds', 'commands'],
   cooldown: 1000,
-  description: 'See a list of commands available.'
+  description: 'See a list of commands available.',
+  perms: ['embedLinks']
 }

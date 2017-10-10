@@ -22,5 +22,6 @@ exports.props = {
   usage: '{command} @user',
   aliases: ['slap', 'batman'],
   cooldown: 3000,
-  description: 'Slap someone shitless with this.'
+  description: 'Slap someone shitless with this.',
+  perms: ['attachFiles']
 }

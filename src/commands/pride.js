@@ -21,5 +21,6 @@ exports.props = {
   usage: '{command} @user',
   aliases: ['gay'],
   cooldown: 3000,
-  description: 'Show your gay pride!'
+  description: 'Show your gay pride!',
+  perms: ['attachFiles']
 }

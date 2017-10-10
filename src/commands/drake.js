@@ -19,5 +19,6 @@ exports.props = {
   usage: '{command} @user',
   aliases: [],
   cooldown: 3000,
-  description: 'Drake is picky'
+  description: 'Drake is picky',
+  perms: []
 }

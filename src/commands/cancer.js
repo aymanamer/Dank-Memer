@@ -27,5 +27,6 @@ exports.props = {
   usage: '{command}',
   aliases: ['cancerous'],
   cooldown: 3000,
-  description: 'the picture doesn\'t lie...'
+  description: 'the picture doesn\'t lie...',
+  perms: ['attachFiles']
 }

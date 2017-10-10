@@ -21,5 +21,6 @@ exports.props = {
   usage: '{command} @user',
   aliases: [],
   cooldown: 3000,
-  description: 'Invert your image!'
+  description: 'Invert your image!',
+  perms: ['attachFiles']
 }

@@ -10,5 +10,6 @@ exports.props = {
   usage: '{command}',
   aliases: ['okhand'],
   cooldown: 1000,
-  description: 'Express how "just right" something is with this command.'
+  description: 'Express how "just right" something is with this command.',
+  perms: ['attachFiles']
 }

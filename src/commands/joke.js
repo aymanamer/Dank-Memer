@@ -23,5 +23,6 @@ exports.props = {
   usage: '{command}',
   aliases: ['funny'],
   cooldown: 1000,
-  description: 'See a funny joke. Dad\'s love them!'
+  description: 'See a funny joke. Dad\'s love them!',
+  perms: ['embedLinks']
 }

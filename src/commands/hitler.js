@@ -27,5 +27,6 @@ exports.props = {
   usage: '{command}',
   aliases: ['worsethanhitler'],
   cooldown: 3000,
-  description: 'It\'s not offensive if it\'s true, so use this wisely.'
+  description: 'It\'s not offensive if it\'s true, so use this wisely.',
+  perms: ['attachFiles']
 }

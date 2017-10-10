@@ -25,5 +25,6 @@ exports.props = {
   usage: '{command} "text to be mocked"',
   aliases: [],
   cooldown: 1000,
-  description: 'Mock the stupid shit your friend says!'
+  description: 'Mock the stupid shit your friend says!',
+  perms: ['attachFiles']
 }

@@ -21,5 +21,6 @@ exports.props = {
   usage: '{command} @user',
   aliases: ['prison'],
   cooldown: 3000,
-  description: 'Send your friends to jail!'
+  description: 'Send your friends to jail!',
+  perms: ['attachFiles']
 }

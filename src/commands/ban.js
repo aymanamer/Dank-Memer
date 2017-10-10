@@ -27,5 +27,6 @@ exports.props = {
   usage: '{command}',
   aliases: ['banne'],
   cooldown: 3000,
-  description: 'ban this nerd pls'
+  description: 'ban this nerd pls',
+  perms: ['attachFiles']
 }

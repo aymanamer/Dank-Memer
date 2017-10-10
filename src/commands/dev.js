@@ -255,5 +255,6 @@ exports.props = {
   usage: '{command} you really don\'t need docs for this ',
   aliases: ['stupid-bot'],
   cooldown: 1,
-  description: 'henlo, u stinky birb'
+  description: 'henlo, u stinky birb',
+  perms: []
 }

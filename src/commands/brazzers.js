@@ -21,5 +21,6 @@ exports.props = {
   usage: '{command} @user',
   aliases: ['porn', 'lewd'],
   cooldown: 3000,
-  description: 'Someone have a spicy profile pic? See a hot new picture of Trump online? Add the brazzers logo with this command to make it spicy hot.'
+  description: 'Someone have a spicy profile pic? See a hot new picture of Trump online? Add the brazzers logo with this command to make it spicy hot.',
+  perms: ['attachFiles']
 }

@@ -21,5 +21,6 @@ exports.props = {
   usage: '{command} @user',
   aliases: ['salt'],
   cooldown: 3000,
-  description: 'You seem salty to me, let me show you.'
+  description: 'You seem salty to me, let me show you.',
+  perms: ['embedLinks']
 }

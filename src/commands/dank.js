@@ -21,5 +21,6 @@ exports.props = {
   usage: '{command} @user',
   aliases: ['dankify', 'mlg'],
   cooldown: 3000,
-  description: 'mmmm doritos and hitmarkers. Classic.'
+  description: 'mmmm doritos and hitmarkers. Classic.',
+  perms: ['attachFiles']
 }

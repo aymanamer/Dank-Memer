@@ -9,7 +9,7 @@ exports.run = async function (Memer, msg) {
                                 `Uptime          |   ${Memer.parseTime(process.uptime())}\n` +
                                 `Heap Used       |   ${stats.totalRam.toFixed(2)}MB\n` +
                                 `Ping            |   ${msg.channel.guild.shard.latency.toFixed()}ms\n` +
-                                `Build           |   v${Memer.package.version}\n` +
+                                `Build           |   v${Memer.config.version}\n` +
                                 '\n```'
       },
       {
@@ -17,8 +17,8 @@ exports.run = async function (Memer, msg) {
         value: '```\n' +
                                 `Guilds          |   ${stats.guilds}\n` +
                                 `Users           |   ${stats.users}\n` +
-        //                `Large Guilds    |   ${Memer.bot.guilds.filter(m => m.large).length}\n` +
-        //                `Exclusivity     |   ${Memer.bot.guilds.filter(g => g.members.filter(m => m.bot).length === 1).length}\n`+
+                                `Large Guilds    |   ${stats.largeGuilds}\n` +
+                                `Exclusivity     |   ${stats.exclusiveGuilds}\n`+
                                 '\n```'
       },
       {
@@ -38,5 +38,6 @@ exports.props = {
   usage: '{command}',
   aliases: ['info'],
   cooldown: 1000,
-  description: 'blah'
+  description: 'blah',
+  perms: ['embedLinks']
 }

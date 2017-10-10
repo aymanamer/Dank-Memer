@@ -26,5 +26,6 @@ exports.props = {
   usage: '{command}',
   aliases: [],
   cooldown: 1,
-  description: ''
+  description: '>sending greentexts',
+  perms: 'embedLinks'
 }

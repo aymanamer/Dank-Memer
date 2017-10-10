@@ -14,5 +14,6 @@ exports.props = {
   usage: '{command}',
   aliases: ['pong'],
   cooldown: 1000,
-  description: 'hi, this is not ping-pong'
+  description: 'hi, this is not ping-pong',
+  perms: []
 }

@@ -28,5 +28,6 @@ exports.props = {
   usage: '{command} <question>',
   aliases: ['trump', 'donald'],
   cooldown: 1000,
-  description: 'Ask the president whatever you\'d like!'
+  description: 'Ask the president whatever you\'d like!',
+  perms: ['embedLinks']
 }

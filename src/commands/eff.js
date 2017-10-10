@@ -27,6 +27,7 @@ exports.props = {
 	usage: '{command}',
 	aliases: [],
 	cooldown: 1,
-	description: 'When no one else agrees with you, Dank Memer does.'
+	description: 'When no one else agrees with you, Dank Memer does.',
+	perms: ['embedLinks']
 }
 

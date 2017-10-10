@@ -6,6 +6,7 @@ exports.props = {
   name: 'dankrate',
   usage: '{command}',
   aliases: ['rate'],
-  cooldown: 1,
-  description: 'How dank are you?'
+  cooldown: 1000,
+  description: 'How dank are you?',
+  perms: []
 }

@@ -27,5 +27,6 @@ exports.props = {
   usage: '{command}',
   aliases: [],
   cooldown: 1,
-  description: ''
+  description: '',
+  perms: ['embedLinks']
 }

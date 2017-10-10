@@ -25,5 +25,6 @@ exports.props = {
   usage: '{command} <something to google search>',
   aliases: ['bye', 'google'],
   cooldown: 3000,
-  description: 'Quick, mom is gone, what are you gonna search on google?'
+  description: 'Quick, mom is gone, what are you gonna search on google?',
+  perms: ['attachFiles']
 }

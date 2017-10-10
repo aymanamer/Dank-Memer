@@ -17,5 +17,6 @@ exports.props = {
   usage: '{command} @user',
   aliases: ['murder'],
   cooldown: 1000,
-  description: 'Sick of someone? Easy! Just kill them!'
+  description: 'Sick of someone? Easy! Just kill them!',
+  perms: []
 }

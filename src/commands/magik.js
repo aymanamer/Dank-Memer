@@ -19,5 +19,6 @@ exports.props = {
   usage: '{command} @user',
   aliases: ['squiggle'],
   cooldown: 5000,
-  description: 'Make something magik!'
+  description: 'Make something magik!',
+  perms: ['attachFiles']
 }

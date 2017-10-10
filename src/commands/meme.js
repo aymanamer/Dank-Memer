@@ -26,5 +26,6 @@ exports.props = {
   usage: '{command}',
   aliases: ['maymay'],
   cooldown: 1000,
-  description: 'See the top new memes on reddit!'
+  description: 'See the top new memes on reddit!',
+  perms: ['embedLinks']
 }

@@ -34,5 +34,6 @@ exports.props = {
   usage: '{command}',
   aliases: ['toot'],
   cooldown: 1000,
-  description: 'ew!.'
+  description: 'ew!', 
+  perms: ['voiceConnect', 'voiceSpeak', 'addReactions']
 }

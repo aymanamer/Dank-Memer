@@ -27,5 +27,6 @@ exports.props = {
   usage: '{command}',
   aliases: ['delet'],
   cooldown: 3000,
-  description: 'delet this.'
+  description: 'delet this.',
+  perms: ['attachfiles']
 }
