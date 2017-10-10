@@ -42,8 +42,6 @@ class Memer extends Base {
       .on('guildDelete', this.guildDelete.bind(this))
       .on('messageCreate', this.messageCreate.bind(this))
       .on('error', this.onError.bind(this))
-      .on('guildMemberAdd', this.guildMemberAdd.bind(this))
-      .on('guildMemberRemove', this.guildMemberRemove.bind(this))
     this.ready()
   }
 
