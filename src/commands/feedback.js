@@ -1,4 +1,8 @@
 exports.run = function (Memer, msg, args) {
+	if (!args[0]) {
+		return msg.reply('Try again, except actually give some feedback. Smh.')
+	}
+
 	try {
 		Memer.bot.createMessage('326384964964974602', {embed: {
 				title: 'New Feedback:',

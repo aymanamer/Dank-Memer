@@ -23,11 +23,11 @@ const botlists = new Map([
 ])
 
 master.on('stats', res => {
-  setTimeout(function (){
+  
   metrics.gauge('totalGuilds', res.guilds)
   metrics.gauge('totalRam', res.totalRam)
   metrics.gauge('totalUsers', res.users)
-  }, 300000)
+ 
   r.table('stats')
     .insert({ id: 1, stats: res }, { conflict: 'update' })
     .run()
