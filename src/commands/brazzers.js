@@ -19,7 +19,7 @@ exports.run = async function (Memer, msg, args) {
 exports.props = {
   name: 'brazzers',
   usage: '{command} @user',
-  aliases: ['porn', 'lewd'],
+  aliases: ['lewd'],
   cooldown: 3000,
   description: 'Someone have a spicy profile pic? See a hot new picture of Trump online? Add the brazzers logo with this command to make it spicy hot.',
   perms: ['attachFiles']
