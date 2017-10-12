@@ -125,7 +125,6 @@ class Memer extends Base {
       return msg.channel.createMessage(`Hello, ${msg.author.username}. My prefix is \`${gConfig.prefix}\`. Example: \`${gConfig.prefix} meme\``)
     }
     if (msg.content.toLowerCase().startsWith(gConfig.prefix)) {
-      this.metrics.increment('commandsTotal')
       msgHandler.handleMeDaddy(this, msg, gConfig)
     }
   }

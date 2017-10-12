@@ -45,6 +45,7 @@ exports.handleMeDaddy = async function (Memer, msg, gConfig) {
       return
     }
     msg.reply = (str) => { msg.channel.createMessage(`${msg.author.mention}, ${str}`) }
+    Memer.metrics.increment('commandsTotal', 1, tags = ['commands', 'commandsTotal', `commands.${command}`])
     await command.run(Memer, msg, args)
   } catch (e) {
     Memer.metrics.increment('erroredCommands')
