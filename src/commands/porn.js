@@ -5,8 +5,10 @@ exports.run = async function (Memer, msg) {
 		msg.channel.createMessage({
 			embed: {
 				color: Memer.colors.lightblue,
-				author: { name: 'YAY PORN!' },
-				description: 'Since porn is not normal for a meme bot, you\'ll have to vote to use it. :(\n[Click here to vote](https://discordbots.org/bot/memes).\nIf your vote button is greyed out, log in on the top right and go back to that link!\n\nVoting helps Dank Memer grow, and the larger the bot is, the better the memes get.'
+				author: { name: 'OWO whats this?' },
+				thumbnail: { url: 'http://icons.iconarchive.com/icons/paomedia/small-n-flat/1024/lock-icon.png' },
+				description: 'To be able to see this **NSFW content**, you must vote.\n\n[Click here to vote.](https://discordbots.org/bot/memes)',
+				footer: { text: 'Locked Command' }
 				
 			}
 		})
@@ -15,7 +17,8 @@ exports.run = async function (Memer, msg) {
 			embed: {
 				color: Memer.colors.lightblue,
 				author: { name: 'Nice meme.' },
-				description: '[Click here to get a REAL porn bot](https://bot.discord.io/boobbot). Thanks for upvoting though!'
+				description: '[Click here to get a REAL porn bot](https://bot.discord.io/boobbot). Thanks for upvoting though!',
+				footer: { text: 'Yes, boobbot is holding me hostage. Shhhhh' }
 
 			}
 		})
