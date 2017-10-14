@@ -7,7 +7,6 @@ class Memer extends Base {
   constructor (bot) {
     super(bot)
 
-    this.bot = bot
     this.log = require('./utils/logger.js')
     this._snek = require('snekfetch')
     this._join = require('path').join
