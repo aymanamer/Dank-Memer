@@ -2,13 +2,10 @@ exports.handleMeDaddy = async function (Memer, msg, gConfig) {
   let command = msg.content.slice(gConfig.prefix.length + 1).toLowerCase().split(' ')[0]
   const args = msg.cleanContent.split(' ').slice(gConfig.prefix.split(' ').length + 1)
   if (Memer.cmds.has(command)) {
-    Memer.metrics.increment(`commands.${command}`, 1, tags = ['commands', `commands.${command}`])
     command = Memer.cmds.get(command)
   } else if (Memer.aliases.has(command)) {
-    Memer.metrics.increment(`commands.${command}`, 1, tags = ['commands', `commands.${command}`])
     command = Memer.cmds.get(Memer.aliases.get(command))
   } else if (Memer.tags.has(command)) {
-    Memer.metrics.increment(`commands.${command}`, 1, tags = ['commands', `commands.${command}`])
     const tag = Memer.tags.get(command)
     if (args[0] === 'info') {
       await msg.channel.createMessage({ embed: {
@@ -38,14 +35,11 @@ exports.handleMeDaddy = async function (Memer, msg, gConfig) {
 
   try {
     const permissions = msg.channel.permissionsOf(Memer.bot.user.id)
-    if (!permissions.has('sendMessages') ||
-                !permissions.has('embedLinks') ||
-                !permissions.has('attachFiles') ||
-                !permissions.has('addReactions')) {
+    if ((command.props.perms && command.props.perms.some(perm => !permissions.has(perm))) || !permissions.has('sendMessages')) {
       return
     }
     msg.reply = (str) => { msg.channel.createMessage(`${msg.author.mention}, ${str}`) }
-    Memer.metrics.increment('commandsTotal', 1, tags = ['commands', 'commandsTotal', `commands.${command}`])
+    Memer.metrics.increment('commandsTotal', 1, ['commands', 'commandsTotal', `commands.${command}`])
     await command.run(Memer, msg, args)
   } catch (e) {
     Memer.metrics.increment('erroredCommands')
