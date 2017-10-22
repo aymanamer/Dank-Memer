@@ -1,30 +1,25 @@
-exports.run = async function (Memer, msg, args) {
-  const avatarurl = msg.mentions.length > 0 ? msg.mentions[0].staticAvatarURL : msg.author.staticAvatarURL
+const GenericImageCommand = require('../models/GenericImageCommand.js')
 
-  if (args.length < 1) {
-    return msg.channel.createMessage('You need to add something to search on google, try again.')
-  }
-  if (args.length > 140) {
-    return msg.channel.createMessage(`Google Search too long. You're ${args.length - 140} characters over the limit!`)
+const command = new GenericImageCommand('byemom', (msg, args) => {
+  let avatarurl = msg.mentions.length > 0 ? msg.mentions[0].staticAvatarURL : msg.author.staticAvatarURL
+  if (['jpg', 'jpeg', 'gif', 'png', 'webp'].some(x => args.join(' ').includes(x))) {
+    avatarurl = args.join(' ').replace(/gif|webp/g, 'png')
   }
 
-  const data = await Memer._snek
-    .get('http://localhost/api/byemom')
-    .set('Api-Key', Memer.config.imgenKey)
-    .set('data-src', JSON.stringify([`${avatarurl}`, `${args}`]))
-
-  if (data.status === 200) {
-    await msg.channel.createMessage('', { file: data.body, name: 'byemom.png' })
-  } else {
-    msg.channel.createMessage(`Error: ${data.text}`)
+  if (!args[0]) {
+    msg.channel.createMessage('You need to add something to search on google, try again.')
+    return false
   }
-}
+  if (args.join(' ').length > 140) {
+    msg.channel.createMessage(`Google Search too long. You're ${args.join(' ').length - 140} characters over the limit!`)
+    return false
+  }
 
-exports.props = {
-  name: 'byemom',
+  return JSON.stringify([`${avatarurl}`, `${args.join(' ')}`])
+}, {
   usage: '{command} <something to google search>',
   aliases: ['bye', 'google'],
-  cooldown: 3000,
-  description: 'Quick, mom is gone, what are you gonna search on google?',
-  perms: ['attachFiles']
-}
+  description: 'Quick, mom is gone, what are you gonna search on google?'
+})
+
+module.exports = command

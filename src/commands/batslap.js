@@ -1,27 +1,16 @@
-exports.run = async function (Memer, msg, args) {
+const GenericImageCommand = require('../models/GenericImageCommand.js')
+
+const command = new GenericImageCommand('batslap', (msg, args) => {
   let avatarurl = (msg.mentions.length > 0 ? msg.mentions[0].staticAvatarURL : msg.author.staticAvatarURL).replace('gif', 'png')
-  const authorurl = (msg.mentions.length > 0 ? msg.author.staticAvatarURL : Memer.bot.user.staticAvatarURL).replace('gif', 'png')
+  const authorurl = (msg.mentions.length > 0 ? msg.author.staticAvatarURL : msg.channel.guild.shard.client.user.staticAvatarURL).replace('gif', 'png')
   if (['jpg', 'jpeg', 'gif', 'png', 'webp'].some(x => args.join(' ').includes(x))) {
     avatarurl = args.join(' ').replace(/gif|webp/g, 'png')
   }
-
-  const data = await Memer._snek
-    .get('http://localhost/api/batslap')
-    .set('Api-Key', Memer.config.imgenKey)
-    .set('data-src', JSON.stringify([`${avatarurl}`, `${authorurl}`]))
-
-  if (data.status === 200) {
-    await msg.channel.createMessage('', { file: data.body, name: 'batslap.png' })
-  } else {
-    msg.channel.createMessage(`Error: ${data.text}`)
-  }
-}
-
-exports.props = {
-  name: 'batslap',
+  return JSON.stringify([`${avatarurl}`, `${authorurl}`])
+}, {
   usage: '{command} @user',
   aliases: ['slap', 'batman'],
-  cooldown: 3000,
-  description: 'Slap someone shitless with this.',
-  perms: ['attachFiles']
-}
+  description: 'Slap someone shitless with this.'
+})
+
+module.exports = command

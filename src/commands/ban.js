@@ -1,32 +1,8 @@
-const Jimp = require('jimp')
+const GenericImageCommand = require('../models/GenericImageCommand.js')
 
-exports.run = async function (Memer, msg, args) {
-  let avatarurl = msg.mentions.length > 0 ? msg.mentions[0].staticAvatarURL : msg.author.staticAvatarURL
-  if (['jpg', 'jpeg', 'gif', 'png', 'webp'].some(x => args.join(' ').includes(x))) {
-    avatarurl = args.join(' ').replace(/gif|webp/g, 'png')
-  }
-
-  const bad = await Jimp.read(avatarurl)
-  const template = await Jimp.read('./assets/imgen/ban.png')
-
-  bad.resize(350, 350)
-
-  template.composite(bad, 93, 365)
-  template.getBuffer(Jimp.MIME_PNG, async (err, buffer) => {
-    if (err) {
-      return msg.channel.createMessage(`Error: ${err.message}`)
-    }
-    await msg.channel.createMessage('', {
-      file: buffer, name: 'ban.png'
-    })
-  })
-}
-
-exports.props = {
-  name: 'ban',
-  usage: '{command}',
+const command = new GenericImageCommand('ban', null, {
   aliases: ['banne'],
-  cooldown: 3000,
-  description: 'ban this nerd pls',
-  perms: ['attachFiles']
-}
+  description: 'ban this nerd pls'
+})
+
+module.exports = command

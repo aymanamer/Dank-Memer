@@ -1,10 +1,13 @@
-const Jimp = require('jimp')
-exports.run = async function (Memer, msg, args) {
+const GenericImageCommand = require('../models/GenericImageCommand.js')
+
+const command = new GenericImageCommand('search', (msg, args) => {
   if (args.length < 1) {
-    return msg.channel.createMessage('You need to add some text, try again.')
+    msg.channel.createMessage('You need to add some text, try again.')
+    return false
   }
   if (args.join(' ').length > 70) {
-    return msg.channel.createMessage(`Text too long. You're ${args.join(' ').length - 70} characters over the limit!`)
+    msg.channel.createMessage(`Text too long. You're ${args.join(' ').length - 70} characters over the limit!`)
+    return false
   }
 
   if (msg.mentions.length > 0) {
@@ -13,31 +16,9 @@ exports.run = async function (Memer, msg, args) {
     args = args.join(' ')
   }
 
-  const text = args
-  const mom = await Jimp.read('./assets/imgen/thesearch.png')
-  const blank = await Jimp.read('./assets/imgen/Empty.png')
+  return args
+}, {
+  description: 'The Search'
+})
 
-  Jimp.loadFont(Jimp.FONT_SANS_16_BLACK).then(font => {
-    blank.resize(275, 200)
-    const search = blank.print(font, 0, 0, text, 178)
-
-    mom.composite(search, 65, 335)
-    mom.getBuffer(Jimp.MIME_PNG, async (err, buffer) => {
-      if (err) {
-        msg.channel.createMessage(`Error: ${err.message}`)
-      }
-      await msg.channel.createMessage('', {
-        file: buffer, name: 'search.png'
-      })
-    })
-  })
-}
-
-exports.props = {
-  name: 'search',
-  usage: '{command}',
-  aliases: [],
-  cooldown: 1,
-  description: 'no clue what to put here',
-  perms: ['attachFiles']
-}
+module.exports = command
