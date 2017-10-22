@@ -22,7 +22,7 @@ exports.run = async function (Memer, msg, args) {
 
 exports.props = {
   name: 'prefix',
-  usage: '{command} "prefix of your choice',
+  usage: '{command} <prefix of your choice>',
   aliases: [],
   cooldown: 60000,
   description: 'Change Dank Memer\'s prefix!',

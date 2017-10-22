@@ -1,6 +1,6 @@
 exports.run = async function (Memer, msg) {
   const stats = await Memer.db.getStats()
-  await msg.channel.createMessage({ embed: {
+  msg.channel.createMessage({ embed: {
     color: '5881576',
     fields: [
       {
@@ -18,7 +18,7 @@ exports.run = async function (Memer, msg) {
                                 `Guilds          |   ${stats.guilds}\n` +
                                 `Users           |   ${stats.users}\n` +
                                 `Large Guilds    |   ${stats.largeGuilds}\n` +
-                                `Exclusivity     |   ${stats.exclusiveGuilds}\n`+
+                                `Exclusivity     |   ${stats.exclusiveGuilds}\n` +
                                 '\n```'
       },
       {
@@ -38,6 +38,6 @@ exports.props = {
   usage: '{command}',
   aliases: ['info'],
   cooldown: 1000,
-  description: 'blah',
+  description: 'Returns information and statistics about Dank Memer.',
   perms: ['embedLinks']
 }

@@ -6,7 +6,7 @@ exports.run = function (Memer, msg, args) {
   } else {
     ping = `${msg.channel.guild.shard.latency}ms`
   }
-  msg.channel.createMessage(`${ping}`)
+  msg.channel.createMessage(ping)
 }
 
 exports.props = {
@@ -15,5 +15,5 @@ exports.props = {
   aliases: ['pong'],
   cooldown: 1000,
   description: 'hi, this is not ping-pong',
-  perms: []
+  perms: ['embedLinks']
 }

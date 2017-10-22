@@ -4,14 +4,12 @@ exports.run = async function (Memer, msg, args) {
   }
   try {
     const channel = await Memer.bot.getDMChannel(args[0])
-    channel.createMessage({
-      embed: {
-        color: Memer.colors.purple,
-        title: '📫 You have received a message from the developers!',
-        description: args.slice(1).join(' '),
-        footer: { text: 'To reply, please use pls feedback.' }
-      }
-    })
+    channel.createMessage({ embed: {
+      color: Memer.colors.purple,
+      title: '📫 You have received a message from the developers!',
+      description: args.slice(1).join(' '),
+      footer: { text: 'To reply, please use pls feedback.' }
+    }})
     await msg.addReaction('📧')
   } catch (e) {
     await msg.addReaction('❌')

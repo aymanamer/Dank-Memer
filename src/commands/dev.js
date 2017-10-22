@@ -157,7 +157,6 @@ exports.run = async function (Memer, msg, args) {
   }
 
   if (command === 'avi') {
-  
     try {
       setAvatar(Memer, args[0])
       msg.channel.createMessage('k boss')
@@ -241,9 +240,12 @@ exports.props = {
   perms: []
 }
 
-function setAvatar(Memer, url) {
+function setAvatar (Memer, url) {
   require('snekfetch').get(url).end((err, res) => {
+    if (err) {
+      throw err
+    }
     console.log(JSON.stringify(res.body))
-    Memer.bot.editSelf({ avatar: `data:${res.header["content-type"]};base64,${res.body.toString("base64")}` });
+    Memer.bot.editSelf({ avatar: `data:${res.header['content-type']};base64,${res.body.toString('base64')}` })
   })
 }

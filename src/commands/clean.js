@@ -1,5 +1,4 @@
 exports.run = async function (Memer, msg, args) {
-
   let messages = await msg.channel.getMessages(100)
   messages = messages.filter(m => m.author.id === Memer.bot.user.id && m.timestamp > Date.now() - 14 * 24 * 60 * 60 * 1000)
   messages.length = parseInt(args[0]) || 10
