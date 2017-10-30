@@ -24,8 +24,8 @@ exports.run = async function (Memer, msg) {
 exports.props = {
   name: 'greentext',
   usage: '{command}',
-  aliases: [],
+  aliases: ['gt'],
   cooldown: 1,
   description: '>sending greentexts',
-  perms: 'embedLinks'
+  perms: ['embedLinks']
 }
