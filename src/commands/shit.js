@@ -14,6 +14,11 @@ const command = new GenericImageCommand('shit', (msg, args) => {
     }
   }
 
+  if (!/^[\x00-\x7F]*$/.test(args)) {
+    msg.channel.createMessage('Your argument contains invalid characters. Please try again.')
+    return false
+  }
+
   return args
 }, {
   description: 'The shit on my shoe!',

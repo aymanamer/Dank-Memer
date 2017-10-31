@@ -10,8 +10,14 @@ const command = new GenericImageCommand('byemom', (msg, args) => {
     msg.channel.createMessage('You need to add something to search on google, try again.')
     return false
   }
+
   if (args.join(' ').length > 140) {
     msg.channel.createMessage(`Google Search too long. You're ${args.join(' ').length - 140} characters over the limit!`)
+    return false
+  }
+
+  if (!/^[\x00-\x7F]*$/.test(args.join(' '))) {
+    msg.channel.createMessage('Your argument contains invalid characters. Please try again.')
     return false
   }
 
