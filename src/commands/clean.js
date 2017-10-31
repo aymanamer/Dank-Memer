@@ -4,6 +4,7 @@ exports.run = async function (Memer, msg, args) {
   messages.length = parseInt(args[0]) || 10
   if (messages[0]) {
     msg.channel.deleteMessages(messages.map(m => m.id))
+      .catch(() => {})
   }
 }
 
