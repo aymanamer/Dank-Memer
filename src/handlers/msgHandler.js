@@ -16,7 +16,7 @@ exports.handleMeDaddy = async function (Memer, msg, gConfig) {
       }})
     } else {
       const res = await Memer._snek.get(tag.img)
-      await msg.channel.createMessage('', { file: res.body, name: 'hi.png' })
+      await msg.channel.createMessage('', { file: res.body, name: command + tag.img.slice(-4) })
     }
     return
   }
