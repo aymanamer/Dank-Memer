@@ -5,14 +5,14 @@ exports.run = async function (Memer, msg, args) {
       embed: {
         color: Memer.colors.purple,
         title: 'Available Commands',
-        description: 'Pls porn is the latest and greatest ~~meme~~ command!',
+        description: '[Join our server](https://goo.gl/Y4wvfP "if you don\'t click this, ur a fooking normie")!',
         fields: [
-          { name: `${funemoji} Fun Commands`, value: 'asktrump, boo, fart, greentext, henlo, joke, justright, kill, meme, memegen, mock, pupper, pun, porn, say, shitpost, spin' },
+          { name: `${funemoji} Fun Commands`, value: 'asktrump, boo, fart, greentext, henlo, joke, justright, kill, meme, memegen, mock, pupper, kitty, pun, porn, say, shitpost, spin' },
           { name: '📷 Image Manipulation', value: 'ban, batslap, brazzers, byemom, cancer, dank, delete, hitler, invert, jail, magik, pride, salty, shit, spank, trigger, warp' },
           { name: '🔧 Utilities and Information', value: 'clean, credits, disable, enable, feedback, help, patreon, ping, prefix, stats, watch' },
           { name: '🖼 Image Tags', value: 'alone, doge, dolan, godno, kappa, lul, megusta, notsure, pepe, troll, wat ' }
         ],
-        footer: { text: 'Help spread the memes. Vote here: https://discordbots.org/bot/memes' }
+        footer: { text: 'Remember to use commands with "pls command", e.g. pls meme' }
       }
     })
   } else {
