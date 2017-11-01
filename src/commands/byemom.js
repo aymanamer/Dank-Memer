@@ -16,7 +16,7 @@ const command = new GenericImageCommand('byemom', (msg, args) => {
     return false
   }
 
-  if (!/^[\x00-\x7F]*$/.test(args.join(' '))) {
+  if (!/^[\x00-\x7F]*$/.test(args.join(' '))) { // eslint-disable-line
     msg.channel.createMessage('Your argument contains invalid characters. Please try again.')
     return false
   }
