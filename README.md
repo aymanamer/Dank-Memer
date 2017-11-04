@@ -39,11 +39,59 @@ All commands use the same prefix, and are updated constantly!
 
 If you need any more help with anything, join [this server](https://discord.gg/3GNMJBG)!
 
+## Dependencies
+
+Dank Memer requires the following dependencies (in no order):
+
+- Node and NPM
+- RethinkDB
+- Gyp build tool (gyp)
+- Libtool
+- Freetype & it's headers (libfreetype6-dev)
+- Cairo & it's headers (libcairo2-dev)
+
+### Installing dependencies
+
+- Install Node JS (8+) and Npm
+    - Maybe by following [here](https://nodejs.org/en/download/package-manager/)
+- Install RethinkDB
+    - Maybe by following [here](https://www.rethinkdb.com/docs/install/ubuntu/)
+
+As root:
+
+```
+apt-get install \
+  libfreetype6-dev \
+  libcairo2-dev \
+  libsodium-dev \
+  libtool
+```
+
+## Building
+
+After installing the dependencies...
+
+`npm install`
+
+## Example config
+
+Must be placed in the "`src`" directory.
+Refer to `example-config.json`.
+
+## Running
+
+Make sure that RethinkDB is listening on it's default port `28015`.
+
+Change directory to "`src`" then:
+
+`node memer.js`
+
 ## Built With
 
 * [JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript) - The language
 * [Node](https://nodejs.org/en/) - The runtime
 * [Eris](https://abal.moe/Eris) - The Library
+* [RethinkDB](https://www.rethinkdb.com) - The database
 
 ## Contributing
 
