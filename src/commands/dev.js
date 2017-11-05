@@ -95,43 +95,30 @@ exports.run = async function (Memer, msg, args) {
   }
 
   if (command === 'eval') {
-    let input = args.join(' ')
-    const silent = input.includes('--silent')
-    const asynchr = input.includes('--async')
-    if (silent || asynchr) {
-      input = input.replace(/--silent|--async/g, '')
-    }
-
+    const input = args.join(' ')
     let result
     let evalTime
     try {
       const before = Date.now()
-      result = asynchr ? eval(`(async()=>{${input}})();`) : eval(input) // eslint-disable-line
+      result = await eval(`(async()=>{${input}})();`) // eslint-disable-line
       evalTime = Date.now() - before
-      if (result instanceof Promise && asynchr) {
-        result = await result
-      }
       if (typeof result !== 'string') {
-        result = util.inspect(result, { depth: 0 })
+        result = util.inspect(result, { depth: 1 })
       }
       const tokenRegex = new RegExp(Memer.config.token, 'gi')
-      result = result.replace(tokenRegex, '[TOKEN]')
+      result = result.replace(tokenRegex, 'i think the fuck not, you trick ass bitch')
     } catch (err) {
       result = err.message
     }
 
-    if (!silent) {
-      msg.channel.createMessage({ embed: {
-        color: Memer.colors.lightblue,
-        fields: [
-          { name: 'Input', value: Memer.codeblock(input, 'js') },
-          { name: 'Output', value: Memer.codeblock(result, 'js') }
-        ],
-        footer: { text: evalTime || evalTime === 0 ? `evaluated in ${evalTime}ms` : '' }
-      }})
-    } else {
-      msg.delete().catch(() => {})
-    }
+    msg.channel.createMessage({ embed: {
+      color: Memer.colors.lightblue,
+      fields: [
+        { name: 'Input', value: Memer.codeblock(input, 'js') },
+        { name: 'Output', value: Memer.codeblock(result, 'js') }
+      ],
+      footer: { text: evalTime || evalTime === 0 ? `evaluated in ${evalTime}ms` : '' }
+    }})
   }
 
   if (command === 'bash') {
