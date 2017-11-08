@@ -21,11 +21,11 @@ exports.handleMeDaddy = async function (Memer, msg, gConfig) {
     return
   }
 
-  Memer.metrics.increment(`command-${command.props.name}`)
-
   if (!command.run || gConfig.disabledCommands.includes(command.props.name)) {
     return
   }
+
+  Memer.metrics.increment(`command-${command.props.name}`)
 
   const cooldown = await Memer.db.getCooldown(command.props.name, msg.author.id)
   if (cooldown > Date.now()) {
@@ -41,7 +41,7 @@ exports.handleMeDaddy = async function (Memer, msg, gConfig) {
       return
     }
     msg.reply = (str) => { msg.channel.createMessage(`${msg.author.mention}, ${str}`) }
-    Memer.metrics.increment('commandsTotal', 1, ['commands', 'commandsTotal', `commands.${command}`])
+    Memer.metrics.increment('commandsTotal')
     await command.run(Memer, msg, args)
   } catch (e) {
     Memer.metrics.increment('erroredCommands')
