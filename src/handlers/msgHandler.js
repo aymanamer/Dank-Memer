@@ -20,7 +20,7 @@ exports.handleMeDaddy = async function (Memer, msg, gConfig) {
     }
     return
   }
-  
+
   Memer.metrics.increment(`command-${command}`)
 
   if (!command.run || gConfig.disabledCommands.includes(command.props.name)) {
