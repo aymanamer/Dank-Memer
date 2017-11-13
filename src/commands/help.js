@@ -9,7 +9,7 @@ exports.run = async function (Memer, msg, args) {
         fields: [
           { name: `${funemoji} Fun Commands`, value: 'asktrump, boo, call, fart, greentext, henlo, joke, justright, kill, meme, memegen, mock, pupper, kitty, pun, porn, say, shitpost, spin' },
           { name: '📷 Image Manipulation', value: 'ban, batslap, brazzers, byemom, cancer, dank, delete, hitler, invert, jail, magik, pride, salty, shit, spank, trigger, warp' },
-          { name: '🔧 Utilities and Information', value: 'clean, credits, disable, enable, feedback, help, patreon, ping, prefix, stats, watch' },
+          { name: '🔧 Utilities and Information', value: 'clean, credits, disable, enable, feedback, help, patreon, ping, prefix, rust, stats, watch' },
           { name: '🖼 Image Tags', value: 'alone, doge, dolan, godno, kappa, lul, megusta, notsure, pepe, troll, wat ' }
         ],
         footer: { text: 'Remember to use commands with "pls command", e.g. pls meme' }
