@@ -5,7 +5,7 @@ exports.run = async function (Memer, msg, args) {
       embed: {
         color: Memer.colors.purple,
         title: 'Available Commands',
-        description: 'Dank Memer has a phone number now. Use `pls call` to see it!',
+        description: 'Dank Memer has an official Rust server now. Look up "Dank Memer Official" to find it!',
         fields: [
           { name: `${funemoji} Fun Commands`, value: 'asktrump, boo, call, fart, greentext, henlo, joke, justright, kill, meme, memegen, mock, pupper, kitty, pun, porn, say, shitpost, spin' },
           { name: '📷 Image Manipulation', value: 'ban, batslap, brazzers, byemom, cancer, dank, delete, hitler, invert, jail, magik, pride, salty, shit, spank, trigger, warp' },
