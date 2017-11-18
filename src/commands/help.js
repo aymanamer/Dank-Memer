@@ -5,7 +5,7 @@ exports.run = async function (Memer, msg, args) {
       embed: {
         color: Memer.colors.purple,
         title: 'Available Commands',
-        description: 'Dank Memer has an official Rust server now. Look up "Dank Memer Official" to find it!',
+        description: 'discordbots.org is a shitty sellout list. Find new bots on [this site](https://bots.discord.pw/) or [this site](https://www.carbonitex.net/discord/bots) for better bots.',
         fields: [
           { name: `${funemoji} Fun Commands`, value: 'agree, asktrump, boo, call, dankrate, fart, greentext, henlo, joke, justright, kill, meme, memegen, mock, pupper, kitty, pun, porn, say, shitpost, spin' },
           { name: '📷 Image Manipulation', value: 'ban, batslap, brazzers, byemom, cancer, dank, delete, hitler, invert, jail, magik, pride, rip, salty, search, shit, spank, trigger, warp' },

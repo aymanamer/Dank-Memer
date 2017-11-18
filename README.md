@@ -2,9 +2,6 @@
 <a title="memes" href=""><img src="https://cdn.discordapp.com/attachments/340306589036838922/340320643830644736/Dankbg.jpg"></a>
 </p>
 <p align="center">
-  <a title="discordbots.org is a shitty list" href="https://bots.discord.pw/">
-  <img src="https://discordbots.org/api/widget/servers/270904126974590976.png" alt="discordbots.org is a shitty list" />
-</a>
   <a title="Travis" href="https://travis-ci.org/melmsie/Dank-Memer"><img src="https://travis-ci.org/melmsie/Dank-Memer.svg?branch=master"></a>
   <a title="BotVersion" href="https://github.com/melmsie/Dank-Memer/releases"><img src="https://img.shields.io/github/release/melmsie/Dank-Memer.svg"></a> 
   <a title="Version" href=""><img src="https://img.shields.io/badge/node.js-8.2.1-brightgreen.svg"></a>
