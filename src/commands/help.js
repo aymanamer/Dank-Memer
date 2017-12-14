@@ -5,11 +5,11 @@ exports.run = async function (Memer, msg, args) {
       embed: {
         color: Memer.colors.purple,
         title: 'Available Commands',
-        description: 'discordbots.org is a shitty sellout list. Find new bots on [this site](https://bots.discord.pw/) or [this site](https://www.carbonitex.net/discord/bots) for better bots.',
+        description: 'Consider [donating](https://www.patreon.com/melmsie) to make Dank Memer stays online!',
         fields: [
           { name: `${funemoji} Fun Commands`, value: 'agree, asktrump, boo, call, dankrate, fart, greentext, henlo, joke, justright, kill, meme, memegen, mock, pupper, kitty, pun, porn, say, shitpost, spin' },
           { name: '📷 Image Manipulation', value: 'ban, batslap, brazzers, byemom, cancer, dank, delete, hitler, invert, jail, magik, pride, rip, salty, search, shit, spank, trigger, warp' },
-          { name: '🔧 Utilities and Information', value: 'clean, credits, disable, enable, feedback, help, invite, patreon, ping, prefix, rust, stats, watch' },
+          { name: '🔧 Utilities and Information', value: 'clean, credits, disable, enable, feedback, help, invite, patreon, ping, prefix, stats, watch' },
           { name: '🖼 Image Tags', value: 'alone, doge, dolan, godno, kappa, lenny, lul, megusta, notsure, pepe, troll, wat ' }
         ],
         footer: { text: 'Remember to use commands with "pls command", e.g. pls meme' }

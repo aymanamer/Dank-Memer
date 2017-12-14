@@ -1,4 +1,5 @@
 exports.run = async function (Memer, msg) {
+  /*
   msg.channel.createMessage({
     embed: {
       color: Memer.colors.lightblue,
@@ -17,6 +18,8 @@ async function effy (Memer) {
     return res
   })
   return data.join('\n')
+  */
+  msg.channel.createMessage('no u')
 }
 
 exports.props = {
