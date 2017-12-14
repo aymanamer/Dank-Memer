@@ -35,6 +35,7 @@ master.on('stats', res => {
     .run()
 
   botlists.forEach(async (token, url) => {
+    return
     snek
       .post(url)
       .set('Authorization', token)
