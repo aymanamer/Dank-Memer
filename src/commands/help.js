@@ -5,7 +5,7 @@ exports.run = async function (Memer, msg, args) {
       embed: {
         color: Memer.colors.purple,
         title: 'Available Commands',
-        description: 'Consider [donating](https://www.patreon.com/melmsie) to make Dank Memer stays online!',
+        description: 'Dank Memer\'s developer streams on twitch, [click here](https://www.twitch.tv/m3lmsie) to check it out!',
         fields: [
           { name: `${funemoji} Fun Commands`, value: 'agree, asktrump, boo, call, dankrate, fart, greentext, henlo, joke, justright, kill, meme, memegen, mock, pupper, kitty, pun, porn, say, shitpost, spin' },
           { name: '📷 Image Manipulation', value: 'ban, batslap, brazzers, byemom, cancer, dank, delete, hitler, invert, jail, magik, pride, rip, salty, search, shit, spank, trigger, warp' },
