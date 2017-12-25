@@ -46,8 +46,9 @@ class Memer extends Base {
 
   ready () {
     this.bot.editStatus(null, {
-      name: 'memes',
-      type: 3
+      name: 'with my dad',
+      type: 1,
+      url: 'https://www.twitch.tv/m3lmsie'
     })
   }
 
