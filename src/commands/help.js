@@ -5,9 +5,9 @@ exports.run = async function (Memer, msg, args) {
       embed: {
         color: Memer.colors.purple,
         title: 'Available Commands',
-        description: 'Dank Memer\'s developer streams on twitch, [click here](https://www.twitch.tv/m3lmsie) to check it out!',
+        description: 'Giving out free cookies! Try pls cookie to get your cookie!',
         fields: [
-          { name: `${funemoji} Fun Commands`, value: 'agree, asktrump, boo, call, dankrate, fart, greentext, henlo, joke, justright, kill, meme, memegen, mock, pupper, kitty, pun, porn, say, shitpost, spin' },
+          { name: `${funemoji} Fun Commands`, value: 'agree, asktrump, award, boo, call, cookie, dankrate, fart, greentext, henlo, joke, justright, kill, meme, memegen, mock, pupper, kitty, pun, porn, say, shitpost, spin' },
           { name: '📷 Image Manipulation', value: 'ban, batslap, brazzers, byemom, cancer, dank, delete, hitler, invert, jail, magik, pride, rip, salty, search, shit, spank, trigger, warp' },
           { name: '🔧 Utilities and Information', value: 'clean, credits, disable, enable, feedback, help, invite, patreon, ping, prefix, stats, watch' },
           { name: '🖼 Image Tags', value: 'alone, doge, dolan, godno, kappa, lenny, lul, megusta, notsure, pepe, troll, wat ' }
