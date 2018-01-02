@@ -4,7 +4,7 @@ exports.run = function (Memer, msg, args) {
   }
 
   try {
-    Memer.bot.createMessage('397478150579159040', { embed: {
+    Memer.bot.createMessage('397478484550746122', { embed: {
       title: 'New Feedback:',
       author: { name: `${msg.author.username}#${msg.author.discriminator} | ${msg.author.id}` },
       description: args.join(' '),
