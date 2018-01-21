@@ -12,7 +12,7 @@ exports.run = async function (Memer, msg, args) {
           { name: '🔧 Utilities and Information', value: 'clean, credits, disable, enable, feedback, help, invite, patreon, ping, prefix, stats, watch' },
           { name: '🖼 Image Tags', value: 'alone, doge, dolan, godno, kappa, lenny, lul, megusta, notsure, pepe, troll, wat ' }
         ],
-        footer: { text: 'Remember to use commands with "pls command", e.g. pls meme' }
+        footer: { text: 'New commands coming in Feb!' }
       }
     })
   } else {
