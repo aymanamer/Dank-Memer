@@ -10,7 +10,7 @@ const master = new Sharder(config.token, '/mainClass.js', {
   stats: true,
   webhooks: config.webhooks,
   clientOptions: config.clientOptions,
-  shards: 60
+  shards: 64
 })
 
 metrics.init({

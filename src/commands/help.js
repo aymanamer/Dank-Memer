@@ -5,7 +5,7 @@ exports.run = async function (Memer, msg, args) {
       embed: {
         color: Memer.colors.purple,
         title: 'Available Commands',
-        description: 'Giving out free cookies! Try pls cookie to get your cookie!',
+        description: 'The developer is streaming every day 5pm-10pm EST, come say hi: https://www.twitch.tv/m3lmsie',
         fields: [
           { name: `${funemoji} Fun Commands`, value: 'agree, asktrump, award, boo, call, cookie, dankrate, fart, greentext, henlo, joke, justright, kill, meme, memegen, mock, pupper, kitty, pun, porn, say, shitpost, spin' },
           { name: '📷 Image Manipulation', value: 'ban, batslap, brazzers, byemom, cancer, dank, delete, hitler, invert, jail, magik, pride, rip, salty, search, shit, spank, trigger, warp' },
