@@ -1,7 +1,6 @@
 const memes = require('../assets/memes.json')
 
 exports.run = async function (Memer, msg, args) {
-
   if (args.length === 0) {
     return msg.channel.createMessage('You can use this command to make your own memes! See meme templates here: <https://github.com/melmsie/Dank-Memer/wiki/Memegen-list>\n\nUsage: `pls memegen "meme name" = "line one" | "line two"`\nExample usage: `pls memegen Lion King = its the | circle of life`')
   }
