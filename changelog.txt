@@ -1,2 +1,8 @@
-Feb 1st 2018:
- -removed pls cookie and pls award
+February 2018 Update: (5th?)
+  -removed agree, award, cookie, call, dank, feedback, henlo, invert, ping, spin, watch, and all image tags
+      *none of these commands were performing well, some werent used more than 100 times in a week*
+  -added ree, oof, roast, tweet, report, kiss(image version)
+  -added another fart sound
+      *apparently the last one got boring?*
+  -removed datadog integration
+      *it's just not needed anymore*

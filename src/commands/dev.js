@@ -49,6 +49,7 @@ exports.run = async function (Memer, msg, args) {
   if (!Memer.config.devs.includes(msg.author.id)) {
     return
   }
+  
 
   if (command === 'info') {
     const tableData = [[[
@@ -92,6 +93,16 @@ exports.run = async function (Memer, msg, args) {
       await msg.channel.createMessage('All clusters rebooting...')
       return exec('pm2 restart memer', () => { msg.channel.createMessage('Huh?') })
     }
+  }
+
+  if (command === 'ping') {
+    let ping
+    if (args[0] === '--trump') {
+      ping = `${msg.channel.guild.shard.latency * Math.floor(Math.random() * 100) + 5}ms which is the BIGLIEST PING SEEN IN AMERICAN HISTORY, **PERIOD**.`
+    } else {
+      ping = `${msg.channel.guild.shard.latency}ms`
+    }
+    msg.channel.createMessage(ping)
   }
 
   if (command === 'eval') {
