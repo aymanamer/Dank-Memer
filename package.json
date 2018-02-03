@@ -6,13 +6,10 @@
   "dependencies": {
     "datadog-metrics": "^0.6.1",
     "eris-sharder": "^1.7.0",
-    "erlpack": "^0.1.2",
-    "libsodium-wrappers": "^0.7.0",
     "react-trump": "^0.2.1",
     "rethinkdbdash": "^2.3.31",
     "snekfetch": "^3.2.9",
-    "table": "^4.0.1",
-    "uws": "^8.14.1"
+    "table": "^4.0.1"
   },
   "devDependencies": {
     "standard": "^10.0.3"
