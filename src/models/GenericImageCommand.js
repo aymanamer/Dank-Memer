@@ -36,7 +36,7 @@ class GenericImageCommand {
 
   get defaultURLParseFN () {
     return (msg, args) => {
-      let avatarurl = msg.mentions.length > 0 ? msg.mentions[0].staticAvatarURL : msg.author.staticAvatarURL
+      let avatarurl = (msg.mentions[0] || msg.author).dynamicAvatarURL('png')
       if (['jpg', 'jpeg', 'gif', 'png', 'webp'].some(ext => args.join(' ').includes(ext))) {
         avatarurl = args.join(' ').replace(/gif|webp/g, 'png')
       }

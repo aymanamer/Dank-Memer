@@ -22,7 +22,7 @@ module.exports = {
   intro: `Sup nerds. My name is Dank Memer.\n\nTo get started, send \`${config.defaultPrefix} help\`. All commands are run this way, for example, pls meme.\n\nI am maintained by Melmsie#0006, who can be found at [this server](https://discord.gg/3GNMJBG) if you need to talk to him.`,
 
   randomColor: () => {
-    return Math.random() * 16800000
+    return Math.floor(Math.random() * 0xFFFFFF)
   },
 
   randomInArray: (array) => {

@@ -1,6 +1,6 @@
 module.exports = Bot => ({
   addEff: async function addEff (userID, guildID) {
-    let effs = await this.getEffs(userID, 'userID')
+    const effs = await this.getEffs(userID, 'userID')
     if (!effs[0] || !effs.filter(eff => eff.guildID === guildID)[0]) {
       return this.createEff(userID, guildID)
     }
