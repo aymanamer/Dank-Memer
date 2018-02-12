@@ -49,7 +49,6 @@ exports.run = async function (Memer, msg, args) {
   if (!Memer.config.devs.includes(msg.author.id)) {
     return
   }
-  
 
   if (command === 'info') {
     const tableData = [[[

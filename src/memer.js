@@ -22,7 +22,7 @@ master.on('stats', res => {
     .insert({ id: 1, stats: res }, { conflict: 'update' })
     .run()
 
-  botlists.forEach(async (token, url) => {
+  /*botlists.forEach(async (token, url) => {
     return
     snek
       .post(url)
@@ -32,5 +32,5 @@ master.on('stats', res => {
         key: token
       })
       .end()
-  })
+  })*/
 })
