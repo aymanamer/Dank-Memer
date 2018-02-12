@@ -91,6 +91,7 @@ Change directory to "`src`" then:
 * [JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript) - The language
 * [Node](https://nodejs.org/en/) - The runtime
 * [Eris](https://abal.moe/Eris) - The Library
+* [Eris-Sharder](https://github.com/Discord-Sharders/eris-sharder) - The custom sharder
 * [RethinkDB](https://www.rethinkdb.com) - The database
 
 ## Contributing
@@ -101,7 +102,9 @@ Please read [CONTRIBUTING.md](https://gist.github.com/melmsie/8bc44dbcbb7781a45b
 
 * **Melmsie** - *Initial work and owner* - [GitHub Profile](https://github.com/melmsie)
 * **Aetheryx** - *I like trains* - [GitHub Profile](https://github.com/Aetheryx)
+* **CyberRonin** - *Melmsie is my lover* [Github Profile](https://github.com/TheCyberRonin)
 * **DaJuukes** - *Haha yes* - [GitHub Profile](https://github.com/DaJuukes)
+* **Kromatic** - *Mayonnaise is an instrument* [Github Profile](https://github.com/Devoxin)
 
 See also the list of [contributors](https://github.com/melmsie/Dank-Memer/contributors) who participated in this project.
 
@@ -114,4 +117,4 @@ This project is licensed under the GNU AGPLv3 License - see the [LICENSE.md](LIC
 * **Stupid Cat** - *Original author of trigger.js* - [GitHub Profile](https://github.com/Ratismal)
 * **Samoxive** - *Help with debugging stupid node errors and learning js* - [GitHub Profile](https://github.com/Samoxive)
 * **Kodehawa** - *Emotional support when dealing with stupid issues and users* - [GitHub Profile](https://github.com/Kodehawa)
-* **LoverofSporks#2433** - *Went through 800 meme templates to give everyone a better experience <3*
+* **Sporks** - *Went through 800 meme templates to give everyone a better experience <3*
