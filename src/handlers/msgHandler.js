@@ -1,6 +1,6 @@
 exports.handleMeDaddy = async function (Memer, msg, gConfig) {
   let command = msg.content.slice(gConfig.prefix.length + 1).toLowerCase().split(' ')[0]
-  const args = msg.cleanContent.split(' ').slice(gConfig.prefix.split(' ').length + 1)
+  const args = msg.cleanContent.split(/\s+/g).slice(gConfig.prefix.split(' ').length + 1)
   if (Memer.cmds.has(command)) {
     command = Memer.cmds.get(command)
   } else if (Memer.aliases.has(command)) {
