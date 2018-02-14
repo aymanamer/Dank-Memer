@@ -1,6 +1,6 @@
 exports.run = async function (Memer, msg) {
   const res = await Memer._snek.get('https://www.reddit.com/u/kerdaloo/m/dankmemer/top/.json?sort=top&t=day&limit=500')
-  const posts = res.body.data.children.filter(post => post.post_hint === 'image')
+  const posts = res.body.data.children.filter(post => post.data.post_hint === 'image')
 
   if (!Memer.indexes.meme[msg.channel.guild.id] || Memer.indexes.meme[msg.channel.guild.id] >= posts.length) {
     Memer.indexes.meme[msg.channel.guild.id] = 1
