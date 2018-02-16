@@ -29,6 +29,10 @@ const tableConfig = {
 }
 
 exports.run = async function (Memer, msg, args) {
+
+    if (!Memer.config.devs.includes(msg.author.id)) {
+      return
+    }
   if (args[0] === 'help' || !args[0]) {
     return msg.channel.createMessage({ embed: {
       footer: { text: 'Now go fuck people up with these OP commands!' },
@@ -46,10 +50,7 @@ exports.run = async function (Memer, msg, args) {
 
   const command = args.shift()
 
-  if (!Memer.config.devs.includes(msg.author.id)) {
-    return
-  }
-  
+
 
   if (command === 'info') {
     const tableData = [[[
@@ -89,9 +90,12 @@ exports.run = async function (Memer, msg, args) {
     if (args[0] === 'cluster') {
       await msg.channel.createMessage('Rebooting this cluster...')
       return process.exit()
-    } else {
+    } else if (args[0] == 'all') {
       await msg.channel.createMessage('All clusters rebooting...')
       return exec('pm2 restart memer', () => { msg.channel.createMessage('Huh?') })
+    } else {
+      await msg.channel.createMessage('Please specify a type of reboot, `cluster` or `all`');
+      return;
     }
   }
 
