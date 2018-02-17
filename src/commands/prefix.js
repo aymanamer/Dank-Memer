@@ -9,10 +9,10 @@ exports.run = async function (Memer, msg, args) {
   if (args.join(' ').length > 10) {
     return msg.reply(`Your prefix can't be over 10 characters long. You're ${args.join(' ').length - 10} characters over the limit.`)
   }
-  if (gConfig.prefix === args.join(' ')) {
+  if (gConfig.prefix === args.join(' ').toLowerCase()) {
     return msg.reply(`\`${gConfig.prefix}\` is already your current prefix.`)
   }
-  gConfig.prefix = args.join(' ')
+  gConfig.prefix = args.join(' ').toLowerCase()
   await Memer.db.updateGuild(gConfig)
   msg.channel.createMessage({ embed: {
     color: Memer.colors.green,
