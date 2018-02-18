@@ -99,7 +99,7 @@ exports.run = async function (Memer, msg, args) {
     }
   }
 
-  if (command === 'ping') {
+  else if (command === 'ping') {
     let ping
     if (args[0] === '--trump') {
       ping = `${msg.channel.guild.shard.latency * Math.floor(Math.random() * 100) + 5}ms which is the BIGLIEST PING SEEN IN AMERICAN HISTORY, **PERIOD**.`
@@ -109,7 +109,7 @@ exports.run = async function (Memer, msg, args) {
     msg.channel.createMessage(ping)
   }
 
-  if (command === 'eval') {
+  else if (command === 'eval') {
     const input = args.join(' ')
     let result
     let evalTime
@@ -136,7 +136,7 @@ exports.run = async function (Memer, msg, args) {
     }})
   }
 
-  if (command === 'bash') {
+  else if (command === 'bash') {
     msg.channel.createMessage(`**Input**\n${Memer.codeblock(args.join(' '), 'sh')}`)
     exec(args.join(' '), async (e, stdout, stderr) => {
       if (stdout.length + stderr.length > 994) {
@@ -158,7 +158,7 @@ exports.run = async function (Memer, msg, args) {
     })
   }
 
-  if (command === 'avi') {
+  else if (command === 'avi') {
     try {
       setAvatar(Memer, args[0])
       msg.channel.createMessage('k boss')
@@ -167,7 +167,7 @@ exports.run = async function (Memer, msg, args) {
     }
   }
 
-  if (command === 'speedtest') {
+  else if (command === 'speedtest') {
     msg.channel.createMessage(`**nice speed test bro, too bad ur internet sux**\n${Memer.codeblock('speed-test -j', 'sh')}`)
     exec('speed-test -j', async (e, stdout, stderr) => {
       if (stdout) {
@@ -182,7 +182,7 @@ exports.run = async function (Memer, msg, args) {
     })
   }
 
-  if (command === 'git') {
+  else if (command === 'git') {
     if (args[0] === 'pull') {
       await msg.channel.createMessage('Pulling out...')
       exec('git pull', (e, stderr, stdout) => {
@@ -214,7 +214,7 @@ exports.run = async function (Memer, msg, args) {
     }
   }
 
-  if (command === 'blacklist') {
+  else if (command === 'blacklist') {
     if (!args[0] || !args[1] || !args[2] ||
       !['add', 'remove'].includes(args[0].toLowerCase())) {
       return msg.channel.createMessage('Argument error. Make sure your first argument is one of `add` or `remove`, your second `guild` or `user` and your third an ID or a mention (ID\'s user only).')
@@ -247,7 +247,6 @@ function setAvatar (Memer, url) {
     if (err) {
       throw err
     }
-    console.log(JSON.stringify(res.body))
     Memer.bot.editSelf({ avatar: `data:${res.header['content-type']};base64,${res.body.toString('base64')}` })
   })
 }
