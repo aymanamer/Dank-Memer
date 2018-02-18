@@ -7,7 +7,6 @@ Array.prototype.clean = function (deleteValue) {
   }
   return this
 }
-
 exports.handleMeDaddy = async function (Memer, msg, gConfig) {
   let command = msg.cleanContent.toLowerCase().slice(gConfig.prefix.length + 1).split(/\s+/g).clean('')[0]
   const args = msg.cleanContent.split(/\s+/g).slice(2)
