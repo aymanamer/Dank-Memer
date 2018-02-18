@@ -14,7 +14,8 @@ const master = new Sharder(config.token, '/mainClass.js', {
 
 const botlists = new Map([
   ['https://bots.discord.pw/api/bots/270904126974590976/stats', config.pwtoken],
-  ['https://www.carbonitex.net/discord/data/botdata.php', config.carbon]
+  ['https://www.carbonitex.net/discord/data/botdata.php', config.carbon],
+  ['https://discordbots.org/api/bots/270904126974590976/stats', config.orgtoken]
 ])
 
 master.on('stats', res => {
@@ -23,7 +24,6 @@ master.on('stats', res => {
     .run()
 
   botlists.forEach(async (token, url) => {
-    return
     snek
       .post(url)
       .set('Authorization', token)
