@@ -1,36 +1,48 @@
+const cpuStat = require('cpu-stat')
+const os = require('os')
+
 exports.run = async function (Memer, msg) {
   const stats = await Memer.db.getStats()
+  cpuStat.usagePercent(function(err, percent) {
+    if (err) {
+      return console.log(err);
+    }
   msg.channel.createMessage({ embed: {
     color: '5881576',
     fields: [
       {
-        name: '-------------------------------------- Technical ---------------------------------------',
-        value: '```\n' +
-                                `Uptime          |   ${Memer.parseTime(process.uptime())}\n` +
-                                `Heap Used       |   ${stats.totalRam.toFixed(2)}MB\n` +
-                                `Ping            |   ${msg.channel.guild.shard.latency.toFixed()}ms\n` +
-                                `Build           |   v${Memer.package.version}\n` +
-                                '\n```'
+        name: 'Server Statistics', value: 
+          `${stats.guilds} servers\n`+
+          `${(stats.users/stats.guilds).toFixed()} average server size\n`+
+          `${stats.largeGuilds} large servers\n`+
+          `${stats.exclusiveGuilds} exclusive servers\n`+
+          `${150000 - stats.guilds} until 150k`
+
+        , inline: true
       },
       {
-        name: '--------------------------------------- Statistics --------------------------------------',
-        value: '```\n' +
-                                `Guilds          |   ${stats.guilds}\n` +
-                                `Users           |   ${stats.users}\n` +
-                                `Large Guilds    |   ${stats.largeGuilds}\n` +
-                                `Exclusivity     |   ${stats.exclusiveGuilds}\n` +
-                                '\n```'
+        name: 'Various Statistics', value: 
+          `${Memer.parseTime(process.uptime())} uptime\n`+
+          `${stats.users} users\n`+
+          `${msg.channel.guild.shard.latency.toFixed(2)} shard latency\n`+
+          `v${Memer.package.version}\n`+
+          `${Memer.cmds.size} commands currently`
+          
+
+        , inline: true
       },
       {
-        name: '-------------------------------------- Other Info --------------------------------------',
-        value: '```\n' +
-                                `Node Version    |   ${process.version}\n` +
-                                `Dependencies    |   ${Object.keys(Memer.package.dependencies).length}\n` +
-                                `Platform        |   ${process.platform}\n` +
-                                '\n```'
+        name: 'System Statistics', value: 
+          `${percent.toFixed(1)}% CPU usage\n`+
+          `${(stats.totalRam/1000).toFixed(1)}gb/${(os.totalmem() / 1073741824).toFixed(1)}gb memory\n`+
+          `${Memer.parseTime(os.uptime())} uptime\n`+
+          `${os.platform} based server\n` +
+          `Node ${process.version}`
+        , inline: true
       }
     ]
   }})
+})
 }
 
 exports.props = {
