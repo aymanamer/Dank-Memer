@@ -24,6 +24,7 @@
   "dependencies": {
     "cpu-stat": "^2.0.1",
     "eris-sharder": "^1.7.6",
+    "eslint": "^4.18.0",
     "react-trump": "^0.2.1",
     "rethinkdbdash": "^2.3.31",
     "snekfetch": "^3.6.4",

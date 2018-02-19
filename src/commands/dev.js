@@ -100,6 +100,29 @@ exports.run = async function (Memer, msg, args) {
     }
   }
 
+  if (command === 'reload') {
+    console.log(`fires`);
+    if (!args[0]) {
+      msg.channel.send(`Please specify a command to reload, or put 'all'.`)
+      return
+    } else {
+      const rCommand = args[0]
+      console.log(rCommand);
+      if (!(Memer.cmds.get(rCommand) == undefined)) {
+        try {
+          Memer.cmds.delete(rCommand)
+          delete require.cache[require.resolve(`./${rCommand}.js`)]
+          Memer.cmds.set(rCommand, require(`./${rCommand}.js`))
+          msg.channel.createMessage(`Reloaded ${rCommand}.`);
+        } catch (e) {
+          msg.channel.createMessage(`We had a hecking error: \n\`\`\`${e}\`\`\``)
+        }
+      } else {
+        msg.channel.createMessage(`${rCommand} is not a valid command.`);
+      }
+    }
+  }
+
   if (command === 'ping') {
     let ping
     if (args[0] === '--trump') {
