@@ -9,7 +9,7 @@ const master = new Sharder(config.token, '/mainClass.js', {
   stats: true,
   webhooks: config.webhooks,
   clientOptions: config.clientOptions,
-  shards: 1
+  shards: 85
 })
 
 const botlists = new Map([
@@ -22,7 +22,7 @@ master.on('stats', res => {
   r.table('stats')
     .insert({ id: 1, stats: res }, { conflict: 'update' })
     .run()
-return
+
   botlists.forEach(async (token, url) => {
     snek
       .post(url)
