@@ -1,37 +1,31 @@
 {
   "name": "dank-memer",
-  "version": "8.1.3",
-  "description": "Dank dreams that turn into dank memes",
-  "main": "src/memer.js",
-  "dependencies": {
-    "datadog-metrics": "^0.6.1",
-    "eris-sharder": "^1.7.0",
-    "react-trump": "^0.2.1",
-    "rethinkdbdash": "^2.3.31",
-    "snekfetch": "^3.2.9",
-    "table": "^4.0.1"
-  },
-  "devDependencies": {
-    "standard": "^10.0.3"
-  },
+  "version": "9.0.0",
+  "description": "A discord meme bot meant to help you look at memes and have fun",
+  "main": "memer.js",
   "scripts": {
-    "test": "standard"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/melmsie/Dank-Memer.git"
+    "url": "git+https://github.com/dank-memer/Dank-Memer.git"
   },
   "keywords": [
     "discord",
-    "dank",
-    "memes",
-    "memer",
+    "meme",
     "bot"
   ],
-  "author": "Melmsie",
+  "author": "melmsie",
   "license": "AGPL-3.0",
   "bugs": {
-    "url": "https://github.com/melmsie/Dank-Memer/issues"
+    "url": "https://github.com/dank-memer/Dank-Memer/issues"
   },
-  "homepage": "https://github.com/melmsie/Dank-Memer#readme"
+  "homepage": "https://github.com/dank-memer/Dank-Memer#readme",
+  "dependencies": {
+    "eris-sharder": "^1.7.6",
+    "react-trump": "^0.2.1",
+    "rethinkdbdash": "^2.3.31",
+    "snekfetch": "^3.6.4",
+    "table": "^4.0.2"
+  }
 }
