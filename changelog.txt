@@ -1,8 +1,37 @@
-February 2018 Update: (5th?)
-  -removed agree, award, cookie, call, dank, feedback, henlo, invert, ping, spin, watch, and all image tags
-      *none of these commands were performing well, some werent used more than 100 times in a week*
-  -added ree, oof, roast, tweet, report, kiss(image version)
-  -added another fart sound
-      *apparently the last one got boring?*
+Weekly Bot Update: Yes, these are going to be weekly now (but probably not this large each time)
+
+  -removed agree, award, cookie, call, dank, feedback, henlo, justright, invert, ping, report, spin, watch, and all image tags
+      *none of these commands were performing well, some werent used more than 100 times in a week, may rethink some and add back*
+
+  -added a ton of new commands
+      pls b1nzy - talk in place of a discord developer
+      pls changes - see a list of changes made in the most recent Update
+      pls chucknorris - everybody loves chuck norris jokes
+      pls cry - make this blue dude in a comic cry
+      pls egg - I can't explain this one tbh
+      pls google - stupid people refuse to learn how to google things? This should help
+      pls knock - the famous knock prank from twitch
+      pls lizzyboi - see some dank lizards
+      pls mememusic - remember shitsound? same thing. Play some dank mememusic (76 songs)
+      pls mlgmusic - get some mlg remixes of some music (25 songs)
+      pls oof - for you roblox fans
+      pls ratewaifu - for all my weebs out there
+      pls tweet - tweet as donald trump!
+      pls vent - vent all your problems to me!
+      pls website - get a link to the dank memer website which will eventually have a dashboard for you to control the bot
+      pls xkcd - funny comics, use this command
+
+  -changes to commands
+      pls boo - added new sounds
+      pls fart - added new sounds
+      pls byemom - fixed word placement
+      pls prefix - now works with uppercase prefixes
+      pls help - changed some stuffs
+      pls stats - changed more stuffs
+
+  -better error handling - will now let you know what permissions the bot needs to do a command instead of silently failing
+
   -removed datadog integration
       *it's just not needed anymore*
+      
+  -some QOL changes that are not very important

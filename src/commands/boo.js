@@ -1,13 +1,19 @@
 exports.run = async function (Memer, msg) {
+  const file = Math.floor(Math.random() * 5 + 1)
   if (!msg.member.voiceState.channelID) {
     await msg.addReaction('❌')
     return msg.reply('join a voice channel fam', msg)
   }
 
+  if (!Memer.bot.getChannel(msg.member.voiceState.channelID).permissionsOf(Memer.bot.user.id).has('voiceConnect') ||
+    !Memer.bot.getChannel(msg.member.voiceState.channelID).permissionsOf(Memer.bot.user.id).has('voiceSpeak')) {
+    return msg.reply('Well shit, there was a permission error! Make sure I have `connect` and `speak` so I can do this shit!', msg)
+  }
+
   if (!Memer.bot.voiceConnections.get(msg.channel.guild.id)) {
-    msg.addReaction('👍')
+    msg.addReaction('👻')
     const conn = await Memer.bot.joinVoiceChannel(msg.member.voiceState.channelID)
-    conn.play(`./assets/farts/scare.mp3`)
+    conn.play(`./assets/scares/${file}.opus`)
     conn.once('end', async () => {
       await Memer.bot.leaveVoiceChannel(msg.channel.guild.members.get(Memer.bot.user.id).voiceState.channelID)
       if (Memer.bot.voiceConnections.get(msg.channel.guild.id)) {
@@ -18,7 +24,7 @@ exports.run = async function (Memer, msg) {
     })
   } else {
     await msg.addReaction('❌')
-    msg.channel.createMessage('I only have one pet ghost, dude. Please wait until the current sound is done or the ear-rape ghost will visit you in your sleep!')
+    msg.channel.createMessage('I only have one pet ghost, dude. Please wait until the current sound is done, you assbutt')
   }
 }
 
@@ -26,7 +32,7 @@ exports.props = {
   name: 'boo',
   usage: '{command}',
   aliases: ['scare', 'jumpscare'],
-  cooldown: 1000,
+  cooldown: 1,
   description: 'AHHHHH',
   perms: ['voiceConnect', 'voiceSpeak', 'addReactions']
 }

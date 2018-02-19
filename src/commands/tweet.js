@@ -1,13 +1,31 @@
+const GenericImageCommand = require('../models/GenericImageCommand.js')
 
-exports.run = async function (Memer, msg) {
-  msg.channel.createMessage('This command is dead and gone for good. Twitter has completely locked the account. \nYou can thank STW#3839 (id 326673560842010624) for his tweet at an airline threatening to fly a plane into the new world trade center. ')
-}
+const command = new GenericImageCommand('tweet', (msg, args) => {
+  let avatarurl = msg.mentions.length > 0 ? msg.mentions[0].staticAvatarURL : msg.author.staticAvatarURL
+  if (['jpg', 'jpeg', 'gif', 'png', 'webp'].some(x => args.join(' ').includes(x))) {
+    avatarurl = args.join(' ').replace(/gif|webp/g, 'png')
+  }
 
-exports.props = {
-  name: 'tweet',
-  usage: '{command} what you wanna tweet',
-  aliases: ['twitter'],
-  cooldown: 20000,
-  description: 'this was ruined',
-  perms: []
-}
+  if (!args[0]) {
+    msg.channel.createMessage('You need to add something to make trump tweet, try again.')
+    return false
+  }
+
+  if (args.join(' ').length > 140) {
+    msg.channel.createMessage(`Too long. You're ${args.join(' ').length - 140} characters over the limit!`)
+    return false
+  }
+
+  if (!/^[\x00-\x7F]*$/.test(args.join(' '))) { // eslint-disable-line
+    msg.channel.createMessage('Your argument contains invalid characters. Please try again.')
+    return false
+  }
+
+  return JSON.stringify([`${avatarurl}`, `${args.join(' ')}`])
+}, {
+  usage: '{command} <something to make b1nzy say>',
+  aliases: ['trump'],
+  description: 'dear lord, what is trump saying now...'
+})
+
+module.exports = command

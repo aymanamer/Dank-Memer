@@ -1,6 +1,6 @@
 exports.run = async function (Memer, msg, args) {
   if (!msg.member.permission.has('manageGuild')) {
-    return msg.reply('You are not authorized to use this command. ', msg)
+    return msg.reply('You are not authorized to use this command. You must have "Manage Server" to change the prefix.', msg)
   }
   const gConfig = await Memer.db.getGuild(msg.channel.guild.id) || await Memer.db.createGuild(msg.channel.guild.id)
   if (!args[0]) {
@@ -24,7 +24,7 @@ exports.props = {
   name: 'prefix',
   usage: '{command} <prefix of your choice>',
   aliases: [],
-  cooldown: 60000,
+  cooldown: 5000,
   description: 'Change Dank Memer\'s prefix!',
   perms: ['embedLinks']
 }

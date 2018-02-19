@@ -1,6 +1,7 @@
-const file = Math.floor(Math.random() * 5 + 1)
+
 
 exports.run = async function (Memer, msg) {
+  const file = Math.floor(Math.random() * 5 + 1)
   if (!msg.member.voiceState.channelID) {
     await msg.addReaction('❌')
     return msg.reply('join a voice channel fam', msg)
@@ -12,7 +13,7 @@ exports.run = async function (Memer, msg) {
   }
 
   if (!Memer.bot.voiceConnections.get(msg.channel.guild.id)) {
-    msg.addReaction('👍')
+    msg.addReaction('💩')
     const conn = await Memer.bot.joinVoiceChannel(msg.member.voiceState.channelID)
     conn.play(`./assets/farts/${file}.mp3`)
     conn.once('end', async () => {
@@ -25,7 +26,7 @@ exports.run = async function (Memer, msg) {
     })
   } else {
     await msg.addReaction('❌')
-    msg.reply('I only have one butthole, dude. Please wait until the current sound is done or the ear-rape ghost will visit you in your sleep!', msg)
+    msg.reply('I only have one butthole, dude. Please wait until the current sound is done or the ear-poo ghost will visit you in your sleep!', msg)
   }
 }
 

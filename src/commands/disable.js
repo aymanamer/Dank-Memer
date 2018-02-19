@@ -1,6 +1,6 @@
 exports.run = async function (Memer, msg, args) {
   if (!msg.member.permission.has('manageGuild')) {
-    return msg.reply('You are not authorized to use this command.')
+    return msg.reply('You are not authorized to use this command. You must have "Manage Server" to change the prefix.')
   }
   const gConfig = await Memer.db.getGuild(msg.channel.guild.id) || await Memer.db.createGuild(msg.channel.guild.id)
   args = Memer.removeDuplicates(args)
@@ -26,7 +26,7 @@ exports.props = {
   name: 'disable',
   usage: '{command} <commands to disable>',
   aliases: [],
-  cooldown: 60000,
+  cooldown: 10000,
   description: 'Use this command to disable commands you do not wish for your server to use',
   perms: []
 }

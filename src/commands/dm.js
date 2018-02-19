@@ -1,6 +1,6 @@
 exports.run = async function (Memer, msg, args) {
   if (!Memer.config.devs.includes(msg.author.id)) {
-    return
+    return  msg.channel.createMessage(`**LMAO** *you don't look like one of my developers...*`)
   }
   try {
     const channel = await Memer.bot.getDMChannel(args[0])
@@ -8,7 +8,7 @@ exports.run = async function (Memer, msg, args) {
       color: Memer.colors.purple,
       title: '📫 You have received a message from the developers!',
       description: args.slice(1).join(' '),
-      footer: { text: 'To reply, please use pls feedback.' }
+      footer: { text: 'To reply, please use pls vent.' }
     }})
     await msg.addReaction('📧')
   } catch (e) {

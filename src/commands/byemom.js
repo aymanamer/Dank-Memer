@@ -24,7 +24,7 @@ const command = new GenericImageCommand('byemom', (msg, args) => {
   return JSON.stringify([`${avatarurl}`, `${args.join(' ')}`])
 }, {
   usage: '{command} <something to google search>',
-  aliases: ['bye', 'google'],
+  aliases: ['bye'],
   description: 'Quick, mom is gone, what are you gonna search on google?'
 })
 

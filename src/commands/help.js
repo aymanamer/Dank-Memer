@@ -1,17 +1,20 @@
 exports.run = async function (Memer, msg, args) {
   if (!args[0]) {
-    const funemoji = msg.channel.permissionsOf(Memer.bot.user.id).has('externalEmojis') ? '<:feelsgreatman:326155536800284673>' : ':joy:'
+  
     msg.channel.createMessage({
       embed: {
         color: Memer.colors.purple,
         title: 'Available Commands',
-        description: 'New commands coming soon!',
+        description: 'Do pls changes to see what\'s in the new update!',
         fields: [
-          { name: `${funemoji} Fun Commands`, value: 'asktrump, award, boo, dankrate, fart, greentext, joke, justright, kill, meme, memegen, mock, pupper, kitty, pun, porn, roast, say, shitpost' },
-          { name: '📷 Image Manipulation', value: 'ban, batslap, brazzers, byemom, cancer,delete, hitler, jail, magik, pride, rip, salty, search, shit, spank, trigger, warp' },
-          { name: '🔧 Utilities and Information', value: 'clean, credits, disable, enable, help, invite, patreon, prefix, stats' }
+          { name: `😂 Fun Commands`, value: 'asktrump, award, chucknorris, dankrate, google, greentext, joke, justright, kill, meme, memegen, mock, pun, ratewaifu, roast, say, shitpost, vent, xkcd' },
+          { name: '📷 Image Manipulation', value: 'b1nzy, ban, batslap, brazzers, byemom, cancer, cry, delete, egg, hitler, jail, magik, pride, rip, salty, search, shit, spank, trigger, tweet, warp' },
+          { name: '🐕 Animal Commands', value: 'kitty, lizzyboi, pupper' },
+          { name: '🔊 Voice Commands', value: 'airhorn, boo, fart, knock, mememusic, mlgmusic, oof' },
+          { name: '😏 NSFW Commands', value: 'coming soon ;)' },
+          { name: '🔧 Utilities and Information', value: 'changes, clean, credits, disable, enable, help, invite, patreon, prefix, stats, website' }
         ],
-        footer: { text: 'New commands coming in Feb!' }
+        footer: { text: 'Hello darkness my old friend...' }
       }
     })
   } else {
