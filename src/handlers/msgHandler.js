@@ -1,6 +1,15 @@
+Array.prototype.clean = function (deleteValue) {
+  for (var i = 0; i < this.length; i++) {
+    if (this[i] == deleteValue) {
+      this.splice(i, 1)
+      i--
+    }
+  }
+  return this
+}
 exports.handleMeDaddy = async function (Memer, msg, gConfig) {
-  let command = msg.content.slice(gConfig.prefix.length + 1).toLowerCase().split(' ')[0]
-  const args = msg.cleanContent.split(/\s+/g).slice(gConfig.prefix.split(' ').length + 1)
+  let command = msg.cleanContent.toLowerCase().slice(gConfig.prefix.length + 1).split(/\s+/g).clean('')[0]
+  const args = msg.cleanContent.split(/\s+/g).slice(2)
   if (Memer.cmds.has(command)) {
     command = Memer.cmds.get(command)
   } else if (Memer.aliases.has(command)) {
@@ -35,6 +44,13 @@ exports.handleMeDaddy = async function (Memer, msg, gConfig) {
   try {
     const permissions = msg.channel.permissionsOf(Memer.bot.user.id)
     if ((command.props.perms && command.props.perms.some(perm => !permissions.has(perm))) || !permissions.has('sendMessages')) {
+      let neededPerms = command.props.perms.filter(p => !permissions.has(p))
+      if (!permissions.has('sendMessages')) {
+        neededPerms.push('sendMessages')
+        msg.author.getDMChannel().then(c => c.createMessage(`${msg.author.mention}, this server needs to give me me the following perms so I can do that command: \n\n${neededPerms.join('\n')}`))
+      } else {
+        msg.channel.createMessage(`\`\`\`heck! I don't have the right permissions to execute this command. Please ask your administrators to add these perms for me: \n\n${neededPerms.join('\n')}\`\`\``)
+      }
       return
     }
     msg.reply = (str) => { msg.channel.createMessage(`${msg.author.mention}, ${str}`) }

@@ -5,7 +5,7 @@ exports.run = async function (Memer, msg, args) {
       embed: {
         color: Memer.colors.purple,
         title: 'Available Commands',
-        description: 'Try pls roast for roasting people, and pls report for reporting people for no reason.',
+        description: 'New commands coming soon!',
         fields: [
           { name: `${funemoji} Fun Commands`, value: 'asktrump, award, boo, dankrate, fart, greentext, joke, justright, kill, meme, memegen, mock, pupper, kitty, pun, porn, roast, say, shitpost' },
           { name: '📷 Image Manipulation', value: 'ban, batslap, brazzers, byemom, cancer,delete, hitler, jail, magik, pride, rip, salty, search, shit, spank, trigger, warp' },
