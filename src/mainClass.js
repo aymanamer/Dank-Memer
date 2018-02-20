@@ -110,10 +110,6 @@ class Memer extends Base {
     const gConfig = await this.db.getGuild(msg.channel.guild.id) || this.defaultGuildConfig
 
     if (msg.mentions.find(m => m.id === this.bot.user.id) && msg.content.toLowerCase().includes('help')) {
-      if (!msg.channel.permissionsOf(Memer.bot.user.id).has('SEND_MESSAGES')) {
-        msg.guild.owner.getDMChannel().then(m => m.createMessage(`heck! I don't have sendMessages permission in your guild of ${msg.guild.name}! Please add that ASAP.`))
-        return
-      }
       return msg.channel.createMessage(`Hello, ${msg.author.username}. My prefix is \`${gConfig.prefix}\`. Example: \`${gConfig.prefix} meme\``)
     }
     if (msg.content.toLowerCase().startsWith(gConfig.prefix)) {

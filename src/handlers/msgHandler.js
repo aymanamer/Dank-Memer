@@ -45,11 +45,10 @@ exports.handleMeDaddy = async function (Memer, msg, gConfig) {
     const permissions = msg.channel.permissionsOf(Memer.bot.user.id)
     if ((command.props.perms && command.props.perms.some(perm => !permissions.has(perm))) || !permissions.has('sendMessages')) {
       let neededPerms = command.props.perms.filter(p => !permissions.has(p))
-      if (!permissions.has('sendMessages')) {
-        neededPerms.push('sendMessages')
-        msg.author.getDMChannel().then(c => c.createMessage(`${msg.author.mention}, this server needs to give me me the following perms so I can do that command: \n\n${neededPerms.join('\n')}`))
-      } else {
+      if (permissions.has('sendMessages')) {
         msg.channel.createMessage(`\`\`\`heck! I don't have the right permissions to execute this command. Please ask your administrators to add these perms for me: \n\n${neededPerms.join('\n')}\`\`\``)
+      } else {
+        return
       }
       return
     }

@@ -23,7 +23,7 @@ const command = new GenericImageCommand('tweet', (msg, args) => {
 
   return JSON.stringify([`${avatarurl}`, `${args.join(' ')}`])
 }, {
-  usage: '{command} <something to make b1nzy say>',
+  usage: '{command} <something to make trump say>',
   aliases: ['trump'],
   description: 'dear lord, what is trump saying now...'
 })

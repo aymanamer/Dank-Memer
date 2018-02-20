@@ -7,7 +7,7 @@ const command = new GenericImageCommand('b1nzy', (msg, args) => {
   }
 
   if (!args[0]) {
-    msg.channel.createMessage('You need to add something to make blue dude cry, try again.')
+    msg.channel.createMessage('You need to add something to make b1nzy say, try again.')
     return false
   }
 
