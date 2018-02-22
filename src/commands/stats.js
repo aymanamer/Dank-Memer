@@ -24,7 +24,7 @@ exports.run = async function (Memer, msg) {
         name: 'Various Statistics', value: 
           `${Memer.parseTime(process.uptime())} uptime\n`+
           `${stats.users} users\n`+
-          `${msg.channel.guild.shard.latency.toFixed(2)} shard latency\n`+
+          `${msg.channel.guild.shard.latency.toFixed(2)}ms shard latency\n`+
           `v${Memer.package.version}\n`+
           `${Memer.cmds.size} commands currently`
           

@@ -7,7 +7,7 @@ exports.run = async function (Memer, msg, args) {
         title: 'Available Commands',
         description: 'Do pls changes to see what\'s in the new update!',
         fields: [
-          { name: `😂 Fun Commands`, value: 'asktrump, chucknorris, dankrate, google, greentext, joke, justright, kill, meme, memegen, mock, pun, ratewaifu, roast, say, shitpost, vent, xkcd' },
+          { name: `😂 Fun Commands`, value: 'asktrump, chucknorris, dankrate, discordmeme, google, greentext, joke, kill, meme, memegen, mock, pun, ratewaifu, roast, say, shitpost, vent, xkcd' },
           { name: '📷 Image Manipulation', value: 'b1nzy, ban, batslap, brazzers, byemom, cancer, cry, delete, egg, hitler, jail, magik, pride, rip, salty, search, shit, spank, trigger, tweet, warp' },
           { name: '🐕 Animal Commands', value: 'kitty, lizzyboi, pupper' },
           { name: '🔊 Voice Commands', value: 'airhorn, boo, fart, knock, mememusic, mlgmusic, oof' },
