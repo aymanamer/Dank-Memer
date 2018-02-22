@@ -1,4 +1,14 @@
-Weekly Bot Update: Yes, these are going to be weekly now (but probably not this large each time)
+2/22 Update
+
+- added discordmeme, birb
+- small dev only fixes
+- small QOL fixes
+- Sounds commands MAY have prompts now? This is our first attempt at a fix.
+
+
+
+
+2/19 Update: Yes, these are going to be weekly now (but probably not this large each time)
 
   -removed agree, award, cookie, call, dank, feedback, henlo, justright, invert, ping, report, spin, watch, and all image tags
       *none of these commands were performing well, some werent used more than 100 times in a week, may rethink some and add back*
