@@ -147,15 +147,22 @@ exports.run = async function (Memer, msg, args) {
     } catch (err) {
       result = err.message
     }
-
-    msg.channel.createMessage({ embed: {
-      color: Memer.colors.lightblue,
-      fields: [
-        { name: 'Input', value: Memer.codeblock(input, 'js') },
-        { name: 'Output', value: Memer.codeblock(result, 'js') }
-      ],
-      footer: { text: evalTime || evalTime === 0 ? `evaluated in ${evalTime}ms` : '' }
-    }})
+    if (input.length + result.length > 994) {
+      const res = await Memer._snek.post('https://hastebin.com/documents')
+        .send(`${input}\n\n${result}`)
+        .catch(err => msg.channel.createMessage(err.message))
+      msg.channel.createMessage(`Eval exceeds 1000 characters. View here: https://hastebin.com/${res.body.key}`)
+    } else {
+      msg.channel.createMessage({ embed: {
+        color: Memer.colors.lightblue,
+        fields: [
+          { name: 'Input', value: Memer.codeblock(input, 'js') },
+          { name: 'Output', value: Memer.codeblock(result, 'js') }
+        ],
+        footer: { text: evalTime || evalTime === 0 ? `evaluated in ${evalTime}ms` : '' }
+      }})
+    }
+    
   }
 
   if (command === 'bash') {
@@ -165,7 +172,7 @@ exports.run = async function (Memer, msg, args) {
         const res = await Memer._snek.post('https://hastebin.com/documents')
           .send(`${stdout}\n\n${stderr}`)
           .catch(err => msg.channel.createMessage(err.message))
-        msg.channel.createMessage(`Console log exceeds 2000 characters. View here: https://hastebin.com/${res.body.key}.`)
+        msg.channel.createMessage(`Console log exceeds 2000 characters. View here: https://hastebin.com/${res.body.key}`)
       } else {
         if (stdout) {
           msg.channel.createMessage(`**Output**\n${Memer.codeblock(stdout, 'bash')}`)
