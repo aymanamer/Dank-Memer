@@ -12,7 +12,7 @@ exports.run = async function (Memer, msg) {
 exports.props = {
   name: 'discordmeme',
   usage: '{command}',
-  aliases: ['dscmeme'],
+  aliases: ['dscmeme', 'discord'],
   cooldown: 1000,
   description: 'A random Discord-themed meme!',
   perms: ['embedLinks']
