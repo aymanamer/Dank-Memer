@@ -1,5 +1,5 @@
 exports.run = async function (Memer, msg) {
-  const res = await Memer._snek.get('https://api.weeb.sh/images/random?type=discord_memes', {headers: {Authorization: "Wolke U3k3SVJURnZmOjFhYmRiMzAyMDEwZWM0MGNkNmRlNDJkNzZkZDRhOTY2ZDgxZDkwYmEyMGRlZTY3MmQxODk0MWZj"}})
+  const res = await Memer._snek.get('https://api.weeb.sh/images/random?type=discord_memes', {headers: {Authorization: Memer.config.weeb}})
 
   await msg.channel.createMessage({ embed: {
     title: `Random Discord Meme`,
