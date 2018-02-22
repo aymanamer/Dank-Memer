@@ -1,7 +1,6 @@
 exports.run = async function (Memer, msg) {
     const file = Math.floor(Math.random() * 25 + 1)
     if (!msg.member.voiceState.channelID) {
-      await msg.addReaction('❌')
       return msg.reply('join a voice channel fam', msg)
     }
   
@@ -23,7 +22,6 @@ exports.run = async function (Memer, msg) {
         }
       })
     } else {
-      await msg.addReaction('❌')
       msg.channel.createMessage('I only have one mlg machine, dude. Please wait until the current sound is done, you assbutt')
     }
   }
@@ -32,8 +30,8 @@ exports.run = async function (Memer, msg) {
     name: 'mlgmusic',
     usage: '{command}',
     aliases: ['mlg'],
-    cooldown: 1,
-    description: 'AHHHHH',
-    perms: ['voiceConnect', 'voiceSpeak', 'addReactions']
+    cooldown: 1000,
+    description: 'You want some sweet mlg remixes kids?',
+    perms: ['addReactions']
   }
   

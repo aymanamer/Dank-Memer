@@ -1,6 +1,5 @@
 exports.run = async function (Memer, msg) {
     if (!msg.member.voiceState.channelID) {
-      await msg.addReaction('❌')
       return msg.reply('join a voice channel fam', msg)
     }
   
@@ -22,7 +21,6 @@ exports.run = async function (Memer, msg) {
         }
       })
     } else {
-      await msg.addReaction('❌')
       msg.channel.createMessage('I only have one pet ghost, dude. Please wait until the current sound is done, you assbutt')
     }
   }
@@ -31,8 +29,8 @@ exports.run = async function (Memer, msg) {
     name: 'oof',
     usage: '{command}',
     aliases: ['roblox'],
-    cooldown: 1,
-    description: 'AHHHHH',
-    perms: ['voiceConnect', 'voiceSpeak', 'addReactions']
+    cooldown: 1000,
+    description: 'For all you roblox fans out there',
+    perms: ['addReactions']
   }
   

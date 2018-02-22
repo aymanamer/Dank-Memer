@@ -1,7 +1,11 @@
 exports.run = async function (Memer, msg) {
     if (!msg.member.voiceState.channelID) {
-      await msg.addReaction('❌')
       return msg.reply('join a voice channel fam', msg)
+    }
+
+    if (!Memer.bot.getChannel(msg.member.voiceState.channelID).permissionsOf(Memer.bot.user.id).has('voiceConnect') ||
+      !Memer.bot.getChannel(msg.member.voiceState.channelID).permissionsOf(Memer.bot.user.id).has('voiceSpeak')) {
+      return msg.reply('Well shit, there was a permission error! Make sure I have `connect` and `speak` so I can do this shit!', msg)
     }
   
     if (!Memer.bot.voiceConnections.get(msg.channel.guild.id)) {
@@ -17,8 +21,7 @@ exports.run = async function (Memer, msg) {
         }
       })
     } else {
-      await msg.addReaction('❌')
-      msg.channel.createMessage('I only have one pet ghost, dude. Please wait until the current sound is done or the ear-rape ghost will visit you in your sleep!')
+      msg.channel.createMessage('I can only knock so much my dude, wait until I\'m done with whatever sound is playing before trying')
     }
   }
   
@@ -27,7 +30,7 @@ exports.run = async function (Memer, msg) {
     usage: '{command}',
     aliases: [],
     cooldown: 1000,
-    description: 'Troll your friends!',
-    perms: ['voiceConnect', 'voiceSpeak', 'addReactions']
+    description: 'Troll your friends with the classic twitch knock prank!',
+    perms: ['addReactions']
   }
   

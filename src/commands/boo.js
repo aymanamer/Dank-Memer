@@ -1,7 +1,6 @@
 exports.run = async function (Memer, msg) {
   const file = Math.floor(Math.random() * 5 + 1)
   if (!msg.member.voiceState.channelID) {
-    await msg.addReaction('❌')
     return msg.reply('join a voice channel fam', msg)
   }
 
@@ -23,7 +22,6 @@ exports.run = async function (Memer, msg) {
       }
     })
   } else {
-    await msg.addReaction('❌')
     msg.channel.createMessage('I only have one pet ghost, dude. Please wait until the current sound is done, you assbutt')
   }
 }
@@ -33,6 +31,6 @@ exports.props = {
   usage: '{command}',
   aliases: ['scare', 'jumpscare'],
   cooldown: 1,
-  description: 'AHHHHH',
-  perms: ['voiceConnect', 'voiceSpeak', 'addReactions']
+  description: 'AHHHHH SCARY',
+  perms: ['addReactions']
 }
