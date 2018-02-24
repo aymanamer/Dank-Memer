@@ -1,8 +1,12 @@
 exports.run = async function (Memer, msg, args) {
-  if (!msg.member.permission.has('manageGuild')) {
+  if (!msg.member.permission.has('manageGuild') && !Memer.config.devs.includes(msg.author.id)) {
     return msg.reply('You are not authorized to use this command. You must have "Manage Server" to change the prefix.')
   }
   const gConfig = await Memer.db.getGuild(msg.channel.guild.id) || await Memer.db.createGuild(msg.channel.guild.id)
+  if (args.includes('nsfw')) {
+    args.splice(args.indexOf('nsfw'), 1)
+    args.push('boobies', 'booty', 'porngif')
+  }
   args = Memer.removeDuplicates(args)
   args = args.map(arg => {
     if (Memer.aliases.has(arg)) {
