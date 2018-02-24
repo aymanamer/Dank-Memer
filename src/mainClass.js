@@ -77,7 +77,7 @@ class Memer extends Base {
       title: 'Hello!',
       description: this.intro
     }
-    guild.channels.get(guild.channels.filter(c => c.type === 0).map(c => c.id)[0]).createMessage({ embed }) // DM owner instead?
+    guild.channels.get(guild.channels.filter(c => c.type === 0).map(c => c.id)[0]).createMessage({ embed })
       .catch(() => {})
   }
 

@@ -19,7 +19,7 @@ module.exports = {
     '10': '344571468715261952'
   },
 
-  intro: `Sup nerds. My name is Dank Memer.\n\nTo get started, send \`${config.defaultPrefix} help\`. All commands are run this way, for example, pls meme.\n\nI am maintained by Melmsie#0006, who can be found at [this server](https://discord.gg/3GNMJBG) if you need to talk to him.`,
+  intro: `Sup nerds. My name is Dank Memer.\n\nTo get started, send \`${config.defaultPrefix} help\`. All commands are run this way, for example, pls meme.\n\nThere ARE NSFW commands on this bot, but you can disable them with \`pls disable nsfw\`I am maintained by Melmsie#0001, who can be found at [this server](https://discord.gg/ebUqc7F) if you need to talk to him.`,
 
   randomColor: () => {
     return Math.floor(Math.random() * 0xFFFFFF)
