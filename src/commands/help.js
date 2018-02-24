@@ -9,9 +9,9 @@ exports.run = async function (Memer, msg, args) {
         fields: [
           { name: `😂 Fun Commands`, value: 'asktrump, chucknorris, dankrate, discordmeme, google, greentext, joke, kill, meme, memegen, mock, pun, ratewaifu, roast, say, shitpost, vent, xkcd' },
           { name: '📷 Image Manipulation', value: 'b1nzy, ban, batslap, brazzers, byemom, cancer, cry, delete, egg, hitler, jail, magik, pride, rip, salty, search, shit, spank, trigger, tweet, warp' },
-          { name: '🐕 Animal Commands', value: 'birb, kitty, lizzyboi, pupper' },
+          { name: '🐕 Animal Commands', value: 'birb, kitty, lizzyboi, pupper, redpanda' },
           { name: '🔊 Voice Commands', value: 'airhorn, boo, fart, knock, mememusic, mlgmusic, oof' },
-          { name: '😏 NSFW Commands', value: 'coming soon ;)' },
+          { name: '😏 NSFW Commands', value: 'boobies, booty, porngif' },
           { name: '🔧 Utilities and Information', value: 'changes, clean, credits, disable, enable, help, invite, patreon, prefix, stats, website' }
         ],
         footer: { text: 'Hello darkness my old friend...' }
