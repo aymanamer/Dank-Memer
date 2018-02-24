@@ -2,6 +2,9 @@ exports.run = getDogPic
 
 async function getDogPic (Memer, msg) {
   const data = await Memer._snek.get('https://random.dog/woof.json')
+  if (data.body.url.includes('.mp4')) {
+    return getDogPic(Memer, msg)
+  }
 
   msg.channel.createMessage({
     embed: {
