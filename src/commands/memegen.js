@@ -36,7 +36,6 @@ exports.run = async function (Memer, msg, args) {
     .get(`https://ronreiter-meme-generator.p.mashape.com/meme?bottom=${bottom}&font=Impact&font_size=35&meme=${meme}&top=${top}`)
     .set('X-Mashape-Key', Memer.config.mashape)
   msg.channel.createMessage('', { file: maymay.body, name: 'mymeme.png' })
-   
 }
 
 exports.props = {

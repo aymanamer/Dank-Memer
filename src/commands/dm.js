@@ -1,6 +1,6 @@
 exports.run = async function (Memer, msg, args) {
   if (!Memer.config.devs.includes(msg.author.id)) {
-    return  msg.channel.createMessage(`**LMAO** *you don't look like one of my developers...*`)
+    return msg.channel.createMessage(`**LMAO** *you don't look like one of my developers...*`)
   }
   try {
     const channel = await Memer.bot.getDMChannel(args[0])

@@ -1,7 +1,7 @@
 exports.run = async function (Memer, msg, args) {
- if (!args[0]) {
-     return msg.channel.createMessage('Hey, what do you want me to google?')
- }
+  if (!args[0]) {
+    return msg.channel.createMessage('Hey, what do you want me to google?')
+  }
   msg.channel.createMessage(`http://lmgtfy.com/?q=${args.join('+')}`)
 }
 

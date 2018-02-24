@@ -2,7 +2,6 @@ const { redpandas } = require('../assets/animals.json')
 exports.run = getDogPic
 
 async function getDogPic (Memer, msg) {
-
   msg.channel.createMessage({
     embed: {
       title: 'dawwwwwwww',

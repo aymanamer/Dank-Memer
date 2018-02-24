@@ -1,11 +1,6 @@
 exports.run = getDogPic
 
 async function getDogPic (Memer, msg) {
-
-    if(!msg.channel.nsfw) {
-        return msg.channel.createMessage('Tryna get me banned? Use NSFW commands in a NSFW marked channel (look in channel settings, dummy)')
-    }
-    
   const data = await Memer._snek.get('https://boob.bot/api/v2/img/Gifs', {headers: {Key: Memer.config.porn}})
 
   msg.channel.createMessage({
@@ -24,5 +19,6 @@ exports.props = {
   aliases: ['gifs'],
   cooldown: 1000,
   description: 'Basically a porn video but with gifs',
-  perms: ['embedLinks']
+  perms: ['embedLinks'],
+  isNSFW: true
 }
