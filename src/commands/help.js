@@ -1,6 +1,5 @@
 exports.run = async function (Memer, msg, args) {
   if (!args[0]) {
-  
     msg.channel.createMessage({
       embed: {
         color: Memer.colors.purple,

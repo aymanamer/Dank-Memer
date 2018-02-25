@@ -91,7 +91,7 @@ exports.run = async function (Memer, msg, args) {
     if (args[0] === 'cluster') {
       await msg.channel.createMessage('Rebooting this cluster...')
       return process.exit()
-    } else if (args[0] == 'all') {
+    } else if (args[0] === 'all') {
       await msg.channel.createMessage('All clusters rebooting...')
       return exec('pm2 restart memer', () => { msg.channel.createMessage('Huh?') })
     } else {
@@ -101,24 +101,24 @@ exports.run = async function (Memer, msg, args) {
   }
 
   if (command === 'reload') {
-  	if (!args[0]) {
-  		msg.channel.send(`Please specify a command to reload, or put 'all'.`)
-  		return
-  	} else {
-  		const rCommand = args[0]
-  		if (!(Memer.cmds.get(rCommand) == undefined)) {
-  			try {
-  				Memer.cmds.delete(rCommand)
-  				delete require.cache[require.resolve(`./${rCommand}.js`)]
-  				Memer.cmds.set(rCommand, require(`./${rCommand}.js`))
-  				msg.channel.createMessage(`Reloaded ${rCommand}.`)
-  			} catch (e) {
-  				msg.channel.createMessage(`We had a hecking error: \n\`\`\`${e}\`\`\``)
-  			}
-  		} else {
-  			msg.channel.createMessage(`${rCommand} is not a valid command.`)
-  		}
-  	}
+    if (!args[0]) {
+      msg.channel.send(`Please specify a command to reload, or put 'all'.`)
+      return
+    } else {
+      const rCommand = args[0]
+      if (Memer.cmds.has(rCommand)) {
+        try {
+          Memer.cmds.delete(rCommand)
+          delete require.cache[require.resolve(`./${rCommand}.js`)]
+          Memer.cmds.set(rCommand, require(`./${rCommand}.js`))
+          msg.channel.createMessage(`Reloaded ${rCommand}.`)
+        } catch (e) {
+          msg.channel.createMessage(`We had a hecking error: \n\`\`\`${e}\`\`\``)
+        }
+      } else {
+        msg.channel.createMessage(`${rCommand} is not a valid command.`)
+      }
+    }
   }
 
   if (command === 'ping') {
@@ -162,7 +162,6 @@ exports.run = async function (Memer, msg, args) {
         footer: { text: evalTime || evalTime === 0 ? `evaluated in ${evalTime}ms` : '' }
       }})
     }
-    
   }
 
   if (command === 'bash') {

@@ -1,15 +1,6 @@
-Array.prototype.clean = function (deleteValue) {
-  for (var i = 0; i < this.length; i++) {
-    if (this[i] == deleteValue) {
-      this.splice(i, 1)
-      i--
-    }
-  }
-  return this
-}
 exports.handleMeDaddy = async function (Memer, msg, gConfig) {
-  let command = msg.cleanContent.toLowerCase().slice(gConfig.prefix.length + 1).split(/\s+/g).clean('')[0]
-  const args = msg.cleanContent.split(/\s+/g).slice(2)
+  const args = msg.cleanContent.trim().slice(gConfig.prefix.length + 1).split(/\s+/g)
+  let command = args.shift().toLowerCase()
   if (Memer.cmds.has(command)) {
     command = Memer.cmds.get(command)
   } else if (Memer.aliases.has(command)) {
@@ -28,9 +19,11 @@ exports.handleMeDaddy = async function (Memer, msg, gConfig) {
       await msg.channel.createMessage('', { file: res.body, name: command + tag.img.slice(-4) })
     }
     return
+  } else {
+    return // No commands or aliases found with the given string
   }
 
-  if (!command.run || gConfig.disabledCommands.includes(command.props.name)) {
+  if (!command.run || gConfig.disabledCommands.includes(command.props.name) || (gConfig.disabledCommands.includes('nsfw') && command.props.isNSFW)) {
     return
   }
 
@@ -52,8 +45,13 @@ exports.handleMeDaddy = async function (Memer, msg, gConfig) {
       }
       return
     }
-    msg.reply = (str) => { msg.channel.createMessage(`${msg.author.mention}, ${str}`) }
-    await command.run(Memer, msg, args)
+
+    if (command.props.isNSFW && !msg.channel.nsfw) {
+      msg.channel.createMessage('Tryna get me banned? Use NSFW commands in a NSFW marked channel (look in channel settings, dummy)')
+    } else {
+      msg.reply = (str) => { msg.channel.createMessage(`${msg.author.mention}, ${str}`) }
+      await command.run(Memer, msg, args)
+    }
   } catch (e) {
     msg.channel.createMessage(`Something went wrong while executing this hecking command: \`${e.message}\` \nPlease join here (<https://discord.gg/ebUqc7F>) if the issue doesn't stop being an ass.`) // meme-ier format?
     return Memer.log(`Command error:\n\tCommand: ${command.props.name}\n\tSupplied arguments: ${args.join(', ')}\n\tError: ${e.stack}`, 'error')
