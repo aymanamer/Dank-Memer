@@ -1,7 +1,7 @@
 const fs = require('fs')
 const msgHandler = require('./handlers/msgHandler.js')
 const botPackage = require('../package.json')
-const Base = require('eris-sharder').Base
+const { Base } = require('eris-sharder')
 
 class Memer extends Base {
   constructor (bot) {
@@ -13,14 +13,13 @@ class Memer extends Base {
     this.config = require('./config.json')
     this.r = require('rethinkdbdash')()
     this.db = require('./utils/dbFunctions.js')(this)
-    this.cmds = new Map()
-    this.aliases = new Map()
-    this.tags = new Map()
+    this.cmds = []
+    this.tags = {}
     this.indexes = {
       'meme': {},
       'joke': {},
       'shitpost': {},
-      'gt': {}
+      'greentext': {}
     }
     Object.assign(this, require('./utils/misc.js'))
   }
@@ -32,8 +31,11 @@ class Memer extends Base {
       .on('ready', this.ready.bind(this))
       .on('guildCreate', this.guildCreate.bind(this))
       .on('guildDelete', this.guildDelete.bind(this))
-      .on('messageCreate', this.messageCreate.bind(this))
-      .on('error', this.onError.bind(this))
+      .on('messageCreate', msgHandler.handleMeDaddy.bind(this))
+      .on('error', (error) => {
+        this.log(error.stack, 'error')
+      })
+
     this.ready()
   }
 
@@ -43,32 +45,36 @@ class Memer extends Base {
       type: 1,
       url: 'https://www.twitch.tv/m3lmsie'
     })
+
+    this.mentionRX = new RegExp(`^<@!*${this.bot.user.id}>`)
   }
 
   loadCommands () {
     const path = './commands'
-    fs.readdir(path, (error, files) => {
-      if (error) {
-        return this.log(error.stack, 'error')
+    const files = fs.readdirSync(path)
+
+    for (const file of files) {
+      try {
+        const command = require(this._join(__dirname, path, file))
+        command.props = Object.assign({
+          usage: '{command}',
+          cooldown: 1000,
+          isNSFW: false,
+          ownerOnly: false
+        }, command.props, {
+          perms: ['sendMessages'].concat(command.props.perms)
+        })
+
+        this.cmds.push(command)
+      } catch (error) {
+        this.log(`Failed to load command ${file}:\n${error.stack}`, 'error')
       }
+    }
 
-      files.forEach(file => {
-        try {
-          const command = require(this._join(__dirname, path, file))
-          this.cmds.set(command.props.name, command)
-          command.props.aliases.forEach(alias => {
-            this.aliases.set(alias, command.props.name)
-          })
-        } catch (error) {
-          this.log(`Failed to load command ${file}:\n${error.stack}`, 'error')
-        }
-      })
-    })
-
-    const tags = require('./tags.json')
-    Object.keys(tags).forEach(tag => {
-      this.tags.set(tag, tags[tag])
-    })
+    // const tags = require('./tags.json')
+    // Object.keys(tags).forEach(tag => {
+    //   this.tags.set(tag, tags[tag])
+    // })
   }
 
   guildCreate (guild) {
@@ -85,40 +91,8 @@ class Memer extends Base {
     this.db.deleteGuild(guild.id)
   }
 
-  get defaultGuildConfig () {
-    return {
-      prefix: this.config.defaultPrefix,
-      disabledCommands: []
-    }
-  }
-
   get package () {
     return botPackage
-  }
-
-  async messageCreate (msg) {
-    if (!msg.channel.guild ||
-        msg.author.bot ||
-        await this.db.isBlocked(msg.author.id, msg.channel.guild.id)) {
-      return
-    }
-
-    if (/\b([fF])\b/g.test(msg.content)) {
-      this.db.addEff(msg.author.id, msg.channel.guild.id)
-    }
-
-    const gConfig = await this.db.getGuild(msg.channel.guild.id) || this.defaultGuildConfig
-
-    if (msg.mentions.find(m => m.id === this.bot.user.id) && msg.content.toLowerCase().includes('help')) {
-      return msg.channel.createMessage(`Hello, ${msg.author.username}. My prefix is \`${gConfig.prefix}\`. Example: \`${gConfig.prefix} meme\``)
-    }
-    if (msg.content.toLowerCase().startsWith(gConfig.prefix)) {
-      msgHandler.handleMeDaddy(this, msg, gConfig)
-    }
-  }
-
-  onError (error) {
-    this.log(error.stack, 'error')
   }
 }
 
