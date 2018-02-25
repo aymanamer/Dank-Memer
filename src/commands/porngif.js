@@ -5,7 +5,7 @@ async function getDogPic (Memer, msg) {
 
   msg.channel.createMessage({
     embed: {
-      title: 'Here, take some gifs ;).',
+      title: 'Here, take some gifs ;)',
       color: Memer.randomColor(),
       image: { url: data.body.url },
       footer: { text: 'Free nudes thanks to boobbot & tom <3' }
@@ -16,7 +16,7 @@ async function getDogPic (Memer, msg) {
 exports.props = {
   name: 'porngif',
   usage: '{command}',
-  aliases: ['gifs'],
+  aliases: ['gifs', 'porn'],
   cooldown: 1000,
   description: 'Basically a porn video but with gifs',
   perms: ['embedLinks'],

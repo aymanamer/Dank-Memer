@@ -10,9 +10,9 @@ exports.run = async function (Memer, msg) {
 }
 
 exports.props = {
-  name: 'porn',
+  name: 'hiddenfornow',
   usage: '{command}',
-  aliases: ['vote', 'upvote'],
+  aliases: [],
   cooldown: 1000,
   description: 'owo whats this',
   perms: ['embedLinks']
