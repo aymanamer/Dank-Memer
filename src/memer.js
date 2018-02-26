@@ -6,8 +6,22 @@ const r = require('rethinkdbdash')()
 const master = new Sharder(config.token, '/mainClass.js', {
   stats: true,
   webhooks: config.webhooks,
-  clientOptions: config.clientOptions,
-  shards: 1
+  clientOptions: {
+    disableEvents: {
+      CHANNEL_PINS_UPDATE: true,
+      USER_SETTINGS_UPDATE: true,
+      USER_NOTE_UPDATE: true,
+      RELATIONSHIP_ADD: true,
+      RELATIONSHIP_REMOVE: true,
+      GUILD_BAN_ADD: true,
+      GUILD_BAN_REMOVE: true,
+      TYPING_START: true
+    },
+    disableEveryone: true,
+    messageLimit: 0,
+    maxShards: 85
+  },
+  shards: config.shardCount || 0
 })
 
 master.on('stats', res => {
