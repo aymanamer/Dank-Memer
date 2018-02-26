@@ -1,4 +1,5 @@
-const fs = require('fs')
+const { readdirSync } = require('fs')
+const { join } = require('path')
 const msgHandler = require('./handlers/msgHandler.js')
 const botPackage = require('../package.json')
 const { Base } = require('eris-sharder')
@@ -8,8 +9,6 @@ class Memer extends Base {
     super(bot)
 
     this.log = require('./utils/logger.js')
-    this._snek = require('snekfetch')
-    this._join = require('path').join
     this.config = require('./config.json')
     this.r = require('rethinkdbdash')()
     this.db = require('./utils/dbFunctions.js')(this)
@@ -51,20 +50,11 @@ class Memer extends Base {
 
   loadCommands () {
     const path = './commands'
-    const files = fs.readdirSync(path)
+    const files = readdirSync(path)
 
     for (const file of files) {
       try {
-        const command = require(this._join(__dirname, path, file))
-        command.props = Object.assign({
-          usage: '{command}',
-          cooldown: 1000,
-          isNSFW: false,
-          ownerOnly: false
-        }, command.props, {
-          perms: ['sendMessages'].concat(command.props.perms)
-        })
-
+        const command = require(join(__dirname, path, file))
         this.cmds.push(command)
       } catch (error) {
         this.log(`Failed to load command ${file}:\n${error.stack}`, 'error')
