@@ -1,5 +1,4 @@
   // if (msg.mentions.find(m => m.id === this.bot.user.id) && msg.content.toLowerCase().includes('help')) {
-  //   return msg.channel.createMessage(`Hello, ${msg.author.username}. My prefix is \`${gConfig.prefix}\`. Example: \`${gConfig.prefix} meme\``)
   // }
 
   // const tag = Memer.tags.get(command)
@@ -23,35 +22,38 @@ exports.handleMeDaddy = async function (msg) {
   ) {
     return
   }
-  this.log('1')
 
   const gConfig = await this.db.getGuild(msg.channel.guild.id) || {
     prefix: this.config.defaultPrefix,
     disabledCommands: []
   }
 
-  const mentionPrefix = msg.content.match(this.mentionRX)
-  const prefix = mentionPrefix ? mentionPrefix[0] : gConfig.prefix
-  if (!msg.content.toLowerCase().startsWith(prefix)) {
+  const prefix = (() => {
+    const { nick, username } = msg.channel.guild.members.get(this.bot.user.id)
+    return this.mentionRX.test(msg.content)
+      ? `@${nick || username}`.toLowerCase()
+      : gConfig.prefix
+  })()
+  if (!msg.cleanContent.toLowerCase().startsWith(prefix)) {
     return
   }
 
-  let command = msg.content.slice(prefix.length + 1).split(' ')[0]
-  const args = msg.cleanContent.slice(prefix.length + 1).split(/\s+/g).slice(1)
+  let [command, ...args] = msg.cleanContent.slice(prefix.length + 1).split(/\s+/g)
   command = command && (this.cmds.find(c => c.props.triggers.includes(command.toLowerCase())) || this.tags[command.toLowerCase()])
 
   if (
-    !command || !command.run ||
-    (command.ownerOnly && !this.config.ownerIDs.includes(msg.author.id)) ||
+    !command &&
+    msg.mentions.find(u => u.id === this.bot.user.id) &&
+    msg.content.toLowerCase().includes('hello')
+  ) {
+    return msg.channel.createMessage(`Hello, ${msg.author.username}. My prefix is \`${gConfig.prefix}\`. Example: \`${gConfig.prefix} meme\``)
+  } else if (
+    !command ||
+    (command.ownerOnly && !this.config.devs.includes(msg.author.id)) ||
     gConfig.disabledCommands.includes(command.props.name) ||
     (gConfig.disabledCommands.includes('nsfw') && command.props.isNSFW)
   ) {
     return
-  } else if (
-    msg.mentions.find(u => u.id === this.bot.user.id) &&
-    msg.content.toLowerCase().includes('help')
-  ) {
-    command = this.commands.find(c => c.triggers.includes('help'))
   }
 
   const cooldown = await this.db.getCooldown(command.props.triggers[0], msg.author.id)
@@ -59,7 +61,7 @@ exports.handleMeDaddy = async function (msg) {
     const waitTime = (cooldown - Date.now()) / 1000
     return msg.channel.createMessage(`u got 2 wait ${waitTime > 60 ? this.parseTime(waitTime) : `${waitTime.toFixed()} secunds`}!!!1!`)
   }
-  await this.db.addCooldown(command.props.triggers[0], msg.author.id)
+  const addCooldown = () => this.db.addCooldown(command.props.triggers[0], msg.author.id)
 
   try {
     const permissions = msg.channel.permissionsOf(this.bot.user.id)
@@ -72,7 +74,15 @@ exports.handleMeDaddy = async function (msg) {
       msg.channel.createMessage('Tryna get me banned? Use NSFW commands in a NSFW marked channel (look in channel settings, dummy)')
     } else {
       msg.reply = (str) => { msg.channel.createMessage(`${msg.author.mention}, ${str}`) }
-      let res = await command.run({ Memer: this, msg, args })
+      let res = await command.run({
+        msg,
+        args,
+        Memer: this,
+        addCD: addCooldown
+      })
+      if (!res) {
+        return
+      }
       if (res instanceof Object) {
         res.color = this.randomColor()
         res = { embed: res }
