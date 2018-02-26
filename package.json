@@ -1,6 +1,6 @@
 {
   "name": "dank-memer",
-  "version": "9.0.0",
+  "version": "9.2.0",
   "description": "A discord meme bot meant to help you look at memes and have fun",
   "main": "memer.js",
   "scripts": {
@@ -22,11 +22,9 @@
   },
   "homepage": "https://github.com/dank-memer/Dank-Memer#readme",
   "dependencies": {
-    "cpu-stat": "^2.0.1",
     "eris-sharder": "^1.7.6",
-    "react-trump": "^0.2.1",
     "rethinkdbdash": "^2.3.31",
     "snekfetch": "^3.6.4",
-    "table": "^4.0.2"
+    "standard": "^11.0.0"
   }
 }
