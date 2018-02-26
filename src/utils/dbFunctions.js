@@ -1,41 +1,4 @@
 module.exports = Bot => ({
-  addEff: async function addEff (userID, guildID) {
-    const effs = await this.getEffs(userID, 'userID')
-    if (!effs[0] || !effs.filter(eff => eff.guildID === guildID)[0]) {
-      return this.createEff(userID, guildID)
-    }
-    const eff = effs.filter(eff => eff.guildID === guildID)[0]
-    eff.effs++
-
-    return Bot.r.table('effs')
-      .insert(eff, { conflict: 'update' })
-  },
-
-  createEff: async function createEff (userID, guildID) {
-    return Bot.r.table('effs')
-      .insert({
-        userID,
-        guildID,
-        effs: 1
-      })
-      .run()
-  },
-
-  getEffs: async function getEffs (id, index) {
-    const effs = await Bot.r.table('effs')
-      .getAll(id, { index })
-      .run()
-
-    return effs.sort((a, b) => b.effs - a.effs)
-  },
-
-  getAllEffs: async function getEffs () {
-    const effs = await Bot.r.table('effs').limit(25)
-      .run()
-
-    return effs.sort((a, b) => b.effs - a.effs)
-  },
-
   createGuild: async function createGuild (guildID) {
     await Bot.r.table('guilds')
       .insert({
@@ -67,10 +30,12 @@ module.exports = Bot => ({
   },
 
   addCooldown: async function addCooldown (command, ownerID) {
-    if (!Bot.cmds.has(command)) {
+    Bot.log(command);
+    const pCommand = Bot.cmds.find(c => c.props.triggers.includes(command.toLowerCase()))
+    if (!pCommand) {
       return
     }
-    const cooldown = Bot.cmds.get(command).props.cooldown
+    const cooldown = pCommand.props.cooldown
     const profile = await this.getCooldowns(ownerID)
     if (!profile) {
       return this.createCooldowns(command, ownerID)
