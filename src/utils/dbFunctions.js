@@ -30,7 +30,6 @@ module.exports = Bot => ({
   },
 
   addCooldown: async function addCooldown (command, ownerID) {
-    Bot.log(command);
     const pCommand = Bot.cmds.find(c => c.props.triggers.includes(command.toLowerCase()))
     if (!pCommand) {
       return
@@ -54,10 +53,11 @@ module.exports = Bot => ({
   },
 
   createCooldowns: async function createCooldowns (command, ownerID) {
-    if (!Bot.cmds.has(command)) {
+    const pCommand = Bot.cmds.find(c => c.props.triggers.includes(command.toLowerCase()));
+    if (!pCommand) {
       return
     }
-    const cooldown = Bot.cmds.get(command).props.cooldown
+    const cooldown = pCommand.props.cooldown
     return Bot.r.table('cooldowns')
       .insert({ id: ownerID, cooldowns: [ { [command]: Date.now() + cooldown } ] })
   },
