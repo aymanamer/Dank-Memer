@@ -29,7 +29,7 @@ module.exports = class GenericVoiceCommand {
 
     await addCD()
 
-    conn.play(`./assets/${this.cmdProps.dir}/${file}.${this.cmdProps.ext || 'opus'}`)
+    conn.play(`./assets/audio/${this.cmdProps.dir}/${file}.${this.cmdProps.ext || 'opus'}`)
     conn.once('end', async () => {
       await Memer.bot.leaveVoiceChannel(msg.channel.guild.members.get(Memer.bot.user.id).voiceState.channelID)
       if (Memer.bot.voiceConnections.get(msg.channel.guild.id)) {

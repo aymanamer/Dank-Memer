@@ -5,6 +5,7 @@ const r = require('rethinkdbdash')()
 
 const master = new Sharder(config.token, '/mainClass.js', {
   stats: true,
+  name: 'memes',
   webhooks: config.webhooks,
   clientOptions: {
     disableEvents: {
@@ -18,10 +19,9 @@ const master = new Sharder(config.token, '/mainClass.js', {
       TYPING_START: true
     },
     disableEveryone: true,
-    messageLimit: 0,
-    maxShards: 85
+    messageLimit: 0
   },
-  shards: config.shardCount || 0
+  shards: config.shardCount || 1
 })
 
 master.on('stats', res => {
