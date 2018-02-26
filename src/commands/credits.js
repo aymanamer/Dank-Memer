@@ -1,16 +1,32 @@
-exports.run = async function (Memer, msg) {
-  msg.channel.createMessage({ embed: {
-    color: Memer.randomColor(),
-    author: { name: 'Dank Memer Credits' },
-    description: '**Developers**\nMelmsie#0006, Aetheryx#2222, CyberRonin#5517\n**Contributors**\nKromatic#0420\n**Support Server Staff**\nKromatic\nLizard\nSquidaddy\nxXBuilderBXx\nAkko'
-  }})
-}
+const { GenericCommand } = require('../models/')
 
-exports.props = {
-  name: 'credits',
-  usage: '{command}',
-  aliases: ['helpers'],
-  cooldown: 1000,
-  description: 'Thanks to all of you!',
-  perms: ['embedLinks']
-}
+const developers = [
+  'Melmsie#0001',
+  'Aetheryx#2222',
+  'CyberRonin#5517'
+]
+const contributors = [
+  'Kromatic#0420'
+]
+const staff = [
+  'Kromatic',
+  'Lizard',
+  'Squidaddy',
+  'xXBuilderBXx',
+  'Akko'
+]
+
+module.exports = new GenericCommand(
+  () => ({
+    title: 'Dank Memer Credits',
+    fields: [
+      { name: 'Developers', value: developers.join('\n') },
+      { name: 'Contributors', value: contributors.join('\n') },
+      { name: 'Support Server Staff', value: staff.join('\n') }
+    ]
+  }), {
+    triggers: ['credits', 'helpers'],
+    description: 'Thanks to all of you!',
+    perms: ['embedLinks']
+  }
+)

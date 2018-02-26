@@ -1,23 +1,18 @@
-exports.run = async function (Memer, msg) {
-  getDogPic(Memer, msg)
-}
+const { get } = require('snekfetch')
+const { GenericCommand } = require('../models')
 
-async function getDogPic (Memer, msg) {
-  const data = await Memer._snek.get('http://api.icndb.com/jokes/random')
-  msg.channel.createMessage({
-    embed: {
+module.exports = new GenericCommand(
+  async ({ addCD }) => {
+    const data = await get('http://api.icndb.com/jokes/random')
+
+    await addCD()
+    return {
       title: '👊 Chuck Norris 👊',
-      color: Memer.randomColor(),
       description: data.body.value.joke.replace(/&quot;/g, '"')
     }
-  })
-}
-
-exports.props = {
-  name: 'chucknorris',
-  usage: '{command}',
-  aliases: ['chuck', 'norris'],
-  cooldown: 1000,
-  description: 'Lets learn about God',
-  perms: ['embedLinks']
-}
+  }, {
+    triggers: ['chucknorris', 'chuck', 'norris'],
+    description: 'Let\'s learn about God',
+    perms: ['embedLinks']
+  }
+)

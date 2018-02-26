@@ -1,8 +1,6 @@
-const GenericImageCommand = require('../models/GenericImageCommand.js')
+const { GenericImageCommand } = require('../models/')
 
-const command = new GenericImageCommand('cancer', null, {
-  aliases: ['cancerous'],
+module.exports = new GenericImageCommand({
+  triggers: ['cancer', 'cancerous'],
   description: 'the picture doesn\'t lie...'
 })
-
-module.exports = command

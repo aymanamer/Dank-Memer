@@ -1,57 +1,81 @@
-const cpuStat = require('cpu-stat')
 const os = require('os')
+const { GenericCommand } = require('../models/')
 
-exports.run = async function (Memer, msg) {
-  const stats = await Memer.db.getStats()
-  cpuStat.usagePercent(function (err, percent) {
-    if (err) {
-      return console.log(err)
-    }
-    msg.channel.createMessage({ embed: {
-      color: '5881576',
+const getCPUUsage = async () => {
+  const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms))
+
+  let [timeUsed0, timeIdle0, timeUsed1, timeIdle1] = new Array(4).fill(0)
+
+  const cpu0 = os.cpus()
+  await sleep(1000)
+  const cpu1 = os.cpus()
+
+  for (const cpu of cpu1) {
+    timeUsed1 += (
+      cpu.times.user +
+      cpu.times.nice +
+      cpu.times.sys
+    )
+    timeIdle1 += cpu.times.idle
+  }
+  for (const cpu of cpu0) {
+    timeUsed0 += (
+      cpu.times.user +
+      cpu.times.nice +
+      cpu.times.sys
+    )
+    timeIdle0 += cpu.times.idle
+  }
+
+  const totalUsed = timeUsed1 - timeUsed0
+  const totalIdle = timeIdle1 - timeIdle0
+  return (totalUsed / (totalUsed + totalIdle)) * 100
+}
+
+module.exports = new GenericCommand(
+  async ({ Memer, msg, addCD }) => {
+    const stats = await Memer.db.getStats()
+    const CPUUsage = await getCPUUsage()
+    return {
       fields: [
         {
           name: 'Server Statistics',
-          value:
-          `${stats.guilds} servers\n` +
-          `${(stats.users / stats.guilds).toFixed()} average server size\n` +
-          `${stats.largeGuilds} large servers\n` +
-          `${stats.exclusiveGuilds} exclusive servers\n` +
-          `${150000 - stats.guilds} until 150k`,
-
+          value: [
+            `${stats.guilds} servers`,
+            `${(stats.users / stats.guilds).toFixed()} average server size`,
+            `${stats.largeGuilds} large servers`,
+            `${stats.exclusiveGuilds} exclusive servers`,
+            `${150000 - stats.guilds} until 150k`
+          ].join('\n'),
           inline: true
         },
         {
           name: 'Various Statistics',
-          value:
-          `${Memer.parseTime(process.uptime())} uptime\n` +
-          `${stats.users} users\n` +
-          `${msg.channel.guild.shard.latency.toFixed(2)}ms shard latency\n` +
-          `v${Memer.package.version}\n` +
-          `${Memer.cmds.size} commands currently`,
-
+          value: [
+            `${Memer.parseTime(process.uptime())} uptime`,
+            `${stats.users} users`,
+            `${msg.channel.guild.shard.latency.toFixed(2)}ms shard latency`,
+            `v${Memer.package.version}`,
+            `${Memer.cmds.size} commands currently`
+          ].join('\n'),
           inline: true
         },
         {
           name: 'System Statistics',
-          value:
-          `${percent.toFixed(1)}% CPU usage\n` +
-          `${(stats.totalRam / 1000).toFixed(1)}gb/${(os.totalmem() / 1073741824).toFixed(1)}gb memory\n` +
-          `${Memer.parseTime(os.uptime())} uptime\n` +
-          `${os.platform} based server\n` +
-          `Node ${process.version}`,
+          value: [
+            `${CPUUsage.toFixed(1)}% CPU usage`,
+            `${(stats.totalRam / 1000).toFixed(1)}gb/${(os.totalmem() / 1073741824).toFixed(1)}gb memory`,
+            `${Memer.parseTime(os.uptime())} uptime`,
+            `${os.platform} based server`,
+            `Node ${process.version}`
+          ].join('\n'),
           inline: true
         }
       ]
-    }})
-  })
-}
-
-exports.props = {
-  name: 'stats',
-  usage: '{command}',
-  aliases: ['info'],
-  cooldown: 1000,
-  description: 'Returns information and statistics about Dank Memer.',
-  perms: ['embedLinks']
-}
+    }
+  }, {
+    triggers: ['stats', 'info'],
+    description: 'Returns information and statistics about Dank Memer.',
+    perms: ['embedLinks']
+  }
+)

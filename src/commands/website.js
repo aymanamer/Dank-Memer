@@ -1,12 +1,10 @@
-exports.run = async function (Memer, msg) {
-  msg.channel.createMessage('http://dankmemer.lol/')
-}
+const { GenericCommand } = require('../models/')
 
-exports.props = {
-  name: 'website',
-  usage: '{command}',
-  aliases: ['site'],
-  cooldown: 1000,
-  description: 'Come check out our website!',
-  perms: ['embedLinks']
-}
+module.exports = new GenericCommand(
+  () => 'http://dankmemer.lol/',
+  {
+    triggers: ['website', 'site'],
+    description: 'Come check out our website!',
+    perms: ['embedLinks']
+  }
+)

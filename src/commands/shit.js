@@ -1,16 +1,18 @@
-const GenericImageCommand = require('../models/GenericImageCommand.js')
+const { GenericImageCommand } = require('../models/')
 
-const command = new GenericImageCommand('shit', (msg, args) => {
+module.exports = new GenericImageCommand({
+  triggers: ['shit', 'shitty'],
+  description: 'The shit on my shoe!'
+}, (msg, args) => {
+  args = args.join(' ')
   if (msg.mentions[0]) {
     args = msg.mentions[0].username
   } else {
     if (!args[0]) {
       args = msg.author.username
-    } else if (args.join(' ').length > 35) {
+    } else if (args.length > 35) {
       msg.channel.createMessage(`This shit was too large. You're ${args.join(' ').length - 35} characters over the limit!`)
       return false
-    } else {
-      args = args.join(' ')
     }
   }
 
@@ -20,9 +22,4 @@ const command = new GenericImageCommand('shit', (msg, args) => {
   }
 
   return args
-}, {
-  description: 'The shit on my shoe!',
-  aliases: ['shitty']
 })
-
-module.exports = command

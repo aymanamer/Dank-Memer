@@ -1,27 +1,21 @@
+const { GenericCommand } = require('../models/')
+const { get } = require('snekfetch')
 
-exports.run = async function (Memer, msg) {
-  getDogPic(Memer, msg)
-}
+module.exports = new GenericCommand(
+  async () => {
+    const latestXKCD = await get('https://xkcd.com/info.0.json').then(r => r.body.num)
 
-async function getDogPic (Memer, msg) {
-  const random = Math.floor(Math.random() * 1957 + 1)
-  const data = await Memer._snek.get(`https://xkcd.com/${random}/info.0.json`)
-  msg.channel.createMessage({
-    embed: {
-      author: { name: `Comic #${data.body.num} ${data.body.title}`, url: data.body.link },
-      color: Memer.randomColor(),
-      image: { url: data.body.img },
-      description: data.body.alt,
+    const res = await get(`https://xkcd.com/${Math.floor(Math.random() * latestXKCD + 1)}/info.0.json`)
+
+    return {
+      author: { name: `Comic #${res.body.num} ${res.body.title}`, url: res.body.link },
+      image: { url: res.body.img },
+      description: res.body.alt,
       footer: { text: `https://xkcd.com` }
     }
-  })
-}
-
-exports.props = {
-  name: 'xkcd',
-  usage: '{command}',
-  aliases: [],
-  cooldown: 1000,
-  description: 'Grabs a random comic from [xkcd](https://xkcd.com/)',
-  perms: ['embedLinks']
-}
+  }, {
+    triggers: ['xkcd'],
+    description: 'Grabs a random comic from [xkcd](https://xkcd.com/)',
+    perms: ['embedLinks']
+  }
+)

@@ -1,33 +1,25 @@
-const trump = require('react-trump')
-const { trumpers } = require('../assets/arrays.json')
+const { GenericCommand } = require('../models/')
+const { trumpPhotos, trumpResponses } = require('../assets/arrays.json')
 
-const exclamations = 1
-const incquestion = false
+const questionRegex = /\?/g
 
-exports.run = async function (Memer, msg, args) {
-  if (!args[0]) {
-    return msg.reply('You gotta give me something to ask Trump :eyes:')
+module.exports = new GenericCommand(
+  async ({ Memer, msg, args, addCD }) => {
+    args = args.join(' ')
+    const qLength = (args.match(questionRegex) || []).length
+
+    await addCD()
+    return {
+      thumbnail: { url: Memer.randomInArray(trumpPhotos) },
+      description: `\n${msg.author.username}: ${args}\n\nTrump: ${Memer.randomInArray(trumpResponses).toUpperCase()}${'!'.repeat(qLength)}`
+    }
+  },
+  {
+    triggers: ['asktrump', 'donald'],
+    usage: '{command} <question>',
+    description: 'Ask the president whatever you\'d like!',
+    perms: ['embedLinks'],
+
+    missingArgs: 'You gotta give me something to ask Trump :eyes:'
   }
-
-  const question = args.join(' ')
-  const answer = await trump.answer({
-    question,
-    exclamations,
-    incquestion
-  })
-
-  msg.channel.createMessage({ embed: {
-    color: Memer.colors.lightblue,
-    thumbnail: { url: Memer.randomInArray(trumpers) },
-    description: `\n${msg.author.username}: ${question}\n\nTrump: ${answer}`
-  }})
-}
-
-exports.props = {
-  name: 'asktrump',
-  usage: '{command} <question>',
-  aliases: ['trump', 'donald'],
-  cooldown: 1000,
-  description: 'Ask the president whatever you\'d like!',
-  perms: ['embedLinks']
-}
+)

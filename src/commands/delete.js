@@ -1,8 +1,6 @@
-const GenericImageCommand = require('../models/GenericImageCommand.js')
+const { GenericImageCommand } = require('../models/')
 
-const command = new GenericImageCommand('delete', null, {
-  aliases: ['delet'],
+module.exports = new GenericImageCommand({
+  triggers: ['delete', 'delet'],
   description: 'delet this.'
 })
-
-module.exports = command

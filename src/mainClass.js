@@ -1,74 +1,70 @@
-const fs = require('fs')
+const { readdirSync } = require('fs')
+const { join } = require('path')
+const { get } = require('snekfetch')
+const { Base } = require('eris-sharder')
+
 const msgHandler = require('./handlers/msgHandler.js')
+const MessageCollector = require('./utils/MessageCollector.js')
 const botPackage = require('../package.json')
-const Base = require('eris-sharder').Base
 
 class Memer extends Base {
   constructor (bot) {
     super(bot)
 
     this.log = require('./utils/logger.js')
-    this._snek = require('snekfetch')
-    this._join = require('path').join
     this.config = require('./config.json')
     this.r = require('rethinkdbdash')()
     this.db = require('./utils/dbFunctions.js')(this)
-    this.cmds = new Map()
-    this.aliases = new Map()
-    this.tags = new Map()
+    this.cmds = []
+    this.tags = {}
     this.indexes = {
       'meme': {},
       'joke': {},
       'shitpost': {},
-      'gt': {}
+      'greentext': {}
     }
     Object.assign(this, require('./utils/misc.js'))
   }
 
   launch () {
     this.loadCommands()
+    this.MessageCollector = new MessageCollector(this.bot)
 
     this.bot
       .on('ready', this.ready.bind(this))
       .on('guildCreate', this.guildCreate.bind(this))
       .on('guildDelete', this.guildDelete.bind(this))
-      .on('messageCreate', this.messageCreate.bind(this))
-      .on('error', this.onError.bind(this))
+      .on('messageCreate', msgHandler.handleMeDaddy.bind(this))
+      .on('error', (error) => {
+        this.log(error.stack, 'error')
+      })
+
     this.ready()
   }
 
-  ready () {
+  async ready () {
     this.bot.editStatus(null, {
       name: 'with my dad',
       type: 1,
       url: 'https://www.twitch.tv/m3lmsie'
     })
+
+    this.mentionRX = new RegExp(`^<@!*${this.bot.user.id}>`)
+    this.mockIMG = await get('https://pbs.twimg.com/media/DAU-ZPHUIAATuNy.jpg').then(r => r.body)
   }
 
   loadCommands () {
     const path = './commands'
-    fs.readdir(path, (error, files) => {
-      if (error) {
-        return this.log(error.stack, 'error')
+    const files = readdirSync(path)
+
+    for (const file of files) {
+      try {
+        const command = require(join(__dirname, path, file))
+        this.cmds.push(command)
+      } catch (error) {
+        this.log(`Failed to load command ${file}:\n${error.stack}`, 'error')
       }
-
-      files.forEach(file => {
-        try {
-          const command = require(this._join(__dirname, path, file))
-          this.cmds.set(command.props.name, command)
-          command.props.aliases.forEach(alias => {
-            this.aliases.set(alias, command.props.name)
-          })
-        } catch (error) {
-          this.log(`Failed to load command ${file}:\n${error.stack}`, 'error')
-        }
-      })
-    })
-
-    const tags = require('./tags.json')
-    Object.keys(tags).forEach(tag => {
-      this.tags.set(tag, tags[tag])
-    })
+    }
   }
 
   guildCreate (guild) {
@@ -85,40 +81,8 @@ class Memer extends Base {
     this.db.deleteGuild(guild.id)
   }
 
-  get defaultGuildConfig () {
-    return {
-      prefix: this.config.defaultPrefix,
-      disabledCommands: []
-    }
-  }
-
   get package () {
     return botPackage
-  }
-
-  async messageCreate (msg) {
-    if (!msg.channel.guild ||
-        msg.author.bot ||
-        await this.db.isBlocked(msg.author.id, msg.channel.guild.id)) {
-      return
-    }
-
-    if (/\b([fF])\b/g.test(msg.content)) {
-      this.db.addEff(msg.author.id, msg.channel.guild.id)
-    }
-
-    const gConfig = await this.db.getGuild(msg.channel.guild.id) || this.defaultGuildConfig
-
-    if (msg.mentions.find(m => m.id === this.bot.user.id) && msg.content.toLowerCase().includes('help')) {
-      return msg.channel.createMessage(`Hello, ${msg.author.username}. My prefix is \`${gConfig.prefix}\`. Example: \`${gConfig.prefix} meme\``)
-    }
-    if (msg.content.toLowerCase().startsWith(gConfig.prefix)) {
-      msgHandler.handleMeDaddy(this, msg, gConfig)
-    }
-  }
-
-  onError (error) {
-    this.log(error.stack, 'error')
   }
 }
 

@@ -1,7 +1,6 @@
-const GenericImageCommand = require('../models/GenericImageCommand.js')
+const { GenericImageCommand } = require('../models/')
 
-const command = new GenericImageCommand('warp', null, {
+module.exports = new GenericImageCommand({
+  triggers: ['warp'],
   description: 'Warp some image shit'
 })
-
-module.exports = command

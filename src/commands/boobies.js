@@ -1,24 +1,13 @@
-exports.run = getDogPic
+const { GenericMediaCommand } = require('../models/')
 
-async function getDogPic (Memer, msg) {
-  const data = await Memer._snek.get('https://boob.bot/api/v2/img/boobs', {headers: {Key: Memer.config.porn}})
-
-  msg.channel.createMessage({
-    embed: {
-      title: 'Here, take some boobs.',
-      color: Memer.randomColor(),
-      image: { url: data.body.url },
-      footer: { text: 'Free nudes thanks to boobbot & tom <3' }
-    }
-  })
-}
-
-exports.props = {
-  name: 'boobies',
-  usage: '{command}',
-  aliases: ['boobs'],
-  cooldown: 1000,
+module.exports = new GenericMediaCommand({
+  triggers: ['boobies', 'boobs'],
   description: 'See some cute ~~birbs~~ boobs!',
-  perms: ['embedLinks'],
-  isNSFW: true
-}
+  isNSFW: true,
+
+  title: 'Here, take some boobs.',
+  message: 'Free nudes thanks to boobbot & tom <3',
+  JSONKey: 'url',
+  reqURL: 'https://boob.bot/api/v2/img/boobs',
+  tokenKey: 'porn'
+})

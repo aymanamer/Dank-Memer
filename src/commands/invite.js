@@ -1,18 +1,14 @@
-exports.run = function (Memer, msg) {
-  msg.channel.createMessage({ embed: {
-    color: Memer.colors.lightblue,
+const { GenericCommand } = require('../models/')
+
+module.exports = new GenericCommand(
+  async () => ({
     fields: [
       { name: 'Add Dank Memer', value: '\n[Here](https://goo.gl/BPWvB9)', inline: true },
       { name: 'Join a Dank Server', value: '\n[Here](https://discord.gg/ebUqc7F)', inline: true }
     ]
-  }})
-}
-
-exports.props = {
-  name: 'invite',
-  usage: '{command}',
-  aliases: ['gibinvite'],
-  cooldown: 1000,
-  description: 'Get an invite for the bot or to the support server.',
-  perms: ['embedLinks']
-}
+  }), {
+    triggers: ['invite', 'gibinvite'],
+    description: 'Get an invite for the bot or to the support server.',
+    perms: ['embedLinks']
+  }
+)

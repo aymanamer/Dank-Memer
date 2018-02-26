@@ -1,11 +1,10 @@
-const GenericImageCommand = require('../models/GenericImageCommand.js')
+const { GenericImageCommand } = require('../models/')
 
-const command = new GenericImageCommand('tweet', (msg, args) => {
-  let avatarurl = msg.mentions.length > 0 ? msg.mentions[0].staticAvatarURL : msg.author.staticAvatarURL
-  if (['jpg', 'jpeg', 'gif', 'png', 'webp'].some(x => args.join(' ').includes(x))) {
-    avatarurl = args.join(' ').replace(/gif|webp/g, 'png')
-  }
-
+module.exports = new GenericImageCommand({
+  triggers: ['tweet', 'trump'],
+  description: 'dear lord, what is trump saying now...',
+  usage: '{command} <something to make trump say>'
+}, (msg, args) => {
   if (!args[0]) {
     msg.channel.createMessage('You need to add something to make trump tweet, try again.')
     return false
@@ -21,11 +20,5 @@ const command = new GenericImageCommand('tweet', (msg, args) => {
     return false
   }
 
-  return JSON.stringify([`${avatarurl}`, `${args.join(' ')}`])
-}, {
-  usage: '{command} <something to make trump say>',
-  aliases: ['trump'],
-  description: 'dear lord, what is trump saying now...'
+  return JSON.stringify([null, args.join(' ')]) // melmsie needs to fix this after fixing https://github.com/Dank-Memer/meme-server/blob/master/assets/tweet.js
 })
-
-module.exports = command
