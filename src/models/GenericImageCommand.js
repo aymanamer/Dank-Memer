@@ -1,47 +1,71 @@
+const { get } = require('snekfetch')
+
+const { GenericCommand } = require('.')
+
 class GenericImageCommand {
-  constructor (commandName, URLParseFN, commandProps) {
-    this.commandName = commandName
+  constructor (commandProps, URLParseFN) {
+    this.cmdProps = commandProps
     this.URLParseFN = URLParseFN || this.defaultURLParseFN
-    this.commandProps = commandProps
   }
 
-  async run (Memer, msg, args) {
+  async run ({ Memer, msg, args, addCD }) {
     const datasrc = this.URLParseFN(msg, args)
     if (!datasrc) {
       return
     }
 
-    const data = await Memer._snek
-      .get(`http://localhost/api/${this.commandName}`)
+    const data = await get(`http://localhost/api/${this.cmdProps.triggers[0]}`)
       .set('Api-Key', Memer.config.imgenKey)
       .set('data-src', datasrc)
 
     if (data.status === 200) {
-      msg.channel.createMessage('', { file: data.body, name: `${this.commandName}.${this.commandProps.format || 'png'}` })
+      await addCD()
+      msg.channel.createMessage('', { file: data.body, name: `${this.cmdProps.triggers[0]}.${this.cmdProps.format || 'png'}` })
     } else {
       msg.channel.createMessage(`Error: ${data.text}`)
     }
   }
 
-  get props () {
-    return {
-      name: this.commandName,
-      usage: this.commandProps.usage || '{command} @user',
-      aliases: this.commandProps.aliases || [],
-      cooldown: 3000,
-      description: this.commandProps.description,
-      perms: ['attachFiles']
+  defaultURLParseFN (msg, args) {
+    let avatarurl = (msg.mentions[0] || msg.author).dynamicAvatarURL('png')
+    if (['jpg', 'jpeg', 'gif', 'png', 'webp'].some(ext => args.join(' ').includes(ext))) {
+      avatarurl = args.join(' ').replace(/gif|webp/g, 'png')
     }
+
+    if (this.cmdProps.requiredArgs) {
+      if (!args[0]) {
+        msg.channel.createMessage(this.cmdProps.requiredArgs)
+        return false
+      }
+
+      if (args.join(' ').length > this.cmdProps.textLimit) {
+        msg.channel.createMessage(`Too long. You're ${args.join(' ').length - this.cmdProps.textLimit} characters over the limit!`)
+        return false
+      }
+
+      if (!/^[\x00-\x7F]*$/.test(args.join(' '))) { // eslint-disable-line
+        msg.channel.createMessage('Your argument contains invalid characters. Please try again.')
+        return false
+      }
+
+      return JSON.stringify([`${avatarurl}`, `${args.join(' ')}`])
+    } else if (this.props.doubleAvatar) {
+      const authorurl = msg.mentions[0]
+        ? msg.author.dynamicAvatarURL('png')
+        : msg.channel.guild.shard.client.user.dynamicAvatarURL('png')
+      return JSON.stringify([`${avatarurl}`, `${authorurl}`])
+    }
+    return avatarurl
   }
 
-  get defaultURLParseFN () {
-    return (msg, args) => {
-      let avatarurl = (msg.mentions[0] || msg.author).dynamicAvatarURL('png')
-      if (['jpg', 'jpeg', 'gif', 'png', 'webp'].some(ext => args.join(' ').includes(ext))) {
-        avatarurl = args.join(' ').replace(/gif|webp/g, 'png')
-      }
-      return avatarurl
-    }
+  get props () {
+    return new GenericCommand(
+      null,
+      Object.assign({
+        cooldown: 3000,
+        perms: ['embedLinks']
+      }, this.cmdProps)
+    ).props
   }
 }
 
