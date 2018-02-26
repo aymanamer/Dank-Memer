@@ -1,7 +1,7 @@
 const { exec } = require('child_process')
 
 module.exports = {
-  help: 'shhh',
+  help: 'reboot <shard | all>',
   fn: async ({ Memer, msg, args }) => {
     if (args[0] === 'cluster') {
       await msg.channel.createMessage('Rebooting this cluster...')

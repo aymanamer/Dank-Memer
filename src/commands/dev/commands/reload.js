@@ -1,5 +1,5 @@
 module.exports = {
-  help: 'no u.',
+  help: 'reload [command | all]',
   fn: async ({ Memer, msg, args }) => {
     if (!args[0]) {
       return `Please specify a command to reload, or put 'all'.`

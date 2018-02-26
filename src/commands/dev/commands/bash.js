@@ -2,7 +2,7 @@ const { post } = require('snekfetch')
 const { exec } = require('child_process')
 
 module.exports = {
-  help: 'shh bby is ok',
+  help: 'bash <script>',
   fn: async ({ Memer, msg, args }) => {
     msg.channel.createMessage(`**Input**\n${Memer.codeblock(args.join(' '), 'sh')}`)
     exec(args.join(' '), async (e, stdout, stderr) => {

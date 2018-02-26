@@ -1,5 +1,5 @@
 module.exports = {
-  help: 'shut',
+  help: 'blacklist <add | remove> <guild | user | channel> <id | @tag>',
   fn: async ({ Memer, msg, args }) => {
     const ids = msg.mentions[0] ? msg.mentions.map(u => u.id) : args.slice(2).filter(arg => parseInt(arg))
 

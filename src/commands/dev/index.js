@@ -1,13 +1,8 @@
 const { GenericCommand } = require('../../models/')
 const commands = require('./commands')
 
-// [
-//   { name: 'reboot', value: 'reboot [shard, all]' },
 //   { name: 'eval', value: 'eval <args>' },
 //   { name: 'bash', value: 'bash <args>' },
-//   { name: 'git', value: 'git pull' },
-//   { name: 'donor', value: '[add, remove] [1, 5, 10] <id or @tag>' },
-//   { name: 'blacklist', value: '[add, remove] [guild, user, channel] <id or @tag>' }
 // ]
 
 module.exports = new GenericCommand(

@@ -1,5 +1,4 @@
 const { get } = require('snekfetch')
-
 const { GenericCommand } = require('../models')
 
 module.exports = new GenericCommand(

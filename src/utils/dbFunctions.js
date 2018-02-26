@@ -53,7 +53,7 @@ module.exports = Bot => ({
   },
 
   createCooldowns: async function createCooldowns (command, ownerID) {
-    const pCommand = Bot.cmds.find(c => c.props.triggers.includes(command.toLowerCase()));
+    const pCommand = Bot.cmds.find(c => c.props.triggers.includes(command.toLowerCase()))
     if (!pCommand) {
       return
     }

@@ -1,19 +1,3 @@
-  // if (msg.mentions.find(m => m.id === this.bot.user.id) && msg.content.toLowerCase().includes('help')) {
-  // }
-
-  // const tag = Memer.tags.get(command)
-  // if (args[0] === 'info') {
-  //   await msg.channel.createMessage({ embed: {
-  //     color: Memer.colors.lightblue,
-  //     thumbnail: { url: tag.img },
-  //     description: tag.info,
-  //     footer: { text: 'brought to you by knowyourmeme.com' }
-  //   }})
-  // } else {
-  //   const res = await Memer._snek.get(tag.img)
-  //   await msg.channel.createMessage('', { file: res.body, name: command + tag.img.slice(-4) })
-  // }
-
 exports.handleMeDaddy = async function (msg) {
   if (
     !msg.channel.guild ||

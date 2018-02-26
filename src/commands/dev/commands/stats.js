@@ -1,5 +1,5 @@
 module.exports = {
-  help: 'plz dont to succ',
+  help: 'stats',
   fn: async ({ Memer }) => {
     const data = await Memer.db.getStats()
     data.total = [

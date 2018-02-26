@@ -8,7 +8,6 @@ const developers = [
 const contributors = [
   'Kromatic#0420'
 ]
-
 const staff = [
   'Kromatic',
   'Lizard',

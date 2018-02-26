@@ -1,5 +1,5 @@
 module.exports = {
-  help: 'no u sdfakjd;fklaj',
+  help: 'donor <add | remove> <1 | 5 | 10> <id | @tag>',
   fn: async ({ Memer, msg, args }) => {
     const ids = msg.mentions[0] ? msg.mentions.map(u => u.id) : args.slice(2).filter(arg => parseInt(arg))
 

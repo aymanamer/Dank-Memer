@@ -2,7 +2,7 @@ const { inspect } = require('util')
 const { post } = require('snekfetch')
 
 module.exports = {
-  help: 'no u',
+  help: 'eval <script> (Automatically uses async when `await` or `return` is detected)',
   fn: async ({ Memer, msg, args }) => {
     let input = args.join(' ')
     const asynchr = input.includes('return') || input.includes('await')
