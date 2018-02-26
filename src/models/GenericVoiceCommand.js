@@ -6,7 +6,9 @@ module.exports = class GenericVoiceCommand {
   }
 
   async run ({ Memer, msg, addCD }) {
-    const file = Math.floor(Math.random() * this.cmdProps.files + 1)
+    const file = typeof this.cmdProps.files === 'string'
+      ? this.cmdProps.files
+      : Math.floor(Math.random() * this.cmdProps.files + 1)
 
     if (!msg.member.voiceState.channelID) {
       return msg.reply('join a voice channel fam')
@@ -27,7 +29,7 @@ module.exports = class GenericVoiceCommand {
 
     await addCD()
 
-    conn.play(`./assets/${this.cmdProps.dir}/${file}.opus`)
+    conn.play(`./assets/${this.cmdProps.dir}/${file}.${this.cmdProps.ext || 'opus'}`)
     conn.once('end', async () => {
       await Memer.bot.leaveVoiceChannel(msg.channel.guild.members.get(Memer.bot.user.id).voiceState.channelID)
       if (Memer.bot.voiceConnections.get(msg.channel.guild.id)) {

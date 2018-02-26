@@ -25,8 +25,9 @@ module.exports = new GenericCommand(
 
     return commands[args.shift()].fn({ Memer, msg, args })
   }, {
-    triggers: ['dev'],
-    description: 'boop',
+    triggers: ['dev', 'stupid-bot'],
+    usage: '{command} you really don\'t need docs for this',
+    description: 'henlo, u stinky birb',
 
     ownerOnly: true
   }

@@ -49,8 +49,8 @@ exports.handleMeDaddy = async function (msg) {
     return msg.channel.createMessage(`Hello, ${msg.author.username}. My prefix is \`${gConfig.prefix}\`. Example: \`${gConfig.prefix} meme\``)
   } else if (
     !command ||
-    (command.ownerOnly && !this.config.devs.includes(msg.author.id)) ||
-    gConfig.disabledCommands.includes(command.props.name) ||
+    (command.props.ownerOnly && !this.config.devs.includes(msg.author.id)) ||
+    gConfig.disabledCommands.includes(command.props.triggers[0]) ||
     (gConfig.disabledCommands.includes('nsfw') && command.props.isNSFW)
   ) {
     return
@@ -84,10 +84,21 @@ exports.handleMeDaddy = async function (msg) {
         return
       }
       if (res instanceof Object) {
-        res.color = this.randomColor()
-        res = { embed: res }
+        if (res.reply) {
+          return msg.channel.createMessage(`${msg.author.mention}, ${res.content}`)
+        }
+        res = Object.assign({ color: this.randomColor() }, res)
+        res = {
+          content: res.content,
+          file: res.file,
+          embed: res
+        }
+        if (Object.keys(res.embed).join(',') === 'color,content,file') {
+          delete res.embed // plz fix later
+        }
       }
-      await msg.channel.createMessage(res)
+
+      await msg.channel.createMessage(res, res.file)
     }
   } catch (e) {
     msg.channel.createMessage(`Something went wrong while executing this hecking command: \`${e.message}\` \nPlease join here (<https://discord.gg/ebUqc7F>) if the issue doesn't stop being an ass.`) // meme-ier format?

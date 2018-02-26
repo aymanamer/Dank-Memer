@@ -1,8 +1,11 @@
 const { readdirSync } = require('fs')
 const { join } = require('path')
-const msgHandler = require('./handlers/msgHandler.js')
-const botPackage = require('../package.json')
+const { get } = require('snekfetch')
 const { Base } = require('eris-sharder')
+
+const msgHandler = require('./handlers/msgHandler.js')
+const MessageCollector = require('./utils/MessageCollector.js')
+const botPackage = require('../package.json')
 
 class Memer extends Base {
   constructor (bot) {
@@ -25,6 +28,7 @@ class Memer extends Base {
 
   launch () {
     this.loadCommands()
+    this.MessageCollector = new MessageCollector(this.bot)
 
     this.bot
       .on('ready', this.ready.bind(this))
@@ -38,7 +42,7 @@ class Memer extends Base {
     this.ready()
   }
 
-  ready () {
+  async ready () {
     this.bot.editStatus(null, {
       name: 'with my dad',
       type: 1,
@@ -46,6 +50,7 @@ class Memer extends Base {
     })
 
     this.mentionRX = new RegExp(`^<@!*${this.bot.user.id}>`)
+    this.mockIMG = await get('https://pbs.twimg.com/media/DAU-ZPHUIAATuNy.jpg').then(r => r.body)
   }
 
   loadCommands () {
@@ -60,11 +65,6 @@ class Memer extends Base {
         this.log(`Failed to load command ${file}:\n${error.stack}`, 'error')
       }
     }
-
-    // const tags = require('./tags.json')
-    // Object.keys(tags).forEach(tag => {
-    //   this.tags.set(tag, tags[tag])
-    // })
   }
 
   guildCreate (guild) {

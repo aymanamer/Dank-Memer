@@ -24,7 +24,7 @@ module.exports = {
     }
 
     try {
-      Memer.cmds.splice(Memer.cmds.indexOf(command), 1);
+      Memer.cmds.splice(Memer.cmds.indexOf(command), 1)
       delete require.cache[require.resolve(`../../${args[0]}`)]
       Memer.cmds.push(require(`../../${args[0]}`))
       return `Reloaded \`${args[0]}\`.`

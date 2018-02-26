@@ -1,4 +1,5 @@
 const { inspect } = require('util')
+const { post } = require('snekfetch')
 
 module.exports = {
   help: 'no u',
@@ -6,7 +7,7 @@ module.exports = {
     let input = args.join(' ')
     const asynchr = input.includes('return') || input.includes('await')
 
-    let result, evalTime;
+    let result, evalTime
 
     try {
       const before = Date.now()
@@ -24,7 +25,7 @@ module.exports = {
     }
 
     if (input.length + result.length > 994) {
-      const res = await Memer._snek.post('https://hastebin.com/documents')
+      const res = await post('https://hastebin.com/documents')
         .send(`${input}\n\n${result}`)
         .catch(err => msg.channel.createMessage(err.message))
       return `Eval exceeds 1000 characters. View here: https://hastebin.com/${res.body.key}`
