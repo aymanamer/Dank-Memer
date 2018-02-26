@@ -1,11 +1,9 @@
-module.exports = {
-  run: async function run ({ Memer, msg, args }) {
-    return {
-      description: args.join(' ')
-    }
-  },
-  props: {
-    triggers: ['ping', 'pong'],
-    description: 'hi'
+const { GenericCommand } = require('../models/')
+
+module.exports = new GenericCommand(
+  async () => ({ description: 'no u *dabs on <@180093157554388993>*' }),
+  {
+    triggers: ['ping'],
+    description: 'test cmd plz ignore'
   }
-}
+)
