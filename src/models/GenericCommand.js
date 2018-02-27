@@ -4,11 +4,11 @@ module.exports = class GenericCommand {
     this.passedProps = props
   }
 
-  async run ({ Memer, msg, args, addCD }) {
+  async run ({ Memer, msg, args, addCD, cleanArgs }) {
     if (this.props.missingArgs && !args[0]) {
       return this.props.missingArgs
     }
-    return this.fn({ Memer, msg, args, addCD })
+    return this.fn({ Memer, msg, args, addCD, cleanArgs })
   }
 
   get props () {
