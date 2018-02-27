@@ -2,7 +2,6 @@ const { GenericCommand } = require('../models/')
 
 module.exports = new GenericCommand(
   async ({ Memer, msg, args, addCD }) => {
-    console.log(args)
     if (!msg.mentions[0]) {
       return {description: 'who r u giving coins to, dumb'}
     }
@@ -11,7 +10,7 @@ module.exports = new GenericCommand(
     }
     let given = Number(args[0]) || Number(args[1])
     if (!given) {
-      return 'shut'
+      return 'you have to to actually share a number, dummy. Not ur dumb feelings'
     }
     let giverCoins = await Memer.db.getCoins(msg.author.id)
     let takerCoins = await Memer.db.getCoins(msg.mentions[0].id)

@@ -5,7 +5,7 @@ module.exports = new GenericCommand(
     const chances = Math.floor(Math.random() * 10) + 1
     const numOne = Math.floor(Math.random() * 1) + 1
     const numTwo = Math.floor(Math.random() * 5) * 0.1
-    const punishment = (Math.floor(Math.random() * 8) + 1.8) * 0.1
+    const punishment = (Math.floor(Math.random() * 6) + 1.2) * 0.1
     const bet = parseInt(args[0])
     let coins = await Memer.db.getCoins(msg.author.id)
     if (isNaN(bet)) {
@@ -24,7 +24,7 @@ module.exports = new GenericCommand(
       return {description: `u won ${winnings} coins, now u got ${coins.coin + parseInt(winnings)}`}
     } else {
       const losings = bet * punishment
-      const lost = Math.round(losings)
+      const lost = Math.round(losings) + bet
       if (coins.coin - lost <= 0) {
         await Memer.db.removeCoins(msg.author.id, 0)
       }
