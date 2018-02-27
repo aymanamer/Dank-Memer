@@ -32,6 +32,7 @@ module.exports = new GenericCommand(
         { name: '🐕 Animal Commands', value: 'birb, kitty, lizzyboi, pupper, redpanda' },
         { name: '🔊 Voice Commands', value: 'airhorn, boo, fart, knock, mememusic, mlgmusic, oof' },
         { name: '😏 NSFW Commands', value: 'boobies, booty, porngif' },
+        { name: '💰 Currency Commands', value: 'coins, daily' },
         { name: '🔧 Utilities and Information', value: 'changes, clean, credits, disable, enable, help, invite, patreon, prefix, stats, website' }
       ],
       footer: { text: 'Hello darkness my old friend...' }

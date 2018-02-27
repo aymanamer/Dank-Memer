@@ -100,6 +100,34 @@ module.exports = Bot => ({
     return Boolean(res)
   },
 
+  addCoins: async function addCoins (id, amount) {
+    let coins = await this.getCoins(id)
+    if (coins.changes) coins = coins.changes[0].new_val
+    coins.coin += amount
+
+    return Bot.r.table('coins')
+      .insert(coins, { conflict: 'update' })
+  },
+
+  getCoins: async function getCoins (id) {
+    const coins = await Bot.r.table('coins')
+      .get(id)
+      .run()
+    if (!coins) {
+      return Bot.r.table('coins')
+        .insert({ id, coin: 0 }, { returnChanges: true })
+        .run()
+    }
+    return coins
+  },
+
+  noCoins: async function noCoins (id) {
+    return Bot.r.table('coins')
+      .get(id)
+      .delete()
+      .run()
+  },
+
   addDonator: async function addDonator (id, donatorLevel) {
     return Bot.r.table('donators')
       .insert({ id, donatorLevel })
