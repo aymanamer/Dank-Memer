@@ -44,7 +44,17 @@ exports.handleMeDaddy = async function (msg) {
   const cooldown = await this.db.getCooldown(command.props.triggers[0], msg.author.id)
   if (cooldown > Date.now()) {
     const waitTime = (cooldown - Date.now()) / 1000
-    return msg.channel.createMessage(`u got 2 wait ${waitTime > 60 ? this.parseTime(waitTime) : `${waitTime.toFixed()} secunds`}!!!1!`)
+    const defaultCooldownMessage = 'u got 2 wait {cooldown}!!!1!'
+
+    let cooldownWarning = command.props.cooldownMessage || defaultCooldownMessage
+
+    if (waitTime > 60) {
+        cooldownWarning = cooldownWarning.replace('{cooldown}', this.parseTime(waitTime))
+    } else {
+        cooldownWarning = cooldownWarning.replace('{cooldown}', `${waitTime.toFixed()} secundz`)
+    }
+
+    return msg.channel.createMessage(cooldownWarning)
   }
   const addCooldown = () => this.db.addCooldown(command.props.triggers[0], msg.author.id)
 
