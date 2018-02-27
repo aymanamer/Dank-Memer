@@ -22,7 +22,8 @@ exports.handleMeDaddy = async function (msg) {
     return
   }
 
-  let [command, ...args] = msg.cleanContent.slice(prefix.length + 1).split(/\s+/g)
+  let [command, ...cleanArgs] = msg.cleanContent.slice(prefix.length + 1).split(/\s+/g)
+  const args = msg.content.slice(prefix.length + 1).split(/\s+/g).slice(1)
   command = command && (this.cmds.find(c => c.props.triggers.includes(command.toLowerCase())) || this.tags[command.toLowerCase()])
 
   if (
@@ -61,6 +62,7 @@ exports.handleMeDaddy = async function (msg) {
       let res = await command.run({
         msg,
         args,
+        cleanArgs,
         Memer: this,
         addCD: addCooldown
       })
