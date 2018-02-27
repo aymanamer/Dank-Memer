@@ -21,7 +21,7 @@ module.exports = new GenericCommand(
       const multiplier = (Math.random() * 0.9) + 1
 
       const winnings = Math.round(bet * multiplier)
-      if (winnings === coins.coin) {
+      if (winnings === bet) {
         return 'broke even'
       }
 
