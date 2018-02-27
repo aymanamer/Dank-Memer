@@ -8,7 +8,6 @@ module.exports = new GenericCommand(
     await addCD()
     await Memer.db.addCoins(msg.author.id, chances)
     return {description: `u won ${chances} coins, now u got ${coins.coin + chances}`}
-
   },
   {
     triggers: ['gibcoins'],
