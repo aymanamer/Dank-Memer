@@ -70,8 +70,12 @@ class Memer extends Base {
   guildCreate (guild) {
     const embed = {
       color: this.colors.lightblue,
-      title: 'Hello!',
-      description: this.intro
+      // title: 'hi',
+      description: this.intro,
+      fields: [
+        {name: 'Important Links', value: this.links}
+      ],
+      footer: { text: 'Message Melmsie#0001 if you have any questions!' }
     }
     guild.channels.get(guild.channels.filter(c => c.type === 0).map(c => c.id)[0]).createMessage({ embed })
       .catch(() => {})
