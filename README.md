@@ -5,7 +5,7 @@
   <a href="https://discordbots.org/bot/270904126974590976">
   <img src="https://discordbots.org/api/widget/servers/270904126974590976.svg?noavatar=true" />
 </a>
-<a title="Version" href="https://github.com/melmsie/Dank-Memer/releases"><img src="https://img.shields.io/github/release/melmsie/Dank-Memer.svg></a>
+<img src="https://img.shields.io/github/release/melmsie/Dank-Memer.svg>
 
   <a title="Node Version" href=""><img src="https://img.shields.io/badge/node.js-9.3.0-brightgreen.svg"></a>
   <a title="Codacy Badge" href="https://www.codacy.com?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=melmsie/Dank-Memer&amp;utm_campaign=Badge_Grade"><img src="https://api.codacy.com/project/badge/Grade/83c15be03279409c9ac3ab3979cb3d23"></a>
