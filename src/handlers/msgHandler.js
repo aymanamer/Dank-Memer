@@ -49,9 +49,9 @@ exports.handleMeDaddy = async function (msg) {
     let cooldownWarning = command.props.cooldownMessage || defaultCooldownMessage
 
     if (waitTime > 60) {
-        cooldownWarning = cooldownWarning.replace('{cooldown}', this.parseTime(waitTime))
+      cooldownWarning = cooldownWarning.replace('{cooldown}', this.parseTime(waitTime))
     } else {
-        cooldownWarning = cooldownWarning.replace('{cooldown}', `${waitTime.toFixed()} secundz`)
+      cooldownWarning = cooldownWarning.replace('{cooldown}', `${waitTime.toFixed()} secundz`)
     }
 
     return msg.channel.createMessage(cooldownWarning)

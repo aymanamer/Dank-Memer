@@ -13,7 +13,7 @@ module.exports = new GenericCommand(
       timestamp: new Date()
     }})
 
-    return 'Melmsie is listening to your venting now, what a great listener. amirite girls???? 😍'
+    return 'MY owner is listening to your venting now, what a great listener. amirite girls???? 😍'
   }, {
     triggers: ['vent', 'bother', 'message'],
     description: 'I know I am your only friend, this should give you someone to vent to',

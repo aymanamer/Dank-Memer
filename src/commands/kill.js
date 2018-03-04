@@ -4,7 +4,7 @@ const { GenericCommand } = require('../models/')
 module.exports = new GenericCommand(
   async ({ Memer, msg, args, addCD }) => {
     if (args[0] === 'me' || msg.mentions[0].id === msg.author.id) {
-      return 'No, you can do it yourself. Please tag someone else to kill.'
+      return ' Ok you\'re dead. Please tag someone else to kill.'
     }
     if (!msg.mentions[0]) {
       return 'Please tag someone to kill.'
