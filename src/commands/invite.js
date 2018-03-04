@@ -7,7 +7,7 @@ module.exports = new GenericCommand(
       { name: 'Join a Dank Server', value: '\n[Here](https://discord.gg/ebUqc7F)', inline: true }
     ]
   }), {
-    triggers: ['invite', 'gibinvite'],
+    triggers: ['invite', 'support', 'server'],
     description: 'Get an invite for the bot or to the support server.',
     perms: ['embedLinks']
   }

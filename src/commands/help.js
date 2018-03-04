@@ -27,11 +27,13 @@ module.exports = new GenericCommand(
       title: 'Available Commands',
       description: 'Do pls changes to see what\'s in the new update!',
       fields: [
-        { name: `😂 Fun Commands`, value: 'asktrump, chucknorris, dankrate, discordmeme, google, greentext, joke, kill, meme, memegen, mock, pun, ratewaifu, roast, say, shitpost, vent, xkcd' },
+        { name: `😂 Memey Commands`, value: 'discordmeme, wholesome, joke, me_irl, meme, memegen, prequel, pun, shitpost' },
+        { name: `🤣 Fun Commands`, value: 'asktrump, chucknorris, comic, dankrate, facepalm, freenitro, gayrate, google, greentext, kill, mock, ratewaifu, roast, say, showerthoughts, vent, xkcd' },
         { name: '📷 Image Manipulation', value: 'b1nzy, ban, batslap, brazzers, byemom, cancer, cry, delete, egg, hitler, jail, magik, pride, rip, salty, search, shit, spank, trigger, tweet, warp' },
-        { name: '🐕 Animal Commands', value: 'birb, kitty, lizzyboi, pupper, redpanda' },
+        { name: '🐕 Animal Commands', value: 'aww, birb, kitty, lizzyboi, pupper, redpanda' },
         { name: '🔊 Voice Commands', value: 'airhorn, boo, fart, knock, mememusic, mlgmusic, oof' },
-        { name: '😏 NSFW Commands', value: 'boobies, booty, porngif' },
+        { name: '😏 NSFW Commands', value: '4k, boobies, booty, gayporn, porngif' },
+        { name: '🆗 Text Commands', value: 'clap, emojify' },
         { name: '💰 Currency Commands', value: 'coins, daily' },
         { name: '🔧 Utilities and Information', value: 'changes, clean, credits, disable, enable, help, invite, patreon, prefix, stats, website' }
       ],
