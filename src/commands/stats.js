@@ -41,11 +41,11 @@ module.exports = new GenericCommand(
         {
           name: 'Server Statistics',
           value: [
-            `${stats.guilds} servers`,
+            `${stats.guilds.toLocaleString()} servers`,
             `${(stats.users / stats.guilds).toFixed()} average server size`,
-            `${stats.largeGuilds} large servers`,
-            `${stats.exclusiveGuilds} exclusive servers`,
-            `${150000 - stats.guilds} until 150k`
+            `${stats.largeGuilds.toLocaleString()} large servers`,
+            `${stats.exclusiveGuilds.toLocaleString()} exclusive servers`,
+            `${(150000 - stats.guilds).toLocaleString()} until 150k`
           ].join('\n'),
           inline: true
         },
@@ -53,10 +53,10 @@ module.exports = new GenericCommand(
           name: 'Various Statistics',
           value: [
             `${Memer.parseTime(process.uptime())} uptime`,
-            `${stats.users} users`,
+            `${stats.users.toLocaleString()} users`,
             `${msg.channel.guild.shard.latency.toFixed(2)}ms shard latency`,
-            `v${Memer.package.version}`,
-            `${Memer.cmds.size} commands currently`
+            `Bot v${Memer.package.version}`,
+            `${Memer.cmds.length} commands currently`
           ].join('\n'),
           inline: true
         },
