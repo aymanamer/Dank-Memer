@@ -3,7 +3,7 @@ const { get } = require('snekfetch')
 
 const filters = {
   image: post => post.data.post_hint === 'image',
-  text: post => !post.data.post_hint !== 'image' && post.data.selftext.length <= 550 && post.data.title.length <= 256
+  text: post => !post.data.post_hint !== 'image' && post.data.selftext.length <= 2000 && post.data.title.length <= 256
 }
 
 module.exports = class GenericRedditCommand {
@@ -27,7 +27,7 @@ module.exports = class GenericRedditCommand {
     await addCD()
     return {
       title: post.data.title,
-      url: post.data.url,
+      url: `https://www.reddit.com${post.data.permalink}`,
       image: { url: this.cmdProps.type === 'image' ? post.data.url : '' },
       description: post.data[this.cmdProps.type === 'image' ? 'url' : 'selftext'],
       footer: { text: `posted by ${post.data.author}` }
@@ -38,7 +38,7 @@ module.exports = class GenericRedditCommand {
     return new GenericCommand(
       null,
       Object.assign({
-        cooldown: 2000,
+        cooldown: 3000,
         perms: ['embedLinks']
       }, this.cmdProps)
     ).props
