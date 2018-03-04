@@ -58,6 +58,25 @@ class Memer extends Base {
       url: 'https://www.twitch.tv/m3lmsie'
     })
 
+    const { PlayerManager } = require('eris-lavalink')
+
+    let nodes = [
+      { host: 'localhost', port: 420, region: 'eu', password: 'youshallnotpass' }
+    ]
+    let regions = {
+      eu: ['eu', 'amsterdam', 'frankfurt', 'russia', 'hongkong', 'singapore', 'sydney'],
+      us: ['us', 'brazil']
+    }
+
+    if (!(this.bot.voiceConnections instanceof PlayerManager)) {
+      this.bot.voiceConnections = new PlayerManager(this.bot, nodes, {
+        numShards: this.config.shardCount,
+        userId: this.bot.user.id,
+        regions: regions,
+        defaultRegion: 'us'
+      })
+    }
+
     this.mentionRX = new RegExp(`^<@!*${this.bot.user.id}>`)
     this.mockIMG = await get('https://pbs.twimg.com/media/DAU-ZPHUIAATuNy.jpg').then(r => r.body)
   }

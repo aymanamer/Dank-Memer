@@ -22,6 +22,7 @@
   },
   "homepage": "https://github.com/dank-memer/Dank-Memer#readme",
   "dependencies": {
+    "eris-lavalink": "^1.0.0",
     "eris-sharder": "^1.7.6",
     "rethinkdbdash": "^2.3.31",
     "snekfetch": "^3.6.4",

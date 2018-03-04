@@ -1,7 +1,7 @@
 const { GenericCommand } = require('../models/')
 
 module.exports = new GenericCommand(
-  () => ({ description: 'no u *dabs on <@180093157554388993>*' }),
+  async ({msg}) => ({ description: `no u *dabs on <@${msg.author.id}>*` }),
   {
     triggers: ['ping'],
     description: 'test cmd plz ignore'
