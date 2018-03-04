@@ -1,4 +1,16 @@
 const { GenericCommand } = require('../models/')
+const reaction = [
+  '🤢',
+  '😰',
+  '😵',
+  '😥',
+  '😕',
+  '😗',
+  '😏',
+  '😌',
+  '☺',
+  '💁'
+]
 
 module.exports = new GenericCommand(
   async ({ msg, args }) => {
@@ -9,10 +21,14 @@ module.exports = new GenericCommand(
           ? `${msg.mentions[0].nick || msg.mentions[0].username} is a`
           : `${args.join(' ')} is a`
       )
-
-    return `${target} ${Math.floor(Math.random() * 10 + 1)}/10 waifu 😄`
-  }, {
-    triggers: ['ratewaifu', 'waifu'],
-    description: 'People were upset about only being rated as dank or not, so we added this. You\'re welcome princess'
+    const rating = Math.floor(Math.random() * 100) + 1
+    return {
+      title: 'waifu r8 machine',
+      description: `${target} ${rating}/100 waifu ${reaction[Number((rating / 10).toFixed()) - 1]}`
+    }
+  },
+  {
+    triggers: ['waifu'],
+    description: 'See how good of a waifu you are'
   }
 )
