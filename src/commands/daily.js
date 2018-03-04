@@ -6,7 +6,10 @@ module.exports = new GenericCommand(
     let coins = await Memer.db.getCoins(msg.author.id)
     await addCD()
     return {
-      description: `here are ur daily coins ok, you haz this many now: ${coins.coin}`
+      title: 'here are ur daily coins ok',
+      description: `u got 100, now u have ${coins.coin}`,
+      thumbnail: {url: 'http://dankmemer.lol/coin.png'},
+      footer: {text: 'spend it all in one place ok'}
     }
   },
   {
