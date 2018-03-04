@@ -21,7 +21,16 @@ class Memer extends Base {
       'meme': {},
       'joke': {},
       'shitpost': {},
-      'greentext': {}
+      'greentext': {},
+      'tifu': {},
+      'wholesome': {},
+      'prequel': {},
+      'aww': {},
+      'facepalm': {},
+      'showerthoughts': {},
+      'comics': {},
+      'meirl': {}
+
     }
     Object.assign(this, require('./utils/misc.js'))
   }
@@ -70,7 +79,6 @@ class Memer extends Base {
   guildCreate (guild) {
     const embed = {
       color: this.colors.lightblue,
-      // title: 'hi',
       description: this.intro,
       fields: [
         {name: 'Important Links', value: this.links}
