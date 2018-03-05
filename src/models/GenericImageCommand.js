@@ -13,15 +13,18 @@ class GenericImageCommand {
       return
     }
 
-    const data = await get(this.cmdProps.reqURL
+    const isLocalhost = !this.cmdProps.reqURL
+
+    const data = await get(!isLocalhost
       ? this.cmdProps.reqURL.replace('$URL', datasrc)
       : `http://localhost/api/${this.cmdProps.triggers[0]}`)
       .set('Api-Key', Memer.config.imgenKey)
       .set('data-src', datasrc)
 
-    if (data.status === 200) {
+    if (data.status === 200 && (!isLocalhost || data.body.status === 200)) {
+      const file = isLocalhost ? Buffer.from(data.body.file, 'utf8') : data.body
       await addCD()
-      msg.channel.createMessage('', { file: data.body, name: `${this.cmdProps.triggers[0]}.${this.cmdProps.format || 'png'}` })
+      msg.channel.createMessage('', { file, name: `${this.cmdProps.triggers[0]}.${this.cmdProps.format || 'png'}` })
     } else {
       msg.channel.createMessage(`Error: ${data.text}`)
     }
