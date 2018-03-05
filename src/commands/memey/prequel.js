@@ -1,4 +1,4 @@
-const { GenericRedditCommand } = require('../models')
+const { GenericRedditCommand } = require('../../models')
 
 module.exports = new GenericRedditCommand({
   triggers: ['prequel', 'pmeme'],

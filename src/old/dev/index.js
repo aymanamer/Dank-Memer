@@ -1,4 +1,4 @@
-const { GenericCommand } = require('../../models/')
+const { GenericCommand } = require('../../../models/')
 const commands = require('./commands')
 
 //   { name: 'eval', value: 'eval <args>' },

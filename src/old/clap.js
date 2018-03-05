@@ -1,4 +1,4 @@
-const { GenericCommand } = require('../models/')
+const { GenericCommand } = require('../../models/')
 
 module.exports = new GenericCommand(
   async ({ args }) => args.join(' 👏 '),

@@ -1,6 +1,6 @@
-const { GenericCommand } = require('../models/')
+const { GenericCommand } = require('../../models/')
 const { get } = require('snekfetch')
-const memes = require('../assets/memes.json')
+const memes = require('../../assets/memes.json')
 
 module.exports = new GenericCommand(
   async ({ Memer, msg, args, addCD }) => {

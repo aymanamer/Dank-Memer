@@ -1,5 +1,5 @@
-const { GenericCommand } = require('../models/')
-const { trumpPhotos, trumpResponses } = require('../assets/arrays.json')
+const { GenericCommand } = require('../../models/')
+const { trumpPhotos, trumpResponses } = require('../../assets/arrays.json')
 
 const questionRegex = /\?/g
 

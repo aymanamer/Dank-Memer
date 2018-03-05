@@ -63,15 +63,13 @@ class Memer extends Base {
   }
 
   loadCommands () {
-    const path = './commands'
-    const files = readdirSync(path)
+    const categories = readdirSync(join(__dirname, 'commands'))
 
-    for (const file of files) {
-      try {
-        const command = require(join(__dirname, path, file))
+    for (const categoryPath of categories) {
+      const category = require(join(__dirname, 'commands', categoryPath))
+      for (const command of category.commands) {
+        command.category = category.name
         this.cmds.push(command)
-      } catch (error) {
-        this.log(`Failed to load command ${file}:\n${error.stack}`, 'error')
       }
     }
   }
