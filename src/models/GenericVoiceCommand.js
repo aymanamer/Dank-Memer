@@ -20,6 +20,8 @@ module.exports = class GenericVoiceCommand {
       return msg.reply('Well shit, there was a permission error! Make sure I have `connect` and `speak` so I can do this shit!')
     }
 
+    Memer.bot.leaveVoiceChannel(msg.channel.guild.id)
+
     if (Memer.bot.voiceConnections.get(msg.channel.guild.id)) {
       return this.cmdProps.existingConn
     }
