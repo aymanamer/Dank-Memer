@@ -1,3 +1,4 @@
+let gifs = require('../assets/permGifs.json')
 exports.handleMeDaddy = async function (msg) {
   if (
     !msg.channel.guild ||
@@ -61,12 +62,42 @@ exports.handleMeDaddy = async function (msg) {
   try {
     const permissions = msg.channel.permissionsOf(this.bot.user.id)
     if (command.props.perms.some(perm => !permissions.has(perm))) {
-      const neededPerms = command.props.perms.filter(perm => !permissions.has(perm))
+      let neededPerms = command.props.perms.filter(perm => !permissions.has(perm))
       if (permissions.has('sendMessages')) {
-        msg.channel.createMessage(`heck! I don't have the right permissions to execute this command. Please ask your administrators to add these perms for me:\`\`\`${neededPerms.join('\n')}\`\`\``)
+        if (neededPerms.length > 1) {
+          msg.channel.createMessage(
+            `heck! I don't have the right permissions to execute this command. 
+            Please ask your administrators to add these perms for me:\`\`\`${neededPerms.join('\n')}\`\`\``
+          )
+        } else {
+          neededPerms = neededPerms.toString()
+          console.log(typeof neededPerms)
+          console.log(gifs.toString())
+          msg.channel.createMessage(
+            {
+              'embed': {
+                'title': 'oh no!',
+                'description': `You need to add **${neededPerms}** to use this command!`,
+                'color': this.randomColor(),
+                'image': {
+                  'url': gifs.neededPerms
+                }
+              }
+            }
+          )
+        }
       }
     } else if (command.props.isNSFW && !msg.channel.nsfw) {
-      msg.channel.createMessage('Tryna get me banned? Use NSFW commands in a NSFW marked channel (look in channel settings, dummy)')
+      msg.channel.createMessage(
+        {'embed': {
+          'title': 'NSFW not allowed here',
+          'description': 'Use NSFW commands in a NSFW marked channel (look in channel settings, dummy)',
+          'color': this.randomColor(),
+          'image': {
+            'url': gifs.nsfw
+          }
+        }}
+      )
     } else {
       msg.reply = (str) => { msg.channel.createMessage(`${msg.author.mention}, ${str}`) }
       let res = await command.run({
