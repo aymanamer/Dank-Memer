@@ -40,11 +40,17 @@ module.exports = {
   },
 
   parseTime: (time) => {
-    const methods = [86400, 3600, 60, 1]
-    const timeStr = [Math.floor(time / methods[0]).toString().padStart(2, '0')]
+    const methods = [
+      { name: ' days', count: 86400 },
+      { name: ' hours', count: 3600 },
+      { name: ' minutes', count: 60 },
+      { name: ' seconds', count: 1 }
+    ]
+
+    const timeStr = [ Math.floor(time / methods[0].count).toString() + methods[0].name ]
     for (let i = 0; i < 3; i++) {
-      timeStr.push(Math.floor(time % methods[i] / methods[i + 1]).toString().padStart(2, '0'))
+      timeStr.push(Math.floor(time % methods[i].count / methods[i + 1].count).toString() + methods[i].name)
     }
-    return timeStr.join(':')
+    return timeStr.join(', ')
   }
 }
