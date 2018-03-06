@@ -16,8 +16,8 @@ module.exports = class GenericVoiceCommand {
 
     const perms = Memer.bot.getChannel(msg.member.voiceState.channelID).permissionsOf(Memer.bot.user.id)
 
-    if (!perms.has('voiceConnect') || !perms.has('voiceSpeak')) {
-      return msg.reply('Well shit, there was a permission error! Make sure I have `connect` and `speak` so I can do this shit!')
+    if (!perms.has('voiceConnect') || !perms.has('voiceSpeak') || !perms.has('voiceUseVAD')) {
+      return msg.reply('Make sure I have `connect`, `speak`, and `use voice activity` permissions in the channel settings so I can do this command!\n\nHow to do that: https://i.imgur.com/ugplJJO.gif')
     }
 
     Memer.bot.leaveVoiceChannel(msg.channel.guild.id)

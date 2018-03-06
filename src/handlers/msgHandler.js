@@ -62,28 +62,42 @@ exports.handleMeDaddy = async function (msg) {
   try {
     const permissions = msg.channel.permissionsOf(this.bot.user.id)
     if (command.props.perms.some(perm => !permissions.has(perm))) {
-      let neededPerms = command.props.perms.filter(perm => !permissions.has(perm))
+      const neededPerms = command.props.perms.filter(perm => !permissions.has(perm))
       if (permissions.has('sendMessages')) {
-        if (neededPerms.length > 1) {
-          msg.channel.createMessage(
-            `heck! I don't have the right permissions to execute this command. 
-            Please ask your administrators to add these perms for me:\`\`\`${neededPerms.join('\n')}\`\`\``
-          )
-        } else {
-          neededPerms = neededPerms.toString()
-          console.log(typeof neededPerms)
-          console.log(gifs.toString())
-          msg.channel.createMessage(
-            {
-              'embed': {
-                'title': 'oh no!',
-                'description': `You need to add **${neededPerms}** to use this command!`,
-                'color': this.randomColor(),
-                'image': {
-                  'url': gifs.neededPerms
+        if (permissions.has('embedLinks')) {
+          if (neededPerms.length > 1) {
+            msg.channel.createMessage(
+              {
+                'embed': {
+                  'title': 'oh no!',
+                  'description': `You need to add **${neededPerms.join(', ')}** to use this command!\nGo to **Server settings => Roles => Dank Memer** to change this!`,
+                  'color': this.randomColor(),
+                  'footer': {
+                    'text': 'If it still doesn\'t work, check channel permissions too!'
+                  }
                 }
               }
-            }
+            )
+          } else {
+            msg.channel.createMessage(
+              {
+                'embed': {
+                  'title': 'oh no!',
+                  'description': `You need to add **${neededPerms}** to use this command!\nGo to **Server settings => Roles => Dank Memer** to change this!`,
+                  'color': this.randomColor(),
+                  'image': {
+                    'url': gifs[neededPerms[0]]
+                  },
+                  'footer': {
+                    'text': 'If it still doesn\'t work, check channel permissions too!'
+                  }
+                }
+              }
+            )
+          }
+        } else {
+          msg.channel.createMessage(
+            `You need to add **${neededPerms.join(', ')}** to use this command!\n\nGo to **Server settings => Roles => Dank Memer** to change this!`
           )
         }
       }
