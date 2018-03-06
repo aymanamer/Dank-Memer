@@ -15,7 +15,7 @@ class GenericImageCommand {
 
     const data = await get(this.cmdProps.reqURL
       ? this.cmdProps.reqURL.replace('$URL', datasrc)
-      : `http://localhost/api/${this.cmdProps.triggers[0]}`)
+      : `https://dankmemer.lol/api/${this.cmdProps.triggers[0]}`)
       .set('Api-Key', Memer.config.imgenKey)
       .set('data-src', datasrc)
 
