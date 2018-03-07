@@ -1,19 +1,51 @@
- 3/9 Update
+    3/6 Update: Suprise early update!
 
 - New commands!
-   pls clap
-   pls emojify
-   pls ping (not new but different now and was gone before)
+    pls clap
+    pls emojify
+    pls ping (not new but different now and was gone before)
+    pls tifu/fuckedup
+    currency commands: pls coins, pls daily (for now you can only get your daily coins and save up for when gambling and shit comes later *wink*)
+    pls prequel/pmeme
+    pls wholesome/wmeme
+    pls freenitro
+    pls disability
+    pls trash
+    pls failure
+    pls aww
+    pls comic
+    pls facepalm
+    pls meirl
+    pls showerthoughts
+    pls gay
+    pls 4k
+    pls gayporn
 
-- Major Changes:
+
+- Major Core Changes:
+    Improved intro message
+    Custom cooldown messages are coming soon and work now
+    We increased all command cooldowns thanks to spammy bois
     @Dank Memer now works for prefix as well as the prefix you set/default prefix
     We no longer spam bot lists with our server count
     Aeth literally rewrote basically everything, cut LOC down by a TON
     We finally linted, lmfao
     Cleaned up file/folder structure
+    Time parser is humanized (you'll know it when you see it)
+    Help is now dynamic (no more forgotten commands)
+    Permissions are more helpful when missing
+
+
+- Major Command Changes:
+    pls dankrate, waifu look different now. Cleaner imo.
+    pls help now has three new catagories, woah
+    all reddit commands (meme, shitpost, greentext, and all new ones) now link to the comments on the post when clicking on the title
+    updated some aliases
+
 
 - Fixed Bugs:
     Greentext now shows correctly
+    We are aware of a fix for voice commands not working, come to our server to learn how
 
 2/25 Update
 - added boobies, booty, porngif, redpanda
