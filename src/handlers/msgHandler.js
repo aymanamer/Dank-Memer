@@ -55,7 +55,7 @@ exports.handleMeDaddy = async function (msg) {
       cooldownWarning = cooldownWarning.replace('{cooldown}', `${waitTime.toFixed()} secundz`)
     }
 
-    return msg.channel.createMessage(cooldownWarning)
+    return // msg.channel.createMessage(cooldownWarning)
   }
   const addCooldown = () => this.db.addCooldown(command.props.triggers[0], msg.author.id)
 
