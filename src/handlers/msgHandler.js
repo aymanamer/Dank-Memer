@@ -45,7 +45,7 @@ exports.handleMeDaddy = async function (msg) {
   const cooldown = await this.db.getCooldown(command.props.triggers[0], msg.author.id)
   if (cooldown > Date.now()) {
     const waitTime = (cooldown - Date.now()) / 1000
-    const defaultCooldownMessage = 'u got 2 wait {cooldown}!!!1!'
+    const defaultCooldownMessage = 'stop spamming my commands dude, you have to wait {cooldown}'
 
     let cooldownWarning = command.props.cooldownMessage || defaultCooldownMessage
 
@@ -55,7 +55,7 @@ exports.handleMeDaddy = async function (msg) {
       cooldownWarning = cooldownWarning.replace('{cooldown}', `${waitTime.toFixed()} secundz`)
     }
 
-    return // msg.channel.createMessage(cooldownWarning)
+    return msg.channel.createMessage(cooldownWarning)
   }
   const addCooldown = () => this.db.addCooldown(command.props.triggers[0], msg.author.id)
 
