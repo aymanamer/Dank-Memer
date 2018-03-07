@@ -1,5 +1,5 @@
 const { GenericCommand } = require('../../models/')
-const VENT_CID = '370674591556698112'
+const VENT_CID = '397478484550746122'
 
 module.exports = new GenericCommand(
   async ({ Memer, msg, args, addCD }) => {
@@ -13,7 +13,7 @@ module.exports = new GenericCommand(
       timestamp: new Date()
     }})
 
-    return 'MY owner is listening to your venting now, what a great listener. amirite girls???? 😍'
+    return 'My owner is listening to your venting now, what a great listener. amirite ladies???? 😍'
   }, {
     triggers: ['vent', 'bother', 'message'],
     description: 'I know I am your only friend, this should give you someone to vent to',
