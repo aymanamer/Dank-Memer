@@ -31,6 +31,10 @@ class GenericImageCommand {
   }
 
   defaultURLParseFN (msg, args) {
+    if (this.cmdProps.textOnly) {
+      return args.join(' ')
+    }
+
     let avatarurl = (msg.mentions[0] || msg.author).dynamicAvatarURL('png', 1024)
     if (['jpg', 'jpeg', 'gif', 'png', 'webp'].some(ext => args.join(' ').includes(ext))) {
       avatarurl = args.join(' ').replace(/gif|webp/g, 'png')
@@ -53,7 +57,7 @@ class GenericImageCommand {
       }
 
       return JSON.stringify([`${avatarurl}`, `${args.join(' ')}`])
-    } else if (this.props.doubleAvatar) {
+    } else if (this.cmdProps.doubleAvatar) {
       const authorurl = (msg.mentions[0]
         ? msg.author
         : msg.channel.guild.shard.client.user)

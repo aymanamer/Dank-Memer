@@ -6,5 +6,6 @@ module.exports = new GenericImageCommand({
   description: 'Leik dis if you crye evertim',
 
   requiredArgs: 'You need to add something to make blue dude cry, try again.',
-  textLimit: 250
+  textLimit: 250,
+  textOnly: true
 })
