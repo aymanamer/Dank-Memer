@@ -18,7 +18,7 @@ module.exports = new GenericCommand(
 
       return {
         title: 'Available Commands',
-        description: 'Do pls changes to see what\'s in the new update!',
+        description: 'Update 9.3.0 is here and HOLY COW its big! Do pls changes to see all the changes!',
         fields: Object.keys(categories).map(category => ({ name: category, value: categories[category].join(', ') })),
         footer: { text: 'Hello darkness my old friend...' }
       }
