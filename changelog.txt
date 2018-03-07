@@ -1,3 +1,20 @@
+ 3/9 Update
+
+- New commands!
+   pls clap
+   pls emojify
+   pls ping (not new but different now and was gone before)
+
+- Major Changes:
+    @Dank Memer now works for prefix as well as the prefix you set/default prefix
+    We no longer spam bot lists with our server count
+    Aeth literally rewrote basically everything, cut LOC down by a TON
+    We finally linted, lmfao
+    Cleaned up file/folder structure
+
+- Fixed Bugs:
+    Greentext now shows correctly
+
 2/25 Update
 - added boobies, booty, porngif, redpanda
 - fixed some small things in various commands
