@@ -29,7 +29,8 @@ module.exports = new GenericCommand(
       return
     }
 
-    const prefix = (await Memer.db.getGuild(msg.channel.guild.id) || Memer.defaultGuildConfig).prefix
+    const db = await Memer.db.getGuild(msg.channel.guild.id)
+    const prefix = db ? db.prefix : Memer.config.defaultPrefix
 
     await addCD()
     return {
