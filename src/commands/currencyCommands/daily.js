@@ -15,6 +15,7 @@ module.exports = new GenericCommand(
   {
     triggers: ['daily'],
     cooldown: 86400000,
+    cooldownMessage: 'I\'m not made of money dude, wait {cooldown}',
     description: 'u got dis many coins ok'
   }
 )
