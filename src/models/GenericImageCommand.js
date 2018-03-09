@@ -32,6 +32,18 @@ class GenericImageCommand {
 
   defaultURLParseFN (msg, args) {
     if (this.cmdProps.textOnly) {
+      if (this.cmdProps.requiredArgs) {
+        if (!args[0]) {
+          msg.channel.createMessage(this.cmdProps.requiredArgs)
+          return false
+        }
+
+        if (args.join(' ').length > this.cmdProps.textLimit) {
+          msg.channel.createMessage(`Too long. You're ${args.join(' ').length - this.cmdProps.textLimit} characters over the limit!`)
+          return false
+        }
+      }
+
       return args.join(' ')
     }
 
@@ -56,7 +68,7 @@ class GenericImageCommand {
         return false
       }
 
-      return JSON.stringify([`${avatarurl}`, `${args.join(' ')}`])
+      return JSON.stringify([`${avatarurl}`, args.join(' ')])
     } else if (this.cmdProps.doubleAvatar) {
       const authorurl = (msg.mentions[0]
         ? msg.author
