@@ -31,6 +31,22 @@ class GenericImageCommand {
   }
 
   defaultURLParseFN (msg, args) {
+    if (this.cmdProps.textOnly) {
+      if (this.cmdProps.requiredArgs) {
+        if (!args[0]) {
+          msg.channel.createMessage(this.cmdProps.requiredArgs)
+          return false
+        }
+
+        if (args.join(' ').length > this.cmdProps.textLimit) {
+          msg.channel.createMessage(`Too long. You're ${args.join(' ').length - this.cmdProps.textLimit} characters over the limit!`)
+          return false
+        }
+      }
+
+      return args.join(' ')
+    }
+
     let avatarurl = (msg.mentions[0] || msg.author).dynamicAvatarURL('png', 1024)
     if (['jpg', 'jpeg', 'gif', 'png', 'webp'].some(ext => args.join(' ').includes(ext))) {
       avatarurl = args.join(' ').replace(/gif|webp/g, 'png')
@@ -52,8 +68,8 @@ class GenericImageCommand {
         return false
       }
 
-      return JSON.stringify([`${avatarurl}`, `${args.join(' ')}`])
-    } else if (this.props.doubleAvatar) {
+      return JSON.stringify([`${avatarurl}`, args.join(' ')])
+    } else if (this.cmdProps.doubleAvatar) {
       const authorurl = (msg.mentions[0]
         ? msg.author
         : msg.channel.guild.shard.client.user)

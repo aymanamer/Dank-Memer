@@ -6,7 +6,7 @@ module.exports = new GenericCommand(
     return {
       title: 'how many coins you got fam?',
       description: `oh okay u got this many: ${coins.coin}`,
-      thumbnail: {url: 'http://dankmemer.lol/coin.png'},
+      thumbnail: {url: 'https://dankmemer.lol/coin.png'},
       footer: {text: 'dont spend it all in one place ok'}
     }
   },

@@ -42,9 +42,9 @@ module.exports = {
   parseTime: (time) => {
     const methods = [
       { name: 'd', count: 86400 },
-      { name: 'hr', count: 3600 },
-      { name: 'min', count: 60 },
-      { name: 'sec', count: 1 }
+      { name: 'h', count: 3600 },
+      { name: 'm', count: 60 },
+      { name: 's', count: 1 }
     ]
 
     const timeStr = [ Math.floor(time / methods[0].count).toString() + methods[0].name ]
