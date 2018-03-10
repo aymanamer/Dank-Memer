@@ -1,59 +1,30 @@
 {
-	"token": "",
+    "dev": true,
+    "premium": true,
+    "token": "",
+    "shardCount": 1,
 	"defaultPrefix": "",
-	"version": "",
-	"devs": [
-		"172571295077105664",
-		"284122164582416385"
-	],
-	"imgenKey": "",
-	"clientOptions": {
-		"disableEvents": {
-			"CHANNEL_PINS_UPDATE": true,
-			"USER_SETTINGS_UPDATE": true,
-			"USER_NOTE_UPDATE": true,
-			"RELATIONSHIP_ADD": true,
-			"RELATIONSHIP_REMOVE": true,
-			"GUILD_BAN_ADD": true,
-			"GUILD_BAN_REMOVE": true,
-			"TYPING_START": true
-		},
-		"disableEveryone": true,
-		"messageLimit": 100,
-		"maxShards": 20
-	},
-	"webhooks": {
-		"shard": {
-			"id": "",
-			"token": ""
-		},
-		"cluster": {
-			"id": "",
-			"token": ""
+    "devs": [],
+    "premiumGuilds": [],
+    "imgenKey": "",
+    "botlists": [
+        {
+            "url": "",
+            "token": ""
 		}
-	},
-	"mashape": "",
-	"orgtoken": "",
-	"novo": "",
-	"pwtoken": "",
-	"carbon": "",
-	"twitter": {
-		"consumer_key": "",
-		"consumer_secret": "",
-		"access_token": "",
-		"access_token_secret": ""
-	},
-	"datadog": {
-		"APIkey": "",
-		"APPkey": ""
-	},
-	"annoy": {
-		"repetitions": 80,
-		"delay": 2
-	},
-	"urls": {
-		"imgen": "",
-		"reddit": "",
-		"invite": ""
-	}
+    ],
+    "porn": "",
+    "weeb": "",
+    "mashape": "",
+    
+    "webhooks": {
+        "shard": {
+            "id": "",
+            "token": ""
+        },
+        "cluster": {
+            "id": "",
+            "token": ""
+        }
+    }
 }
