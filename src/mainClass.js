@@ -1,7 +1,7 @@
 const { readdirSync } = require('fs')
 const { join } = require('path')
 const { get } = require('snekfetch')
-const { Base } = require('eris-sharder')
+const { Base } = global.memeBase || require('eris-sharder')
 
 const msgHandler = require('./handlers/msgHandler.js')
 const MessageCollector = require('./utils/MessageCollector.js')
@@ -48,7 +48,7 @@ class Memer extends Base {
         this.log(error.stack, 'error')
       })
 
-    this.ready()
+    global.memeBase || this.ready()
   }
 
   async ready () {

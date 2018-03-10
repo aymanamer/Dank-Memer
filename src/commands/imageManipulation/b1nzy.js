@@ -6,5 +6,6 @@ module.exports = new GenericImageCommand({
   description: 'OH NO ITS B1NZY',
 
   requiredArgs: 'You need to add something to make b1nzy say, try again.',
-  textLimit: 250
+  textLimit: 250,
+  textOnly: true
 })

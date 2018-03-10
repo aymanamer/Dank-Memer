@@ -8,6 +8,10 @@ exports.handleMeDaddy = async function (msg) {
     return
   }
 
+  if (this.config.premium && !this.config.premiumGuilds.includes(msg.channel.guild.id)) {
+    return msg.channel.createMessage('This server is not a premium activated server. If you believe this is an error, contact melmsie.')
+  }
+
   const gConfig = await this.db.getGuild(msg.channel.guild.id) || {
     prefix: this.config.defaultPrefix,
     disabledCommands: []

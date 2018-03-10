@@ -11,7 +11,7 @@ module.exports = new GenericImageCommand({
     if (!args[0]) {
       args = msg.author.username
     } else if (args.length > 35) {
-      msg.channel.createMessage(`This shit was too large. You're ${args.join(' ').length - 35} characters over the limit!`)
+      msg.channel.createMessage(`This shit was too large. You're ${args.length - 35} characters over the limit!`)
       return false
     }
   }
