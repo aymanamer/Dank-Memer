@@ -14,7 +14,7 @@ module.exports = class GenericCommand {
   get props () {
     return Object.assign({
       usage: '{command}',
-      cooldown: 3000,
+      cooldown: 500,
       isNSFW: false,
       ownerOnly: false
     }, this.passedProps, {

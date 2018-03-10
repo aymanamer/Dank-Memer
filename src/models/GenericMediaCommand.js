@@ -32,7 +32,7 @@ module.exports = class GenericMediaCommand {
     return new GenericCommand(
       null,
       Object.assign({
-        cooldown: 3000,
+        cooldown: 1000,
         perms: ['embedLinks']
       }, this.cmdProps)
     ).props

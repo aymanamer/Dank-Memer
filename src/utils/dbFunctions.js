@@ -100,9 +100,27 @@ module.exports = Bot => ({
     return Boolean(res)
   },
 
+  addTag: async function addTag (id, name, text) {
+    return Bot.r.table('tags')
+      .insert({guild_id: id, name: name, text: text})
+  },
+
+  getAllTags: async function getAllTags (id) {
+    let tags = await Bot.r.table('tags')
+      .getAll(id, {index: 'guild_id'})
+      .run()
+    return tags
+  },
+
+  getTag: async function getTag (name) {
+    let tags = await Bot.r.table('tags')
+      .filter({name: name})
+      .run()
+    return tags
+  },
+
   addCoins: async function addCoins (id, amount) {
     let coins = await this.getCoins(id)
-    // if (coins.changes) coins = coins.changes[0].new_val
     coins.coin += amount
 
     return Bot.r.table('coins')
@@ -111,7 +129,6 @@ module.exports = Bot => ({
 
   removeCoins: async function removeCoins (id, amount) {
     let coins = await this.getCoins(id)
-    // if (coins.changes) coins = coins.changes[0].new_val
     if (coins.coin - amount <= 0) {
       coins.coin = 0
     } else {
